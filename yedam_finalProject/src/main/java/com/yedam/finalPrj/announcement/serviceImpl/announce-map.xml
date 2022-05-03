@@ -4,7 +4,9 @@
 	namespace="com.yedam.finalPrj.announcement.serviceImpl.AnnouncementMapper">
 
 	<select id="findOne" resultType="com.yedam.finalPrj.announcement.service.Announcement"></select>
-	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.Announcement"></select>
+	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.Announcement">
+		select * from ANNOUNCEMENT
+	</select>
 	<insert id="insert" parameterType="com.yedam.finalPrj.announcement.service.Announcement"></insert>
 	<update id="update" parameterType="com.yedam.finalPrj.announcement.service.Announcement"></update>
 	<delete id="delete" parameterType="com.yedam.finalPrj.announcement.service.Announcement"></delete>
