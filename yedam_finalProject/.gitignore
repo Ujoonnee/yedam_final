@@ -16,7 +16,6 @@ local.properties
 
 .classpath
 .project
-db.properties
 
 
 # External tool builders
