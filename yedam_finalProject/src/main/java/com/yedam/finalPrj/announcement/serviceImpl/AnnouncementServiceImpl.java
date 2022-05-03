@@ -5,9 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.finalPrj.announcement.service.AnnouncementMapper;
+import com.yedam.finalPrj.announcement.service.Announcement;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
-import com.yedam.finalPrj.announcement.vo.Announcement;
 
 @Service("AnnouncementService")
 public class AnnouncementServiceImpl implements AnnouncementService {
