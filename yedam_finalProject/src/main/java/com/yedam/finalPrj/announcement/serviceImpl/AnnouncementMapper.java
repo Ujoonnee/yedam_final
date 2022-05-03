@@ -1,8 +1,8 @@
-package com.yedam.finalPrj.announcement.service;
+package com.yedam.finalPrj.announcement.serviceImpl;
 
 import java.util.List;
 
-import com.yedam.finalPrj.announcement.vo.Announcement;
+import com.yedam.finalPrj.announcement.service.Announcement;
 
 public interface AnnouncementMapper {
 	
