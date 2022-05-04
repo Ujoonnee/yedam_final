@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.finalPrj.user.serviceImpl.UserMapper">
+	<resultMap type="com.yedam.finalPrj.user.service.UserVO" id="userMap">
+		<id property="userSerial" column="user_serial"/>
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userName" column="user_name"/>
+		<result property="userBirth" column="user_birth"/>
+		<result property="userAddress" column="user_address"/>
+		<result property="userTel" column="user_tel"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userAccount" column="user_account"/>
+		
+		
+	</resultMap>
+
+<insert id="insert" parameterType="com.yedam.finalPrj.user.service.UserVO" >
+		<selectKey keyProperty="userSerial" resultType="int" order="BEFORE">
+			
+				SELECT CASE WHEN MAX(user_serial) is null then 1
+							ELSE MAX(user_serial) + 1 END AS userSerial
+				FROM USER1
+		</selectKey>
+	INSERT INTO user1<!-- (NVL2(#{user_serial}, MAX(#{user_serial}) + 1 ,1) ,user_id,user_pw,user_name,user_birth,user_address,user_tel,user_email,user_account) --> 
+				VALUES (#{userSerial},#{userId},#{userPw},#{userName},#{userBirth},#{userAddress},#{userTel},#{userEmail},#{userAccount})
+</insert>
+
+</mapper>
