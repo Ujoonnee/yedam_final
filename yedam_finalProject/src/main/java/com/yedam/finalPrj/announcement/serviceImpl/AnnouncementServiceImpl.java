@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.finalPrj.announcement.service.Announcement;
+import com.yedam.finalPrj.announcement.service.AnnouncementSearch;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 
 @Service("AnnouncementService")
@@ -39,8 +40,17 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 
 	@Override
-	public List<Announcement> searchList(Announcement announcement) {
-		return map.searchList(announcement);
+	public List<Announcement> searchList(AnnouncementSearch announcementsearch) {
+		return map.searchList(announcementsearch);
+	}	
+
+
+	
+	@Override
+	public int totalCnt() {
+		return map.totalCnt();
 	}
+
+	
 
 }

@@ -1,15 +1,23 @@
 package com.yedam.finalPrj.announcement.web;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.finalPrj.announcement.service.Announcement;
+import com.yedam.finalPrj.announcement.service.AnnouncementPageMaker;
+import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
+import com.yedam.finalPrj.announcement.service.AnnouncementSearch;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 
 @Controller
@@ -17,24 +25,72 @@ public class AnnouncementController {
 	
 	@Autowired
 	private AnnouncementService announcementService;
-	//전체조회
+	
+	//공지사항 목록
 	@GetMapping("/findAll")
-	public String FindAll(Model model) {
-		
-	model.addAttribute("announcements", announcementService.findAll());
-		System.out.println("값 : " + announcementService.findAll().get(1).getAnnouncementDate());
+	public String FindAll(AnnouncementPagingCriteria cri,Model model) {
+	List<Announcement> announcement = announcementService.findAll();
+	
+	int total = announcementService.totalCnt();
+	
+	model.addAttribute("announcements", announcement);
+	model.addAttribute("paging", new AnnouncementPageMaker(cri, total));	
+	
+	
 		return "announcement/findAll";
 	}
-	// ajax 부분으로 검색 X 페이지가 넘어간다 생각하고 화면에 새로 뿌려주는거로 생각할 것
-	//검색
-	@GetMapping("/searchList")
-	@ResponseBody
-	private List<Announcement> searchList(@RequestParam("type") String type, @RequestParam("keyword") String keyword, Model model){
-		Announcement announcement = new Announcement();
-		announcement.setKeyword(keyword);
-		announcement.setType(type);
-		System.out.println(keyword);
-		System.out.println(type);	
-		return announcementService.searchList(announcement);
+	
+	//공지사항 등록
+	@PostMapping(value="/insert")
+	public String insert(Announcement announcement) throws IOException {
+			
+		announcementService.insert(announcement);
+		
+			return "redirect:findAll";
 	}
+	
+	//공지사항 등록하는 페이지
+	@RequestMapping("/insertPage")
+	public String insertPage() {
+			
+		return "announcement/insertPage";
+	}
+	
+	//공지사항 상세페이지
+	@RequestMapping("/findOne")
+	public String findOne(Announcement announcement, Model model, @ModelAttribute("cri") AnnouncementPagingCriteria cri){
+		
+		model.addAttribute("announcement", announcementService.findOne(announcement));
+		
+		return "announcement/findOne";
+	}
+	//공지사항 수정
+	@RequestMapping("/update")
+	public String update(@ModelAttribute("announcement") Announcement announcement, @ModelAttribute AnnouncementPagingCriteria cri) {
+		
+		return "redirect:findAll";
+}	
+	//공지사항 수정페이지 
+	@RequestMapping("/updatePage")
+	public String updatePage() {
+			
+		return "announcement/updatePage";
+}	
+	// ajax 부분으로 검색 X 페이지가 넘어간다 생각하고 화면에 새로 뿌려주는거로 생각할 것
+		//검색
+		@GetMapping("/searchList")
+		@ResponseBody
+		private List<Announcement> searchList(@RequestParam("type") String type, @RequestParam("keyword") String keyword, Model model){
+			
+			AnnouncementSearch announcementsearch= new AnnouncementSearch();
+			announcementsearch.setKeyword(keyword);
+			announcementsearch.setType(type);
+			System.out.println(keyword);
+			System.out.println(type);	
+			return announcementService.searchList(announcementsearch);
+		}
+		
 }
+
+
+

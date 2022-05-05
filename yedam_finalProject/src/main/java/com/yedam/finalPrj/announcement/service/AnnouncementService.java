@@ -12,5 +12,8 @@ public interface AnnouncementService {
 	int update(Announcement announcement);
 	int delete(Announcement announcement);
 	//검색 메서드명 미정
-	List<Announcement> searchList(Announcement announcement);
+	List<Announcement> searchList(AnnouncementSearch announcementsearch);
+
+	//글 갯수
+	int totalCnt();
 }

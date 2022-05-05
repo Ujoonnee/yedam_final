@@ -19,9 +19,7 @@ public class Announcement {
 	private String announcementWriter;
 	private String announcementHidden;
 	private int announcementView;
-	private String announcementStatus;
-	
-	// 검색
-	private String type;
-	private String keyword;
+	private String announcementStatus;	
+	private int announcementCnt;
+
 }

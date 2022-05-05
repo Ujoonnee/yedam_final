@@ -15,9 +15,9 @@
 		<div>
 			<h1>공지사항</h1>
 		</div>
-		<div>
+	<div>
 								<!-- 검색 자동완성 기능은 아직 보류 -->
-		<form name="search-form" autocomplete="off">
+		
 			<table border="1" id="boardtable">
 				<thead>
 					<tr>
@@ -41,21 +41,58 @@
 				</tbody>
 			</table>
 									
-	
+		<form action="searchList.do" method="get" name="searchForm" autocomplete="off">
 				<select name="type">
-					<option selected value="">전체</option>
-					<option value="announcementTitle">제목</option>
+					<option value="" selected>선택</option>
+					<option value="announcementTitle" selected>제목</option>
 					<option value="announcementContent">내용</option>
 				</select>
-			<div>
-				<input type="text" name="keyword">
-				<input type="button" onclick="searchList()" value="검색">
-				
-			</div>
+
+				<div>
+					<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." value="${keyword }">
+					<button id="searchBtn">검색</button>
+				</div>
 		</form>
-		</div><br>
-	
+	</div><br>
+</div>
+<!-- 페이징 처리 -->
+<div id="pagingDiv">
+			<!-- 이전페이지 -->
+		<c:if test="${paging.prev }">
+			<a href="${paging.startPage - 1}">이전</a>
+		</c:if>
+			<!-- 1 2 3 4   -->
+		<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
+		&nbsp;<a href="${num } ">${num }</a>&nbsp;
+		</c:forEach>
+			<!-- 다음페이지 -->	
+		<c:if test="${paging.next }">
+			<a id="next" href="${paging.endPage + 1 }">다음</a>
+		</c:if>
 </div>
 
+	<form id="pagingFrm" name="pagingForm" action="findAll.do" method="get">
+		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
+		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
+	</form>
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		/* 페이지 번호 이동 id> pageNum > attr로 속성 href줌 */
+		$('#pagingDiv a').click(function(e){
+			e.preventDefault();
+			$('#pageNum').val($(this).attr("href"));
+			pagingForm.submit();
+		});
+	
+	$('table a').click(function(e){
+			e.preventDefault();
+			var html = "<input type='hidden' name='announcementSerial' value='"+$(this).attr("href")+"'>";
+			$('#pagingFrm').append(html);
+			$('#pagingFrm').attr("action", "findOne.do");
+			$('#pagingFrm').submit();
+		});
+});
+
+</script>
 </html>
