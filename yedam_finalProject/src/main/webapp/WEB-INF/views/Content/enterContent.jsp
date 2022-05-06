@@ -37,6 +37,10 @@ input{
 button{
 	height: 40px;
 }
+#rowbutton{
+	width : 30px;
+	height : 25px;
+}
 </style>
 </head>
 <body>
@@ -79,10 +83,6 @@ button{
 				<tr>
 					<th>회차정보</th>
 					<td> <table id = "insertRow">
-						<tr>
-							<td>날짜</td><td>회차</td><td>회차 시간</td><td>정원</td>
-						</tr>
-		
 					
 					
 					
@@ -153,11 +153,22 @@ button{
 			const log = document.getElementById('value');
 			var y = 0;
 			/* 기존의 table row 삭제 */
-			for(let i = 0; i <= 365; i++){
+			console.log(table.rows.length);
+			for(let i = 0; i <= table.rows.length + 100; i++){
 				table.deleteRow(-1);
 			}
+						var a = table.insertRow();
+						var n0 = a.insertCell(0);						
+						var n1 = a.insertCell(1);						
+						var n2 = a.insertCell(2);						
+						var n3 = a.insertCell(3);						
+						n0.innerText = '날짜';
+						n1.innerText = '회차';
+						n2.innerText = '회차시간';
+						n3.innerText = '정원';
 			/* 기간만큼 table row 생성 */
 			if(y < days){
+						
 				while(y < days){
 					if(y === days)break;
 					
@@ -165,17 +176,12 @@ button{
 						var newCell0 = newRow.insertCell(0);
 						var newCell1 = newRow.insertCell(1);
 						var newCell2 = newRow.insertCell(2);
-						var newCell3 = newRow.insertCell(2);
-						newCell0.innerHTML = '<input type="date" name="asd" value="${days}">';
-						newCell1.innerText = '과ㄹ';
-						newCell2.innerText = '과2';
-						newCell3.innerText = '과3';
+						var newCell3 = newRow.insertCell(3);
+						newCell0.innerHTML = '<input type="date" name="asd">&nbsp;&nbsp;<input type = "button" id="rowbutton" value = "+"onclick="addRow()">&nbsp;&nbsp;<input type = "button" id ="rowbutton" value = "-"onclick="delRow()"> ';
+						
 					y++;
 				}
 			}
-			
-			
-			
 		}
 		
 		function scheduleWrite(){
@@ -184,10 +190,15 @@ button{
 			var days = Math.abs(end-start) / (1000*3600*24) +1;
 			console.log(days)
 			tablecreate(days);
-			
 		}
 		
+		function addRow(){
+			
+		}
 
+		function delRow(){
+			
+		}
 
 	</script>
 </body>
