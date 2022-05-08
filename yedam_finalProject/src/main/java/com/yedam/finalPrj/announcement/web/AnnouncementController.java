@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yedam.finalPrj.announcement.service.Announcement;
 import com.yedam.finalPrj.announcement.service.AnnouncementPageMaker;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
-import com.yedam.finalPrj.announcement.service.AnnouncementSearch;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 
 @Controller
@@ -29,11 +28,14 @@ public class AnnouncementController {
 	//공지사항 목록
 	@GetMapping("/findAll")
 	public String FindAll(AnnouncementPagingCriteria cri,Model model) {
-	List<Announcement> announcement = announcementService.findAll();
+	List<Announcement> announcement = announcementService.findAll(cri);
 	
-	int total = announcementService.totalCnt();
+	int total = announcementService.totalCnt(cri);
 	
+	//model에 정보 저장.
+	//전체조회
 	model.addAttribute("announcements", announcement);
+	//페이징
 	model.addAttribute("paging", new AnnouncementPageMaker(cri, total));	
 	
 	
@@ -76,19 +78,8 @@ public class AnnouncementController {
 			
 		return "announcement/updatePage";
 }	
-	// ajax 부분으로 검색 X 페이지가 넘어간다 생각하고 화면에 새로 뿌려주는거로 생각할 것
-		//검색
-		@GetMapping("/searchList")
-		@ResponseBody
-		private List<Announcement> searchList(@RequestParam("type") String type, @RequestParam("keyword") String keyword, Model model){
-			
-			AnnouncementSearch announcementsearch= new AnnouncementSearch();
-			announcementsearch.setKeyword(keyword);
-			announcementsearch.setType(type);
-			System.out.println(keyword);
-			System.out.println(type);	
-			return announcementService.searchList(announcementsearch);
-		}
+
+
 		
 }
 

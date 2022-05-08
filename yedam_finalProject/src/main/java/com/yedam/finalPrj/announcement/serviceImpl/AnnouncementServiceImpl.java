@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.finalPrj.announcement.service.Announcement;
-import com.yedam.finalPrj.announcement.service.AnnouncementSearch;
+import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 
 @Service("AnnouncementService")
@@ -15,14 +15,15 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Autowired AnnouncementMapper map;
 	
 	@Override
+	public List<Announcement> findAll(AnnouncementPagingCriteria paging) {
+		return map.findAll(paging);
+	}
+	
+	@Override
 	public Announcement findOne(Announcement announcement) {
 		return map.findOne(announcement);
 	}
 
-	@Override
-	public List<Announcement> findAll() {
-		return map.findAll();
-	}
 
 	@Override
 	public int insert(Announcement announcement) {
@@ -39,18 +40,15 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return map.delete(announcement);
 	}
 
-	@Override
-	public List<Announcement> searchList(AnnouncementSearch announcementsearch) {
-		return map.searchList(announcementsearch);
-	}	
 
-
-	
 	@Override
-	public int totalCnt() {
-		return map.totalCnt();
+	public int totalCnt(AnnouncementPagingCriteria cri) {
+		return map.totalCnt(cri);
 	}
 
 	
+
+
+
 
 }

@@ -7,13 +7,11 @@ import java.util.List;
 public interface AnnouncementService {
 
 	Announcement findOne(Announcement announcement);
-	List<Announcement> findAll();
+	List<Announcement> findAll(AnnouncementPagingCriteria paging);
 	int insert(Announcement announcement);
 	int update(Announcement announcement);
 	int delete(Announcement announcement);
-	//검색 메서드명 미정
-	List<Announcement> searchList(AnnouncementSearch announcementsearch);
 
 	//글 갯수
-	int totalCnt();
+	int totalCnt(AnnouncementPagingCriteria cri);
 }

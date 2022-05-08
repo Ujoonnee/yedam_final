@@ -4,20 +4,28 @@
 	namespace="com.yedam.finalPrj.announcement.serviceImpl.AnnouncementMapper">
 		
 	
-	<select id="searchList" resultType="com.yedam.finalPrj.announcement.service.AnnouncementSearch">
-		<!-- 상태사항이 Y일 경우. -->
-		SELECT * FROM ANNOUNCEMENT WHERE ANNOUNCEMENT_STATUS='Y'
-		<choose>
-			<!-- 제목검색 -->
-			<when test="type !=null and type.equals('ANNOUNCEMENT_TITLE')">
-				AND ANNOUNCEMENT_TITLE LIKE('%'||#{keyword}||'%')
-			</when>
-			<!-- 내용 검색 -->
-			<when test="type !=null and type.equals('ANNOUNCEMENT_content')">
-				AND ANNOUNCEMENT_TITLE LIKE('%'||#{keyword}||'%')
-			</when>
-		</choose>
-	</select>
+<sql id="AnnouncementPagingCriteria">
+	<trim prefixOverrides="OR" suffix=") AND " prefix="(">
+		<foreach collection="typeArr" item="type">
+			<trim prefix="OR">
+					<!-- 상태사항이 Y일 경우. -->
+				<choose>
+						<!-- 제목검색 -->
+					<when test="type == 'announcementTitle'.toString()">
+						AND ANNOUNCEMENT_TITLE LIKE('%'||#{keyword}||'%')
+					</when>
+						<!-- 내용 검색 -->
+					<when test="type == 'announcementContent'.toString()">
+						AND ANNOUNCEMENT_CONTENT LIKE('%'||#{keyword}||'%')
+					</when>
+				
+				</choose>
+			</trim>
+		</foreach>
+	</trim>
+</sql>
+	
+	
 	<select id="findOne" resultType="com.yedam.finalPrj.announcement.service.Announcement">
 		 SELECT * FROM ANNOUNCEMENT WHERE ANNOUNCEMENT_SERIAL = #{announcementSerial}
 	</select>
@@ -27,9 +35,15 @@
 			SELECT announcement_serial,  announcement_title,  announcement_content,  announcement_date,  announcement_writer,  announcement_hidden,  announcement_view,  announcement_status,  announcement_cnt
 			FROM	(SELECT /*+INDEX_DESC(ANNOUNCEMENT pk_ANNOUNCEMENT_serial) */
 						rownum rn, announcement_serial,  announcement_title,  announcement_content,  announcement_date,  announcement_writer,  announcement_hidden,  announcement_view,  announcement_status,  announcement_cnt 
-					from announcement where rownum <= #{pageNum} * #{amount})
+					from announcement 
+					where
+		]]>
+		<include refid="AnnouncementPagingCriteria"></include>
+		 
+			<![CDATA[			
+					rownum <= #{pageNum} * #{amount}
+					)
 			where rn > (#{pageNum}-1) * #{amount}
-			ORDER BY announcement_serial DESC
 		]]>
 	</select>
 	
@@ -49,6 +63,9 @@
 	
 	<select id="totalCnt" resultType="int">
 		SELECT count(*)
-		FROM ANNOUNCEMENT		
+		FROM ANNOUNCEMENT
+		where
+		<include refid="AnnouncementPagingCriteria"></include>
+				ANNOUNCEMENT_SERIAL>0
 	</select>
 </mapper>

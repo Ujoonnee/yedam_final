@@ -16,6 +16,8 @@ public class AnnouncementPageMaker {
 	public AnnouncementPageMaker(AnnouncementPagingCriteria cri, int total) {
 		this.cri=cri;
 		int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
+		this.endPage = (int) (Math.ceil(cri.getPageNum()/ 10.0)*10);
+		this.startPage = getEndPage()-9;
 		
 		if(realEnd < this.endPage) {
 			this.endPage=realEnd;

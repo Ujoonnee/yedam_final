@@ -29,23 +29,29 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${announcements}" var="announcement">
-						<c:if test="${announcement.announcementStatus eq 'Y'}">
 							<tr>
 								<td>${announcement.announcementSerial }</td>
 								<td>${announcement.announcementTitle }</td>
 								<td>${announcement.announcementWriter }</td>
 								<td>${announcement.announcementDate }</td>
 							</tr>
-						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>
-									
-		<form action="searchList.do" method="get" name="searchForm" autocomplete="off">
+			<form id="pagingFrm" name="pagingForm" action="findAll" method="get">
+				<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
+				<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
+				<input type="hidden" id="type" name="type" value="${paging.cri.type }">
+				<input type="hidden" id="keyword" name="keyword" value="${paging.cri.keyword }">
+			</form>
+
+
+	<div>	
+		<form action="findAll" method="get" name="searchForm" autocomplete="off">
 				<select name="type">
 					<option value="" selected>선택</option>
 					<option value="announcementTitle" selected>제목</option>
-					<option value="announcementContent">내용</option>
+					<option value="announcementContent" <c:out value="${paging.cri.type eq 'announcementContent'?'selected':'' }" />>내용</option>
 				</select>
 
 				<div>
@@ -53,8 +59,17 @@
 					<button id="searchBtn">검색</button>
 				</div>
 		</form>
+		</div>
 	</div><br>
 </div>
+
+
+
+
+
+</body>
+
+
 <!-- 페이징 처리 -->
 <div id="pagingDiv">
 			<!-- 이전페이지 -->
@@ -71,11 +86,7 @@
 		</c:if>
 </div>
 
-	<form id="pagingFrm" name="pagingForm" action="findAll.do" method="get">
-		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
-	</form>
-</body>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		/* 페이지 번호 이동 id> pageNum > attr로 속성 href줌 */
@@ -89,7 +100,7 @@
 			e.preventDefault();
 			var html = "<input type='hidden' name='announcementSerial' value='"+$(this).attr("href")+"'>";
 			$('#pagingFrm').append(html);
-			$('#pagingFrm').attr("action", "findOne.do");
+			$('#pagingFrm').attr("action", "findOne");
 			$('#pagingFrm').submit();
 		});
 });
