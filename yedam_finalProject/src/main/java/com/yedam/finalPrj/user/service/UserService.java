@@ -1,7 +1,5 @@
 package com.yedam.finalPrj.user.service;
 
-import java.util.List;
-
 public interface UserService {
 	UserVO findOne(UserVO vo);   // 단건 조회
 	UserVO findAll(UserVO vo);      // ID조회

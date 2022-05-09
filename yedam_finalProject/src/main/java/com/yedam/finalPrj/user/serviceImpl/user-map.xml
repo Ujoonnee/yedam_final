@@ -18,7 +18,7 @@
 <insert id="insert" parameterType="com.yedam.finalPrj.user.service.UserVO" >
 		<selectKey keyProperty="userSerial" resultType="int" order="BEFORE">
 			
-				SELECT CASE WHEN MAX(user_serial) is null then 1
+				SELECT CASE WHEN MAX(user_serial) IS NULL THEN 1
 							ELSE MAX(user_serial) + 1 END AS userSerial
 				FROM USER1
 		</selectKey>
