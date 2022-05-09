@@ -17,7 +17,7 @@
 	
 	<form  name="form1" method="post">
 		<sec:csrfInput/>
-		<input type="text" id="userid" name="userId" placeholder="아이디"><button type="button" id="btnLogin" >로그인</button><br>
+		<input type="text" id="userid" name="userEmail" placeholder="아이디"><button type="button" id="btnLogin" >로그인</button><br>
 		<input type="text" id="passwd" name="userPw" placeholder="비밀번호">
 		
 		<c:if test="${message =='error'}">
@@ -30,24 +30,7 @@
 		<p>아이디/비밀번호찾기<p>
 		<button>네이버 로그인</button> <button>카카오 로그인</button>
 	</form>
-	
-	<form  name="form2" method="post">
-		<sec:csrfInput/>
-		<input type="text" id="id" name="providerId" placeholder="아이디"><button type="button" id="btnLogin2" >로그인</button><br>
-		<input type="text" id="pwd" name="providerPw" placeholder="비밀번호">
-		
-		<c:if test="${message =='error'}">
-			<div style="color:red;">아이디 또는 비밀번호가 일치하지 않습니다.</div>
-		</c:if>
-		<c:if test="${message =='logout'}">
-			<div style="color:red;">로그아웃 되었습니다.</div>
-		</c:if>
-		
-		<p>아이디/비밀번호찾기<p>
-		<button>네이버 로그인</button> <button>카카오 로그인</button>
-	</form>
-	
-	
+
 	
 <script type="text/javascript">
 	$(function(){
@@ -57,7 +40,7 @@
 			
 			if(userid==""){
 				alert("아이디를 입력하세요.");
-				$("userid").focus;
+				$("#userid").focus;
 				return;
 			}
 			if(passwd==""){
@@ -70,33 +53,6 @@
 			document.form1.submit(); 
 		})
 	})
-	//기업회원 로그인시
-	$(function(){
-		$("#btnLogin2").click(function(){
-			var pvdid=$("#id").val();
-			var pvdpasswd=$("#pwd").val();
-			
-			if(pvdid==""){
-				alert("아이디를 입력하세요.");
-				$("#id").focus;
-				return;
-			}
-			
-			if(pvdpasswd==""){
-				alert("비밀번호를 입력하세요.");
-				$("#pwd").focus();
-				return;
-			}
-			//폼 내부의 데이터를 전송할 주소
-			document.form1.action = "login_check.do";
-			document.form1.submit(); 
-		})
-	})
-	
-
-    
-		
-	
 	
 </script>
 
