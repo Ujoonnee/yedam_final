@@ -50,7 +50,7 @@
 		<form action="findAll" method="get" name="searchForm" autocomplete="off">
 				<select name="type">
 					<option value="" selected>선택</option>
-					<option value="announcementTitle" selected>제목</option>
+					<option value="announcementTitle" <c:out value="${paging.cri.type eq 'announcementTitle'?'selected':'' }" />>제목</option>
 					<option value="announcementContent" <c:out value="${paging.cri.type eq 'announcementContent'?'selected':'' }" />>내용</option>
 				</select>
 

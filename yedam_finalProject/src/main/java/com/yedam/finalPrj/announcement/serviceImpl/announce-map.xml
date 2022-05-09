@@ -5,43 +5,46 @@
 		
 	
 <sql id="AnnouncementPagingCriteria">
-	<trim prefixOverrides="OR" suffix=") AND " prefix="(">
-		<foreach collection="typeArr" item="type">
-			<trim prefix="OR">
+
 					<!-- 상태사항이 Y일 경우. -->
 				<choose>
-						<!-- 제목검색 -->
-					<when test="type == 'announcementTitle'.toString()">
-						AND ANNOUNCEMENT_TITLE LIKE('%'||#{keyword}||'%')
-					</when>
-						<!-- 내용 검색 -->
-					<when test="type == 'announcementContent'.toString()">
-						AND ANNOUNCEMENT_CONTENT LIKE('%'||#{keyword}||'%')
-					</when>
+							<!-- 제목검색 -->
+						<when test="type == 'announcementTitle'">
+							AND ANNOUNCEMENT_TITLE LIKE ('%'||#{keyword}||'%')
+						</when>
+							<!-- 내용 검색 -->
+						<when test="type == 'announcementContent'">
+							AND ANNOUNCEMENT_CONTENT LIKE ('%'||#{keyword}||'%')
+						</when>
 				
 				</choose>
-			</trim>
-		</foreach>
-	</trim>
+
 </sql>
 	
 	
 	<select id="findOne" resultType="com.yedam.finalPrj.announcement.service.Announcement">
 		 SELECT * FROM ANNOUNCEMENT WHERE ANNOUNCEMENT_SERIAL = #{announcementSerial}
 	</select>
+	
+	
+	
+	
 			<!-- index 사용법이 애매해서 조금 더 봐야함. -->	
 	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.Announcement">
 		<![CDATA[
 			SELECT announcement_serial,  announcement_title,  announcement_content,  announcement_date,  announcement_writer,  announcement_hidden,  announcement_view,  announcement_status,  announcement_cnt
 			FROM	(SELECT /*+INDEX_DESC(ANNOUNCEMENT pk_ANNOUNCEMENT_serial) */
-						rownum rn, announcement_serial,  announcement_title,  announcement_content,  announcement_date,  announcement_writer,  announcement_hidden,  announcement_view,  announcement_status,  announcement_cnt 
-					from announcement 
-					where
-		]]>
+					     	rownum rn, announcement_serial,  announcement_title,  announcement_content,  announcement_date,  announcement_writer,  announcement_hidden,  announcement_view,  announcement_status,  announcement_cnt 
+				       from announcement 
+			          where 1=1
+			
+			]]>		
 		<include refid="AnnouncementPagingCriteria"></include>
+		<![CDATA[
+			            and  rownum <= #{pageNum} * #{amount}
 		 
-			<![CDATA[			
-					rownum <= #{pageNum} * #{amount}
+		
+					
 					)
 			where rn > (#{pageNum}-1) * #{amount}
 		]]>
@@ -61,11 +64,13 @@
 		
 	</delete>
 	
+	
+	
 	<select id="totalCnt" resultType="int">
 		SELECT count(*)
 		FROM ANNOUNCEMENT
-		where
+		where 1=1
 		<include refid="AnnouncementPagingCriteria"></include>
-				ANNOUNCEMENT_SERIAL>0
+			and	ANNOUNCEMENT_SERIAL>0
 	</select>
 </mapper>
