@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="js/jquery.min.js"></script>
 <title> <tiles:getAsString name="title"/> </title>
 </head>
 <body>
