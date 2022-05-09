@@ -23,18 +23,39 @@
 					<tr>
 						<th width="50">N O</th>
 						<th width="150">제목</th>
+						<th width="150">내용</th>
 						<th width="150">작성자</th>
 						<th width="150">등록일</th>
+						<th width="150">상태</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${announcements}" var="announcement">
+					<c:forEach items="${announcements}" var="announcement">	
+						<c:if test="${announcement.announcementPriorityStatus eq 'Y'}">
 							<tr>
 								<td>${announcement.announcementSerial }</td>
 								<td>${announcement.announcementTitle }</td>
-								<td>${announcement.announcementWriter }</td>
+								<td>${announcement.announcementContent }</td>
+								<td>관리자</td>
 								<td>${announcement.announcementDate }</td>
+								<td>${announcement.announcementStatus}</td>
 							</tr>
+						</c:if>
+					</c:forEach>
+				</tbody>
+				
+				<tbody>
+					<c:forEach items="${announcements}" var="announcement">
+						<c:if test="${announcement.announcementStatus eq 'Y'}">
+							<tr>
+								<td>${announcement.announcementSerial }</td>
+								<td>${announcement.announcementTitle }</td>
+								<td>${announcement.announcementContent }</td>
+								<td>관리자</td>
+								<td>${announcement.announcementDate }</td>
+								<td>${announcement.announcementStatus}</td>
+							</tr>
+						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>

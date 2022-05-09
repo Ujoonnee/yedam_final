@@ -32,27 +32,25 @@
 			<!-- index 사용법이 애매해서 조금 더 봐야함. -->	
 	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.Announcement">
 		<![CDATA[
-			SELECT announcement_serial,  announcement_title,  announcement_content,  announcement_date,  announcement_writer,  announcement_hidden,  announcement_view,  announcement_status,  announcement_cnt
+			SELECT announcement_serial,  announcement_title,  announcement_content,  announcement_date, announcement_hidden,  announcement_view,  announcement_status,announcement_priorityStatus  ,announcement_cnt
 			FROM	(SELECT /*+INDEX_DESC(ANNOUNCEMENT pk_ANNOUNCEMENT_serial) */
-					     	rownum rn, announcement_serial,  announcement_title,  announcement_content,  announcement_date,  announcement_writer,  announcement_hidden,  announcement_view,  announcement_status,  announcement_cnt 
+					     	rownum rn, announcement_serial,  announcement_title,  announcement_content,  announcement_date, announcement_hidden,  announcement_view,  announcement_status, announcement_priorityStatus, announcement_cnt 
 				       from announcement 
-			          where 1=1
-			
+			          where announcement_status = 'Y'
 			]]>		
 		<include refid="AnnouncementPagingCriteria"></include>
 		<![CDATA[
 			            and  rownum <= #{pageNum} * #{amount}
-		 
-		
 					
 					)
 			where rn > (#{pageNum}-1) * #{amount}
+			
 		]]>
 	</select>
 	
 	<insert id="insert" parameterType="com.yedam.finalPrj.announcement.service.Announcement">
 	
-	INSERT INTO ANNOUNCEMENT(ANNOUNCEMENT_SERIAL,  ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT, ANNOUNCEMENT_DATE, ANNOUNCEMENT_WRITER, ANNOUNCEMENT_HIDDEN,  ANNOUNCEMENT_VIEW,  ANNOUNCEMENT_STATUS, ANNOUNCEMENT_CNT)  
+	INSERT INTO ANNOUNCEMENT(ANNOUNCEMENT_SERIAL,  ANNOUNCEMENT_TITLE, ANNOUNCEMENT_CONTENT, ANNOUNCEMENT_DATE, ANNOUNCEMENT_HIDDEN,  ANNOUNCEMENT_VIEW,  ANNOUNCEMENT_STATUS, ANNOUNCEMENT_CNT)  
 	VALUES (ann_seq.nextval,  #{announcementTitle}, #{announcementContent}, #{announcementDate}, DEFAULT, #{announcementHidden}, #{announcementView}, DEFAULT, DEFAULT)
 	</insert>
 	
@@ -69,7 +67,7 @@
 	<select id="totalCnt" resultType="int">
 		SELECT count(*)
 		FROM ANNOUNCEMENT
-		where 1=1
+		where announcement_status = 'Y'
 		<include refid="AnnouncementPagingCriteria"></include>
 			and	ANNOUNCEMENT_SERIAL>0
 	</select>
