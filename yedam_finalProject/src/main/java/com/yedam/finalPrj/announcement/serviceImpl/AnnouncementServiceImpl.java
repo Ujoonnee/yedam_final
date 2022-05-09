@@ -38,4 +38,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return map.delete(announcement);
 	}
 
+	@Override
+	public List<Announcement> searchList(Announcement announcement) {
+		return map.searchList(announcement);
+	}
+
 }
