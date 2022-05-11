@@ -4,11 +4,12 @@
 <html>
 <head>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<form id="frm" name="frm" action="regist" method="post">
+<form id="frm" name="frm" action="/regist" method="post">
 		<div>
 		<h2> 매장등록신청양식</h2>
 		<div id = "st_Table">
@@ -45,7 +46,7 @@
 				<tr>
 					<th>우편번호</th>
 					<td id="location_show"><input type="text" id="location" name="location" required = "required"
-					 style="width: 100px;"><input type="hidden" id= "service_address" name = "service_address" >
+					 style="width: 100px;" readonly><input type="hidden" id= "service_address" name = "service_address" >
 					 <button type="button" style="width: 60px;"
 					 onclick = "locationSearch()">검색</button>
 					 </td>
@@ -76,15 +77,33 @@
 		new daum.Postcode({
 			oncomplete : function(data) {
 				console.log(data);					
-				document.getElementById('address').value = data.address +' '+data.buildingName ;
+				var addValue = data.address + ' ' + data.buildingName;
+				var addDetail = document.getElementById('addr2').value;
+				document.getElementById('address').value = addValue + ' ' +addDetail ;
 // 				document.getElementById('latitude').value =  ;
 // 				document.getElementById('longitude').value =  ;
 				document.getElementById('location').value = data.zonecode;
-				document.getElementById('addr1').value = data.address;
-				document.getElementById('addr2').value = data.buildingName;
+				document.getElementById('addr1').value = addValue;
+				xyget(addValue);
 			}
 		}).open();
 	}
+	function xyget(addValue){
+		console.log(addValue);
+		$.ajax({
+			url:"https://dapi.kakao.com/v2/local/search/address.json?query="+encodeURIComponent(addValue),
+			type : "GET",
+			headers: {'Authorization' : 'ee381ad2653c27997305ec26eef7c94b'},
+		success:function(data){
+			console.log(data)
+		},
+		error : function(e){
+			console.log(e);
+		}
+
+		});
+		
+	};
 	</script>
 </body>
 </html>

@@ -22,9 +22,9 @@ public class StoreController {
 		return "store/storeRegister";
 	}
 	
-	@RequestMapping("regist")
-	public String regist(@ModelAttribute("Store")Store vo) {
-		
+	@RequestMapping("/regist")
+	public String regist(@ModelAttribute("Store")Store vo,Model model) {
+		model.addAttribute("Store",vo);
 		dao.regist(vo);
 		return "home/home";
 	}
