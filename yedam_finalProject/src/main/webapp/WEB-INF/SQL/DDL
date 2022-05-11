@@ -1,4 +1,7 @@
---조준우
+-- 이홍제
+
+
+-- 조준우
 --시설 정보 테이블 생성, 입력.
 CREATE SEQUENCE SEQ_FAC
     START WITH 1
@@ -51,3 +54,12 @@ reply_content VARCHAR2(1000) NULL,
 rev_time VARCHAR2(50) default systimestamp NOT NULL,
 reply_time VARCHAR2(50) default systimestamp NOT NULL,
 mem_no NUMBER(10) NOT NULL);
+
+-- 윤성환
+
+
+-- 이우준
+
+
+-- 박성준
+

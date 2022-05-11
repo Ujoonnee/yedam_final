@@ -1,4 +1,7 @@
---조준우
+-- 이홍제
+
+
+-- 조준우
 --더미데이터(FACILITY,   FACILITY_RESERVATION,   REVIEW)
 INSERT INTO FACILITY VALUES(SEQ_FAC.NEXTVAL, default, '썸네일', '가격', '22-04-01', '22-04-30', '09:00', '22:00', '010-1234-4567', '대구 북구 호암로 17 2층', '상세설명', '승인', '22');
 INSERT INTO FACILITY VALUES(SEQ_FAC.NEXTVAL, default, '썸네일2', '가격2', '22-05-01', '22-05-30', '09:00', '22:00', '010-1234-4567', '대구 북구 호암로 17 2층', '상세설명2', '반려', '22');
@@ -11,3 +14,12 @@ SELECT * FROM FACILITY_RESERVATION;
 INSERT INTO REVIEW VALUES(SEQ_REVIEW.NEXTVAL, '1', '시설', '4', '시설GOOD', '감사합니다.', default, default, '22');
 INSERT INTO REVIEW VALUES(SEQ_REVIEW.NEXTVAL, '1', '시설', '2', '시설BAD', ' ㅡㅡ', default, default, '22');
 SELECT * FROM REVIEW;
+
+-- 윤성환
+
+
+-- 이우준
+
+
+-- 박성준
+
