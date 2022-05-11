@@ -60,11 +60,14 @@ public class AnnouncementController {
 	
 	//공지사항 상세페이지
 	@RequestMapping("/findOne")
-	public String findOne(Announcement announcement, Model model, @ModelAttribute("cri") AnnouncementPagingCriteria cri){
+	public String findOne(Announcement announcement, Model model, @ModelAttribute("cri") AnnouncementPagingCriteria cri, @RequestParam("ren") String ren){
 		
 		model.addAttribute("announcement", announcementService.findOne(announcement));
 		
+		announcementService.viewUpdate(announcement.getAnnNo());
+		
 		return "announcement/findOne";
+		
 	}
 	//공지사항 수정
 	@RequestMapping("/update")

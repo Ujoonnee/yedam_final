@@ -46,6 +46,11 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return map.totalCnt(cri);
 	}
 
+	@Override
+	public void viewUpdate(int annNo) {
+		
+	}
+
 	
 
 

@@ -11,18 +11,28 @@
 <body>
 	<h1>공지사항 등록 페이지</h1>
 	<form id="insertFrm" name="insertFrm" action="insert" method="POST">
-	<div>제목<input type="text" name="announcementTitle"></div>
-    <div>내용<textarea name="announcementContent"></textarea></div>
-    <div>날짜<input type="date" name="announcementDate"></div>
-	
+	<label>제목</label>
+	<div><input type="text" name="title"></div><br>
+    <label>내용</label>
+    <div><textarea  name="annContent"></textarea></div><br>
+    <div>날짜<input type="date" name="annDate"></div>
+	<br>
 	<div>
 		<select>
-		<option value="">공개여부</option>
-		<option value="Y">공개</option>
-		<option value="N">비공개</option>	
+		<option value="" disabled="disabled" selected>공개여부</option>
+		<option value="00201">공개</option>
+		<option value="00202">비공개</option>
+		<option value="00203">우선순위</option>
+		<option value="00204">삭제</option>	
 		</select>
 	</div>
-	<div><input type="submit" value="공지사항 등록"></div>
+	<div>첨부파일</div>
+	<br>
+	<div>
+	<input type="submit" value="작성">
+	<input type="button" onclick="findAll" value="취소">
+	</div>
+	
 
    </form>
    

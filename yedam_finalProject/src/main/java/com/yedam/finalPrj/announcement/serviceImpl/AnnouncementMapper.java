@@ -15,5 +15,6 @@ public interface AnnouncementMapper {
 	
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);
-	
+	// 조회수 올리기
+	void viewUpdate(int annNo);
 }

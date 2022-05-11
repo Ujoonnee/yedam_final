@@ -14,4 +14,5 @@ public interface AnnouncementService {
 
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);
+	void viewUpdate(int annNo);
 }

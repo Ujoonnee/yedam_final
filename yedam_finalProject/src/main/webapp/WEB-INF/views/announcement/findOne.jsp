@@ -14,42 +14,34 @@
 	<h1>공지사항 상세</h1>
 	<hr>
 	<form id="frm" action="update" method="post">
-		<input name="seq" type="hidden" value="${announcement.announcementSerial}" />
+		<input name="seq" type="hidden" value="${announcement.annNo}" />
 		<table border="1">
 			<tr>
-				<td bgcolor="orange" width="70">제목</td>
+				<td bgcolor="" width="70">제목</td>
 				<td align="left"><input id="title" name="title" type="text"
-					value="${announcement.announcementTitle}" /></td>
+					value="${announcement.title}" /></td>
 			</tr>
 			<tr>
-				<td bgcolor="orange">작성자</td>
-				<td align="left">${announcement.announcementWriter}</td>
+				<td bgcolor="">작성자</td>
+				<td align="left">관리자</td>
 			</tr>
 			<tr>
-				<td bgcolor="orange">내용</td>
-				<td align="left"><textarea id="content" name="content" cols="40" rows="10">${announcement.announcementContent }</textarea></td>
+				<td bgcolor="">내용</td>
+				<td align="left"><textarea id="content" name="content" cols="40" rows="10">${announcement.annContent }</textarea></td>
 			</tr>
 			<tr>
-				<td bgcolor="orange">등록일</td>
-				<td align="left"><fmt:formatDate value="${announcement.announcementDate }" pattern="yyyy-MM-dd"/></td>
+				<td bgcolor="">등록일</td>
+				<td align="left"><fmt:formatDate value="${announcement.annDate }" pattern="yyyy-MM-dd"/></td>
 			</tr>
 			<tr>
-				<td bgcolor="orange">조회수</td>
-				<td align="left">${announcement.announcementView }</td>
+				<td bgcolor="">조회수</td>
+				<td align="left">${announcement.annView }</td>
 			</tr>
-			<c:if test="${announcement.announcementWriter eq '관리자'}">
-				<tr>
-					<td colspan="2" align="center"><input type="button" id="update" value="글 수정" />
-				</tr>
-			</c:if>
+			
 		</table>
 	</form>
+	<button type="button" id="list" onclick="findAll">글 목록</button>
 	
-	<hr>
-		<a href="insertPage">글 쓰기</a>&nbsp;&nbsp;&nbsp; 
-		<a href="delete?announcementSerial=${announcement.announcementSerial }">글 삭제</a>&nbsp;&nbsp;&nbsp;
-		<a id="list" href="findAll">글 목록</a>
-		<a href="updatePage">수정하기</a>
 </body>
 <script type="text/javascript">
 		//글 목록

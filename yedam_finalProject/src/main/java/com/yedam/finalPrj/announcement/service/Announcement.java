@@ -1,8 +1,8 @@
 package com.yedam.finalPrj.announcement.service;
 
-import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,14 +10,11 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Announcement {
-	private String announcementSerial;
-	private String announcementTitle;
-	private String announcementContent;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date announcementDate;
-	private int announcementView;
-	private int announcementStatus;
-	private int announcementCnt;
-
+	private String annNo;
+	private String title;
+	private String annContent;
+	private Date annDate;
+	private int annView;
+	private String status;
+	private int annCnt;
 }

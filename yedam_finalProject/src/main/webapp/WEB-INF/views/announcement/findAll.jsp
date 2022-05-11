@@ -46,14 +46,14 @@
 				
 				<tbody>
 					<c:forEach items="${announcements}" var="announcement">
-						<c:if test="${announcement.announcementStatus eq 'Y'}">
-							<tr>
-								<td>${announcement.announcementSerial }</td>
-								<td>${announcement.announcementTitle }</td>
-								<td>${announcement.announcementContent }</td>
+						<c:if test="${announcement.status eq '00201'}">
+							<tr onclick="location.href='findOne'">
+								<td>${announcement.annNo }</td>
+								<td>${announcement.title }</td>
+								<td>${announcement.annContent }</td>
 								<td>관리자</td>
-								<td>${announcement.announcementDate }</td>
-								<td>${announcement.announcementStatus}</td>
+								<td>${announcement.annDate }</td>
+								<td>${announcement.status}</td>
 							</tr>
 						</c:if>
 					</c:forEach>
@@ -71,8 +71,8 @@
 		<form action="findAll" method="get" name="searchForm" autocomplete="off">
 				<select name="type">
 					<option value="" selected>선택</option>
-					<option value="announcementTitle" <c:out value="${paging.cri.type eq 'announcementTitle'?'selected':'' }" />>제목</option>
-					<option value="announcementContent" <c:out value="${paging.cri.type eq 'announcementContent'?'selected':'' }" />>내용</option>
+					<option value="title" <c:out value="${paging.cri.type eq 'title'?'selected':'' }" />>제목</option>
+					<option value="annContent" <c:out value="${paging.cri.type eq 'annContent'?'selected':'' }" />>내용</option>
 				</select>
 
 				<div>
@@ -119,7 +119,7 @@
 	
 	$('table a').click(function(e){
 			e.preventDefault();
-			var html = "<input type='hidden' name='announcementSerial' value='"+$(this).attr("href")+"'>";
+			var html = "<input type='hidden' name='annno' value='"+$(this).attr("href")+"'>";
 			$('#pagingFrm').append(html);
 			$('#pagingFrm').attr("action", "findOne");
 			$('#pagingFrm').submit();
