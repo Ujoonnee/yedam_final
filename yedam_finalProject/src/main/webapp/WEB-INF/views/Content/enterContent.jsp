@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="js/jquery.min.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
@@ -134,6 +133,8 @@ button{
 		</div>
 	</form>
 	<script>
+	
+// 		주소값 입력받아 주소 + 상세주소로 나눠줌
 		function locationSearch() {
 			new daum.Postcode({
 				oncomplete : function(data) {
@@ -146,12 +147,15 @@ button{
 			}).open();
 		}
 		
-		function tablecreate(days){
+		function createTable(days){
 			var table = document.getElementById('insertRow');
-			
-			const input = document.querySelector('input');
-			const log = document.getElementById('value');
-			var y = 0;
+//			start date -> string		
+			var start = new Date(document.getElementById('service_start_time').value);
+			var end = new Date(document.getElementById('service_end_time').value);
+			start = getFormatDate(start);
+			end = getFormatDate(end);
+			console.log(start);
+			console.log(end);
 			/* 기존의 table row 삭제 */
 			console.log(table.rows.length);
 			for(let i = 0; i <= table.rows.length + 100; i++){
@@ -166,40 +170,60 @@ button{
 						n1.innerText = '회차';
 						n2.innerText = '회차시간';
 						n3.innerText = '정원';
-			/* 기간만큼 table row 생성 */
-			if(y < days){
 						
-				while(y < days){
-					if(y === days)break;
+						
+			/* 기간만큼 table row 생성 */
+			if(0 <= days){
+						
+				for (let y = 0 ; y < days; y++ ){
 					
-						var newRow = table.insertRow();		
+						var newRow = table.insertRow();
 						var newCell0 = newRow.insertCell(0);
 						var newCell1 = newRow.insertCell(1);
-						var newCell2 = newRow.insertCell(2);
-						var newCell3 = newRow.insertCell(3);
-						newCell0.innerHTML = '<input type="date" name="asd">&nbsp;&nbsp;<input type = "button" id="rowbutton" value = "+"onclick="addRow()">&nbsp;&nbsp;<input type = "button" id ="rowbutton" value = "-"onclick="delRow()"> ';
 						
-					y++;
+						newCell0.innerHTML = '<input type="date" name="asd" value = "">&nbsp;&nbsp;<input type = "button" id="rowbutton" value = "+" onclick="addRow()">&nbsp;&nbsp;<input type = "button" id ="rowbutton" value = "-"onclick="delRow()"> ';
+						newCell1.innerHTML = '<table id = "newTable"></table>';
 				}
 			}
 		}
 		
 		function scheduleWrite(){
 			var start = new Date(document.getElementById('service_start_time').value);
-			var end = new Date(document.getElementById('service_end_time').value);		
+			var end = new Date(document.getElementById('service_end_time').value);	
+			
 			var days = Math.abs(end-start) / (1000*3600*24) +1;
 			console.log(days)
-			tablecreate(days);
+			createTable(days);
 		}
 		
 		function addRow(){
 			
+			var table1 = document.getElementById('newTable');
+			
+			
+			
+			var newRow = table1.insertRow();
+			
+			const newCell0 = newRow.insertCell(0);
+			const newCell1 = newRow.insertCell(1);
+			const newCell2 = newRow.insertCell(2);
+			
+			newCell0.innerText = "fdas";
+			newCell1.innerText = "fdas";
+			newCell2.innerText = "fdas";
 		}
 
 		function delRow(){
 			
 		}
-
+		function getFormatDate(date){
+		    var year = date.getFullYear();              //yyyy
+		    var month = (1 + date.getMonth());          //M
+		    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+		    var day = date.getDate();                   //d
+		    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+		    return  year + '-' + month + '-' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+		}
 	</script>
 </body>
 
