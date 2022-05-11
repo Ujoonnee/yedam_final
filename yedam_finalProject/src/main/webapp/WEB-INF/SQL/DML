@@ -1,7 +1,17 @@
+<<<<<<< HEAD
 -- 이홍제
 
 
 -- 조준우
+=======
+
+
+=======
+-- 이홍제
+
+
+--조준우
+>>>>>>> branch 'JO' of https://github.com/Ujoonnee/yedam_final.git
 --더미데이터(FACILITY,   FACILITY_RESERVATION,   REVIEW)
 INSERT INTO FACILITY VALUES(SEQ_FAC.NEXTVAL, default, '썸네일', '가격', '22-04-01', '22-04-30', '09:00', '22:00', '010-1234-4567', '대구 북구 호암로 17 2층', '상세설명', '승인', '22');
 INSERT INTO FACILITY VALUES(SEQ_FAC.NEXTVAL, default, '썸네일2', '가격2', '22-05-01', '22-05-30', '09:00', '22:00', '010-1234-4567', '대구 북구 호암로 17 2층', '상세설명2', '반려', '22');
@@ -22,4 +32,7 @@ SELECT * FROM REVIEW;
 
 
 -- 박성준
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'JO' of https://github.com/Ujoonnee/yedam_final.git

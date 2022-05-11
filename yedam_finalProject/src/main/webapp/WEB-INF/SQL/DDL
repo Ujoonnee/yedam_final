@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+=======
+>>>>>>> branch 'JO' of https://github.com/Ujoonnee/yedam_final.git
 -- 이홍제
 
 
@@ -62,4 +67,7 @@ mem_no NUMBER(10) NOT NULL);
 
 
 -- 박성준
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'JO' of https://github.com/Ujoonnee/yedam_final.git
