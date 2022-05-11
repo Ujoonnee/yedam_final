@@ -82,6 +82,8 @@ button{
 				<tr>
 					<th>회차정보</th>
 					<td> <table id = "insertRow">
+					<thead id = "thead"></thead>
+					<tbody id = "tbody"></tbody>
 					
 					
 					

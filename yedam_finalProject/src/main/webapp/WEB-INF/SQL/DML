@@ -11,4 +11,36 @@
 
 
 -- 박성준
+--dummy
+insert into store values(2100000001,0204,'gs25동호점','편의점','대구동구 중앙대로 38번길 20-3', '010-0000-1111','사진1',0000001);
+insert into store values(2000000002,0204,'cu중앙점','편의점','대구동구 중앙로길 13번길 22-3', '010-3423-1234','사진2',0000002);
+insert into store values(3000000003,0204,'약국중앙점','약국','대구동구 율하동 230-43 ', '010-6456-5435','사진3',0000003);
 
+insert into product values(2204001001,0000000001,'초코에몽',30,default,'1,500원');
+insert into product values(2204001002,0000000002,'딸기에몽',20,default,'1,500원');
+insert into product values(3204002001,0000000002,'붕대',30,default,'2,500원');
+
+insert into product_reservation values(20220511001,1,1,'2022-05-07','2022-05-10','10,000원','결제완료',sysdate);
+insert into product_reservationvalues(20220511002,1,2,'2022-05-04','2022-05-08','13,000원','결제완료',sysdate);
+insert into product_reservation values(20220511003,2,3,'2022-05-05','2022-05-06','15,000원','결제대기',sysdate);
+
+insert into reserved_goods values(20220511001,1,0204001001,3);
+insert into reserved_goods values(20220511002,1,0204001002,5);
+insert into reserved_goods values(20220511003,2,0204002001,3);
+/
+위도와 경도를 입력하면 거리를 계산하는 DML
+SELECT DISTANCE_WGS84(위도1, 경도1, 위도2, 경도2) as DISTANCE
+
+  FROM 테이블명
+
+WHERE (위도2 BETWEEN 위도1-0.019 AND 위도1+0.019)
+
+    AND (경도2 BETWEEN 경도1-0.022 AND 경도1+0.022)
+    
+--편의시설매장 신청양식  
+ <selectKey>Select CASE when max(store_no) is null then 1 
+            ELSE MAX(store_no) +1 END </selectKey>
+                    insert into store values
+                    (store_no,user_serial,category,name,store_cat,address,
+                    latitude,longitude,tel,thumbnail,mem_no)
+ 
