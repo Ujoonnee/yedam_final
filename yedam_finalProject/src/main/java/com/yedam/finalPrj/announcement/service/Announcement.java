@@ -16,11 +16,8 @@ public class Announcement {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date announcementDate;
-	private String announcementHidden;
 	private int announcementView;
-	private String announcementStatus;
-	private String announcement_deleteStatus;
-	private String announcementPriorityStatus;
+	private int announcementStatus;
 	private int announcementCnt;
 
 }

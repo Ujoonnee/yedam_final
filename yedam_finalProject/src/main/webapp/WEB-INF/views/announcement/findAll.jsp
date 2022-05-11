@@ -29,20 +29,20 @@
 						<th width="150">상태</th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:forEach items="${announcements}" var="announcement">	
-						<c:if test="${announcement.announcementPriorityStatus eq 'Y'}">
-							<tr>
-								<td>${announcement.announcementSerial }</td>
-								<td>${announcement.announcementTitle }</td>
-								<td>${announcement.announcementContent }</td>
-								<td>관리자</td>
-								<td>${announcement.announcementDate }</td>
-								<td>${announcement.announcementStatus}</td>
-							</tr>
-						</c:if>
-					</c:forEach>
-				</tbody>
+<!-- 				<tbody> -->
+<%-- 					<c:forEach items="${announcements}" var="announcement">	 --%>
+<%-- 						<c:if test="${announcement.announcementPriorityStatus eq 'Y'}"> --%>
+<!-- 							<tr> -->
+<%-- 								<td>${announcement.announcementSerial }</td> --%>
+<%-- 								<td>${announcement.announcementTitle }</td> --%>
+<%-- 								<td>${announcement.announcementContent }</td> --%>
+<!-- 								<td>관리자</td> -->
+<%-- 								<td>${announcement.announcementDate }</td> --%>
+<%-- 								<td>${announcement.announcementStatus}</td> --%>
+<!-- 							</tr> -->
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</tbody> -->
 				
 				<tbody>
 					<c:forEach items="${announcements}" var="announcement">
