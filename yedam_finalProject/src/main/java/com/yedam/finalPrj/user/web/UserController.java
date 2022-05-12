@@ -22,7 +22,7 @@ public class UserController {
 	
 	@RequestMapping("/userJoinForm")
 	public String userJoinForm() {
-		return "/user/userJoinForm";
+		return "user/userJoinForm";
 	}
 	
 	

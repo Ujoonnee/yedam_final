@@ -15,7 +15,7 @@
 				<table>
 					<tr>
 						<th>ID</th>
-						<td id="user_id"><input type="text" id="id" name="userId"
+						<td id="user_id"><input type="email" id="id" name="userId"
 							required="required" placeholder="아이디를 입력하세요.">
 							<button type="button" id="checkId" value="No"
 								onclick="isIdCheck()">중복체크</button></td>
@@ -29,7 +29,7 @@
 					<tr>
 						<th></th>
 						<td id="user_passwordCheck"><input type="password"
-							id="password1" 
+							id="password1" name="password1" onchange="isSame()"
 							required="required" placeholder="비밀번호를 확인하세요.">&nbsp;&nbsp;
 							<span id="pwSame"></span></td>
 					</tr>
