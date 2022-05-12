@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-
-=======
->>>>>>> branch 'JO' of https://github.com/Ujoonnee/yedam_final.git
 -- 이홍제
 
 
@@ -65,9 +60,14 @@ mem_no NUMBER(10) NOT NULL);
 
 -- 이우준
 
+-- 공통코드
+CREATE TABLE CODES (
+	category	    CHAR(3)	    NOT NULL,
+	category_name	VARCHAR(30)	NOT NULL,
+	code	        CHAR(2)	    NOT NULL,
+	code_name	    VARCHAR(30)	NOT NULL
+);
+/
 
 -- 박성준
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'JO' of https://github.com/Ujoonnee/yedam_final.git
