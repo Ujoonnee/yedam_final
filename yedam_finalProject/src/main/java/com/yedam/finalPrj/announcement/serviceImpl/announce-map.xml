@@ -4,22 +4,19 @@
 	namespace="com.yedam.finalPrj.announcement.serviceImpl.AnnouncementMapper">
 		
 	
-<sql id="AnnouncementPagingCriteria">
-
-					<!-- 상태사항이 Y일 경우. -->
-				<choose>
-							<!-- 제목검색 -->
-						<when test="type == 'title'">
-							AND TITLE LIKE ('%'||#{keyword}||'%')
-						</when>
-							<!-- 내용 검색 -->
-						<when test="type == 'annContent'">
-							AND ANN_CONTENT LIKE ('%'||#{keyword}||'%')
-						</when>
-				
-				</choose>
-
-</sql>
+	<sql id="AnnouncementPagingCriteria">
+						<!-- 상태사항이 Y일 경우. -->
+					<choose>
+								<!-- 제목검색 -->
+							<when test="type == 'title'">
+								AND TITLE LIKE ('%'||#{keyword}||'%')
+							</when>
+								<!-- 내용 검색 -->
+							<when test="type == 'annContent'">
+								AND ANN_CONTENT LIKE ('%'||#{keyword}||'%')
+							</when>
+					</choose>
+	</sql>
 	
 	
 	<select id="findOne" resultType="com.yedam.finalPrj.announcement.service.Announcement">
@@ -32,30 +29,26 @@
 			<!-- index 사용법이 애매해서 조금 더 봐야함. -->	
 	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.Announcement">
 		<![CDATA[
-			SELECT ann_no,  title,  ann_content,  ann_date,  ann_view,  status  ,ann_cnt
+		
+			SELECT ann_no, title, ann_content, ann_date, ann_view,  status, ann_cnt
 			FROM	(SELECT /*+INDEX_DESC(ANNOUNCEMENT pk_ann_no) */
-					     	rownum rn, ann_no,  title,  ann_content,  ann_date,  ann_view,  status, ann_cnt 
-				       from ANNOUNCEMENT
-			          where status = '00201'
+					     	rownum rn, ann_no,  title,  ann_content,  ann_date,  ann_view, get_code_name(status) status, ann_cnt 
+				      from ANNOUNCEMENT
+				      where status IN('00501', '00502')
+						order by status desc, ann_date					
+					
+			          
 			]]>		
 		<include refid="AnnouncementPagingCriteria"></include>
 		<![CDATA[
 			            and  rownum <= #{pageNum} * #{amount}
-					
 					)
 			where rn > (#{pageNum}-1) * #{amount}
 			
+		
 		]]>
 	</select>
 	
-	<update id="viewUpdate">
-	UPDATE
-		announcement
-	SET
-		ann_view = ann_view + 1
-	WHERE
-		ann_no = #{annNo}
-	</update>
 	<insert id="insert" parameterType="com.yedam.finalPrj.announcement.service.Announcement">
 	
 	INSERT INTO ANNOUNCEMENT(ANN_no, TITLE, ANN_CONTENT, ANN_DATE,  ANN_VIEW,  STATUS, ANN_CNT)  
@@ -64,6 +57,10 @@
 	
 	<update id="update" parameterType="com.yedam.finalPrj.announcement.service.Announcement">
 		UPDATE ANNOUNCEMENT SET TITLE = #{title},  ANN_CONTENT = #{annContent}, STATUS = #{status} WHERE ANN_NO = #{annNo}
+	</update>
+	
+	<update id="updateView" parameterType="com.yedam.finalPrj.announcement.service.Announcement">
+		UPDATE ANNOUNCEMENT SET ann_view = ann_view + 1 WHERE ANN_NO = #{annNo}
 	</update>
 	
 	<delete id="delete" parameterType="com.yedam.finalPrj.announcement.service.Announcement">
@@ -75,7 +72,7 @@
 	<select id="totalCnt" resultType="int">
 		SELECT count(*)
 		FROM ANNOUNCEMENT
-		where status = '00201'
+		where status in('00501','00502')
 		<include refid="AnnouncementPagingCriteria"></include>
 			and	ANN_NO>0
 	</select>

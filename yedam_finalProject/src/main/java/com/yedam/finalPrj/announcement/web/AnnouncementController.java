@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.finalPrj.announcement.service.Announcement;
 import com.yedam.finalPrj.announcement.service.AnnouncementPageMaker;
@@ -60,11 +58,12 @@ public class AnnouncementController {
 	
 	//공지사항 상세페이지
 	@RequestMapping("/findOne")
-	public String findOne(Announcement announcement, Model model, @ModelAttribute("cri") AnnouncementPagingCriteria cri, @RequestParam("ren") String ren){
+	public String findOne(Announcement announcement, Model model, @ModelAttribute("cri") AnnouncementPagingCriteria cri/*, @RequestParam("ren") String ren*/){
+		
+		announcementService.updateView(announcement);
+		System.out.println("NUMBER : " + announcement.getAnnNo());
 		
 		model.addAttribute("announcement", announcementService.findOne(announcement));
-		
-		/* announcementService.viewUpdate(announcement.getAnnNo()); */
 		
 		return "announcement/findOne";
 		

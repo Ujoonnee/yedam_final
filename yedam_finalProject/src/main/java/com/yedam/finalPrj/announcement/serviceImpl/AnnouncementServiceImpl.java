@@ -47,8 +47,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 
 	@Override
-	public void viewUpdate(int annNo) {
-		
+	public int updateView(Announcement ann) {
+		return map.updateView(ann);
 	}
 
 	

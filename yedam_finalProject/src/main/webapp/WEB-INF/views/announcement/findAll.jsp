@@ -43,11 +43,11 @@
 <%-- 						</c:if> --%>
 <%-- 					</c:forEach> --%>
 <!-- 				</tbody> -->
-				
+							
 				<tbody>
 					<c:forEach items="${announcements}" var="announcement">
-						<c:if test="${announcement.status eq '00201'}">
-							<tr onclick="location.href='findOne'">
+
+							<tr onclick="location.href='findOne?annNo=${announcement.annNo }'">
 								<td>${announcement.annNo }</td>
 								<td>${announcement.title }</td>
 								<td>${announcement.annContent }</td>
@@ -55,7 +55,6 @@
 								<td>${announcement.annDate }</td>
 								<td>${announcement.status}</td>
 							</tr>
-						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -99,7 +98,7 @@
 		</c:if>
 			<!-- 1 2 3 4   -->
 		<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-		&nbsp;<a href="${num } ">${num }</a>&nbsp;
+		&nbsp;<a href="${num }">${num }</a>&nbsp;
 		</c:forEach>
 			<!-- 다음페이지 -->	
 		<c:if test="${paging.next }">
@@ -119,7 +118,7 @@
 	
 	$('table a').click(function(e){
 			e.preventDefault();
-			var html = "<input type='hidden' name='annno' value='"+$(this).attr("href")+"'>";
+			var html = "<input type='hidden' name='annNo' value='"+$(this).attr("href")+"'>";
 			$('#pagingFrm').append(html);
 			$('#pagingFrm').attr("action", "findOne");
 			$('#pagingFrm').submit();

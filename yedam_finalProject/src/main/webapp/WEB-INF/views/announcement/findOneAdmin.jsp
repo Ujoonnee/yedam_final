@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td bgcolor="">내용</td>
-				<td><textarea style="width: 538px; height: 200px;"disabled><c:out value="${announcement.annContent }"/></textarea></td> 
+				<td align="left"><textarea id="content" name="content" cols="40" rows="10">${announcement.annContent }</textarea></td>
 			</tr>
 			<tr>
 				<td bgcolor="">등록일</td>
@@ -40,7 +40,11 @@
 			
 		</table>
 	</form>
-	<button type="button" id="list" onclick="location.href='findAll'">글 목록</button>
+	<div>
+		<input type="submit" value="수정">
+		<input type="button" onclick="findAll" value="취소">
+	</div>
+	
 	
 </body>
 <script type="text/javascript">

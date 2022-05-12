@@ -36,6 +36,10 @@ INSERT ALL
     INTO codes VALUES('004','서비스등록신청상태','01','승인')
     INTO codes VALUES('004','서비스등록신청상태','02','반려')
     INTO codes VALUES('004','서비스등록신청상태','03','승인대기')
+    INTO codes VALUES('005','공지사항','01','공개')
+    INTO codes VALUES('005','공지사항','02','상단고정')
+    INTO codes VALUES('005','공지사항','03','비공개')
+    INTO codes VALUES('005','공지사항','04','삭제')
 SELECT * FROM dual;
 
 
