@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.yedam.finalPrj.member.serviceImpl.MemberMapper">
+	<resultMap type="com.yedam.finalPrj.member.service.Member"
+		id="memberMap">
+		<id property="memNo" column="mem_no" />
+		<result property="email" column="email" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="tel" column="tel" />
+		<result property="buisnessNum" column="buisness_num" />
+		<result property="buisnessType" column="buisness_type" />
+		<result property="address" column="address" />
+		<result property="addressDetail" column="address_detail" />
+		<result property="memType" column="mem_type" />
+		<result property="status" column="status" />
+	</resultMap>
+
+<!-- 	이홍제 -->
+	<insert id="insert"
+		parameterType="com.yedam.finalPrj.member.service.Member">
+		<selectKey keyProperty="memNo" resultType="int"
+			order="BEFORE">
+
+			SELECT CASE WHEN MAX(member_serial) IS NULL THEN 1
+			ELSE MAX(member_serial) + 1 END AS memNo
+			FROM member1
+		</selectKey>
+		INSERT INTO member1<!-- (NVL2(#{member_serial}, MAX(#{member_serial}) + 
+			1 ,1) ,member_id,member_pw,member_name,member_birth,member_address,member_tel,member_email,member_account) -->
+		VALUES
+		(#{memNo},#{email},#{password},#{name},#{tel},#{buisnessNum},#{buisnessType},#{address},#{addressDetail},#{memType},#{status})
+	</insert>
+	
+	
+<!-- 	조준우 -->
+	<select id="loginCheck" resultType="String">
+		select name
+		from MEMBER
+		where email=#{email} and password=#{password}
+	</select>
+
+</mapper>

@@ -20,5 +20,9 @@ public class HomeController {
 	public String goLogin() {
 		return "login";
 	}
+	@RequestMapping(value ="/review", method = RequestMethod.GET)
+	public String review() {
+		return "review/review";
+	}
 	
 }
