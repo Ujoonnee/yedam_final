@@ -1,45 +1,44 @@
-package com.yedam.finalPrj.user.serviceImpl;
+package com.yedam.finalPrj.member.serviceImpl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
-import com.yedam.finalPrj.user.service.UserService;
-import com.yedam.finalPrj.user.service.UserVO;
+import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberService;
 
-@Service("userService")
-public class UserServiceImpl implements UserService {
+@Service("MemberService")
+public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
-	UserMapper map;
+	MemberMapper map;
 	
 	@Override
-	public UserVO findOne(UserVO vo) {
+	public Member findOne(Member vo) {
 		// TODO Auto-generated method stub
 		return map.findOne(vo);
 	}
 
 	@Override
-	public UserVO findAll(UserVO vo) {
+	public Member findAll(Member vo) {
 		// TODO Auto-generated method stub
 		return map.findAll(vo);
 	}
 
 	@Override
-	public int insert(UserVO vo) {
+	public int insert(Member vo) {
 		// TODO Auto-generated method stub
 		return map.insert(vo);
 	}
 
 	@Override
-	public int update(UserVO vo) {
+	public int update(Member vo) {
 		// TODO Auto-generated method stub
 		return map.update(vo);
 	}
 
 	@Override
-	public int delete(UserVO vo) {
+	public int delete(Member vo) {
 		// TODO Auto-generated method stub
 		return map.delete(vo);
 	}
