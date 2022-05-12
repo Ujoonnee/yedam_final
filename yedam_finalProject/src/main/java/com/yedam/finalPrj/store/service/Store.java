@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Store {
-	private int store_no;
+	private long store_no;
 	private String category;
 	private String name;
 	private String store_cat;

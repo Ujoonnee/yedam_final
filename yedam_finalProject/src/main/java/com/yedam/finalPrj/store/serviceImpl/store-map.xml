@@ -15,39 +15,86 @@
  	<result property="thumbnail" column="thumnail"/>
  </resultMap>
  
-<sql id="StorePagingCriteria">
+ <sql id="StorePagingCriteria">
 
-					<!-- 상태사항이 Y일 경우. -->
+<!-- 					상태사항이 Y일 경우. -->
 				<choose>
-							<!-- 매장명 검색 -->
+<!-- 							매장명 검색 -->
 						<when test="type == 'name'">
 							AND nameLIKE ('%'||#{keyword}||'%')
 						</when>
-							<!-- 카테고리 검색 -->
+<!-- 							카테고리 검색 -->
 						<when test="type == 'store_cat'">
 							AND store_cat LIKE ('%'||#{keyword}||'%')
 						</when>
 							
 				</choose>
 
-</sql>
+</sql> 
  <!-- 서비스 등록 -->
  <insert id = "regist" parameterType="com.yedam.finalPrj.store.service.Store">
- 	<selectKey keyProperty="store_no" resultType="long" order="BEFORE">Select CASE when max(store_no) is null then 1 
+ 	<selectKey keyProperty="store_no" resultType="long" order="BEFORE">
+ 			Select CASE when max(store_no) is null then 1 
              ELSE MAX(store_no) +1 END  from store
     </selectKey>
     		 insert into store values(
     		 #{store_no},#{category},#{name},#{store_cat},#{address},
-    		 #{latitude},#{longitude},#{tel},#{thumbnail},1)
+    		 #{latitude},#{longitude},#{tel},#{thumbnail},4)
  </insert>
  
- <select id="storeList" resultType="com.yedam.finalPrj.store.service.Store">
+  <select id="storeList" resultType="com.yedam.finalPrj.store.service.Store">
+  
+  		select * from
+  		<![CDATA[
+  			  (
+        SELECT
+            a.*,
+            ROWNUM rn
+        FROM
+            (
+                SELECT
+                    store_no,
+                    category,
+                    name,
+                    store_cat,
+                    address,
+                    latitude,
+                    longitude,
+                    tel,
+                    thumbnail,
+                    (
+                        SELECT
+                            get_distance(latitude, longitude, '35.8690794934', '128.5932807675')
+                        FROM
+                            store
+                        WHERE
+                            store.store_no = s.store_no
+                    ) AS distance
+                FROM
+                    store s
+                where
+                ]]>
+              <include refid="StorePagingCriteria"></include>
+                <![CDATA[	
+                ORDER BY
+                    distance
+	            ) a
+	        WHERE
+	            ROWNUM <= #{pageNum} * #{amount}
+			) b
+		WHERE
+	    rn > (#{pageNum}-1) * #{amount}
+
+  		]]>
+  		
+  		
+  		
 		<![CDATA[
 			SELECT *
 			FROM	(SELECT /*+INDEX_DESC(store pk_store_no) */
 					     	rownum rn, store_no,  category,name,store_cat, address, latitude,longitude,tel,thumbnail 
-				       from store
-			          where status = '00204'
+				       from store s
+			          where 
 			]]>		
 		<include refid="StorePagingCriteria"></include>
 		<![CDATA[
@@ -65,6 +112,6 @@
 		FROM store s
 		<include refid="StorePagingCriteria"></include>
 			and	store_no > 0
-	</select>
+	</select> 
 	
  </mapper>
