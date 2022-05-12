@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form id="frm" name="frm" action="/regist" method="post">
+<form id="frm" name="frm" action="regist.do" method="post">
 		<div>
 		<h2> 매장등록신청양식</h2>
 		<div id = "st_Table">
@@ -45,8 +46,10 @@
 				</tr>
 				<tr>
 					<th>우편번호</th>
-					<td id="location_show"><input type="text" id="location" name="location" required = "required"
-					 style="width: 100px;" readonly><input type="hidden" id= "service_address" name = "service_address" >
+					<td id="location_show">
+					<input type="text" id="location" name="location" required = "required" 
+					style="width: 100px;" readonly>
+					 <input type="hidden" id= "service_address" name = "service_address" >
 					 <button type="button" style="width: 60px;"
 					 onclick = "locationSearch()">검색</button>
 					 </td>
@@ -78,10 +81,6 @@
 			oncomplete : function(data) {
 				console.log(data);					
 				var addValue = data.address + ' ' + data.buildingName;
-				var addDetail = document.getElementById('addr2').value;
-				document.getElementById('address').value = addValue + ' ' +addDetail ;
-// 				document.getElementById('latitude').value =  ;
-// 				document.getElementById('longitude').value =  ;
 				document.getElementById('location').value = data.zonecode;
 				document.getElementById('addr1').value = addValue;
 				xyget(addValue);
@@ -93,9 +92,12 @@
 		$.ajax({
 			url:"https://dapi.kakao.com/v2/local/search/address.json?query="+encodeURIComponent(addValue),
 			type : "GET",
-			headers: {'Authorization' : 'ee381ad2653c27997305ec26eef7c94b'},
+			headers: {'Authorization' : 'KakaoAK ee381ad2653c27997305ec26eef7c94b'},
 		success:function(data){
 			console.log(data)
+			console.log(data.documents[0].x)
+			document.getElementById('latitude').value = data.documents[0].y;
+		    document.getElementById('longitude').value = data.documents[0].x;
 		},
 		error : function(e){
 			console.log(e);
@@ -104,6 +106,45 @@
 		});
 		
 	};
+	
+	/* 카카오 토큰 발급 ajax형식 function  삭제 X 추후에 쓰일수잇음.*/
+	function token(){
+		$.ajax({
+			type : "GET",
+			url:"https://kauth.kakao.com/oauth/token",
+			headers : {
+				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+			},
+			data : {
+				grant_type:"authorization_code",
+				client_id:"ee381ad2653c27997305ec26eef7c94b",
+				redirect_uri:"http://localhost.com",
+				code:"SrnvwOMAnd2mhKCSHbpHJMDIk2GAqXooKr2KKKCxEAU51tRM9XtCNzztnRRg2q_J3QoAGQopb9UAAAGAtin1OA"
+			},
+			success : function(a){
+				console.log(a)
+			},
+			error : function(e){
+				console.log(e);
+			}
+		})
+		
+	}
+	$(function(){
+		$('#frm').on('submit',function(){
+			
+			var address_val = '';
+			address_val += $("#addr1").val() + ' ';
+			address_val += $("#addr2").val();
+			document.getElementById('address').value = address_val;
+			
+			
+			 if(!$('#location').val()){
+				   alert('주소를 입력해주세요');
+				   return false;
+				 }
+	})
+	});
 	</script>
 </body>
 </html>

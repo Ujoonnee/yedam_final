@@ -15,12 +15,56 @@
  	<result property="thumbnail" column="thumnail"/>
  </resultMap>
  
+<sql id="StorePagingCriteria">
+
+					<!-- 상태사항이 Y일 경우. -->
+				<choose>
+							<!-- 매장명 검색 -->
+						<when test="type == 'name'">
+							AND nameLIKE ('%'||#{keyword}||'%')
+						</when>
+							<!-- 카테고리 검색 -->
+						<when test="type == 'store_cat'">
+							AND store_cat LIKE ('%'||#{keyword}||'%')
+						</when>
+							
+				</choose>
+
+</sql>
  <!-- 서비스 등록 -->
- <insert id = "storeRegist" parameterType="com.yedam.finalPrj.store.service.Store">
- 	<selectKey>Select CASE when max(store_no) is null then 1 
-             ELSE MAX(store_no) +1 END </selectKey>
+ <insert id = "regist" parameterType="com.yedam.finalPrj.store.service.Store">
+ 	<selectKey keyProperty="store_no" resultType="long" order="BEFORE">Select CASE when max(store_no) is null then 1 
+             ELSE MAX(store_no) +1 END  from store
+    </selectKey>
     		 insert into store values(
-    		 #{store_no},#{user_serial},#{category},#{name},#{store_cat},#{address},
+    		 #{store_no},#{category},#{name},#{store_cat},#{address},
     		 #{latitude},#{longitude},#{tel},#{thumbnail},1)
  </insert>
+ 
+ <select id="storeList" resultType="com.yedam.finalPrj.store.service.Store">
+		<![CDATA[
+			SELECT *
+			FROM	(SELECT /*+INDEX_DESC(store pk_store_no) */
+					     	rownum rn, store_no,  category,name,store_cat, address, latitude,longitude,tel,thumbnail 
+				       from store
+			          where status = '00204'
+			]]>		
+		<include refid="StorePagingCriteria"></include>
+		<![CDATA[
+			            and  rownum <= #{pageNum} * #{amount}
+					
+					)
+			where rn > (#{pageNum}-1) * #{amount}
+			
+		]]>
+	</select>
+	
+	
+	<select id="totalCnt" resultType="int">
+		SELECT count(*)
+		FROM store s
+		<include refid="StorePagingCriteria"></include>
+			and	store_no > 0
+	</select>
+	
  </mapper>
