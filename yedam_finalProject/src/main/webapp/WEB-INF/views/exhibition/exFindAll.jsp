@@ -13,32 +13,22 @@
 
 <h1>전시</h1>
 	
-	<%-- <figure>
-	                            <img src="">                
-	                            <figcaption>
-	                				<a href="http://naver.com">
-	                                <span>${exh.name }</span><br>
-	                                <span>${exh.showRoom }</span>
-	                                <span>${exh.startDate }</span>
-	                                <span>${exh.endDate }</span>
-									</a>
-	                            </figcaption>
-	                        </figure> --%>
+	
 	<div>
             <ul style="list-style: none;">
 			<c:forEach items="${exhibitions }" var="exh">
                 <li>
-	                <figure>
-		                <a href="http://naver.com">
-			                <img width="150" height="150" src="resources/img/${exh.thumbnail}.jpg">                
-			                   <figcaption>
-			                           <span>${exh.name }</span><br>
-			                           <span>${exh.showRoom }</span>
-			                           <span>${exh.startDate }</span>
-			                           <span>${exh.endDate }</span>
-			                   </figcaption>
-						</a>
-		            </figure>
+                <figure>
+                <a href="http://naver.com">
+	                <img width="150" height="150" src="resources/img/${exh.thumbnail}.jpg">                
+	                   <figcaption>
+	                           <span>${exh.name }</span><br>
+	                           <span>${exh.showRoom }</span>
+	                           <span>${exh.startDate }</span>
+	                           <span>${exh.endDate }</span>
+	                   </figcaption>
+				</a>
+	            </figure>
                 </li>
 			</c:forEach>
            </ul>
