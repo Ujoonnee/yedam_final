@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yedam.finalPrj.memberLogin.service.MemberService;
-import com.yedam.finalPrj.memberLogin.vo.UserVO;
+import com.yedam.finalPrj.memberLogin.vo.Member;
 
 @Controller //컨트롤러 빈으로 등록
 @RequestMapping("/member/*")
@@ -25,7 +25,7 @@ public class MemberController {
 	}
 	//회원 로그인 체크
 	@RequestMapping("login_check.do")
-	public ModelAndView login_check(@ModelAttribute UserVO vo, HttpSession session) {
+	public ModelAndView login_check(@ModelAttribute Member vo, HttpSession session) {
 
 		String name = memberService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();

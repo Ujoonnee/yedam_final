@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.finalPrj.facility.serviceImpl.FacilityMapper">
+	<select id="findAll" resultType="com.yedam.finalPrj.facility.vo.Facility">
+		select *
+		from facility
+	</select>
+	<select id="findEvery" resultType="com.yedam.finalPrj.facility.vo.Facility">
+		select *
+		from facility 
+		where fac_no = #{facNo}
+	</select>
+	
+
+</mapper>
