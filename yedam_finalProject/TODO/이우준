@@ -1,0 +1,16 @@
+sql log 라이브러리 적용
+<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
+<dependency>
+	<groupId>org.bgee.log4jdbc-log4j2</groupId>
+	<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+	<version>1.16</version>
+</dependency>
+
+
+엑셀 라이브러리 적용		
+<!-- Excel -->
+<dependency>
+	<groupId>org.apache.poi</groupId>
+	<artifactId>poi-ooxml</artifactId>
+	<version>3.14</version>
+</dependency>

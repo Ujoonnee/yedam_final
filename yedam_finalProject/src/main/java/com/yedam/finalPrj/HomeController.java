@@ -16,4 +16,13 @@ public class HomeController {
 		return "home/home";
 	}
 	
+	@RequestMapping(value ="/login", method = RequestMethod.GET)
+	public String goLogin() {
+		return "login";
+	}
+	@RequestMapping(value ="/review", method = RequestMethod.GET)
+	public String review() {
+		return "review/review";
+	}
+	
 }
