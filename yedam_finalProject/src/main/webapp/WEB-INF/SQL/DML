@@ -37,12 +37,6 @@ WHERE (위도2 BETWEEN 위도1-0.019 AND 위도1+0.019)
 
     AND (경도2 BETWEEN 경도1-0.022 AND 경도1+0.022)
     
---편의시설매장 신청양식  
- <selectKey>Select CASE when max(store_no) is null then 1 
-            ELSE MAX(store_no) +1 END </selectKey>
-                    insert into store values
-                    (store_no,user_serial,category,name,store_cat,address,
-                    latitude,longitude,tel,thumbnail,mem_no)
 --매장 출력( 거리 가까운순으로 출력/페이징처리)
 SELECT
     *
