@@ -14,12 +14,12 @@
 	<h1>공지사항 상세</h1>
 	<hr>
 	<form id="frm" action="update" method="post">
-		<input name="seq" type="hidden" value="${announcement.annNo}" />
+		<input name="seq" type="hidden" value="${exhibition.annNo}" />
 		<table border="1">
 			<tr>
 				<td bgcolor="" width="70">제목</td>
 				<td align="left"><input id="title" name="title" type="text"
-					value="${announcement.title}" /></td>
+					value="${exhibition.title}" /></td>
 			</tr>
 			<tr>
 				<td bgcolor="">작성자</td>
@@ -27,15 +27,15 @@
 			</tr>
 			<tr>
 				<td bgcolor="">내용</td>
-				<td><textarea style="width: 538px; height: 200px;"disabled><c:out value="${announcement.annContent }"/></textarea></td> 
+				<td><textarea style="width: 538px; height: 200px;"disabled><c:out value="${exhibition.annContent }"/></textarea></td> 
 			</tr>
 			<tr>
 				<td bgcolor="">등록일</td>
-				<td align="left"><fmt:formatDate value="${announcement.annDate }" pattern="yyyy-MM-dd"/></td>
+				<td align="left"><fmt:formatDate value="${exhibition.annDate }" pattern="yyyy-MM-dd"/></td>
 			</tr>
 			<tr>
 				<td bgcolor="">조회수</td>
-				<td align="left">${announcement.annView }</td>
+				<td align="left">${exhibition.annView }</td>
 			</tr>
 			
 		</table>
