@@ -1,0 +1,43 @@
+-- 이홍제
+
+
+--조준우
+--더미데이터(FACILITY,   FACILITY_RESERVATION,   REVIEW)
+INSERT INTO FACILITY VALUES(SEQ_FAC.NEXTVAL, default, '썸네일', '가격', '22-04-01', '22-04-30', '09:00', '22:00', '010-1234-4567', '대구 북구 호암로 17 2층', '상세설명', '승인', '22');
+INSERT INTO FACILITY VALUES(SEQ_FAC.NEXTVAL, default, '썸네일2', '가격2', '22-05-01', '22-05-30', '09:00', '22:00', '010-1234-4567', '대구 북구 호암로 17 2층', '상세설명2', '반려', '22');
+SELECT * FROM FACILITY;
+
+INSERT INTO FACILITY_RESERVATION VALUES(SEQ_FAC_RES.NEXTVAL, 1, '22-04-05', '22-04-10', default, '1,000,000', '결제완료', 11);
+INSERT INTO FACILITY_RESERVATION VALUES(SEQ_FAC_RES.NEXTVAL, '1', '22-04-11', '22-04-21', default, '2,000,000', '결제완료', '22');
+SELECT * FROM FACILITY_RESERVATION;
+
+INSERT INTO REVIEW VALUES(SEQ_REVIEW.NEXTVAL, '1', '시설', '4', '시설GOOD', '감사합니다.', default, default, '22');
+INSERT INTO REVIEW VALUES(SEQ_REVIEW.NEXTVAL, '1', '시설', '2', '시설BAD', ' ㅡㅡ', default, default, '22');
+SELECT * FROM REVIEW;
+
+-- 윤성환
+
+
+-- 이우준
+
+-- 공통코드 데이터
+INSERT ALL
+    INTO codes VALUES('001','회원유형','01','관리자')
+    INTO codes VALUES('001','회원유형','02','일반회원')
+    INTO codes VALUES('001','회원유형','03','사업자회원')
+    INTO codes VALUES('002','사업유형','01','공연')
+    INTO codes VALUES('002','사업유형','02','전시')
+    INTO codes VALUES('002','사업유형','03','시설')
+    INTO codes VALUES('002','사업유형','04','매장')
+    INTO codes VALUES('003','회원상태','01','정상')
+    INTO codes VALUES('003','회원상태','02','이메일수신미동의')
+    INTO codes VALUES('003','회원상태','03','비밀번호분실')
+    INTO codes VALUES('003','회원상태','04','탈퇴')
+    INTO codes VALUES('004','서비스등록신청상태','01','승인')
+    INTO codes VALUES('004','서비스등록신청상태','02','반려')
+    INTO codes VALUES('004','서비스등록신청상태','03','승인대기')
+SELECT * FROM dual;
+
+
+-- 박성준
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.yedam.finalPrj.enterContent.serviceImpl.EnterContentMapper">
+	<resultMap type="com.yedam.finalPrj.enterContent.service.EnterContent" id="enterMap">
+		<id property="service_serial_num" column="SERVICE_SERIAL" />
+		<id property="registration_number" column="SERVICE_REGISTRATION_NUMBER" />
+		<result property="service_type" column="SERVICE_TYPE" />
+		<result property="service_name" column="SERVICE_NAME" />
+		<result property="service_description" column="SERVICE_DESCRIPTION" />
+		<result property="service_thumbnail" column="SERVICE_THUMBNAIL" />
+		<result property="service_address" column="SERVICE_THUMBNAIL" />
+		<result property="service_location" column="SERVICE_LOCATION" />
+		<result property="service_tel" column="SERVICE_TEL" />
+		<result property="service_capacity" column="SERVICE_CAPACITY" />
+		<result property="service_approval" column="SERVICE_APPROVAL" />
+		<result property="service_status" column="SERVICE_STATUS" />
+		<result property="service_start_time" column="SERVICE_STATUS" />
+		<result property="service_end_time" column="SERVICE_STATUS" />
+	</resultMap>
+	<select id="selectsAll" resultType="com.yedam.finalPrj.enterContent.service.EnterContent">
+	
+		select *
+		from service
+	</select>
+	<select id="selectAll" parameterType = "String" resultType="com.yedam.finalPrj.enterContent.service.EnterContent">
+	
+		select *
+		from service
+		<!-- <if test="registNum != null and !registNum.equals('')" > where SERVICE_REGISTRATION_NUMBER = #{registNum} </if> --> 
+	</select>
+
+	<insert id="insert" parameterType="com.yedam.finalPrj.enterContent.service.EnterContent">
+		insert into service values(SYS.dbms_random.STRING('x',15),#{registration_number},#{service_type},#{service_name},
+		#{service_description},#{service_thumbnail},#{service_address},#{service_location}
+		,#{service_tel},#{service_capacity},#{service_approval},#{service_status},#{service_start_time},#{service_end_time})
+	</insert>
+</mapper>

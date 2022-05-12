@@ -1,0 +1,73 @@
+-- 이홍제
+
+
+-- 조준우
+--시설 정보 테이블 생성, 입력.
+CREATE SEQUENCE SEQ_FAC
+    START WITH 1
+    INCREMENT BY 1;
+
+CREATE TABLE FACILITY(
+fac_no NUMBER(10) PRIMARY KEY,
+category VARCHAR2(10) default '시설' NOT NULL,
+thumbnail VARCHAR2(1000) NOT NULL,
+price VARCHAR2(20) NOT NULL,
+start_date VARCHAR2(10) NOT NULL,
+end_date VARCHAR2(10) NOT NULL,
+start_time VARCHAR2(10) NOT NULL,
+end_time VARCHAR2(10) NOT NULL,
+tel VARCHAR2(20) NOT NULL,
+address VARCHAR2(50) NOT NULL,
+detail CLOB NOT NULL,
+approval VARCHAR2(20) NOT NULL,
+mem_no NUMBER(10) NOT NULL);
+
+
+--시설예약 테이블 생성, 입력
+CREATE SEQUENCE SEQ_FAC_RES
+    START WITH 1
+    INCREMENT BY 1;
+
+CREATE TABLE FACILITY_RESERVATION(
+fac_res_no NUMBER(10) PRIMARY KEY,
+fac_no NUMBER(10) NOT NULL,
+start_date VARCHAR2(10) NOT NULL,
+end_date VARCHAR2(10) NOT NULL,
+pay_date VARCHAR2(50) default systimestamp NOT NULL,
+payment_amt VARCHAR2(50) NOT NULL,
+res_status VARCHAR2(20) NOT NULL,
+mem_no NUMBER(10) NOT NULL);
+
+
+--리뷰테이블 생성, 입력
+CREATE SEQUENCE SEQ_REVIEW
+    START WITH 1
+    INCREMENT BY 1;
+
+CREATE TABLE REVIEW(
+rev_no NUMBER(10) PRIMARY KEY,
+fac_res_no NUMBER(10) NOT NULL,
+category VARCHAR2(10) NOT NULL,
+score VARCHAR2(10) NULL,
+content VARCHAR2(1000) NULL,
+reply_content VARCHAR2(1000) NULL,
+rev_time VARCHAR2(50) default systimestamp NOT NULL,
+reply_time VARCHAR2(50) default systimestamp NOT NULL,
+mem_no NUMBER(10) NOT NULL);
+
+-- 윤성환
+
+
+-- 이우준
+
+-- 공통코드
+CREATE TABLE CODES (
+	category	    CHAR(3)	    NOT NULL,
+	category_name	VARCHAR(30)	NOT NULL,
+	code	        CHAR(2)	    NOT NULL,
+	code_name	    VARCHAR(30)	NOT NULL
+);
+/
+
+-- 박성준
+
