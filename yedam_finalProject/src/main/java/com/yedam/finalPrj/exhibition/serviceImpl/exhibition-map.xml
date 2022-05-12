@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.yedam.finalPrj.announcement.serviceImpl.AnnouncementMapper">
+	namespace="com.yedam.finalPrj.exhibition.serviceImpl.ExhibitionMapper">
 		
 	
 	
 	
 	
-	<select id="findOne" resultType="com.yedam.finalPrj.announcement.service.Announcement">
+	<select id="exFindOne" resultType="com.yedam.finalPrj.exhibition.service.Exhibition">
 		 SELECT * FROM EXHIBITION WHERE ex_no = #{exNo} 
 	</select>
 	
@@ -15,18 +15,18 @@
 	
 	
 			<!-- index 사용법이 애매해서 조금 더 봐야함. -->	
-	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.Announcement">
+	<select id="exFindAll" resultType="com.yedam.finalPrj.exhibition.service.Exhibition">
 			SELECT * FROM EXHIBITION 	          
 	</select>
 	
-	<insert id="insert" parameterType="com.yedam.finalPrj.announcement.service.Announcement">
+	<insert id="exInsert" parameterType="com.yedam.finalPrj.exhibition.service.Exhibition">
 	
 	INSERT INTO EXHIBITION(ex_no, name, )  
 	VALUES (ex_seq.nextval, )
 	</insert>
 	
-	<update id="update" parameterType="com.yedam.finalPrj.announcement.service.Announcement">
-		UPDATE EXHIBITION SET  //    WHERE EX_NO = #{exNo}
+	<update id="exUpdate" parameterType="com.yedam.finalPrj.exhibition.service.Exhibition">
+		
 	</update>
 	
 	<!-- 조회 -->	
@@ -34,7 +34,7 @@
 		UPDATE EXHIBITION SET ann_view = ann_view + 1 WHERE ANN_NO = #{annNo}
 	</update> -->
 	
-	<delete id="delete" parameterType="com.yedam.finalPrj.announcement.service.Announcement">
+	<delete id="exDelete" parameterType="com.yedam.finalPrj.exhibition.service.Exhibition">
 		
 	</delete>
 

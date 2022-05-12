@@ -11,7 +11,9 @@ public class Exhibition {
 	private int exNo;
 	private int memNo;
 	private String name;
+	private String showRoom;
 	private int price;
+	private String address;
 	private String thumbnail;
 	private String tel;
 	private Date startDate;

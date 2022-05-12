@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.exhibition.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,33 +14,37 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 
 	@Autowired ExhibitionMapper map;
 	
+	@Override
+	public List<Exhibition> exFindAll() {
+
+		return map.exFindAll();
+	}
+
+
+	
 	
 	@Override
-	public int findAll(Exhibition exhibition) {
-		return map.findAll(exhibition);
-	}
-	
-	
-	@Override
-	public Exhibition findOne(Exhibition exhibition) {
-		return map.findOne(exhibition);
+	public Exhibition exFindOne(Exhibition exhibition) {
+		return map.exFindOne(exhibition);
 	}
 
 
 	@Override
-	public int insert(Exhibition exhibition) {
-		return map.insert(exhibition);
+	public int exInsert(Exhibition exhibition) {
+		return map.exInsert(exhibition);
 	}
 
 	@Override
-	public int update(Exhibition exhibition) {
-		return map.update(exhibition);
+	public int exUpdate(Exhibition exhibition) {
+		return map.exUpdate(exhibition);
 	}
 
 	@Override
-	public int delete(Exhibition exhibition) {
-		return map.delete(exhibition);
+	public int exDelete(Exhibition exhibition) {
+		return map.exDelete(exhibition);
 	}
+
+
 
 
 

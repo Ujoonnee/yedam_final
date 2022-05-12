@@ -1,14 +1,12 @@
 package com.yedam.finalPrj.exhibition.service;
 
-
-
-
+import java.util.List;
 
 public interface ExhibitionService {
-	int findAll(Exhibition exhibition);
-	Exhibition findOne(Exhibition exhibition);
-	int insert(Exhibition exhibition);
-	int update(Exhibition exhibition);
-	int delete(Exhibition exhibition);
+	List<Exhibition> exFindAll();
+	Exhibition exFindOne(Exhibition exhibition);
+	int exInsert(Exhibition exhibition);
+	int exUpdate(Exhibition exhibition);
+	int exDelete(Exhibition exhibition);
 
 }
