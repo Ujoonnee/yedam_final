@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yedam.finalPrj.facility.serviceImpl.FacilityMapper;
-import com.yedam.finalPrj.memberLogin.vo.Member;
+import com.yedam.finalPrj.member.service.Member;
 
 @Controller //컨트롤러 빈으로 등록
 @RequestMapping("/facility/*")

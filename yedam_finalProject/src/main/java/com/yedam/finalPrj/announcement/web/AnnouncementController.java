@@ -19,12 +19,11 @@ public class AnnouncementController {
 	private AnnouncementService announcementService;
 	//전체조회
 	@GetMapping("/findAll")
-	public String FindAll(Model model) {
-		
-	model.addAttribute("announcements", announcementService.findAll());
-		System.out.println("값 : " + announcementService.findAll().get(1).getAnnouncementDate());
+	public String findAll(Model model) {
+		model.addAttribute("announcements", announcementService.findAll());
 		return "announcement/findAll";
 	}
+	
 	// ajax 부분으로 검색 X 페이지가 넘어간다 생각하고 화면에 새로 뿌려주는거로 생각할 것
 	//검색
 	@GetMapping("/searchList")
