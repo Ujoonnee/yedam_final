@@ -19,9 +19,9 @@
 					<th>매장 구분  </th>
 					<td><select id="st_cat" name="store_cat" >
 						<option value="0">전체</option>
-						<option value="1">편의점</option>
-						<option value="2">약국</option>
-						<option value="3">그 외</option>
+						<option value="편의점">편의점</option>
+						<option value="약국">약국</option>
+						<option value="기타">그 외</option>
 					</select></td>
 				</tr>
 				<tr>

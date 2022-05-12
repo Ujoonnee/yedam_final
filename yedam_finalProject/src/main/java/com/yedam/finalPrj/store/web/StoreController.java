@@ -34,7 +34,11 @@ public class StoreController {
 	@RequestMapping("/list")
 	public String list(Model model) {
 //		로그인한지 확인하는 session
-		dao.storeList();
+		
+//		storeList출력
+		model.addAttribute("storeList", dao.storeList());
+		
+		
 		return "store/storeList";
 	}
 	
