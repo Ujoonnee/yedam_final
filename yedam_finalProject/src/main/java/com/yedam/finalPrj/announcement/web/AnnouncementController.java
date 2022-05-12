@@ -64,7 +64,7 @@ public class AnnouncementController {
 		
 		model.addAttribute("announcement", announcementService.findOne(announcement));
 		
-		announcementService.viewUpdate(announcement.getAnnNo());
+		/* announcementService.viewUpdate(announcement.getAnnNo()); */
 		
 		return "announcement/findOne";
 		
