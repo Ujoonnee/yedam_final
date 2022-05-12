@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.finalPrj.memberLogin.service.MemberService;
-import com.yedam.finalPrj.memberLogin.vo.UserVO;
+import com.yedam.finalPrj.memberLogin.vo.Member;
 
 @Service  // service bean으로 등록.
 public class MemberServiceImpl implements MemberService {
@@ -17,10 +17,10 @@ public class MemberServiceImpl implements MemberService {
 	
 	//로그인 체크
 	@Override
-	public String loginCheck(UserVO vo, HttpSession session) {
-		String name = memberMapper.loginCheck_user(vo);
+	public String loginCheck(Member vo, HttpSession session) {
+		String name = memberMapper.loginCheck(vo);
 		if(name != null) { //세션변수저장.
-			session.setAttribute("userEmail", vo.getUserEmail());
+			session.setAttribute("email", vo.getEmail());
 			session.setAttribute("name", name);
 		}
 		return name;

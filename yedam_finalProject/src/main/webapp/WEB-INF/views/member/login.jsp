@@ -17,8 +17,8 @@
 	
 	<form  name="form1" method="post">
 		<sec:csrfInput/>
-		<input type="text" id="userid" name="userEmail" placeholder="아이디"><button type="button" id="btnLogin" >로그인</button><br>
-		<input type="text" id="passwd" name="userPw" placeholder="비밀번호">
+		<input type="text" id="email" name="email" placeholder="아이디"><button type="button" id="btnLogin" >로그인</button><br>
+		<input type="password" id="passwd" name="password" placeholder="비밀번호">
 		
 		<c:if test="${message =='error'}">
 			<div style="color:red;">아이디 또는 비밀번호가 일치하지 않습니다.</div>
@@ -35,12 +35,12 @@
 <script type="text/javascript">
 	$(function(){
 		$("#btnLogin").click(function(){
-			var userid=$("#userid").val();
+			var email=$("#email").val();
 			var passwd=$("#passwd").val();
 			
-			if(userid==""){
+			if(email==""){
 				alert("아이디를 입력하세요.");
-				$("#userid").focus;
+				$("#email").focus;
 				return;
 			}
 			if(passwd==""){
