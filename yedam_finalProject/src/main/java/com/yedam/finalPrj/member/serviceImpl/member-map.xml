@@ -30,7 +30,7 @@
 		INSERT INTO member<!-- (NVL2(#{member_serial}, MAX(#{member_serial}) + 
 			1 ,1) ,member_id,member_pw,member_name,member_birth,member_address,member_tel,member_email,member_account) -->
 		VALUES
-		(#{memNo},#{email},#{password},#{name},#{tel},#{buisnessNum},#{buisnessType},#{address},#{addressDetail},#{memType},#{status})
+		(#{memNo},#{email},#{name},#{password},#{address},#{addressDetail},#{tel},#{memType},#{buisnessNum},#{buisnessType},#{status})
 	</insert>
 	
 	

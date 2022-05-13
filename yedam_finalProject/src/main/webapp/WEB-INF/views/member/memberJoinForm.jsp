@@ -20,12 +20,12 @@
 					<tr>
 						<th>*ID</th>
 						<td id="user_id">
-						<input type="text" id="email" name="email"
-							required="required" placeholder="이메일을 입력하세요.">
+						<input type="text" id="email" 
+							required="required" placeholder="이메일을 입력하세요." value="test">
 						<span id="middle">@</span>
 						<input type="text" id="email_address" list="user_email_address">
 						<datalist id="user_email_address">
-							<option value="naver.com"></option>
+							<option value="naver.com" selected></option>
 							<option value="google.com"></option>
 							<option value="nate.com"></option>
 							<option value="직접입력"></option>
@@ -39,21 +39,21 @@
 					<tr>
 						<th>*비밀번호</th>
 						<td id="user_password"><input type="password" id="password"
-							name="userPw" onchange="isSame()" required="required"
-							placeholder="비밀번호를 입력하세요."></td>
+							name="password" onchange="isSame()" required="required"
+							placeholder="비밀번호를 입력하세요." value="111111"></td>
 					</tr>
 					<tr>
 						<th>*비밀번호확인</th>
 						<td id="user_passwordCheck"><input type="password"
 							id="password1" name="password1" onchange="isSame()"
-							required="required" placeholder="비밀번호를 확인하세요.">&nbsp;&nbsp;
+							required="required" placeholder="비밀번호를 확인하세요." value="111111">&nbsp;&nbsp;
 							<span id="pwSame"></span></td>
 					</tr>
 
 					<tr>
 						<th>*이름/업체명</th>
 						<td id="user_name"><input type="text" id="name" name="name"
-							required="required" placeholder="이름을 입력하세요."></td>
+							required="required" placeholder="이름을 입력하세요." value="test"></td>
 					</tr>
 					<!-- 
 					<tr>
@@ -67,12 +67,12 @@
 						<td id="user_tel">
 						<input type="tel1" list="member_tel" id="tel" name="tel" type="number" size="3" maxlength="3" class="input-num-size" required > -
 							<datalist id="member_tel">
-								<option value="010"></option>
+								<option value="010" selected></option>
 								<option value="011"></option>
 								<option value="직접입력"></option>
 							</datalist>
-						<input type="tel2" id="tel" name="tel" type="number" size="4" maxlength="4" class="input-num-size" required > -
-						<input type="tel3" id="tel" name="tel" type="number" size="4" maxlength="4" class="input-num-size" required >
+						<input type="tel2" id="tel" name="tel" type="number" size="4" maxlength="4" class="input-num-size" required value="1234"> -
+						<input type="tel3" id="tel" name="tel" type="number" size="4" maxlength="4" class="input-num-size" required value="5678">
 						</td>
 					</tr>
 					<!-- 
@@ -100,14 +100,14 @@
 					<tr>
 						<th>우편번호</th>
 						<td id="user_address">
-						<input type="text" name="zip" style="width: 80px;" />
+						<input type="text" name="zip" style="width: 80px;" value="111111"/>
 						<button type="button" style="width: 60px;"
 								onclick="openZipSearch()">검색</button></td>
 					</tr>
 					<tr>
 						<th>*주소</th>
 						<td>
-						<input type="text" id="addr1" name="address"	style="width: 300px;" readonly />
+						<input type="text" id="addr1" name="address"	style="width: 300px;" readonly value="test"/>
 						</td>
 					</tr>
 					<tr>
@@ -173,9 +173,10 @@
 		
 		function email() {
 			const email = $("#email").val();
-			const middle = $("#middel").html();
+			const middle = $("#middle").html();
 			const address = $("#email_address").val();
 			if(email != "" && address != "") {
+				alert(email + middle + address);
 				$("#totalemail").val(email + middle + address);
 			}
 		};
