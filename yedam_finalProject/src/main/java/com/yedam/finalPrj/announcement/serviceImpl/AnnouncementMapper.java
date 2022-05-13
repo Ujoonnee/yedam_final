@@ -7,11 +7,9 @@ import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 
 public interface AnnouncementMapper {
 	
-	Announcement findOne(Announcement announcement);
 	List<Announcement> findAll(AnnouncementPagingCriteria paging);
-	int insert(Announcement announcement);
-	int update(Announcement announcement);
-	int delete(Announcement announcement);
+	List<Announcement> getTopList();
+	Announcement findOne(Announcement announcement);
 	
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);
