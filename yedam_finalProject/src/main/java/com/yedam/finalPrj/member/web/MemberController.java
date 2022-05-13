@@ -1,6 +1,18 @@
 package com.yedam.finalPrj.member.web;
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
+import java.util.Properties;
+
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +48,46 @@ public class MemberController {
 		return "home/home";
 	}
 	
-	
+	// 이메일 인증
+	@PostMapping("/memberJoinCheck")
+	public String memberJoinCheck(String email, HttpServletRequest request, HttpServletResponse response) {
+		
+		//String recipient = request().get
+		
+		final String user = "ydteam4@gmail.com";
+		final String password = "1q2w3e!!";
+		
+		Properties prop = new Properties();
+		prop.put("mail.smtp.host", "stmp.gmail.com");
+		prop.put("mail.smtp.port", 465);
+		prop.put("mail.smtp.auth", "true");
+		prop.put("mail.smtp.ssl.enable", "true");
+		prop.put("mail.smtp,ssl.trust", "smtp.gmail.com");
+		
+		
+		Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
+			protected MemberController getMemberController() {
+				return new MemberController();
+			}
+		});
+		
+		
+		MimeMessage mail = new MimeMessage(session);
+		try {
+			mail.setSubject("[본인인증] MS : 본인인증 확인 메일입니다.", "UTF-8");
+			mail.setText("본인인증 확인메일입니다. 링크를 눌러 회원가입을 완료하세요.");
+			mail.addRecipient(RecipientType.TO, new InternetAddress(email));
+			
+			Transport.send(mail);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		Member member = new Member();
+		
+		String result = member.getEmail();
+		
+		return result;
+	}
 	
 	
 	// 조준우

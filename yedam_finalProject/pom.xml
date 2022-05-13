@@ -146,7 +146,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- tiles -->
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-extras -->
 		<dependency>
@@ -202,6 +202,27 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+
+
+
+		<!-- 회원가입 이메일 인증 -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+
+
+
+
+
 	</dependencies>
 	<build>
 		<plugins>
