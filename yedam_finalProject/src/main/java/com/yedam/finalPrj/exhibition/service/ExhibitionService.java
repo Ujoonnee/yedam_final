@@ -8,5 +8,4 @@ public interface ExhibitionService {
 	int exInsert(Exhibition exhibition);
 	int exUpdate(Exhibition exhibition);
 	int exDelete(Exhibition exhibition);
-
 }
