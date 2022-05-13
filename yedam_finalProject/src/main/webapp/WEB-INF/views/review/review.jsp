@@ -5,12 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
 
 <script src="resources/Editor/js/HuskyEZCreator.js"></script>
 
-
-<link rel="stylesheet" href="resources/css/notice_write.css">
 <style>
   #star a{
    text-decoration: none;
@@ -42,23 +39,33 @@
 <hr>
 에디터
 
+<form id="smartEditorText" name="smartEditorText" method="POST" action="review/rev_insert.do">
 	<div class="jsx-2303464893 editor">
 		<div class="fr-box fr-basic fr-top" role="application">
 			<div class="fr-wrapper show-placeholder" dir="auto"
 				style="overflow: scroll;">
-				<textarea name="notice_content" id="smartEditor"
+				<textarea name="content" id="smartEditor"
 					style="width: 100%; height: 412px;"></textarea>
 			</div>
 		</div>
 	</div>
+	<button type="button" id="savebutton" >전송</button>
+	</form>
 <hr>
-
 <script>
 $('#star a').click(function(){ 
 	 $(this).parent().children("a").removeClass("on");    
 	 $(this).addClass("on").prevAll("a").addClass("on");
 	 console.log($(this).attr("value"));
 });
+
+/* function submitContents(){
+	oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD",[]);
+} */
+
+
+
+
 </script>
 <!-- SmartEditor2 --> 
 <script type="text/javascript" src = "resources/js/notice-write.js"></script>

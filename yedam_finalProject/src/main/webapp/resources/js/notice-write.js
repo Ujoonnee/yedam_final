@@ -1,8 +1,7 @@
-var oEditors = []; 
-	nhn.husky.EZCreator.createInIFrame({
+var oEditors = []; nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors, 
 	elPlaceHolder: "smartEditor",
-	sSkinURI: "resources/Editor/SmartEditor2Skin.html",
+	sSkinURI: "Editor/SmartEditor2Skin.html",
 	fCreator: "createSEditor2", 
 	htParams: {
 		bUseToolbar: true,
@@ -34,6 +33,3 @@ $(function() {
 		}
 	});
 })
-
-
-

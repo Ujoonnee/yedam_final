@@ -1,4 +1,4 @@
-package com.yedam.finalPrj.facility.vo;
+package com.yedam.finalPrj.facility.service;
 
 import lombok.Data;
 
