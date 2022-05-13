@@ -13,4 +13,5 @@ public class Store {
 	private double longitude;
 	private String tel;
 	private String thumbnail;
+	private int store_cnt;
 }

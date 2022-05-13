@@ -37,92 +37,49 @@ WHERE (위도2 BETWEEN 위도1-0.019 AND 위도1+0.019)
 
     AND (경도2 BETWEEN 경도1-0.022 AND 경도1+0.022)
     
---매장 출력( 거리 가까운순으로 출력/페이징처리)
-SELECT
-    *
-FROM
-    (
-        SELECT
-            a.*,
-            ROWNUM rn
-        FROM
-            (
-                SELECT
-                    store_no,
-                    category,
-                    name,
-                    store_cat,
-                    address,
-                    latitude,
-                    longitude,
-                    tel,
-                    thumbnail,
-                    (
-                        SELECT
-                            get_distance(latitude, longitude, '30.8690794214', '128.5942180675')
-                        FROM
-                            store
-                        WHERE
-                            store.store_no = s.store_no
-                    ) AS distance
-                FROM
-                    store s
-                where name LIKE '%점%'
-                ORDER BY
-                    distance
-            ) a
-        WHERE
-            ROWNUM <= 4
-    ) b
-WHERE
-    rn > 0
---매장 출력(store,product join +검색(상품명,카테고리,매장이름)기능)
-SELECT
-    *
-FROM
-    (
-        SELECT
-            a.*,
-            ROWNUM rn
-        FROM
-            (
-                SELECT
-                    s.store_no,
-                    s.category,
-                    s.name,
-                    s.store_cat,
-                    s.address,
-                    s.latitude,
-                    s.longitude,
-                    s.tel,
-                    s.thumbnail,
-                    (
-                        SELECT
-                            get_distance(latitude, longitude, '30.8690794214', '128.5942180675')
-                        FROM
-                            store
-                        WHERE
-                            store.store_no = s.store_no
-                    ) AS distance,
-                    p.prod_name
-                FROM
-                    store    s,
-                    product  p
-                WHERE
-                    s.store_no = p.store_no
-                    and
-                     store_cat LIKE '%%'
-                    and
-                     name LIKE '%%'
-                    and
-                    prod_name LIKE '%%'
-                ORDER BY
-                    distance
-            ) a
-        WHERE
-            ROWNUM <= 4
-    ) b
-WHERE
-    rn > 0
 
- 
+ --처음 매장 목록 거리순으로 출력
+SELECT *
+FROM
+    (SELECT a.*,ROWNUM rn
+    FROM(
+        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance 
+        from store 
+        order by distance)a
+     WHERE ROWNUM <= 10
+    ) b
+WHERE rn > 0;
+
+--매장이름, 주소 검색에 따른 매장출력
+SELECT *
+FROM
+    (SELECT a.*,ROWNUM rn
+    FROM(
+        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+        from 
+             store 
+             where name LIKE '%%'
+             AND ADDRESS LIKE '%%'
+        order by distance)a
+     WHERE ROWNUM <= 4
+    ) b
+WHERE rn > 0;
+--상품명 검색에 따른 매장출력
+SELECT *
+FROM
+    (SELECT a.*,ROWNUM rn
+    FROM(
+         select s.store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+         from 
+               (select distinct store_no
+                from product
+                where prod_name LIKE '%에몽%') p
+            join store s
+            on p.store_no = s.store_no
+            order by distance)a
+     WHERE ROWNUM <= 1
+    ) b
+WHERE rn > 0
+
+
+         

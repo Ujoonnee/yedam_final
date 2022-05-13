@@ -17,26 +17,7 @@
 		<result property="thumbnail" column="thumbnail" />
 	</resultMap>
 
-	<sql id="StorePagingCriteria">
 
-		<!-- 상태사항이 Y일 경우. -->
-		<choose>
-			<!-- 매장명 검색 -->
-			<when test="type == 'name'">
-				and name LIKE ('%'||#{keyword}||'%')
-			</when>
-			<!-- 카테고리 검색 -->
-			<when test="type == 'store_cat'">
-				and store_cat LIKE ('%'||#{keyword}||'%')
-			</when>
-			<!-- 상품명 검색 -->
-			<when test="type == 'prod_name'">
-				and prod_name LIKE ('%'||#{keyword}||'%')
-			</when>
-
-		</choose>
-
-	</sql>
 	<!-- 서비스 등록 -->
 	<insert id="regist"
 		parameterType="com.yedam.finalPrj.store.service.Store">
@@ -50,59 +31,83 @@
 		#{store_no},#{category},#{name},#{store_cat},#{address},
 		#{latitude},#{longitude},#{tel},#{thumbnail},4)
 	</insert>
-
-	<select id="storeList"
+<!-- 매장 리스트 출력-->
+	<select id="storeList" 
 		resultType="com.yedam.finalPrj.store.service.Store">
-  	
-  		<![CDATA[
-  		SELECT
-    *
-FROM
-    (
-        SELECT
-            a.*,
-            ROWNUM rn
-        FROM
-            (
-               SELECT
-                   store_no,
-                   category,
-                   name,
-                   store_cat,
-                   address,
-                   latitude,
-                  longitude,
-                   tel,
-                   thumbnail,
-                   (
-                       SELECT
-                           get_distance(latitude, longitude, '30.8690794214', '128.5942180675')
-                       FROM
-                           store
-                       WHERE
-                           store.store_no = s.store_no
-                   ) AS distance
-               FROM
-                   store s
-               ORDER BY
-                   distance
-           ) a
-       WHERE
-           ROWNUM <= 4
-    ) b
-WHERE
-    rn > 0
-
+		<![CDATA[
+  		SELECT *
+		FROM
+		    (SELECT a.*,ROWNUM rn
+		    FROM(
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance 
+		        from store 
+		        order by distance)a
+		     WHERE ROWNUM <= #{pageNum} * #{amount}
+		    ) b
+		WHERE rn> (#{pageNum}-1) * #{amount}
   		]]>
-
 	</select>
-
-
+<!-- 매장 리스트 출력(카테고리검색)-->
+	<select id="searchaddress" resultType="com.yedam.finalPrj.store.service.Store">
+	<![CDATA[
+		SELECT *
+		FROM
+		    (SELECT a.*,ROWNUM rn
+		    FROM(
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+		        from 
+		             store 
+		             where store_cat LIKE]]> ('%'||#{keyword}||'%')'
+		             <![CDATA[
+		        order by distance)a
+		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn>]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 리스트 출력(매장이름)-->
+	<select id="searchName" resultType="com.yedam.finalPrj.store.service.Store" >
+		<![CDATA[
+		SELECT *
+		FROM
+		    (SELECT a.*,ROWNUM rn
+		    FROM(
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+		        from 
+		             store 
+		             where name LIKE]]> ('%'||#{keyword}||'%')'
+		             <![CDATA[
+		        order by distance)a
+		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn>]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 리스트 출력(상품명검색)-->
+	<select id="searchProduct" resultType="com.yedam.finalPrj.store.service.Store">
+		<![CDATA[
+		SELECT *
+FROM
+    (SELECT a.*,ROWNUM rn
+    FROM(
+         select s.store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+         from 
+               (select distinct store_no
+                from product
+                where prod_name LIKE]]> ('%'||#{keyword}||'%')
+		             <![CDATA[)p
+		             join store s
+		             on p.store_no = s.store_no
+		        order by distance)a
+		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[ ) b
+		WHERE rn >]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 개수 처리  -->
 	<select id="totalCnt" resultType="int">
+		<![CDATA[
 		SELECT count(*)
 		FROM store s
-		<include refid="StorePagingCriteria"></include>
-		and store_no > 0
+		where store_no > 0
+		]]>
 	</select>
 
 </mapper>
