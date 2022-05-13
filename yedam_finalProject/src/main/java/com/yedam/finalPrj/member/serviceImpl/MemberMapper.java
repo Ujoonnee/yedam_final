@@ -10,4 +10,6 @@ public interface MemberMapper {
 	int delete(Member vo);       // 삭제
 	
 	boolean idCheck(String str); // id중복체크
+	
+	public String loginCheck(Member vo);
 }
