@@ -2,8 +2,6 @@ package com.yedam.finalPrj.announcement.service;
 
 import java.util.List;
 
-
-
 public interface AnnouncementService {
 
 	Announcement findOne(Announcement announcement);

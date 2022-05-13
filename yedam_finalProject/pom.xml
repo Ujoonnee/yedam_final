@@ -146,7 +146,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- tiles -->
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-extras -->
 		<dependency>
@@ -202,6 +202,14 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- log4jdbc-remix -->
+		<dependency>
+			<groupId>org.lazyluke</groupId>
+			<artifactId>log4jdbc-remix</artifactId>
+			<version>0.2.7</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
