@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<form id="frm" name="frm" action="userJoin.do" method="post">
+<form id="frm" name="frm" action="memberJoin.do" method="post">
 		<h3>@@@@@회원가입@@@@@</h3>
 		
 		<div id="Join" align="left">
@@ -84,6 +84,12 @@
 					</tr>
 					 -->
 					<tr>
+						<th>사업분류</th>
+						<td>
+						
+						</td>
+					</tr> 
+					<tr>
 						<th>사업자등록번호</th>
 						<td id="member_buisness_num">
 						<input type="text" id="buisnessNum"
@@ -101,26 +107,26 @@
 					<tr>
 						<th>*주소</th>
 						<td>
-						<input type="text" name="addr1"	style="width: 300px;" readonly />
+						<input type="text" id="addr1" name="address"	style="width: 300px;" readonly />
 						</td>
 					</tr>
 					<tr>
 						<th>상세주소</th>
 						<td>
-						<input type="text" name="addr2"	style="width: 300px;" />
+						<input type="text" id="addr2" name="addr2"	style="width: 300px;" />
 						</td>
 					</tr>
 
 				</table>
 			</div>
 
-			<div id="btns">
-				<button type="submit" value="회원가입">회원가입</button>&nbsp;&nbsp;&nbsp;&nbsp;
-				<button type="button" onclick="history.back()">취소</button>
-			</div>
 		</div>
 	</form>
 
+			<div id="btns">
+				<button id="submitBtn">회원가입</button>&nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="button" onclick="history.back()">취소</button>
+			</div>
 
 	<script>
 		function isIdCheck() {
@@ -286,13 +292,19 @@
 			new daum.Postcode({
 				oncomplete : function(data) {
 					$('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
-					$('[name=addr1]').val(data.address);
-					$('[name=addr1]').val(data.address) + $('[name=addr2]').val(data.buildingName);
+					//document.getElementById('addr1').val() = data.address + data.buildingName
+					$('#addr1').val(data.address + ' ' + data.buildingName); 
+// 					$('[name=addr1]').val(data.address) + $('[name=addr2]').val(data.buildingName);
 				}
 			}).open();
 		}
 		
-		
+		$('#submitBtn').on('click', () => {
+			const addr = $('#addr1').val() + ' ' + $('#addr2').val();
+			$('#addr1').val(addr);
+			
+			document.getElementById('frm').submit();
+		})
 	</script>
 
 

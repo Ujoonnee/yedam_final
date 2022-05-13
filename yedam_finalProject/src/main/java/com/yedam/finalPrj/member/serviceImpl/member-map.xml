@@ -23,11 +23,11 @@
 		<selectKey keyProperty="memNo" resultType="int"
 			order="BEFORE">
 
-			SELECT CASE WHEN MAX(member_serial) IS NULL THEN 1
-			ELSE MAX(member_serial) + 1 END AS memNo
-			FROM member1
+			SELECT CASE WHEN MAX(mem_no) IS NULL THEN 1
+			ELSE MAX(mem_no) + 1 END AS memNo
+			FROM member
 		</selectKey>
-		INSERT INTO member1<!-- (NVL2(#{member_serial}, MAX(#{member_serial}) + 
+		INSERT INTO member<!-- (NVL2(#{member_serial}, MAX(#{member_serial}) + 
 			1 ,1) ,member_id,member_pw,member_name,member_birth,member_address,member_tel,member_email,member_account) -->
 		VALUES
 		(#{memNo},#{email},#{password},#{name},#{tel},#{buisnessNum},#{buisnessType},#{address},#{addressDetail},#{memType},#{status})
