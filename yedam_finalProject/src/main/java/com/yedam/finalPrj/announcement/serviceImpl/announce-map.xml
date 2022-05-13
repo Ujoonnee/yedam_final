@@ -2,31 +2,80 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.yedam.finalPrj.announcement.serviceImpl.AnnouncementMapper">
-		
 
-	<select id="searchList" resultType="com.yedam.finalPrj.announcement.service.Announcement">
+
+	<sql id="AnnouncementPagingCriteria">
 		<!-- 상태사항이 Y일 경우. -->
-		SELECT * FROM ANNOUNCEMENT WHERE ANNOUNCEMENT_STATUS='Y'
 		<choose>
 			<!-- 제목검색 -->
-			<when test="type !=null and type.equals('ANNOUNCEMENT_TITLE')">
-				AND ANNOUNCEMENT_TITLE LIKE('%'||#{keyword}||'%')
+			<when test="type == 'title'">
+				AND TITLE LIKE ('%'||#{keyword}||'%')
 			</when>
 			<!-- 내용 검색 -->
-			<when test="type !=null and type.equals('ANNOUNCEMENT_content')">
-				AND ANNOUNCEMENT_TITLE LIKE('%'||#{keyword}||'%')
+			<when test="type == 'annContent'">
+				AND ANN_CONTENT LIKE ('%'||#{keyword}||'%')
 			</when>
 		</choose>
-	</select>
-	
-	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.Announcement">
-		SELECT * FROM ANNOUNCEMENT
-	</select>
-	
-	<insert id="insert" parameterType="com.yedam.finalPrj.announcement.service.Announcement"></insert>
-	
-	<update id="update" parameterType="com.yedam.finalPrj.announcement.service.Announcement"></update>
-	
-	<delete id="delete" parameterType="com.yedam.finalPrj.announcement.service.Announcement"></delete>
+	</sql>
 
+
+	<select id="findOne"
+		resultType="com.yedam.finalPrj.announcement.service.Announcement">
+		SELECT * FROM ANNOUNCEMENT WHERE ANN_NO = #{annNo}
+	</select>
+
+
+
+
+	<!-- index 사용법이 애매해서 조금 더 봐야함. -->
+	<select id="findAll"
+		resultType="com.yedam.finalPrj.announcement.service.Announcement">
+		
+			SELECT ann_no, title, ann_clob, ann_date, ann_view,  status, ann_cnt
+			FROM	(SELECT rownum rn, ann_no,  title,  ann_clob,  ann_date,  ann_view, get_code_name(status) status, ann_cnt 
+				     FROM ANNOUNCEMENT
+				     WHERE status IN('00501', '00502')
+		<include refid="AnnouncementPagingCriteria"></include>
+		<![CDATA[
+		             AND  rownum <= #{pageNum} * #{amount}
+		             ORDER BY status desc, ann_date)
+			WHERE rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+
+	<insert id="insert"
+		parameterType="com.yedam.finalPrj.announcement.service.Announcement">
+
+		INSERT INTO ANNOUNCEMENT(ANN_no, TITLE, ANN_CONTENT, ANN_DATE, ANN_VIEW,
+		STATUS, ANN_CNT)
+		VALUES (ann_seq.nextval, #{title}, #{annContent}, #{annDate}, DEFAULT,
+		#{annView}, DEFAULT, 0)
+	</insert>
+
+	<update id="update"
+		parameterType="com.yedam.finalPrj.announcement.service.Announcement">
+		UPDATE ANNOUNCEMENT SET TITLE = #{title}, ANN_CONTENT =
+		#{annContent}, STATUS = #{status} WHERE ANN_NO = #{annNo}
+	</update>
+
+	<update id="updateView"
+		parameterType="com.yedam.finalPrj.announcement.service.Announcement">
+		UPDATE ANNOUNCEMENT SET ann_view = ann_view + 1 WHERE
+		ANN_NO = #{annNo}
+	</update>
+
+	<delete id="delete"
+		parameterType="com.yedam.finalPrj.announcement.service.Announcement">
+
+	</delete>
+
+
+
+	<select id="totalCnt" resultType="int">
+		SELECT count(*)
+		FROM ANNOUNCEMENT
+		where status in('00501','00502')
+		<include refid="AnnouncementPagingCriteria"></include>
+		and ANN_NO>0
+	</select>
 </mapper>
