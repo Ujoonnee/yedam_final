@@ -7,55 +7,85 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>공지사항 상세</title>
+	<title>전시 상세페이지</title>
 	<script src="resources/jQuery/jquery-3.4.1.min.js"></script>
+	   <style type="text/css">
+	   img{
+             width: 300px;
+             float:left
+         }
+         
+       </style>
 </head>
 <body>
-	<h1>공지사항 상세</h1>
+	<h1>전시 상세페이지</h1>
 	<hr>
 	<form id="frm" action="update" method="post">
 		<input name="seq" type="hidden" value="${exhibition.exNo}" />
-		<table border="1">
-			<tr>
-				<td bgcolor="" width="70">제목</td>
-				<td align="left"><input id="title" name="title" type="text"
-					value="${exhibition.title}" /></td>
-			</tr>
-			<tr>
-				<td bgcolor="">작성자</td>
-				<td align="left">관리자</td>
-			</tr>
-			<tr>
-				<td bgcolor="">내용</td>
-				<td><textarea style="width: 538px; height: 200px;"disabled><c:out value="${exhibition.annContent }"/></textarea></td> 
-			</tr>
-			<tr>
-				<td bgcolor="">등록일</td>
-				<td align="left"><fmt:formatDate value="${exhibition.startDate }" pattern="yyyy-MM-dd"/></td>
-			</tr>
-			<tr>
-				<td bgcolor="">조회수</td>
-				<td align="left">${exhibition. }</td>
-			</tr>
-			
-		</table>
+	<div>
+
+<dl>
+    <dd>
+        <p>
+            <a href=""><img src="resources/img/${exhibition.thumbnail}"/> </a>
+        </p>
+    </dd>
+   
+    <dl align="right" >
+        <ul style="list-style: none;">
+            <li>
+                <h3>${exhibition.name}</h3>
+      
+            </li><br>
+            <li>
+                <span>전시장</span><br>
+                <span>${exhibition.showRoom }</span>
+            </li><br>
+            <li>
+                <span>기간</span><br>
+                <span>${exhibition.startDate } : ${exhibition.endDate }</span>
+            </li><br>
+            
+            <li>
+                <span>전시장 주소</span><br>
+                <span>${exhibition.address }</span>
+            </li><br>
+        </ul>
+    </dl>
+</dl>
+<br>
+<hr>
+<h1></h1>    
+</div>
 	</form>
-	<button type="button" id="list" onclick="location.href='findAll'">글 목록</button>
+	<div align="right">
+	<button type="button" onclick="location.href='exFindAll'">글 목록</button>
+</div>
+<br>
+<h2>상세정보</h2>
+
+<div><p><span>${exhibition.detail}</span></p></div>
+<hr>
+<h1  align="center">리뷰 들어올 자리</h1>
+<div align="center">예약하기</div>
+<hr>
+<div>
+	<h1 align="center">예약 페이지</h1>
 	
+	
+	<label>관람일</label>
+	<div><input type="date"></div>
+	
+
+<!-- update형식으로 티켓 수량만 다음페이지에 넘기기. -->
+<!-- form태그 거슬려서 막아둠 -->
+<form onsubmit="return false">
+    <label>수량</label><br>
+    <input type=text name=amount value=0>
+    <input type=button value="+" onClick="javascript:this.form.amount.value++;">
+    <input type=button value="-" onClick="javascript:this.form.amount.value--;">
+    <br><br><input type="submit" value="결제하기">
+</form>
+</div>
 </body>
-<script type="text/javascript">
-		//글 목록
-		$('#list').click(function(e){
-			e.preventDefault();
-			var $form = $('<form></form>');
-			$form.attr('action','findAll');
-			$form.attr('method','get');
-			$form.appendTo('body');
-			
-			$form.append("<input type='hidden' name='pageNum' value='<c:out value='${cri.pageNum}'/>'>");
-			$form.append("<input type='hidden' name='amount' value='<c:out value='${cri.amount}'/>'>");
-			$form.submit();
-		});
-	});
-</script>
 </html>

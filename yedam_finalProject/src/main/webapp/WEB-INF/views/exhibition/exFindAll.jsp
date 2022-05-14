@@ -19,8 +19,8 @@
 			<c:forEach items="${exhibitions }" var="exh">
                 <li>
                 <figure>
-                <a href="http://naver.com">
-	                <img width="150" height="150" src="resources/img/${exh.thumbnail}.jpg">                
+                <a href="exFindOne?exNo=${exh.exNo}">
+	                <img width="150" height="150" src="resources/img/${exh.thumbnail}">                
 	                   <figcaption>
 	                           <span>${exh.name }</span><br>
 	                           <span>${exh.showRoom }</span>

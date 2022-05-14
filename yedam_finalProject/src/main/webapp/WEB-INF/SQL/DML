@@ -69,6 +69,10 @@ INSERT INTO REVIEW VALUES(SEQ_REVIEW.NEXTVAL, '1', '시설', '2', '시설BAD', '
 SELECT * FROM REVIEW;
 
 -- 윤성환
+공지사항 더미
+--상단고정
+insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status, ann_cnt)  values (ann_seq.nextval, '상단고정'||'제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 00502, DEFAULT, 0);
+
 
 
 -- 이우준

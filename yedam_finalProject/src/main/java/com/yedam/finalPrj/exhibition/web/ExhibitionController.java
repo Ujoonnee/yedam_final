@@ -16,66 +16,61 @@ import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 
 @Controller
 public class ExhibitionController {
-	
+
 	@Autowired
 	private ExhibitionService exhibitionService;
-	
-	//목록
+
+	// 목록
 	@GetMapping("/exFindAll")
 	public String FindAll(Model model) {
-	List<Exhibition> exhibition = exhibitionService.exFindAll();
-	//model에 정보 저장.
+		List<Exhibition> exhibition = exhibitionService.exFindAll();
+		// model에 정보 저장.
 
-	//전체조회
-	model.addAttribute("exhibitions", exhibition);
-	
+		// 전체조회
+		model.addAttribute("exhibitions", exhibition);
+
 		return "exhibition/exFindAll";
 	}
-	
-	//등록
-	@PostMapping(value="/exInsert")
+
+	// 등록
+	@PostMapping(value = "/exInsert")
 	public String insert(Exhibition exhibition) throws IOException {
-			
+
 		exhibitionService.exInsert(exhibition);
-		
-			return "redirect:exFindAll";
+
+		return "redirect:exFindAll";
 	}
-	
-	//등록하는 페이지
+
+	// 등록하는 페이지
 	@RequestMapping("/exInsertPage")
 	public String insertPage() {
-			
+
 		return "exhibition/exInsertPage";
 	}
-	
-	//상세페이지
+
+	// 상세페이지
 	@RequestMapping("/exFindOne")
-	public String findOne(Exhibition exhibition, Model model){
-		
-		
-		
-		
-		model.addAttribute("exhibitions", exhibitionService.exFindOne(exhibition));
-		
+	public String findOne(Exhibition exhibition, Model model) {
+
+		model.addAttribute("exhibition", exhibitionService.exFindOne(exhibition));
+
 		return "exhibition/exFindOne";
-		
+
 	}
-	//수정
+
+
+	// 수정
 	/*
 	 * @RequestMapping("/update") public String
 	 * update(@ModelAttribute("exhibitions") Exhibition exhibition) {
 	 * 
 	 * return "redirect:findAll"; }
 	 */
-	//수정페이지 
+	// 수정페이지
 	/*
 	 * @RequestMapping("/updatePage") public String updatePage() {
 	 * 
 	 * return "exhibition/updatePage"; }
 	 */
 
-		
 }
-
-
-
