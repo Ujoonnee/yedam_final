@@ -73,32 +73,7 @@ SELECT * FROM REVIEW;
 --상단고정
 insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status, ann_cnt)  values (ann_seq.nextval, '상단고정'||'제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 00502, DEFAULT, 0);
 
---공개/비공개
-BEGIN
-FOR i IN 1..50 LOOP
-insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status, ann_cnt)  values (ann_seq.nextval, '제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 00501, DEFAULT, 0);
-insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status, ann_cnt)  values (ann_seq.nextval, '제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 00503, DEFAULT, 0);
-END LOOP;
-END;
 
-전시 더미 > 한페이지에 8장
-BEGIN
-FOR i IN 1..8 LOOP
-insert into exhibition values(ex_seq.nextval, ex_seq.nextval, '전시명'||ex_seq.nextval, 
-'전시장'||ex_seq.nextval, 1||ex_seq.nextval||000, 'ex'||ex_seq.nextval||'.jpg', 
-'010-'||ceil(dbms_random.value(1000,9999))||'-'||ceil(dbms_random.value(1000,9999)),
-'주소'||ex_seq.nextval,
-sysdate, sysdate,'내용'||EX_SEQ.nextval,'00202','00403');
-END LOOP;
-END;
-
-전시 예약 더미
-BEGIN
-FOR i IN 1..10 LOOP
-insert into EXHIBITION_RESERVATION values(ex_res_seq.nextval, ex_res_seq.nextval, '2022'|| ceil(dbms_random.value(1,12))||ceil(dbms_random.value(1,31)), ceil(dbms_random.value(1,9)), ceil(dbms_random.value(10000,90000)),'00202', 'N');
-insert into EXHIBITION_RESERVATION values(ex_res_seq.nextval, ex_res_seq.nextval, '2022'||ceil(dbms_random.value(1,12))||ceil(dbms_random.value(1,31)), ceil(dbms_random.value(1,9)),ceil(dbms_random.value(10000,90000)),'00202', 'Y');
-END LOOP;
-END;
 
 -- 이우준
 
