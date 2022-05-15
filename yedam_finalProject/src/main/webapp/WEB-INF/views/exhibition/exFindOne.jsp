@@ -34,16 +34,17 @@
     <dl align="right" >
         <ul style="list-style: none;">
             <li>
-                <h3>${exhibition.name}</h3>
+                <h3>${exhibition.exName}</h3>
       
             </li><br>
             <li>
                 <span>전시장</span><br>
                 <span>${exhibition.showRoom }</span>
             </li><br>
+            
             <li>
                 <span>기간</span><br>
-                <span>${exhibition.startDate } : ${exhibition.endDate }</span>
+                <span>${exhibition.startDate } ~ ${exhibition.endDate }</span>
             </li><br>
             
             <li>
@@ -79,13 +80,14 @@
 
 <!-- update형식으로 티켓 수량만 다음페이지에 넘기기. -->
 <!-- form태그 거슬려서 막아둠 -->
-<form onsubmit="return false">
+<form action="exResAmtUpdate">
     <label>수량</label><br>
     <input type=text name=amount value=0>
     <input type=button value="+" onClick="javascript:this.form.amount.value++;">
     <input type=button value="-" onClick="javascript:this.form.amount.value--;">
-    <br><br><input type="submit" value="결제하기">
+    <br><br><input type="submit" value="결제하기" onclick="location.href='exResFindOne?exResNo=${ExResMem.exResNo }'">
 </form>
+		<input name="resNo" type="hidden" value="${ExResMem.exResNo}" />
 </div>
 </body>
 </html>

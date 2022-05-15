@@ -8,4 +8,11 @@ public interface ExhibitionService {
 	int exInsert(Exhibition exhibition);
 	int exUpdate(Exhibition exhibition);
 	int exDelete(Exhibition exhibition);
+	
+	//join 결과물 담아놓은 List
+	//예약
+	List<ExResMem> resFindAll();
+	ExResMem exResFindOne(ExResMem exresmem);
+	int exResUpdate(ExResMem exresmem);
+	int exResAmtUpdate(ExResMem exresmem);
 }

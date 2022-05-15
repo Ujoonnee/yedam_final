@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yedam.finalPrj.announcement.service.Announcement;
+import com.yedam.finalPrj.exhibition.service.ExResMem;
 import com.yedam.finalPrj.exhibition.service.Exhibition;
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 
 @Controller
+//디렉토리 찾아주는거 아직까진 필요하진 않고 정확하게 몰라서 막아둠 
+//@RequestMapping("/exhibition/*")
 public class ExhibitionController {
 
 	@Autowired
@@ -50,23 +53,41 @@ public class ExhibitionController {
 
 	// 상세페이지
 	@RequestMapping("/exFindOne")
-	public String findOne(Exhibition exhibition, Model model) {
+	public String findOne(Exhibition exhibition,ExResMem exresmem,Model model) {
 
 		model.addAttribute("exhibition", exhibitionService.exFindOne(exhibition));
-
+		model.addAttribute("exresmem", exhibitionService.exResFindOne(exresmem));
 		return "exhibition/exFindOne";
 
 	}
-
+	
+	@RequestMapping("/exResFindAll")
+	public String exresFindAll(Model model) {
+		List<ExResMem> exresmem = exhibitionService.resFindAll();
+		
+		model.addAttribute("exresmems", exresmem);
+		return "exhibition/exResFindAll";
+	}
+	
+	@RequestMapping("/exResFindOne")
+	public String exresFindOne(ExResMem exresmem, Model model) {
+		
+		model.addAttribute("exresmem", exhibitionService.exResFindOne(exresmem));
+		return "exhibition/exResFindOne";
+	}
 
 	// 수정
-	/*
-	 * @RequestMapping("/update") public String
-	 * update(@ModelAttribute("exhibitions") Exhibition exhibition) {
-	 * 
-	 * return "redirect:findAll"; }
-	 */
+
+	@RequestMapping("/exResAmtUpdate") 
+	public String  exResAmtUpdate(@ModelAttribute("exresmem") ExResMem exresmem) {
+		  
+		  exhibitionService.exResAmtUpdate(exresmem);
+		  
+	 return "redirect:findAll"; 
+	 }
+	 
 	// 수정페이지
+	
 	/*
 	 * @RequestMapping("/updatePage") public String updatePage() {
 	 * 
