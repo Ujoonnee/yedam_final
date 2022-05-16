@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.finalPrj.store.service.Product;
 import com.yedam.finalPrj.store.service.Store;
 import com.yedam.finalPrj.store.service.StorePagingCriteria;
 import com.yedam.finalPrj.store.service.StoreService;
@@ -25,12 +24,7 @@ public class StoreServiceImpl implements StoreService{
 		// TODO Auto-generated method stub
 		return map.storeList(cri);
 	}
-//	매장접근(상품목록)
-	@Override
-	public List<Product> selectOne(String storeNo) {
-		// TODO Auto-generated method stub
-		return map.selectOne(storeNo);
-	}
+
 //	매장 개수 출력
 	@Override
 	public int totalCnt() {
@@ -55,5 +49,21 @@ public class StoreServiceImpl implements StoreService{
 		// TODO Auto-generated method stub
 		return map.searchaddress(cri);
 	}
+	@Override
+	public int totalNameCnt(StorePagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.totalNameCnt(cri);
+	}
+	@Override
+	public int totalCatCnt(StorePagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.totalCatCnt(cri);
+	}
+	@Override
+	public int totalProdCnt(StorePagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.totalProdCnt(cri);
+	}
+
 
 }
