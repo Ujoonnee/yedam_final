@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.finalPrj.exhibition.service.ExResMem;
 import com.yedam.finalPrj.exhibition.service.Exhibition;
+import com.yedam.finalPrj.exhibition.service.ExhibitionReservation;
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 
 @Service("ExhibitionService")
@@ -39,6 +41,36 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public int exDelete(Exhibition exhibition) {
 		return map.exDelete(exhibition);
 	}
+
+	@Override
+	public List<ExResMem> resFindAll() {
+		return map.exResFindAll();
+	}
+
+	@Override
+	public ExResMem exResFindOne(ExResMem exresmem) {
+		return map.exResFindOne(exresmem);
+	}
+
+	@Override
+	public int exResUpdate(ExResMem exresmem) {
+		return map.exResUpdate(exresmem);
+	}
+
+	@Override
+	public int exResAmtUpdate(ExResMem exresmem) {
+		return map.exResAmtUpdate(exresmem);
+	}
+
+	@Override
+	public List<ExhibitionReservation> exResFindAllGu() {
+		return map.exResFindAllGu();
+	}
+	
+
+
+
+
 
 
 }

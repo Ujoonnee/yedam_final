@@ -1,17 +1,22 @@
 package com.yedam.finalPrj.exhibition.service;
 
+import java.sql.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class ExhibitionReservation {
+@Setter
+public class ExResMem {
 	int exResNo;
-	int exNo;
-	String name;
 	String exDate;
-	int amount;
-	int paymentAmt;
 	String category;
-	String status;
+	String memName;
+	String name;
+	Date startDate;
+	Date endDate;
+	int amount;
+	String buisnessNum;
+	int paymentAmt;
+	
 }

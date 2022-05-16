@@ -9,16 +9,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>예약정보확인</h1>
+<h1>예약페이지</h1>
 	<hr>
 		<div>
 			<table>
 	            <ul>
-		            <li>${er.exDate }</li><br>
-					<li>${ex.name }</li><br>
-					<li>${ex.category }</li><br>			
-					<li>${mem.name }</li><br>
-					<li>${er.amount }</li><br>
+		            <li>${exresmem.exDate }</li><br>
+					<li>${exresmem.name }</li><br>
+					<li>${exresmem.category }</li><br>			
+					<li>${exresmem.memName }</li><br>
+					<li>${exresmem.startDate }</li><br>
+					<li>${exresmem.endDate }</li><br>
+					<li>${exresmem.buisnessNum }</li><br>
+					<li>${exresmem.amount }</li><br>
+					<li>${exresmem.paymentAmt }</li><hr>
 	           </ul>
 	     	</table>
 		</div>
