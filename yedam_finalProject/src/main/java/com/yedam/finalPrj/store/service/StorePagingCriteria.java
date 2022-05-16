@@ -17,5 +17,4 @@ public class StorePagingCriteria {
 		private String latitude;
 		private String longitude;
 		
-		
 }
