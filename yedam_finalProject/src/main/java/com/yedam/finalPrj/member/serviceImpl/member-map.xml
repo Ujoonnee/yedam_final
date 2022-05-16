@@ -16,6 +16,14 @@
 		<result property="memType" column="mem_type" />
 		<result property="status" column="status" />
 	</resultMap>
+	
+	<select id="findAll">
+		SELECT * FROM member
+	</select>
+	
+	<select id="findOne">
+		SELECT * FROM member WHERE mem_no=#{memNo}
+	</select>
 
 <!-- 	이홍제 -->
 	<insert id="insert"
