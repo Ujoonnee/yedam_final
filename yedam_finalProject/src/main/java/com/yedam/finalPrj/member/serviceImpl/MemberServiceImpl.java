@@ -29,6 +29,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int insert(Member vo) {
 		// TODO Auto-generated method stub
+		System.out.println("check"+vo.getName());
 		return map.insert(vo);
 	}
 
