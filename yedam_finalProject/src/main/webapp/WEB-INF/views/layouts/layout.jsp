@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<style>
+	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+	body {font-family: 'Jeju Gothic', sans-serif;}
+</style>
 <title> <tiles:getAsString name="title"/> </title>
 </head>
 <body>

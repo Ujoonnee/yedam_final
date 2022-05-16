@@ -70,6 +70,9 @@ CREATE TABLE show_reservation (
     payment     VARCHAR2(20)    NOT NULL,
     status      VARCHAR2(30)    NOT NULL
     );
+    
+ALTER TABLE show_reservation
+ADD show_no NUMBER(10) CONSTRAINT show_no_fk REFERENCES show(show_no);
 
 -- 공연예약번호 시퀀스 생성
 CREATE SEQUENCE show_res_seq
@@ -138,7 +141,96 @@ reply_time VARCHAR2(50) default systimestamp NOT NULL,
 mem_no NUMBER(10) NOT NULL);
 
 -- 윤성환
+--공지사항
 
+--테이블 생성
+CREATE TABLE ANNOUNCEMENT
+(ANN_NO NUMBER(5), 
+title VARCHAR2(90) NOT NULL,
+ann_content CLOB,
+ann_date DATE,
+ann_view NUMBER(10) default 0,
+status varchar2(10) default '00501',
+ann_cnt number 
+);
+
+--공지사항 pk 인덱스명 지정
+alter table ANNOUNCEMENT add constraint pk_ann_no primary key (ann_no);
+
+--시퀀스
+CREATE SEQUENCE ann_seq;
+
+--테이블 및 시퀀스 삭제
+--drop table announcement;
+--drop SEQUENCE ann_seq;
+SELECT * FROM announcement;
+commit;
+
+--첨부파일
+
+--테이블 생성
+CREATE TABLE ATTACHED_FILE 
+(
+file_no number(10) primary key,
+ann_no number(5),
+original_name varchar2(50) NOT NULL,
+replaced_name varchar2(50) NOT NULL,
+file_size number(10) NOT NULL
+);
+
+--시퀀스 생성
+CREATE SEQUENCE file_seq;
+
+--테이블 및 시퀀스 삭제
+--drop table ATTACHED_FILE;
+--drop SEQUENCE file_seq;
+commit;
+--전시
+--테이블 생성
+create table EXHIBITION 
+(
+ex_no NUMBER(5) primary key,
+mem_no NUMBER(10),
+name VARCHAR2(100) NOT NULL,
+show_room VARCHAR2(100) NOT NULL,
+price NUMBER(10) NOT NULL,
+thumbnail VARCHAR2(100),
+tel VARCHAR2(20),
+address VARCHAR2(50),
+start_date DATE NOT NULL,
+end_date DATE NOT NULL,
+detail CLOB NOT NULL,
+category VARCHAR2(10) NOT NULL,
+approval_status VARCHAR2(10) NOT NULL
+);
+
+--시퀀스 생성
+create sequence ex_seq;
+
+--테이블 및 시퀀스 삭제
+--drop table exhibition;
+--drop sequence ex_seq; 
+commit;
+--전시예약
+--테이블 생성
+create table EXHIBITION_RESERVATION
+(
+ex_res_no NUMBER(10) primary key,
+ex_no NUMBER(5),
+ex_date VARCHAR2(30),
+amount NUMBER(10) NOT NULL,
+payment_amt NUMBER(20) NOT NULL,
+category VARCHAR2(20) NOT NULL,
+status VARCHAR2(10) default 'N' NOT NULL 
+);
+
+--시퀀스 생성
+create sequence ex_res_seq;
+
+--테이블 및 시퀀스 삭제
+--drop table exhibition;
+--drop sequence ex_res_seq;
+commit;
 
 -- 이우준
 
@@ -152,4 +244,42 @@ CREATE TABLE CODES (
 /
 
 -- 박성준
+create table store (
+    store_no NUMBER(10) PRIMARY KEY,
+    category VARCHAR2(10) NOT NULL,
+    name VARCHAR2(30) NOT NULL,
+    store_cat VARCHAR2(20),
+    address VARCHAR2(70) NOT NULL,
+    tel VARCHAR2(30) NOT NULL,
+    thumbnail VARCHAR2(70),
+    mem_no NUMBER(10) NOT NULL
+)
 
+create table product(
+    prod_no     NUMBER(13) ,
+    store_no    NUMBER(10) NOT NULL,
+    prod_name   VARCHAR2(30) NOT NULL,
+    stock       NUMBER(10) ,
+    sold_out    VARCHAR2(1) DEFAULT 'N' ,
+    price       VARCHAR2(30) NOT NULL,
+    constraint product_pk primary key(prod_no,store_no)
+)
+
+drop table product;
+create table product_reservation(
+    prod_res_no     NUMBER(13)  PRIMARY KEY,
+    store_no        NUMBER(10)  NOT NULL,
+    mem_no          NUMBER(10)  NOT NULL,
+    pickup_time     DATE,
+    pickup_date     DATE,
+    payment_amt     VARCHAR2(30),
+    payment_status  VARCHAR2(20),
+    order_date      DATE DEFAULT SYSDATE
+)
+
+create table reserved_goods(
+    prod_res_no NUMBER(13) PRIMARY KEY,
+    store_no3   NUMBER(10)  NOT NULL,
+    prod_no2    NUMBER(13)  NOT NULL,
+    count       NUMBER(10)  NOT NULL
+)

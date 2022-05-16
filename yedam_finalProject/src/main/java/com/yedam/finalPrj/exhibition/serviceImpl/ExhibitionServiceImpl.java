@@ -8,26 +8,22 @@ import org.springframework.stereotype.Service;
 import com.yedam.finalPrj.exhibition.service.Exhibition;
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 
-
 @Service("ExhibitionService")
 public class ExhibitionServiceImpl implements ExhibitionService {
 
-	@Autowired ExhibitionMapper map;
-	
+	@Autowired
+	ExhibitionMapper map;
+
 	@Override
 	public List<Exhibition> exFindAll() {
 
 		return map.exFindAll();
 	}
 
-
-	
-	
 	@Override
 	public Exhibition exFindOne(Exhibition exhibition) {
 		return map.exFindOne(exhibition);
 	}
-
 
 	@Override
 	public int exInsert(Exhibition exhibition) {
@@ -43,15 +39,6 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public int exDelete(Exhibition exhibition) {
 		return map.exDelete(exhibition);
 	}
-
-
-
-
-
-
-
-
-
 
 
 }

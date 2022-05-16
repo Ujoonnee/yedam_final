@@ -16,4 +16,6 @@ public class Member {
    private String buisnessNum;
    private String buisnessType;
    private String status;
+   
+   
 }

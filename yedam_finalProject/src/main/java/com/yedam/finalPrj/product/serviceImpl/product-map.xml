@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.yedam.finalPrj.product.serviceImpl.product-map">
+	<resultMap type="com.yedam.finalPrj.product.service.Product"
+		id="product">
+		<id property="prodNo" column="PROD_NO" />
+		<result property="storeNo" column="STORE_NO" />
+		<result property="prodName" column="PROD_NAME" />
+		<result property="stock" column="STOCK" />
+		<result property="soldOut" column="SOLD_OUT" />
+		<result property="price" column="PRICE" />
+		<result property="prodThumbnail" column="PROD_THUMBNAIL" />
+	</resultMap>
+	
+	<!-- 매장 입장(상품출력) -->
+	<select id = "selectOne" resultType="com.yedam.finalPrj.product.service.Product"  >
+		SELECT * 
+		FROM
+			 (SELECT a.*, ROWNUM rn
+			 FROM(
+			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.sold_out,p.price
+				from product p, store s 
+				where s.store_no = p.store_no
+				and s.store_no like #{store_no} 
+				) a where ROWNUM<![CDATA[ <=]]> 
+				#{pageNum} * #{amount} 
+				) b
+			where rn > (#{pageNum}-1) * #{amount}
+	</select>
+	
+	
+	
+<!-- 	상품갯수 -->
+	<select id = "ProcutCnt" resultType="int">
+		select count(*)
+		from product p
+		where store_no like #{store_no}
+	</select>
+</mapper>

@@ -1,11 +1,10 @@
-package com.yedam.finalPrj.facility.vo;
+package com.yedam.finalPrj.facility.service;
 
 import lombok.Data;
 
 @Data
 public class Facility {
 	
-
 	private int facNo;
 	private String name;
 	private String category;
@@ -19,6 +18,6 @@ public class Facility {
 	private String address;
 	private String detail;
 	private String approval;
-	private String memNo;
-	
+	private int memNo;
+
 }

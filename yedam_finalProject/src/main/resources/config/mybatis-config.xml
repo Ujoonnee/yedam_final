@@ -8,5 +8,7 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	
-	
+	<typeAliases>
+		<typeAlias type="com.yedam.finalPrj.announcement.service.Announcement" alias="Announcement"/>
+	</typeAliases>
 </configuration>
