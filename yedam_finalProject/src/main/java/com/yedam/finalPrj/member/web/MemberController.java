@@ -37,7 +37,8 @@ public class MemberController {
 	// 이홍제
 	@Autowired MemberService memberService;
 	
-	@Autowired private EmailSender emailSender;
+	
+	// @Autowired private EmailSender emailSender;
 	
 	@RequestMapping("/memberJoinForm")
 	public String memberJoinForm() {
@@ -53,16 +54,16 @@ public class MemberController {
 	}
 	
 	// 이메일 인증
-	@RequestMapping("/memberJoinCheck")
-	public void sendEmailAction() throws Exception{
-		MemberEmail email = new MemberEmail();
-		email.setReceiver("dlghdwp2297@gmail.com");
-		email.setContent("내용");
-		email.setSubject("제목");
-		
-		emailSender.SendEamil(email);
-		
-	}
+	/*
+	 * @RequestMapping("/memberJoinCheck") public void sendEmailAction() throws
+	 * Exception{ MemberEmail email = new MemberEmail();
+	 * email.setReceiver("dlghdwp2297@gmail.com"); email.setContent("내용");
+	 * email.setSubject("제목");
+	 * 
+	 * emailSender.sendEamil(email);
+	 * 
+	 * }
+	 */
 	
 	
 	/*

@@ -1,6 +1,8 @@
 package com.yedam.finalPrj.show;
 
-import java.util.Date;
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -14,8 +16,12 @@ public class Show {
 	private String tel;
 	private String address;
 	private String detail;
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Date startDate;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Date endDate;
+	
 	private String seatRow;
 	private String seatCol;
 	private String category;

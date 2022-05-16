@@ -3,44 +3,45 @@ package com.yedam.finalPrj.show.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.yedam.finalPrj.show.Show;
 import com.yedam.finalPrj.show.service.ShowService;
 
+@Service
 public class ShowServiceImpl implements ShowService {
 	
 	@Autowired
 	ShowMapper map;
 	
-	
 	@Override
-	public List<Show> findAll() {
+	public List<Show> showFindAll() {
 		// TODO Auto-generated method stub
-		return map.findAll();
+		return map.showFindAll();
 	}
 
 	@Override
-	public Show findOne(Show show) {
+	public Show showFindOne(Show show) {
 		// TODO Auto-generated method stub
-		return map.findOne(show);
+		return map.showFindOne(show);
 	}
 
 	@Override
-	public int insert(Show show) {
+	public int showInsert(Show show) {
 		// TODO Auto-generated method stub
-		return map.insert(show);
+		return map.showInsert(show);
 	}
 
 	@Override
-	public int update(Show show) {
+	public int showUpdate(Show show) {
 		// TODO Auto-generated method stub
-		return map.update(show);
+		return map.showUpdate(show);
 	}
 
 	@Override
-	public int delete(Show show) {
+	public int showDelete(Show show) {
 		// TODO Auto-generated method stub
-		return map.delete(show);
+		return map.showDelete(show);
 	}
 
 }

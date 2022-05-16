@@ -5,9 +5,9 @@ import java.util.List;
 import com.yedam.finalPrj.show.Show;
 
 public interface ShowService {
-	List<Show> findAll();
-	Show findOne(Show show);
-	int insert(Show show);
-	int update(Show show);
-	int delete(Show show);
+	List<Show> showFindAll();
+	Show showFindOne(Show show);
+	int showInsert(Show show);
+	int showUpdate(Show show);
+	int showDelete(Show show);
 }
