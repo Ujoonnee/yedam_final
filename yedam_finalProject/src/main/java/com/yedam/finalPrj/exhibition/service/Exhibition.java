@@ -21,4 +21,5 @@ public class Exhibition {
 	private String detail;
 	private String category;
 	private String approvalStatus;
+	
 }

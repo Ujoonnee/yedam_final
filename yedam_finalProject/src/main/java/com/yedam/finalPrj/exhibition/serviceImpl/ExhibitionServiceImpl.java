@@ -66,6 +66,16 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public List<ExhibitionReservation> exResFindAllGu() {
 		return map.exResFindAllGu();
 	}
+
+	@Override
+	public List<Exhibition> exResFindAllBm() {
+		return map.exResFindAllBm();
+	}
+
+	@Override
+	public ExResMem resConfirmGu(ExResMem exResMem) {
+		return map.resConfirmGu(exResMem);
+	}
 	
 
 

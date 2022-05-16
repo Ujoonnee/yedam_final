@@ -19,4 +19,7 @@ public interface ExhibitionMapper {
 	int exResUpdate(ExResMem exresmem);
 	int exResAmtUpdate(ExResMem exresmem);
 	List<ExhibitionReservation> exResFindAllGu();
+	List<Exhibition> exResFindAllBm();
+	
+	ExResMem resConfirmGu(ExResMem exResMem);
 }

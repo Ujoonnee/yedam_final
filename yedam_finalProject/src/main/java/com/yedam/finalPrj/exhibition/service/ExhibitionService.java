@@ -18,4 +18,7 @@ public interface ExhibitionService {
 	
 	//일반사용자 마이페이지
 	List<ExhibitionReservation> exResFindAllGu();
+	List<Exhibition> exResFindAllBm();
+	
+	ExResMem resConfirmGu(ExResMem exResMem);
 }

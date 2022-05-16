@@ -77,9 +77,9 @@ public class ExhibitionController {
 		//회원
 		Member mem = new Member();
 		
+		
 		model.addAttribute("ex", exhibitionService.exFindOne(ex));
 //		model.addAttribute("mem", memberService.findOne(mem));
-		
 		model.addAttribute("er", er);
 		
 		return "exhibition/resConfirm";
@@ -102,7 +102,7 @@ public class ExhibitionController {
 	  }
 	 
 
-	// 수정
+	// 미구현수정
 
 	@RequestMapping("/exResAmtUpdate") 
 	public String  exResAmtUpdate(@ModelAttribute("exresmem") ExResMem exresmem) {
@@ -111,7 +111,7 @@ public class ExhibitionController {
 		  
 	 return "redirect:exResFindOne"; 
 	 }
-	//회원 예약 정보 페이지.
+	//전시 회원 예약 목록 페이지.
 	@GetMapping("/exResFindAllGu")
 	public String ExResFindAllGu(Model model) {
 		
@@ -124,6 +124,23 @@ public class ExhibitionController {
 	}
 	
 	
+	//전시 : 사업자 예약 목록 페이지
+	@RequestMapping("/exResFindAllBm")
+	public String exResFindAllBm(Model model) {
+		List<Exhibition> exres = exhibitionService.exResFindAllBm();
+		
+		model.addAttribute("exres", exres);
+		return "exhibition/exResFindAllBm";
+	}
+	
+	@RequestMapping("/resConfirmGu") 
+	 public String resConfirmGu(ExResMem exresmem, Model model) {
+	 
+	 model.addAttribute("exresmem", exhibitionService.resConfirmGu(exresmem));
+	 
+	 return "exhibition/resConfirmGu"; 
+	  }
+
 	// 수정페이지
 	
 	/*
