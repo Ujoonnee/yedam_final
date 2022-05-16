@@ -10,8 +10,8 @@ public class ExResMem {
 	int exResNo;
 	String exDate;
 	String category;
-	String Name;
-	String name;
+	String memName;
+	String exName;
 	Date startDate;
 	Date endDate;
 	int amount;

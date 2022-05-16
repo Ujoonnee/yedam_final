@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yedam.finalPrj.exhibition.service.ExResMem;
 import com.yedam.finalPrj.exhibition.service.Exhibition;
+import com.yedam.finalPrj.exhibition.service.ExhibitionReservation;
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 
 @Controller
@@ -56,10 +57,35 @@ public class ExhibitionController {
 	public String findOne(Exhibition exhibition,ExResMem exresmem,Model model) {
 
 		model.addAttribute("exhibition", exhibitionService.exFindOne(exhibition));
+		
 		model.addAttribute("exresmem", exhibitionService.exResFindOne(exresmem));
+		
 		return "exhibition/exFindOne";
 
 	}
+	@RequestMapping("/exFindOne")
+	public String findOne1(ExhibitionReservation exRes, Model model) {
+
+		/*
+		 * ExRes exRes = exhibitionService.exResFindOne(exRes); Exhibition ex =
+		 * exhibitionService.exFindOne(exRes.getExNo()); Member mem =
+		 * memberService.findOne(exRes.getMemNo());
+		 */
+		model.addAttribute("exRes", exRes);
+		model.addAttribute("ex", ex);
+		model.addAttribute("mem", mem);
+		
+		
+		
+		
+		
+		
+		
+		return "exhibition/exFindOne";
+
+	}
+	
+	
 	
 	@RequestMapping("/exResFindAll")
 	public String exresFindAll(Model model) {
