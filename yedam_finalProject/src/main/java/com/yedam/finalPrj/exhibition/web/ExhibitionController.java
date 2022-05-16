@@ -63,29 +63,6 @@ public class ExhibitionController {
 		return "exhibition/exFindOne";
 
 	}
-	@RequestMapping("/exFindOne")
-	public String findOne1(ExhibitionReservation exRes, Model model) {
-
-		/*
-		 * ExRes exRes = exhibitionService.exResFindOne(exRes); Exhibition ex =
-		 * exhibitionService.exFindOne(exRes.getExNo()); Member mem =
-		 * memberService.findOne(exRes.getMemNo());
-		 */
-		model.addAttribute("exRes", exRes);
-		model.addAttribute("ex", ex);
-		model.addAttribute("mem", mem);
-		
-		
-		
-		
-		
-		
-		
-		return "exhibition/exFindOne";
-
-	}
-	
-	
 	
 	@RequestMapping("/exResFindAll")
 	public String exresFindAll(Model model) {
