@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Exhibition {
 	private int exNo;
 	private int memNo;
-	private String exName;
+	private String name;
 	private String showRoom;
 	private int price;
 	private String address;

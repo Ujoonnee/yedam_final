@@ -22,6 +22,7 @@
 	<hr>
 	<form id="frm" action="update" method="post">
 		<input name="seq" type="hidden" value="${exhibition.exNo}" />
+		<input name="resNo" type="hidden" value="${exresmem.exResNo}" />
 	<div>
 
 <dl>
@@ -34,7 +35,7 @@
     <dl align="right" >
         <ul style="list-style: none;">
             <li>
-                <h3>${exhibition.exName}</h3>
+                <h3>${exhibition.name}</h3>
       
             </li><br>
             <li>
@@ -56,7 +57,7 @@
 </dl>
 <br>
 <hr>
-<h1></h1>    
+
 </div>
 	</form>
 	<div align="right">
@@ -74,20 +75,20 @@
 	<h1 align="center">예약 페이지</h1>
 	
 	
-	<label>관람일</label>
-	<div><input type="date"></div>
-	
 
-<!-- update형식으로 티켓 수량만 다음페이지에 넘기기. -->
-<!-- form태그 거슬려서 막아둠 -->
-<form action="exResAmtUpdate">
+<!-- 티켓 수량 및 날짜 다음페이지에 단순히 값만 db x 넘기기. -->
+<form action="resConfirm" name=amount method="get">
+	<input type="hidden" name="exNo" value="${exhibition.exNo }">
+	<label>관람일</label>
+	<div><input type="date" name="exDate" required></div>
+	
     <label>수량</label><br>
-    <input type=text name=amount value=0>
+    <input type=text name=amount value="" required>
     <input type=button value="+" onClick="javascript:this.form.amount.value++;">
     <input type=button value="-" onClick="javascript:this.form.amount.value--;">
-    <br><br><input type="submit" value="결제하기" onclick="location.href='exResFindOne?exResNo=${ExResMem.exResNo }'">
+    <br><br><button type="submit">결제하기</button>
 </form>
-		<input name="resNo" type="hidden" value="${ExResMem.exResNo}" />
+		
 </div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yedam.finalPrj.exhibition.service.ExResMem;
 import com.yedam.finalPrj.exhibition.service.Exhibition;
+import com.yedam.finalPrj.exhibition.service.ExhibitionReservation;
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 
 @Service("ExhibitionService")
@@ -59,6 +60,11 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	@Override
 	public int exResAmtUpdate(ExResMem exresmem) {
 		return map.exResAmtUpdate(exresmem);
+	}
+
+	@Override
+	public List<ExhibitionReservation> exResFindAllGu() {
+		return map.exResFindAllGu();
 	}
 	
 

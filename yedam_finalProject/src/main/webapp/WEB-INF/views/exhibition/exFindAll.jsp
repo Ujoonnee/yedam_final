@@ -22,7 +22,7 @@
                 <a href="exFindOne?exNo=${exh.exNo}">
 	                <img width="150" height="150" src="resources/img/${exh.thumbnail}">                
 	                   <figcaption>
-	                           <span>${exh.exName }</span><br>
+	                           <span>${exh.name }</span><br>
 	                           <span>${exh.showRoom }</span>
 	                           <span>${exh.startDate }</span>
 	                           <span>${exh.endDate }</span>

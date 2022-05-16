@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 public class ExResMem {
@@ -11,7 +12,7 @@ public class ExResMem {
 	String exDate;
 	String category;
 	String memName;
-	String exName;
+	String name;
 	Date startDate;
 	Date endDate;
 	int amount;

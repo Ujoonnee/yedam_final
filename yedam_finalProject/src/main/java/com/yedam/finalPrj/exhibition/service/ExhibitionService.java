@@ -15,4 +15,7 @@ public interface ExhibitionService {
 	ExResMem exResFindOne(ExResMem exresmem);
 	int exResUpdate(ExResMem exresmem);
 	int exResAmtUpdate(ExResMem exresmem);
+	
+	//일반사용자 마이페이지
+	List<ExhibitionReservation> exResFindAllGu();
 }

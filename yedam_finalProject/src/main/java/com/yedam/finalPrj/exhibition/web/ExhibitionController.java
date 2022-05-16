@@ -15,6 +15,8 @@ import com.yedam.finalPrj.exhibition.service.ExResMem;
 import com.yedam.finalPrj.exhibition.service.Exhibition;
 import com.yedam.finalPrj.exhibition.service.ExhibitionReservation;
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
+import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberService;
 
 @Controller
 //디렉토리 찾아주는거 아직까진 필요하진 않고 정확하게 몰라서 막아둠 
@@ -23,7 +25,10 @@ public class ExhibitionController {
 
 	@Autowired
 	private ExhibitionService exhibitionService;
-
+	
+	@Autowired
+	private MemberService memberService;
+	
 	// 목록
 	@GetMapping("/exFindAll")
 	public String FindAll(Model model) {
@@ -54,16 +59,32 @@ public class ExhibitionController {
 
 	// 상세페이지
 	@RequestMapping("/exFindOne")
-	public String findOne(Exhibition exhibition,ExResMem exresmem,Model model) {
-
+	public String findOne(Exhibition exhibition, ExhibitionReservation er, Model model) {
 		model.addAttribute("exhibition", exhibitionService.exFindOne(exhibition));
-		
-		model.addAttribute("exresmem", exhibitionService.exResFindOne(exresmem));
 		
 		return "exhibition/exFindOne";
 
 	}
 	
+	// 결제 전 확인 페이지
+	@RequestMapping("/resConfirm")
+	public String resConfirm(ExhibitionReservation er, Model model) {
+		
+		// 전시정보
+		Exhibition ex = new Exhibition();
+		ex.setExNo(er.getExNo());
+		
+		//회원
+		Member mem = new Member();
+		
+		model.addAttribute("ex", exhibitionService.exFindOne(ex));
+//		model.addAttribute("mem", memberService.findOne(mem));
+		
+		model.addAttribute("er", er);
+		
+		return "exhibition/resConfirm";
+	}
+	// 예약자 전체 명단.
 	@RequestMapping("/exResFindAll")
 	public String exresFindAll(Model model) {
 		List<ExResMem> exresmem = exhibitionService.resFindAll();
@@ -72,12 +93,14 @@ public class ExhibitionController {
 		return "exhibition/exResFindAll";
 	}
 	
-	@RequestMapping("/exResFindOne")
-	public String exresFindOne(ExResMem exresmem, Model model) {
-		
-		model.addAttribute("exresmem", exhibitionService.exResFindOne(exresmem));
-		return "exhibition/exResFindOne";
-	}
+	//예약 정보 
+	  @RequestMapping("/exResFindOne") 
+	  public String exresFindOne(ExResMem exresmem, Model model) {
+	  
+	  model.addAttribute("exresmem", exhibitionService.exResFindOne(exresmem));
+	  return "exhibition/exResFindOne"; 
+	  }
+	 
 
 	// 수정
 
@@ -86,9 +109,21 @@ public class ExhibitionController {
 		  
 		  exhibitionService.exResAmtUpdate(exresmem);
 		  
-	 return "redirect:findAll"; 
+	 return "redirect:exResFindOne"; 
 	 }
-	 
+	//회원 예약 정보 페이지.
+	@GetMapping("/exResFindAllGu")
+	public String ExResFindAllGu(Model model) {
+		
+		
+		List<ExhibitionReservation> exres =   exhibitionService.exResFindAllGu();
+		
+		model.addAttribute("exres", exres);
+		
+		return "exhibition/exResFindAllGu";
+	}
+	
+	
 	// 수정페이지
 	
 	/*

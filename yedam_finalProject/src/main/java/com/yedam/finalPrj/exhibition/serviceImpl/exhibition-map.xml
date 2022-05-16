@@ -16,12 +16,17 @@
 		select r.ex_res_no, ex_res_no, r.ex_date, get_code_name(e.category) AS category, e.name as exName, m.name as memName, e.start_date, e.end_date, m.buisness_num, amount, r.payment_amt
 			from EXHIBITION e, EXHIBITION_RESERVATION r, member m 
 			where m.mem_no = e.mem_no 
-			and e.ex_no=r.ex_no
+			and e.ex_no= r.ex_no
+	</select>
+	
+	<select id="exResFindAllGu" resultType="com.yedam.finalPrj.exhibition.service.ExhibitionReservation">
+		<!-- 	select * from EXHIBITION_RESERVATION -->
+		select r.ex_res_no AS ex_res_no,  e.name,  r.ex_date, status,r.AMOUNT*e.price as payment_amt  from exhibition_reservation r, exhibition e where r.ex_res_no = e.ex_no  
 	</select>
 	
 	<select id="exResFindOne" resultType="com.yedam.finalPrj.exhibition.service.ExResMem" >
 		
-		select r.ex_res_no, r.ex_date, get_code_name(e.category) AS category, e.ex_name as memName, m.name as memName, e.start_date, e.end_date, m.buisness_num, amount, r.payment_amt
+		select r.ex_res_no, r.ex_date, get_code_name(e.category) AS category, e.name as exName, m.name as memName, e.start_date, e.end_date, m.buisness_num, amount, r.payment_amt
 			from EXHIBITION e, EXHIBITION_RESERVATION r, member m 
 			where m.mem_no = e.mem_no 
 			and e.ex_no=r.ex_no
