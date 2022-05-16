@@ -5,4 +5,10 @@
 	<select id="showFindAll" resultType="com.yedam.finalPrj.show.Show">
 		SELECT * FROM show
 	</select>
+	
+	<select id="showReserved">
+		SELECT	t.show_res_no, r.mem_no, r.res_time, r.res_amt, (s.price * r.res_amt), r.status
+		FROM 	show_reservation r, seat t, show s
+			
+	</select>
 </mapper>
