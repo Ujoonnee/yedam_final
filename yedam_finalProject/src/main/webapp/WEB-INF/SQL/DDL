@@ -70,6 +70,9 @@ CREATE TABLE show_reservation (
     payment     VARCHAR2(20)    NOT NULL,
     status      VARCHAR2(30)    NOT NULL
     );
+    
+ALTER TABLE show_reservation
+ADD show_no NUMBER(10) CONSTRAINT show_no_fk REFERENCES show(show_no);
 
 -- 공연예약번호 시퀀스 생성
 CREATE SEQUENCE show_res_seq

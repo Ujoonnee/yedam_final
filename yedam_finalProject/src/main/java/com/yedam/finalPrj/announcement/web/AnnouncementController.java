@@ -20,29 +20,29 @@ import com.yedam.finalPrj.announcement.service.AnnouncementService;
 public class AnnouncementController {
 
 	@Autowired
-	private AnnouncementService announcementService;
+	private AnnouncementService service;
 
 	// 공지사항 목록
-	@GetMapping("/findAll")
+	@RequestMapping("/announcement")
 	public String FindAll(AnnouncementPagingCriteria cri, Model model) {
-		List<Announcement> announcement = announcementService.findAll(cri);
 
-		int total = announcementService.totalCnt(cri);
+		int total = service.totalCnt(cri);
 
-		// model에 정보 저장.
-		// 전체조회
-		model.addAttribute("announcements", announcement);
+		// 전체목록
+		model.addAttribute("list", service.findAll(cri));
+		// 상단고정목록
+		model.addAttribute("topList", service.getTopList());
 		// 페이징
 		model.addAttribute("paging", new AnnouncementPageMaker(cri, total));
 
-		return "announcement/findAll";
+		return "announcement/list";
 	}
 
 	// 공지사항 등록
 	@PostMapping(value = "/insert")
 	public String insert(Announcement announcement) throws IOException {
 
-		announcementService.insert(announcement);
+//		service.insert(announcement);
 
 		return "redirect:findAll";
 	}
@@ -59,10 +59,10 @@ public class AnnouncementController {
 	public String findOne(Announcement announcement, Model model,
 			@ModelAttribute("cri") AnnouncementPagingCriteria cri) {
 
-		announcementService.updateView(announcement);
+		service.updateView(announcement);
 		System.out.println("NUMBER : " + announcement.getAnnNo());
 
-		model.addAttribute("announcement", announcementService.findOne(announcement));
+		model.addAttribute("announcement", service.findOne(announcement));
 
 		return "announcement/findOne";
 
