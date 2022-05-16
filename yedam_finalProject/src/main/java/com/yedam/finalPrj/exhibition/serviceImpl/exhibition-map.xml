@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="exResFindAll" resultType="com.yedam.finalPrj.exhibition.service.ExResMem">
-		select r.ex_res_no, ex_res_no, r.ex_date, get_code_name(e.category) AS category, e.ex_name, m.mem_name, e.start_date, e.end_date, m.buisness_num, amount, r.payment_amt
+		select r.ex_res_no, ex_res_no, r.ex_date, get_code_name(e.category) AS category, e.name as exName, m.name as memName, e.start_date, e.end_date, m.buisness_num, amount, r.payment_amt
 			from EXHIBITION e, EXHIBITION_RESERVATION r, member m 
 			where m.mem_no = e.mem_no 
 			and e.ex_no=r.ex_no
@@ -21,7 +21,7 @@
 	
 	<select id="exResFindOne" resultType="com.yedam.finalPrj.exhibition.service.ExResMem" >
 		
-		select r.ex_res_no, r.ex_date, get_code_name(e.category) AS category, e.ex_name, m.mem_name, e.start_date, e.end_date, m.buisness_num, amount, r.payment_amt
+		select r.ex_res_no, r.ex_date, get_code_name(e.category) AS category, e.ex_name as memName, m.name as memName, e.start_date, e.end_date, m.buisness_num, amount, r.payment_amt
 			from EXHIBITION e, EXHIBITION_RESERVATION r, member m 
 			where m.mem_no = e.mem_no 
 			and e.ex_no=r.ex_no
