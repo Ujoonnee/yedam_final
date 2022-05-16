@@ -241,4 +241,42 @@ CREATE TABLE CODES (
 /
 
 -- 박성준
+create table store (
+    store_no NUMBER(10) PRIMARY KEY,
+    category VARCHAR2(10) NOT NULL,
+    name VARCHAR2(30) NOT NULL,
+    store_cat VARCHAR2(20),
+    address VARCHAR2(70) NOT NULL,
+    tel VARCHAR2(30) NOT NULL,
+    thumbnail VARCHAR2(70),
+    mem_no NUMBER(10) NOT NULL
+)
 
+create table product(
+    prod_no     NUMBER(13) ,
+    store_no    NUMBER(10) NOT NULL,
+    prod_name   VARCHAR2(30) NOT NULL,
+    stock       NUMBER(10) ,
+    sold_out    VARCHAR2(1) DEFAULT 'N' ,
+    price       VARCHAR2(30) NOT NULL,
+    constraint product_pk primary key(prod_no,store_no)
+)
+
+drop table product;
+create table product_reservation(
+    prod_res_no     NUMBER(13)  PRIMARY KEY,
+    store_no        NUMBER(10)  NOT NULL,
+    mem_no          NUMBER(10)  NOT NULL,
+    pickup_time     DATE,
+    pickup_date     DATE,
+    payment_amt     VARCHAR2(30),
+    payment_status  VARCHAR2(20),
+    order_date      DATE DEFAULT SYSDATE
+)
+
+create table reserved_goods(
+    prod_res_no NUMBER(13) PRIMARY KEY,
+    store_no3   NUMBER(10)  NOT NULL,
+    prod_no2    NUMBER(13)  NOT NULL,
+    count       NUMBER(10)  NOT NULL
+)

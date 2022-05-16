@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.yedam.finalPrj.store.serviceImpl.StoreMapper">
+	<resultMap type="com.yedam.finalPrj.store.service.Store"
+		id="store">
+		<id property="store_no" column="store_no" />
+		<result property="category" column="category" />
+		<result property="name" column="name" />
+		<result property="store_cat" column="store_cat" />
+		<result property="address" column="address" />
+		<result property="latitude" column="latitude" />
+		<result property="longitude" column="longitude" />
+		<result property="tel" column="tel" />
+		<result property="thumbnail" column="thumbnail" />
+	</resultMap>
+
+
+	<!-- 서비스 등록 -->
+	<insert id="regist"
+		parameterType="com.yedam.finalPrj.store.service.Store">
+		<selectKey keyProperty="store_no" resultType="long"
+			order="BEFORE">
+			Select CASE when max(store_no) is null then 1
+			ELSE MAX(store_no)
+			+1 END from store
+		</selectKey>
+		insert into store values(
+		#{store_no},#{category},#{name},#{store_cat},#{address},
+		#{latitude},#{longitude},#{tel},#{thumbnail},4)
+	</insert>
+<!-- 매장 리스트 출력-->
+	<select id="storeList" 
+		resultType="com.yedam.finalPrj.store.service.Store">
+		<![CDATA[
+  		SELECT *
+		FROM
+		    (SELECT a.*,ROWNUM rn
+		    FROM(
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance 
+		        from store 
+		        order by distance)a
+		     WHERE ROWNUM <= #{pageNum} * #{amount}
+		    ) b
+		WHERE rn> (#{pageNum}-1) * #{amount}
+  		]]>
+	</select>
+<!-- 매장 리스트 출력(카테고리검색)-->
+	<select id="searchaddress" resultType="com.yedam.finalPrj.store.service.Store">
+	<![CDATA[
+		SELECT *
+		FROM
+		    (SELECT a.*,ROWNUM rn
+		    FROM(
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+		        from 
+		             store 
+		             where store_cat LIKE]]> ('%'||#{keyword}||'%')'
+		             <![CDATA[
+		        order by distance)a
+		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn>]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 리스트 출력(매장이름)-->
+	<select id="searchName" resultType="com.yedam.finalPrj.store.service.Store" >
+		<![CDATA[
+		SELECT *
+		FROM
+		    (SELECT a.*,ROWNUM rn
+		    FROM(
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+		        from 
+		             store 
+		             where name LIKE]]> ('%'||#{keyword}||'%')'
+		             <![CDATA[
+		        order by distance)a
+		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn>]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 리스트 출력(상품명검색)-->
+	<select id="searchProduct" resultType="com.yedam.finalPrj.store.service.Store">
+		<![CDATA[
+		SELECT *
+FROM
+    (SELECT a.*,ROWNUM rn
+    FROM(
+         select s.store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+         from 
+               (select distinct store_no
+                from product
+                where prod_name LIKE]]> ('%'||#{keyword}||'%')
+		             <![CDATA[)p
+		             join store s
+		             on p.store_no = s.store_no
+		        order by distance)a
+		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[ ) b
+		WHERE rn >]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 개수 처리  -->
+	<select id="totalCnt" resultType="int">
+		<![CDATA[
+		SELECT count(*)
+		FROM store s
+		where store_no > 0
+		]]>
+	</select>
+
+</mapper>
