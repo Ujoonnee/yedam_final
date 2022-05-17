@@ -11,7 +11,7 @@ public class ExhibitionReservationVO {
 	
 	private int exResNo;
 	private int exNo;
-	private String exDate;
+	private Date exDate;
 	private int amount;
 	private int paymentAmt;
 	private String category;
@@ -37,4 +37,6 @@ public class ExhibitionReservationVO {
 	private int payment;
 	
 	private String memName;
+	private String memTel;
+	
 }

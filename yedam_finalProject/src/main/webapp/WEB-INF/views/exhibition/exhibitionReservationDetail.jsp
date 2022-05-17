@@ -22,16 +22,13 @@
 				<c:set var="status" value="N"/>
 					<c:choose>
 						<c:when test="${exRes.status eq 'N' }">
-							미결제
+							취소
 						</c:when>
 						
 						<c:when test="${exRes.status eq 'Y' }">
-							결제완료
+							결제
 						</c:when>
-						
-						<c:otherwise>
-							취소
-						</c:otherwise>
+				
 					</c:choose>
 				
 			</td>
@@ -51,32 +48,36 @@
 		</tr>
 		<tr>
 			<td>오픈일</td>
-			<td>${exRes.startDate }</td>
+			<td><fmt:formatDate value="${exRes.startDate }" pattern="yyyy-MM-dd"/></td>
 		</tr>
 		<tr>
 			<td>마감일</td>
-			<td>${exRes.endDate }</td>
+			<td><fmt:formatDate value="${exRes.endDate }" pattern="yyyy-MM-dd"/></td>
 		</tr>
 		<tr>
 			<td>예약자명</td>
-			<td></td>
+			<td>${exRes.memName }</td>
 		</tr>
 		<tr>
 			<td>예약일시</td>
-			<td></td>
+			<td><fmt:formatDate value="${exRes.exDate }" pattern="yyyy-MM-dd"/></td>
 		</tr>
 		<tr>
 			<td>예약자 연락처</td>
-			<td></td>
+			<td>${exRes.memTel }</td>
 		</tr>
 		<tr>
 			<td>수량</td>
-			<td></td>
+			<td>${exRes.amount }</td>
 		</tr>
 		<tr>
 			<td>결제금액</td>
-			<td></td>
+			<td>${exRes.payment }</td>
 		</tr>
 	</table>
+	<hr>
+	<c:if test="${exRes.status eq 'Y' }">
+	<button>예약취소</button><button>리뷰작성</button>
+	</c:if>
 </body>
 </html>

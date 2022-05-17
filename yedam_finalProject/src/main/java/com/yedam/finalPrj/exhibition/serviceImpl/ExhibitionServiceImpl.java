@@ -34,7 +34,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	}
 
 	@Override
-	public ExhibitionReservationVO ExDetail(ExhibitionReservationVO vo) {
+	public ExhibitionReservationVO exDetail(ExhibitionReservationVO vo) {
 		// TODO Auto-generated method stub
 		return map.exDetail( vo);
 	}

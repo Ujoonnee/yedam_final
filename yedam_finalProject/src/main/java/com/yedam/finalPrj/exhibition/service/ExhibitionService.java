@@ -9,7 +9,7 @@ public interface ExhibitionService {
 	// 홍제
 	List<ExhibitionReservationVO> selectAllExhibitionReservattion();
 	ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO);
-	ExhibitionReservationVO ExDetail(ExhibitionReservationVO vo);
+	ExhibitionReservationVO exDetail(ExhibitionReservationVO vo);
 	
 	// 준우
 	

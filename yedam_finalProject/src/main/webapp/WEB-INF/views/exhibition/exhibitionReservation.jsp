@@ -68,7 +68,7 @@
 					
 					</td>
 					<td>${exRes.payment }</td>
-					<td><button>리뷰하기</button></td>
+					<td><button>리뷰작성</button></td>
 				</tr>
 			
 			</c:forEach>

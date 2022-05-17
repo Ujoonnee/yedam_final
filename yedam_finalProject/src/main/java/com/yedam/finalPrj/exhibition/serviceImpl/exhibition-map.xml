@@ -12,12 +12,11 @@
 	
 	<!-- 예약내역 상세정보 -->
 	<select id="exDetail" resultType="com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO">
-		SELECT r.*,e.*,(m.name) AS memName ,(e.price * r.amount) AS payment
+		SELECT r.*,e.*,(m.name) AS memName , (m.tel) AS memTel, (e.price * r.amount) AS payment
 		FROM exhibition_reservation r, exhibition e, member m
 		WHERE r.ex_no = e.ex_no 
 		AND r.mem_no = m.mem_no
 		AND r.ex_res_no = #{exResNo}
-		AND m.name = #{memName}
 	</select>
 	
 <!-- 	준우 -->

@@ -32,7 +32,7 @@ public class ExhibitionController {
 	// 예약목록 상세페이지
 	@RequestMapping(value = "/exhibitionReservationDetail", method = RequestMethod.GET)
 	public String exhibitionReservationDetail(Model model, ExhibitionReservationVO vo) {
-		ExhibitionReservationVO detail = service.ExDetail(vo);
+		ExhibitionReservationVO detail = service.exDetail(vo);
 		model.addAttribute("exRes", detail);
 		return "exhibition/exhibitionReservationDetail";
 	}
