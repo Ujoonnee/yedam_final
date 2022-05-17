@@ -2,21 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.finalPrj.home.serviceImpl.HomeMapper">
 	
-	<select id="getExhibitionRecommendation" resultType="com.yedam.finalPrj.exhibition.service.Exhibition">
-		select * from exhibition
-		where ex_no IN(
-		                select e
-		                from (
-		                    select ex_no e, count(ex_res_no) c
-		                    from exhibition_reservation
-		                    group by ex_no
-		                    order by 2
-		                    )
-		                <![CDATA[
-		                where rownum < 6
-		                ]]>
-		                )
-	</select>
+<!-- 	<select id="getExhibitionRecommendation" resultType="com.yedam.finalPrj.exhibition.service.Exhibition"> -->
+<!-- 		select * from exhibition -->
+<!-- 		where ex_no IN( -->
+<!-- 		                select e -->
+<!-- 		                from ( -->
+<!-- 		                    select ex_no e, count(ex_res_no) c -->
+<!-- 		                    from exhibition_reservation -->
+<!-- 		                    group by ex_no -->
+<!-- 		                    order by 2 -->
+<!-- 		                    ) -->
+<!-- 		                <![CDATA[ -->
+<!-- 		                where rownum < 6 -->
+<!-- 		                ]]> -->
+<!-- 		                ) -->
+<!-- 	</select> -->
 	
 
 </mapper>
