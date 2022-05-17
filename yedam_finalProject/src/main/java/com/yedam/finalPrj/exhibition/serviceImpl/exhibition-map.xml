@@ -1,41 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.yedam.finalPrj.exhibition.serviceImpl.ExhibitionMapper">
-		
+<mapper namespace="com.yedam.finalPrj.exhibition.serviceImpl.ExhibitionMapper">
+	
+<!-- 	홍제 -->
 	
 	
+<!-- 	준우 -->
 	
 	
-	<select id="exFindOne" resultType="com.yedam.finalPrj.exhibition.service.Exhibition">
-		 SELECT * FROM EXHIBITION WHERE ex_no = #{exNo} 
-	</select>
+<!-- 	성환 -->
 	
 	
+<!-- 	우준 -->
 	
 	
-			<!-- index 사용법이 애매해서 조금 더 봐야함. -->	
-	<select id="exFindAll" resultType="com.yedam.finalPrj.exhibition.service.Exhibition">
-			SELECT * FROM EXHIBITION 	          
-	</select>
+<!-- 	성준 -->
 	
-	<insert id="exInsert" parameterType="com.yedam.finalPrj.exhibition.service.Exhibition">
 	
-	INSERT INTO EXHIBITION(ex_no, name, )  
-	VALUES (ex_seq.nextval, )
-	</insert>
-	
-	<update id="exUpdate" parameterType="com.yedam.finalPrj.exhibition.service.Exhibition">
-		
-	</update>
-	
-	<!-- 조회 -->	
-<!-- 	<update id="updateView" parameterType="com.yedam.finalPrj.announcement.service.Announcement">
-		UPDATE EXHIBITION SET ann_view = ann_view + 1 WHERE ANN_NO = #{annNo}
-	</update> -->
-	
-	<delete id="exDelete" parameterType="com.yedam.finalPrj.exhibition.service.Exhibition">
-		
-	</delete>
 
 </mapper>

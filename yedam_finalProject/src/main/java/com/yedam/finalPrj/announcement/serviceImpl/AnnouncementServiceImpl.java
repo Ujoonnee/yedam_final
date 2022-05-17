@@ -9,7 +9,7 @@ import com.yedam.finalPrj.announcement.service.Announcement;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 
-@Service("AnnouncementService")
+@Service
 public class AnnouncementServiceImpl implements AnnouncementService {
 
 	@Autowired AnnouncementMapper map;
@@ -20,24 +20,13 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 	
 	@Override
+	public List<Announcement> getTopList() {
+		return map.getTopList();
+	}
+	
+	@Override
 	public Announcement findOne(Announcement announcement) {
 		return map.findOne(announcement);
-	}
-
-
-	@Override
-	public int insert(Announcement announcement) {
-		return map.insert(announcement);
-	}
-
-	@Override
-	public int update(Announcement announcement) {
-		return map.update(announcement);
-	}
-
-	@Override
-	public int delete(Announcement announcement) {
-		return map.delete(announcement);
 	}
 
 
@@ -50,6 +39,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	public int updateView(Announcement ann) {
 		return map.updateView(ann);
 	}
+
+	
 
 	
 

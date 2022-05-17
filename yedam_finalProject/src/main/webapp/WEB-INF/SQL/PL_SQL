@@ -5,7 +5,32 @@
 
 
 -- 윤성환
+--공개/비공개
+BEGIN
+FOR i IN 1..50 LOOP
+insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status, ann_cnt)  values (ann_seq.nextval, '제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 00501, DEFAULT, 0);
+insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status, ann_cnt)  values (ann_seq.nextval, '제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 00503, DEFAULT, 0);
+END LOOP;
+END;
 
+전시 더미 > 한페이지에 8장
+BEGIN
+FOR i IN 1..8 LOOP
+insert into exhibition values(ex_seq.nextval, ex_seq.nextval, '전시명'||ex_seq.nextval, 
+'전시장'||ex_seq.nextval, 1||ex_seq.nextval||000, 'ex'||ex_seq.nextval||'.jpg', 
+'010-'||ceil(dbms_random.value(1000,9999))||'-'||ceil(dbms_random.value(1000,9999)),
+'주소'||ex_seq.nextval,
+sysdate, sysdate,'내용'||EX_SEQ.nextval,'00202','00403');
+END LOOP;
+END;
+
+전시 예약 더미
+BEGIN
+FOR i IN 1..10 LOOP
+insert into EXHIBITION_RESERVATION values(ex_res_seq.nextval, ex_res_seq.nextval, '2022'|| ceil(dbms_random.value(1,12))||ceil(dbms_random.value(1,31)), ceil(dbms_random.value(1,9)), ceil(dbms_random.value(10000,90000)),'00202', 'N');
+insert into EXHIBITION_RESERVATION values(ex_res_seq.nextval, ex_res_seq.nextval, '2022'||ceil(dbms_random.value(1,12))||ceil(dbms_random.value(1,31)), ceil(dbms_random.value(1,9)),ceil(dbms_random.value(10000,90000)),'00202', 'Y');
+END LOOP;
+END;
 
 -- 이우준
 
@@ -27,3 +52,23 @@ END GET_CODE_NAME;
 /
 -- 박성준
 
+-- 각도를 라디안으로 변환해주는 함수
+CREATE OR REPLACE FUNCTION RADIANS(nDegrees IN NUMBER) RETURN NUMBER DETERMINISTIC IS
+BEGIN
+RETURN nDegrees / 57.29577951308232087679815481410517033235;
+END RADIANS;
+
+-- 위도와 경도를 입력하면 거리를 구해주는 함수 
+-- H_LAT =위도1, H_LNG =경도1 ,T_LAT = 위도2, T_LNG=경도2
+CREATE OR REPLACE FUNCTION DISTANCE_WGS84( H_LAT in number, H_LNG in number, T_LAT in number, T_LNG in number)
+RETURN NUMBER DETERMINISTIC
+IS
+BEGIN
+  RETURN ( 6371.0 * acos( 
+          cos( radians( H_LAT ) )*cos( radians( T_LAT /* 위도 */ ) )
+          *cos( radians( T_LNG /* 경도 */ )-radians( H_LNG ) )
+          +
+          sin( radians( H_LAT ) )*sin( radians( T_LAT /* 위도 */ ) )       
+         ));
+end DISTANCE_WGS84;
+/

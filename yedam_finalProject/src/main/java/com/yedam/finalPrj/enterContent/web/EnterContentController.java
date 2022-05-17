@@ -1,6 +1,5 @@
 package com.yedam.finalPrj.enterContent.web;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
