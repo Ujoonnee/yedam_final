@@ -18,7 +18,7 @@ public class HomeServiceImpl implements HomeService {
 		Map<String, Object> result = new HashMap<>();
 		
 //		result.put("showList", map.getShowRecommendation());
-		result.put("exhibitionList", map.getExhibitionRecommendation());
+//		result.put("exhibitionList", map.getExhibitionRecommendation());
 //		result.put("facilityList", map.getFacilityRecommendation());
 		
 		
