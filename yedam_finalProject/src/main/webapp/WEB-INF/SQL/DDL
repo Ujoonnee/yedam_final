@@ -192,7 +192,7 @@ create table EXHIBITION
 ex_no NUMBER(5) primary key,
 mem_no NUMBER(10),
 name VARCHAR2(100) NOT NULL,
-show_room VARCHAR2(100) NOT NULL,
+location_name VARCHAR2(100) NOT NULL,
 price NUMBER(10) NOT NULL,
 thumbnail VARCHAR2(100),
 tel VARCHAR2(20),
@@ -201,7 +201,8 @@ start_date DATE NOT NULL,
 end_date DATE NOT NULL,
 detail CLOB NOT NULL,
 category VARCHAR2(10) NOT NULL,
-approval_status VARCHAR2(10) NOT NULL
+approval_status VARCHAR2(10) NOT NULL,
+application_date date NOT NULL
 );
 
 --시퀀스 생성

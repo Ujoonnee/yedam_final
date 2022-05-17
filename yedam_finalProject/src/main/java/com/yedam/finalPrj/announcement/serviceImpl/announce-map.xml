@@ -40,22 +40,22 @@
 		SELECT * FROM ANNOUNCEMENT WHERE ANN_NO = #{annNo}
 	</select>
 
-
-
-
-
-
-<!-- 	<insert id="insert" -->
-<!-- 		parameterType="Announcement"> -->
-
-<!-- 		INSERT INTO ANNOUNCEMENT(ANN_no, TITLE, ANN_CONTENT, -->
-<!-- 		ANN_DATE, ANN_VIEW, -->
-<!-- 		STATUS, ANN_CNT) -->
-<!-- 		VALUES (ann_seq.nextval, #{title}, -->
-<!-- 		#{annContent}, #{annDate}, DEFAULT, -->
-<!-- 		#{annView}, DEFAULT, 0) -->
-<!-- 	</insert> -->
-
+	<insert id="annInsert"
+		parameterType="com.yedam.finalPrj.announcement.service.Announcement">
+		<selectKey keyProperty="ANN_NO" resultType="int" order="BEFORE">
+			SELECT ann_seq.nextval from dual
+		</selectKey>
+		INSERT INTO ANNOUNCEMENT(ANN_NO, TITLE, ANN_CONTENT,
+		ANN_DATE, ANN_VIEW,
+		STATUS, ANN_CNT)
+		VALUES (#{annNo}, #{title},#{annContent},
+		#{annDate}, #{annView}, DEFAULT, 0)
+	</insert>
+	
+	<insert id="annInsertFile" parameterType="com.yedam.finalPrj.common.FileVO">
+		insert into ATTACHED_FILE(file_no, ann_no, original_name, replaced_name, file_size)
+			values(file_seq.nextval, #{annNo}, #{originalName}, #{replacedName}, #{fileSize})
+	</insert>
 
 	<update id="updateView" parameterType="Announcement">
 		UPDATE ANNOUNCEMENT SET ann_view = ann_view + 1 WHERE

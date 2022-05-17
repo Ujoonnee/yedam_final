@@ -1,15 +1,14 @@
 package com.yedam.finalPrj.announcement.web;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.yedam.finalPrj.announcement.service.Announcement;
 import com.yedam.finalPrj.announcement.service.AnnouncementPageMaker;
@@ -39,14 +38,23 @@ public class AnnouncementController {
 	}
 
 	// 공지사항 등록
-	@PostMapping(value = "/insert")
-	public String insert(Announcement announcement) throws IOException {
-
-//		service.insert(announcement);
-
-		return "redirect:findAll";
-	}
-
+	
+	  @RequestMapping(value = "/annInsert", method = RequestMethod.POST) 
+	  
+	  public void anninsert(Announcement announcement, MultipartHttpServletRequest fileRequest) throws IOException {
+	  
+		  service.annInsert(announcement, fileRequest);
+	  
+	  }
+	 
+	
+//	@PostMapping("/annInsert")
+//	public void anninsert(Announcement announcement) throws IOException {
+//
+//		service.annInsert(announcement);
+//		
+//		return "announcement/insertPage";
+//	}
 	// 공지사항 등록하는 페이지
 	@RequestMapping("/insertPage")
 	public String insertPage() {

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Announcement {
-	private String annNo;
+	private int annNo;
 	private String title;
 	private String annContent;
 	private Date annDate;

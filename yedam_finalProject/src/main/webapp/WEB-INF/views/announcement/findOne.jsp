@@ -13,7 +13,7 @@
 <body>
 	<h1>공지사항 상세</h1>
 	<hr>
-	<form id="frm" action="update" method="post">
+	<form id="frm" action="update" method="post" enctype="multipart/form-data">
 		<input name="seq" type="hidden" value="${announcement.annNo}" />
 		<table border="1">
 			<tr>
@@ -37,9 +37,12 @@
 				<td bgcolor="">조회수</td>
 				<td align="left">${announcement.annView }</td>
 			</tr>
+	
 			
 		</table>
 	</form>
+	
+	
 	<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
 	
 </body>
