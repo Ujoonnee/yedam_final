@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.yedam.finalPrj.product.serviceImpl.product-map">
-	<resultMap type="com.yedam.finalPrj.product.service.Product"
-		id="product">
+	namespace="com.yedam.finalPrj.product.serviceImpl.ProductMapper">
+	<resultMap type="com.yedam.finalPrj.product.service.Product" id="product">
 		<id property="prodNo" column="PROD_NO" />
 		<result property="storeNo" column="STORE_NO" />
 		<result property="prodName" column="PROD_NAME" />
@@ -22,19 +21,73 @@
 			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.sold_out,p.price
 				from product p, store s 
 				where s.store_no = p.store_no
-				and s.store_no like #{store_no} 
+				and s.store_no like #{storeNo} 
 				) a where ROWNUM<![CDATA[ <=]]> 
 				#{pageNum} * #{amount} 
 				) b
 			where rn > (#{pageNum}-1) * #{amount}
 	</select>
 	
-	
-	
+<!-- 	상품 리스트 출력 (가격 검색) -->
+	<select id = "searchPrice" resultType="com.yedam.finalPrj.product.service.Product">
+		SELECT * 
+		FROM
+		 (SELECT a.*, ROWNUM rn
+		 FROM( select 
+		     * from (
+		            select p.prod_no, p.store_no,p.prod_name,p.stock,p.sold_out,p.price
+		            from product p, store s 
+		            where s.store_no = p.store_no
+		            and s.store_no like #{storeNo}
+		            )where price between #{lowPrice} and #{highPrice})
+		            a where ROWNUM<![CDATA[ <=]]> 
+				#{pageNum} * #{amount} 
+				) b
+			where rn > (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 	상품 리스트 출력(상품명) -->
+	<select id="searchProduct" resultType="com.yedam.finalPrj.product.service.Product">
+		SELECT * 
+		FROM
+		 (SELECT a.*, ROWNUM rn
+		 FROM( select 
+		     * from (
+		            select p.prod_no, p.store_no,p.prod_name,p.stock,p.sold_out,p.price
+		            from product p, store s 
+		            where s.store_no = p.store_no
+		            and s.store_no like  #{storeNo} 
+		            )where prod_name like ('%'||#{keyword}||'%')
+		            )a 
+		            where ROWNUM<![CDATA[ <=]]> 
+				#{pageNum} * #{amount} 
+				) b
+			where rn > (#{pageNum}-1) * #{amount}
+		</select>
 <!-- 	상품갯수 -->
-	<select id = "ProcutCnt" resultType="int">
+	<select id = "productCnt" resultType="int">
 		select count(*)
 		from product p
-		where store_no like #{store_no}
+		where store_no like #{storeNo}
+		and store_no > 0
 	</select>
+	<!-- 	상품갯수(상품명) -->
+	<select id = "searchProductCnt" resultType="com.yedam.finalPrj.product.service.Product">
+		SELECT COUNT(*) 
+	    FROM (SELECT *
+			FROM PRODUCT p
+			WHERE STORE_NO LIKE#{store_no}
+			AND STORE_NO > 0)
+	    where prod_name like ('%'||#{keyword}||'%')
+	</select>
+	<!-- 	상품갯수(가격) -->
+	<select id = "searchPriceCnt" resultType="com.yedam.finalPrj.product.service.Product">
+		SELECT COUNT(*) 
+	    FROM (SELECT *
+			FROM PRODUCT p
+			WHERE STORE_NO LIKE#{store_no}
+			AND STORE_NO > 0)
+	    where price between #{lowPrice} and #{highPrice}
+	</select>
+	
+	
 </mapper>
