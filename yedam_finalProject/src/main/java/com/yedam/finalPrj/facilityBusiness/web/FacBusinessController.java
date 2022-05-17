@@ -55,10 +55,7 @@ public class FacBusinessController {
 	//등록처리
 	@PostMapping("/register")
 	public String regDetail(Facility vo, Model model, MultipartFile singleFile, HttpServletRequest request) {
-		//파일업로드.
 	
-				
-				
 		// 2. 저장할 경로 가져오기
 		String path = request.getSession().getServletContext().getRealPath("resources");
 		System.out.println("path : " + path);
