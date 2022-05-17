@@ -2,6 +2,9 @@ package com.yedam.finalPrj.exhibition.serviceImpl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,20 +34,20 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		return map.insertExhibition(vo);
 	}
 
-	// 로그인한 사업자의 전시 등록 신청 목록 조회
+	// 사업자의 전시 등록 신청 목록 조회
 	@Override
-	public List<ExhibitionVO> getRegistration() {
+	public List<ExhibitionVO> getRegistrationList(HttpServletRequest request) {
 
-		// TODO session 에서 받는 member 정보로 교체할 것
-		MemberVO member = new MemberVO();
-		member.setMemNo(1);
+		HttpSession session = request.getSession();
 		
-		return map.getRegistration(member);
+		MemberVO member = (MemberVO) session.getAttribute("user");
+		
+		return map.selectRegistrationList(member);
 	}
 	
+	// 사업자의 전시 등록 신청 상세 조회
 	public ExhibitionVO getRegistration(int exNo) {
-		
-		return null;
+		return map.selectRegistrationDetail(exNo);
 	}
 	
 	// 성준

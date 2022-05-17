@@ -3,7 +3,7 @@
 
 <title>exhibition register</title>
 
-<h1>exhibition register form</h1>
+<h1>전시 등록 신청</h1>
 
 <form id="frm" action="register" method="post">
 	<table border="1">

@@ -18,8 +18,10 @@ public interface ExhibitionMapper {
 	
 	// 우준
 	int insertExhibition(ExhibitionVO vo);
-	List<ExhibitionVO> getRegistration(MemberVO member);
-	ExhibitionVO getRegistration(int exNo);
+	List<ExhibitionVO> selectRegistrationList(MemberVO member);
+	ExhibitionVO selectRegistrationDetail(int exNo);
+	List<ExhibitionVO> selectProviderExhibitionList(MemberVO member);
+	
 	
 	// 성준
 	

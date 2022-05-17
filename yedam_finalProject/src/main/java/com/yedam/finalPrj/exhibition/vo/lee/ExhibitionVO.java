@@ -23,7 +23,9 @@ public class ExhibitionVO {
 	private Date endDate;
 	private String detail;
 	private String category;
+	private String categoryCodeName;
 	private String approvalStatus;
+	private String approvalStatusCodeName;
 	private Date applicationDate;
 	
 }
