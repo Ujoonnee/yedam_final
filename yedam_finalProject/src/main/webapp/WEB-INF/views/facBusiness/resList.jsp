@@ -37,11 +37,11 @@
 	<c:forEach var="res" items="${resList}">
 		<tr class="list">
 			<td>${res.facResNo}</td>
-			<td>${member.name}</td>
+			<td>${res.member.name}</td>
 			<td>${res.payDate}</td>
 			<td>${res.paymentAmt}</td>
-			<td>${res.status}</td>
-			<td></td>
+			<td>${res.resStatus}</td>
+			<td>${res.revStatus}</td>
 		</tr>
 	</c:forEach>
 	</tbody>

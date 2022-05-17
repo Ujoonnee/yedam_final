@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form id="form1" name="form1" method="post" action="regDetail" enctype="multipart/form-data">
+<form id="form1" name="form1" method="post" action="register" enctype="multipart/form-data">
 <table>
 	<tr>
 		<td>카테고리</td>
@@ -19,7 +19,7 @@
 	</tr>
 	<tr>
 		<td>썸네일</td>
-		<td><input type="file" name="thumbnail"></td>
+		<td><input type="file" name="singleFile"></td>
 	</tr>
 	<tr>
 		<td>대관비용</td>
