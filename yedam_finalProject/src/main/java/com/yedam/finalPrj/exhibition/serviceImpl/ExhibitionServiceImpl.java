@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
+import com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO;
+
 import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 
 @Service("ExhibitionService")
+
 public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	@Autowired ExhibitionMapper map;
@@ -41,7 +44,25 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	
 	// 준우
+	@Override
+	public List<ExhibitionVO> selectAllExh() {
+		return map.selectAllExh();
+	}
 	
+	@Override
+	public List<ExhibitionVO> selectAllExhByStatus(String approvalStatus) {
+		return map.selectAllExhByStatus(approvalStatus);
+	}
+
+	@Override
+	public List<ExhibitionVO> selectAllByExhName(String exhName) {
+		return map.selectAllByExhName(exhName);
+	}
+
+	@Override
+	public List<ExhibitionVO> selectAllByMemName(String memName) {
+		return map.selectAllByMemName(memName);
+	}
 	
 	// 성환
 	

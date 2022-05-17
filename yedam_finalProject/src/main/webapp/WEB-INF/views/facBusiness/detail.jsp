@@ -47,7 +47,7 @@
 			</tr>
 		
 	</table>
-
+<button type="button">예약취소</button>
 			
 </body>
 </html>

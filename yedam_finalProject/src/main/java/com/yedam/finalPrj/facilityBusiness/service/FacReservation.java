@@ -12,8 +12,10 @@ public class FacReservation {
 	private String endDate;
 	private String payDate;
 	private String paymentAmt;
-	private String status;
+	private String resStatus;
+	private String revStatus;
 	private String memNo;
+	
 	
 	private Member member;
 	

@@ -20,7 +20,38 @@
 	</select>
 	
 <!-- 	준우 -->
-	
+<select id="selectAllExh" resultType="com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO">
+	select e.*, 
+	       m.name as "member.name", 
+	       GET_CODE_NAME(e.approval_status) as "approvalStatus"
+	  from exhibition e inner join member m
+	    on e.mem_no = m.mem_no
+</select>
+<select id="selectAllExhByStatus" parameterType="String" resultType="com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO">
+	select e.*, 
+	       m.name as "member.name",
+	        GET_CODE_NAME(e.approval_status) as "approvalStatus"
+	  from exhibition e inner join member m
+	    on e.mem_no = m.mem_no
+	where e.approval_status = #{approvalStatus}
+</select>
+<select id="selectAllByExhName" parameterType="String" resultType="com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO">
+	select e.*, 
+	       m.name as "member.name",
+	       GET_CODE_NAME(e.approval_status) as "approvalStatus"
+	  from exhibition e inner join member m
+	    on e.mem_no = m.mem_no
+	where e.name like '%'||#{exhName}||'%'
+</select>
+<select id="selectAllByMemName" parameterType="String" resultType="com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO">
+	select e.*, 
+	       m.name as "member.name",
+	       GET_CODE_NAME(e.approval_status) as "approvalStatus"
+	  from exhibition e inner join member m
+	    on e.mem_no = m.mem_no
+	where m.name like '%'||#{memName}||'%'
+</select>
+    
 	
 <!-- 	성환 -->
 	

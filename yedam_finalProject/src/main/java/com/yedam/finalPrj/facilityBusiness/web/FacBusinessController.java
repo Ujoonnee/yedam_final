@@ -2,14 +2,18 @@ package com.yedam.finalPrj.facilityBusiness.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.yedam.finalPrj.facility.service.Facility;
 import com.yedam.finalPrj.facilityBusiness.serviceImpl.FacBusinessMapper;
@@ -38,23 +42,53 @@ public class FacBusinessController {
 		model.addAttribute("resMem", mapper.findNameTel(resNo));
 		model.addAttribute("facName", mapper.FindFacName(resNo)); 
 		
-		return "fac_business/detail";
+		return "facBusiness/detail";
 	}
 	
-	@RequestMapping("/register")
+	//등록페이지
+	@GetMapping("/register")
 	public String register() {
 
 		return "facBusiness/register";
 	}
 	
-	@RequestMapping("/regDetail")
-	public String regDetail(Facility vo, Model model) {
+	//등록처리
+	@PostMapping("/register")
+	public String regDetail(Facility vo, Model model, MultipartFile singleFile, HttpServletRequest request) {
+	
+		// 2. 저장할 경로 가져오기
+		String path = request.getSession().getServletContext().getRealPath("resources");
+		System.out.println("path : " + path);
+		String root = path + "\\uploadfile" ;
+		
+		File file = new File(root);
+		
+		// 만약 uploadFiles 폴더가 없으면 생성해라 라는뜻
+		if(!file.exists()) file.mkdirs();
+		
+		// 업로드할 폴더 설정
+		String originFileName = singleFile.getOriginalFilename();
+		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+		String ranFileName = UUID.randomUUID().toString() + ext;
+		
+		File changeFile = new File(root + "\\" + ranFileName);
+		
+		// 파일업로드
+		try {
+			singleFile.transferTo(changeFile);
+			vo.setThumbnail(ranFileName);
+			System.out.println("파일 업로드 성공");
+		} catch (IllegalStateException | IOException e) {
+			System.out.println("파일 업로드 실패");
+			e.printStackTrace();
+		}
+		
 		//DB에 등록하기.
 		mapper.insert(vo);
 		
 		model.addAttribute("reg", vo);
 		
-		return "fac_business/regDetail";
+		return "facBusiness/regDetail";
 	}
 	
 	@RequestMapping("/regDetailUpdate")
@@ -63,38 +97,9 @@ public class FacBusinessController {
 		//DB에 수정저장.
 		//시설정보수정
 		mapper.update(vo);
-		return "fac_business/regDetail";
+		return "facBusiness/regDetail";
 	}
 	
-	//////////////////////////////////////////////////////////////////////////////////////
-	//다시 확인....
-	@RequestMapping(value = "regDetail2")
-    public String requestupload1(MultipartHttpServletRequest mRequest) {
-        String src = mRequest.getParameter("src");
-        MultipartFile mf = mRequest.getFile("file");
-
-        String path = "C:\\image\\";
-
-        String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-        long fileSize = mf.getSize(); // 파일 사이즈
-
-        System.out.println("originFileName : " + originFileName);
-        System.out.println("fileSize : " + fileSize);
-
-        String safeFile = path + originFileName;
-
-        try {
-            mf.transferTo(new File(safeFile));
-        } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return "redirect:/";
-    }
 	
 	
 }
