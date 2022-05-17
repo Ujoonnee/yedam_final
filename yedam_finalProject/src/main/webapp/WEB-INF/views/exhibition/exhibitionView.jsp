@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<!-- 날짜 구하는 함수 -->
+ <c:set var="today" value="<%=new java.util.Date()%>" />
+ <fmt:parseDate var="startDate" value="${exhibitionView.startDate}" pattern="yyyy-MM-dd"/>
+ <fmt:parseDate var="endDate" value="${exhibitionView.endDate}" pattern="yyyy-MM-dd"/>
+ <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>
+ <c:set var="sta"><fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd" /></c:set>
+ <c:set var="end"><fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd" /></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +81,12 @@
       }
 </style>
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+<!-- 날짜 -->
+<jsp:useBean id="today" class="java.util.Date" />
 </head>
 <body>
 View페이징
@@ -94,8 +107,8 @@ View페이징
 <!-- 	메인모달 -->
 	<div class="modal"> 
 		<div class="modal_body">
-			<div id ="관람일"><input type = "date" id = "exDate"> 달력이미지</div>
-			<div id = "ticketAmt">수량 <input type =number id = "ticketCount"  placeholder="수량을 입력하세요.:)" max="30" min="0"> </div>
+			<div id ="관람일"><input type = "text" id = "exDate"> </div>
+			<div id = "ticketAmt">수량 <input type =number id = "ticketCount"  placeholder="수량을 입력하세요.:)" max="30" min="0" style="width:150px;"> </div>
 			<div id = "modalButton"><button class = "btn-sub-popup">결제하기</button></div>
 		</div>
 	</div> 
@@ -182,10 +195,10 @@ View페이징
 		$('input[name=paymentAmt]').attr('value',multi);
 		$('input[name=exDate]').attr('value',exdate);
 		
-		if(exdate === null ){
+		if(exdate === "" ){
 			alert("날짜를 입력하세요.");
 			return;
-		}else if (ticketCount === null){
+		}else if (ticketCount === ""){
 			alert("티켓 수량을 입력하세야합니다.")
 			return;
 		}
@@ -231,7 +244,40 @@ View페이징
 			}
 		})
 	}
+
 	
+	 $(document).ready(function () {
+		 const today = new Date("${date}");
+		 const dateStart = new Date("${sta}");
+		 const dateEnd = new Date("${end}");
+		 var startDate =  Math.abs((today.getTime() - dateStart.getTime())/(24*60*60*1000));
+		 var endDate =  Math.abs((dateEnd.getTime() - today.getTime())/(24*60*60*1000));
+		 console.log(startDate);
+		 console.log(endDate);
+         $.datepicker.setDefaults($.datepicker.regional['ko']); 
+         $( "#exDate" ).datepicker({
+              changeMonth: true, 
+              changeYear: true,
+              nextText: '다음 달',
+              prevText: '이전 달', 
+              dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+              dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+              monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+              monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+              dateFormat: "yymmdd",
+              minDate : -startDate,
+              maxDate : endDate,
+              onClose: function( selectedDate ) {    
+                   //시작일(startDate) datepicker가 닫힐때
+                   //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                  $("#endDate").datepicker( "option", "minDate", selectedDate );
+              }    
+
+         });
+  
+ });
+
+
 </script>
 </body>
 </html>
