@@ -3,7 +3,7 @@ package com.yedam.finalPrj.facilityBusiness.service;
 import java.util.List;
 
 import com.yedam.finalPrj.facility.service.Facility;
-import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberVO;
 
 public interface FacBusinessService {
 	public FacReservation findDetail(int resNo);
@@ -14,7 +14,7 @@ public interface FacBusinessService {
 	//예약자 모두 조회+member 
 	public List<FacReservation> findAll2();
 	//예약한 회원 이름, 번호 조회.
-	public Member findNameTel(int resNo);
+	public MemberVO findNameTel(int resNo);
 	//나의 예약목록 조회.
 	public List<FacReservation> findMyResList(int memNo);
 	

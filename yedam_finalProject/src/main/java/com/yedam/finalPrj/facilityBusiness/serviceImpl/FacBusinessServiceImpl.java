@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.yedam.finalPrj.facility.service.Facility;
 import com.yedam.finalPrj.facilityBusiness.service.FacBusinessService;
 import com.yedam.finalPrj.facilityBusiness.service.FacReservation;
-import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberVO;
 
 @Service("FacBusinessService")
 public class FacBusinessServiceImpl implements FacBusinessService {
@@ -22,7 +22,7 @@ public class FacBusinessServiceImpl implements FacBusinessService {
 	}
 
 	@Override
-	public Member findNameTel(int resNo) {
+	public MemberVO findNameTel(int resNo) {
 		return mapper.findNameTel(resNo);
 	}
 

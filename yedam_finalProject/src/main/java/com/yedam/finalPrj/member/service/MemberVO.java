@@ -3,7 +3,7 @@ package com.yedam.finalPrj.member.service;
 import lombok.Data;
 
 @Data
-public class Member {
+public class MemberVO {
    
    private int memNo;
    private String email;

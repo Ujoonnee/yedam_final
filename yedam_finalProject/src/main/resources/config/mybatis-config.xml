@@ -10,5 +10,7 @@
 	
 	<typeAliases>
 		<typeAlias type="com.yedam.finalPrj.announcement.service.Announcement" alias="Announcement"/>
+		<typeAlias type="com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO" alias="ExhibitionVO"/>
+		<typeAlias type="com.yedam.finalPrj.member.service.MemberVO" alias="MemberVO"/>
 	</typeAliases>
 </configuration>

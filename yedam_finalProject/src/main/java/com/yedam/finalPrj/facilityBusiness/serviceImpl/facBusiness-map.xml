@@ -7,7 +7,7 @@
 		from facility_reservation
 </select>
 
-<resultMap type="com.yedam.finalPrj.member.service.Member" id="member">
+<resultMap type="MemberVO" id="member">
 	<result column="name" property="name"/>
 	<result column="tel" property="tel"/>
 </resultMap>
@@ -37,7 +37,7 @@
 		on f.fac_no = r.fac_no
 		where r.fac_res_no = #{facResNo}
 </select>
-<select id="findNameTel"  parameterType="int" resultType="com.yedam.finalPrj.member.service.Member">
+<select id="findNameTel"  parameterType="int" resultType="MemberVO">
 		select m.name, m.tel
 		from member m
 		inner join facility_reservation r

@@ -1,6 +1,6 @@
 package com.yedam.finalPrj.facilityBusiness.service;
 
-import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberVO;
 
 import lombok.Data;
 
@@ -15,6 +15,6 @@ public class FacReservation {
 	private String status;
 	private String memNo;
 	
-	private Member member;
+	private MemberVO member;
 	
 }
