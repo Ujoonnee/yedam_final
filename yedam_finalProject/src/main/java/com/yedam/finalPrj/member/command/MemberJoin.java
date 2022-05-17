@@ -3,14 +3,13 @@ package com.yedam.finalPrj.member.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yedam.comm.Command;
+
 import com.yedam.finalPrj.member.service.Member;
 import com.yedam.finalPrj.member.serviceImpl.MemberServiceImpl;
 
 
-public class MemberJoin implements Command {
+public class MemberJoin  {
 
-	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		//String address = request.getParameter("addr1") + " " + request.getParameter("addr2");
 		

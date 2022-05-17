@@ -1,0 +1,57 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<!-- <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> -->
+<!-- <mapper -->
+<!-- 	namespace="com.yedam.finalPrj.exhibition.serviceImpl.ExhibitionMapper"> -->
+	
+<!-- 	<select id="exFindOne" resultType="com.yedam.finalPrj.exhibition.service.Exhibition"> -->
+<!-- 		 SELECT * FROM EXHIBITION WHERE ex_no = #{exNo}  -->
+<!-- 	</select> -->
+ 	
+<!-- 			<!-- index 사용법이 애매해서 조금 더 봐야함. -->	 -->
+<!-- 	<select id="exFindAll" resultType="com.yedam.finalPrj.exhibition.service.Exhibition"> -->
+<!-- 			SELECT * FROM EXHIBITION 	           -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="exResFindAll" resultType="com.yedam.finalPrj.exhibition.service.ExResMem"> -->
+<!-- 		select r.ex_res_no, ex_res_no, r.ex_date, get_code_name(e.category) AS category, e.name as exName, m.name as memName, e.start_date, e.end_date, m.buisness_num, amount, r.payment_amt -->
+<!-- 			from EXHIBITION e, EXHIBITION_RESERVATION r, member m  -->
+<!-- 			where m.mem_no = e.mem_no  -->
+<!-- 			and e.ex_no= r.ex_no -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="exResFindAllGu" resultType="com.yedam.finalPrj.exhibition.service.ExhibitionReservation"> -->
+<!-- 		<!-- 	select * from EXHIBITION_RESERVATION --> -->
+<!-- 		select r.ex_res_no AS ex_res_no,  e.name,  r.ex_date, status,r.AMOUNT*e.price as payment_amt  from exhibition_reservation r, exhibition e where r.ex_res_no = e.ex_no   -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="exResFindOne" resultType="com.yedam.finalPrj.exhibition.service.ExResMem" > -->
+		
+<!-- 		select r.ex_res_no, r.ex_date, get_code_name(e.category) AS category, e.name as exName, m.name as memName, e.start_date, e.end_date, m.buisness_num, amount, r.payment_amt -->
+<!-- 			from EXHIBITION e, EXHIBITION_RESERVATION r, member m  -->
+<!-- 			where m.mem_no = e.mem_no  -->
+<!-- 			and e.ex_no=r.ex_no -->
+<!-- 			AND r.ex_no = #{exResNo} -->
+<!-- 	</select> -->
+	
+<!-- 	<insert id="exInsert" parameterType="com.yedam.finalPrj.exhibition.service.Exhibition"> -->
+	
+<!-- 	INSERT INTO EXHIBITION(ex_no, name, )   -->
+<!-- 	VALUES (ex_seq.nextval, ) -->
+<!-- 	</insert> -->
+	
+<!-- 	<update id="exResAmtUpdate" parameterType="com.yedam.finalPrj.exhibition.service.ExResMem"> -->
+<!-- 		UPDATE EXHIBITION_RESERVATION SET AMOUNT = #{amount} WHERE EX_RES_NO = ${exResNo}  -->
+<!-- 	</update> -->
+	
+	
+	
+<!-- 	<!-- 조회 -->	 -->
+<!-- <!--<update id="updateView" parameterType="com.yedam.finalPrj.announcement.service.Announcement"> -->
+<!-- 		UPDATE EXHIBITION SET ann_view = ann_view + 1 WHERE ANN_NO = #{annNo} -->
+<!-- 	</update> --> -->
+	
+<!-- 	<delete id="exDelete" parameterType="com.yedam.finalPrj.exhibition.service.Exhibition"> -->
+		
+<!-- 	</delete> -->
+
+<!-- </mapper> -->
