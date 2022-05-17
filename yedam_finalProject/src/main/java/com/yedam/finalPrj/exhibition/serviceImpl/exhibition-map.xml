@@ -3,7 +3,22 @@
 <mapper namespace="com.yedam.finalPrj.exhibition.serviceImpl.ExhibitionMapper">
 	
 <!-- 	홍제 -->
+	<!-- 조인으로 전체조회 -->
+	<select id="selectAllExhibitionReservattion" resultType="com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO">
+		SELECT r.*,e.* ,(e.price * r.amount) AS payment
+		FROM exhibition_reservation r, exhibition e
+		WHERE r.ex_no = e.ex_no
+	</select>
 	
+	<!-- 예약내역 상세정보 -->
+	<select id="exDetail" resultType="com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO">
+		SELECT r.*,e.*,(m.name) AS memName ,(e.price * r.amount) AS payment
+		FROM exhibition_reservation r, exhibition e, member m
+		WHERE r.ex_no = e.ex_no 
+		AND r.mem_no = m.mem_no
+		AND r.ex_res_no = #{exResNo}
+		AND m.name = #{memName}
+	</select>
 	
 <!-- 	준우 -->
 	
