@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>공지사항 등록 페이지</h1>
+	<h1>전시 등록 페이지</h1>
 	<form id="insertFrm" name="insertFrm" action="insert" method="POST">
 	<label>제목</label>
 	<div><input type="text" name=""></div><br>

@@ -8,7 +8,8 @@ import lombok.Setter;
 public class ExhibitionReservation {
 	int exResNo;
 	int exNo;
-	String exdate;
+	String name;
+	String exDate;
 	int amount;
 	int paymentAmt;
 	String category;

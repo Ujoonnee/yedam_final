@@ -40,7 +40,7 @@
 			
 		</table>
 	</form>
-	<button type="button" id="list" onclick="location.href='findAll'">글 목록</button>
+	<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
 	
 </body>
 <script type="text/javascript">
