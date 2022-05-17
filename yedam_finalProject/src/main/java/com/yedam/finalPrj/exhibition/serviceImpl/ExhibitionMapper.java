@@ -2,6 +2,7 @@ package com.yedam.finalPrj.exhibition.serviceImpl;
 
 import java.util.List;
 
+import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
@@ -9,7 +10,9 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 public interface ExhibitionMapper {
 
 	// 홍제
-	
+	List<ExhibitionReservationVO> selectAllExhibitionReservattion();
+	ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO);
+	ExhibitionReservationVO exDetail(ExhibitionReservationVO vo);
 	
 	// 준우
 	
