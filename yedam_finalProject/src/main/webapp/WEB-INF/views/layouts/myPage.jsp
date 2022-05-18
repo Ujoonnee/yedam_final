@@ -20,9 +20,18 @@
 </style>
 <title> <tiles:getAsString name="title"/> </title>
 </head>
-<body>
+<body class="container-fluid p-0">
 	<tiles:insertAttribute name="header"/>
-	<tiles:insertAttribute name="body"/>
+	
+	<div class="row">
+		<div class="col-3 border">
+			<tiles:insertAttribute name="sidebar"/>
+		</div>
+		<div class="col-9">
+			<tiles:insertAttribute name="body"/>
+		</div>
+	</div>
+	
 	<tiles:insertAttribute name="footer"/>
 </body>
 </html>

@@ -12,8 +12,6 @@ import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
-import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
-import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
 
 
@@ -115,26 +113,26 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	// 성준
 	@Override
-	public List<ParkExhibitionVO> exhibition(ParkExhibitionPagingCriteria cri) {
+	public List<ExhibitionVO> exhibition(ParkExhibitionPagingCriteria cri) {
 		// TODO Auto-generated method stub
 		
 		return map.exhibition(cri);
 	}
 	
 	@Override
-	public ParkExhibitionVO findExVO(ParkExhibitionVO vo) {
+	public ExhibitionVO findExVO(ExhibitionVO vo) {
 		// TODO Auto-generated method stub
 		return map.findExVO(vo);
 	}
 	
 	@Override
-	public int insertExhibition(ParkExhibitionVO vo) {
+	public int insertExhibitionReservation(ExhibitionVO vo) {
 		// TODO Auto-generated method stub
-		return map.insertExhibition(vo);
+		return map.insertExhibitionReservation(vo);
 	}
 	
 	@Override
-	public ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo) {
+	public ExhibitionReservationVO findExReVO(ExhibitionVO vo) {
 		// TODO Auto-generated method stub
 		return map.findExReVO(vo);
 	}

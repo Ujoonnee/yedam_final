@@ -94,7 +94,7 @@ View페이징
 <pre>매장번호;${exhibitionView.exNo },
 멤버번호;${exhibitionView.memNo },
 이름;${exhibitionView.name },
-쇼룸;${exhibitionView.showRoom },
+쇼룸;${exhibitionView.locationName },
 날짜;${exhibitionView.startDate } ~ ${exhibitionView.endDate },
 카테고리;${exhibitionView.category }
 </pre>

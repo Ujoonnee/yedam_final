@@ -4,13 +4,12 @@
 
 
 <div id="search" >
+	
+<!-- 	<div style="background-image: url('resources/img/home_bg.png'); height: 624px;"></div> -->
+	
 	<h3>검색</h3>
 	
-	<div style="background-image: url('resources/img/home_bg.png'); height: 624px;">
-		
-	</div>
-	
-	<div style="background-color: white;">
+	<div>
 			<div>map</div>
 		
 			<div id="requirements">

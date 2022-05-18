@@ -38,7 +38,7 @@ public class HomeController {
 	
 	@GetMapping("login")
 	public String login() {
-		return "main/login";
+		return "main/member/login";
 	}
 	
 	@PostMapping("login")
@@ -59,9 +59,9 @@ public class HomeController {
 		return "redirect:/";
 	}
 	
-//	@RequestMapping(value ="/review", method = RequestMethod.GET)
-//	public String review() {
-//		return "review/review";
-//	}
+	@GetMapping("myPage")
+	public String myPage() {
+		return "main/member/myPageMain";
+	}
 	
 }

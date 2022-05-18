@@ -18,7 +18,6 @@ import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
-import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
 
 @Controller
@@ -119,14 +118,14 @@ public class ExhibitionController {
 	}
 	
 	// 전시 목록 (승인완료)
-	@GetMapping("provider/exhibition")
+	@GetMapping("provider/exhibitionList")
 	public String getProviderExhibitionList(HttpServletRequest request, Model model) {
 		model.addAttribute("list", service.getExhibitionList(request));
 		return "provider/exhibition/exhibitionList";
 	}
 	
 	// TODO 전시 상세
-	@GetMapping("provider/exhibition/{exNo}")
+	@GetMapping("provider/exhibitionList/{exNo}")
 	public String getProviderExhibition(@PathVariable("exNo") int exNo, Model model) {
 		
 		
@@ -135,7 +134,7 @@ public class ExhibitionController {
 	}
 	
 	// 전시 예약자 목록
-	@RequestMapping("provider/exhibition/{exNo}/reservation")
+	@RequestMapping("provider/exhibitionList/{exNo}/reservation")
 	public String getProviderReservationList(@PathVariable("exNo") int exNo, HttpServletRequest request) {
 		
 		return "";
@@ -157,7 +156,7 @@ public class ExhibitionController {
 
 //	전시 상세보기
 	@RequestMapping(value = "DetailView.do", method = RequestMethod.GET)
-	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
+	public String exhibitionView(ExhibitionVO vo, HttpServletRequest request, Model model) {
 //		이건 추후에 삭제할거임 
 		MemberVO mem = new MemberVO();
 		mem.setName("길동");
@@ -169,9 +168,9 @@ public class ExhibitionController {
 
 //	결제하기
 	@RequestMapping(value = "payment.do", method = RequestMethod.POST)
-	public String payment(Model model, ParkExhibitionVO vo) {
+	public String payment(Model model, ExhibitionVO vo) {
 		System.out.println("paymentDo");
-		service.insertExhibition(vo);
+		service.insertExhibitionReservation(vo);
 		return "";
 	}
 
