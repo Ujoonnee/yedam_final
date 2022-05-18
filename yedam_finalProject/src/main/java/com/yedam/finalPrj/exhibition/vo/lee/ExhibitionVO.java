@@ -8,7 +8,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class ExhibitionVO {
 	
 	private int exNo;

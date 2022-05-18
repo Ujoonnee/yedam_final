@@ -8,45 +8,160 @@
 <!-- 	</select> -->
 	
 <!-- 	홍제 -->
+	<!-- 조인으로 전체조회 -->
+	<select id="selectAllExhibitionReservattion" resultType="com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO">
+		SELECT r.*,e.* ,(e.price * r.amount) AS payment
+		FROM exhibition_reservation r, exhibition e
+		WHERE r.ex_no = e.ex_no
+	</select>
 	
+	<!-- 예약내역 상세정보 -->
+	<select id="exDetail" resultType="com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO">
+		SELECT r.*,e.*,(m.name) AS memName , (m.tel) AS memTel, (e.price * r.amount) AS payment
+		FROM exhibition_reservation r, exhibition e, member m
+		WHERE r.ex_no = e.ex_no 
+		AND r.mem_no = m.mem_no
+		AND r.ex_res_no = #{exResNo}
+	</select>
 	
 <!-- 	준우 -->
-	
+<select id="selectAllExh" resultType="ExhibitionVO">
+	select e.*, 
+	       m.name as "member.name", 
+	       GET_CODE_NAME(e.approval_status) as "approvalStatus"
+	  from exhibition e inner join member m
+	    on e.mem_no = m.mem_no
+</select>
+<select id="selectAllExhByStatus" parameterType="String" resultType="ExhibitionVO">
+	select e.*, 
+	       m.name as "member.name",
+	        GET_CODE_NAME(e.approval_status) as "approvalStatus"
+	  from exhibition e inner join member m
+	    on e.mem_no = m.mem_no
+	where e.approval_status = #{approvalStatus}
+</select>
+<select id="selectAllByExhName" parameterType="String" resultType="ExhibitionVO">
+	select e.*, 
+	       m.name as "member.name",
+	       GET_CODE_NAME(e.approval_status) as "approvalStatus"
+	  from exhibition e inner join member m
+	    on e.mem_no = m.mem_no
+	where e.name like '%'||#{exhName}||'%'
+</select>
+<select id="selectAllByMemName" parameterType="String" resultType="ExhibitionVO">
+	select e.*, 
+	       m.name as "member.name",
+	       GET_CODE_NAME(e.approval_status) as "approvalStatus"
+	  from exhibition e inner join member m
+	    on e.mem_no = m.mem_no
+	where m.name like '%'||#{memName}||'%'
+</select>
+    
 	
 <!-- 	성환 -->
 	
 	
 <!-- 	우준 -->
 	<!-- 사업자의 전시 등록 신청 -->
-	<insert id="insertExhibition" parameterType="ExhibitionVO">
-		INSERT INTO exhibition
-		VALUES(ex_seq.NEXTVAL,#{memNo},#{name},#{locationName},#{price},#{thumbnail},#{tel},#{address},#{startDate},#{endDate},#{detail},'00202','00403',SYSDATE)
-	</insert>
+<!-- 	<insert id="insertExhibition" parameterType="ExhibitionVO"> -->
+<!-- 		INSERT INTO exhibition -->
+<!-- 		VALUES(ex_seq.NEXTVAL,#{memNo},#{name},#{locationName},#{price},#{thumbnail},#{tel},#{address},#{startDate},#{endDate},#{detail},'00202','00403',SYSDATE) -->
+<!-- 	</insert> -->
 	
 	<!-- 사업자의 전시 등록 신청 목록 -->
-	<select id="selectRegistrationList" parameterType="MemberVO" resultType="ExhibitionVO">
-		SELECT ex_no, name, start_date, end_date, application_date, GET_CODE_NAME(approval_status) AS approval_status FROM exhibition WHERE mem_no=#{memNo}
-	</select>
+<!-- 	<select id="selectRegistrationList" parameterType="MemberVO" resultType="ExhibitionVO"> -->
+<!-- 		SELECT ex_no, name, start_date, end_date, application_date, GET_CODE_NAME(approval_status) AS approval_status FROM exhibition WHERE mem_no=#{memNo} -->
+<!-- 	</select> -->
 	
 	<!--  사업자의 전시 등록 신청 상세 -->
-	<select id="selectRegistrationDetail" parameterType="int" resultType="ExhibitionVO">
-		SELECT e.*, GET_CODE_NAME(approval_status) AS approval_status_code_name FROM exhibition e WHERE ex_no=#{exNo}
-	</select>
+<!-- 	<select id="selectRegistrationDetail" parameterType="int" resultType="ExhibitionVO"> -->
+<!-- 		SELECT e.*, GET_CODE_NAME(approval_status) AS approval_status_code_name FROM exhibition e WHERE ex_no=#{exNo} -->
+<!-- 	</select> -->
 	
 	<!-- 사업자의 승인된 전시 목록 -->
-	<select id="selectProviderExhibitionList" parameterType="MemberVO" resultType="ExhibitionVO">
-		SELECT * FROM exhibition WHERE mem_no=#{memNo} AND approval_status='00401'
-	</select>
+<!-- 	<select id="selectProviderExhibitionList" parameterType="MemberVO" resultType="ExhibitionVO"> -->
+<!-- 		SELECT * FROM exhibition WHERE mem_no=#{memNo} AND approval_status='00401' -->
+<!-- 	</select> -->
 	
 	<!-- 선택한 전시의 예약자 목록 -->
-	<select id="selectProviderReservationList" parameterType="ExhibitionReservationVO" resultType="ExhibitionReservationVO">
-		SELECT e.*, GET_CODE_NAME(category) AS category_code_name, GET_CODE_NAME(payment_status) AS payment_status_code_name
-		FROM exhibition_reservation
-		WHERE ex_no=#{exNo} AND mem_no=#{memNo}
-	</select>
+<!-- 	<select id="selectProviderReservationList" parameterType="ExhibitionReservationVO" resultType="ExhibitionReservationVO"> -->
+<!-- 		SELECT e.*, GET_CODE_NAME(category) AS category_code_name, GET_CODE_NAME(payment_status) AS payment_status_code_name -->
+<!-- 		FROM exhibition_reservation -->
+<!-- 		WHERE ex_no=#{exNo} AND mem_no=#{memNo} -->
+<!-- 	</select> -->
 	
 <!-- 	성준 -->
+	<resultMap type = "com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO" id = "exhibition">
+		<id property = "exNo" column="ex_no"/>
+		<result property ="memNo" column="mem_no"/>
+		<result property ="name" column="name"/>
+		<result property ="showRoom" column="show_room"/>
+		<result property ="price" column="price"/>
+		<result property ="thumbnail" column="thumbnail"/>
+		<result property ="tel" column="tel"/>
+		<result property ="address" column="address"/>
+		<result property ="startDate" column="start_date"/>
+		<result property ="endDate" column="end_date"/>
+		<result property ="detail" column="detail"/>
+		<result property ="category" column="category"/>
+		<result property ="approvalStatus" column="approval_status"/>
+		<result property ="applicationDate" column="application_date"/>
+	</resultMap>
 	
+<!-- 	전시목록 -->
+	<select id ="exhibition" resultType="com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO">
+		SELECT *
+		FROM
+		    (
+		    SELECT a.*,ROWNUM rn
+		    FROM
+		        (
+		        SELECT *
+		         FROM exhibition
+		        ) a
+		    WHERE ROWNUM <![CDATA[<]]> #{pageNum} * #{amount}
+		    ) b
+		WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 	전시 목록 검색 -->
+<!-- 		SELECT * -->
+<!-- 		FROM -->
+<!-- 		    ( -->
+<!-- 		    SELECT a.*,ROWNUM rn -->
+<!-- 		    FROM -->
+<!-- 		        ( -->
+<!-- 		        SELECT * -->
+<!-- 		         FROM exhibition -->
+<!-- 		        WHERE name LIKE ('%'||#{name}||'%') -->
+<!-- 		        and address like ('%'||#{address}||'%') -->
+<!-- 		        and (start_date <![CDATA[ >]]> ('%'||#{startDate}||'%') and end_date <![CDATA[<]]> ('%'||#{endDate}||'%')) -->
+<!-- 		        ) a -->
+<!-- 		    WHERE ROWNUM <![CDATA[<]]> #{pageNum} * #{amount} -->
+<!-- 		    ) b -->
+<!-- 		WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount} -->
+	
+<!-- 	전시상세페이지 -->
+	<select id = "findExVO" resultType = "com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO">
+	select * 
+	from exhibition
+	where ex_no = #{exNo}
+	</select>
+<!-- 	예약정보등록 -->
+	<insert id = "insertExhibition" parameterType = "com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO" >
+		<selectKey keyProperty="memNo" resultType="int" order="BEFORE">
+			SELECT CASE WHEN MAX(ex_res_no) IS NULL THEN 1
+			ELSE MAX(ex_res_no) + 1 END AS ex_res_no
+			FROM exhibition_reservation
+		</selectKey>
+		insert into exhibition_reservation values (#{ex_res_no},#{exNo},#{memNo},#{exDate},#{Amount},#{paymentAmt},#{category},#{status})
+	</insert>
+<!-- 	예약정보확인 -->
+	<select id = "findExReVO" resultType ="com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO">
+		select *
+		from exhibition_reservation
+		where mem_no = #{memNo}
+	</select>
+
 	
 
 </mapper>

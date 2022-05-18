@@ -33,24 +33,24 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		
-		return "home/home";
+		return "main/home";
 	}
 	
 	@GetMapping("login")
 	public String login() {
-		return "home/login";
+		return "main/login";
 	}
 	
 	@PostMapping("login")
 	public String login(MemberVO member, HttpServletRequest request) {
 		service.login(member, request);
-		return "home/home";
+		return "main/home";
 	}
 	
 	@GetMapping("tempLogin")
 	public String tempLogin(MemberVO member, HttpServletRequest request) {
 		service.login(member, request);
-		return "home/home";
+		return "main/home";
 	}
 	
 	@GetMapping("logout")
@@ -59,9 +59,9 @@ public class HomeController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value ="/review", method = RequestMethod.GET)
-	public String review() {
-		return "review/review";
-	}
+//	@RequestMapping(value ="/review", method = RequestMethod.GET)
+//	public String review() {
+//		return "review/review";
+//	}
 	
 }

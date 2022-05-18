@@ -25,7 +25,7 @@
 	
 	
 	<div class="row justify-content-center">
-		<div class="col-4 text-center">
+		<div class="col-4 mb-3 text-center">
 			<img src="resources/img/logo.jpg" width="400px">
 		</div>
 	</div>
