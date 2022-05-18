@@ -2,7 +2,7 @@ package com.yedam.finalPrj.exhibition.vo.jo;
 
 import java.sql.Date;
 
-import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberVO;
 
 import lombok.Data;
 
@@ -25,5 +25,5 @@ public class ExhibitionVO {
 	private String approvalStatus;
 	private Date ApplicationDate;
 	
-	private Member member;
+	private MemberVO member;
 }
