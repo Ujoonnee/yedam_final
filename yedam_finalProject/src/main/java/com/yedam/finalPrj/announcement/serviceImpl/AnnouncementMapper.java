@@ -15,8 +15,8 @@ public interface AnnouncementMapper {
 	//파일 업로드 테스트용
 	void annInsert(AnnouncementVO announcement) throws IllegalStateException, IOException;
 	void annInsertFile(Map<String, Object> map); 
-	Map<String, Object> selectFileInfo(Map<String, Object> map);
-	List<Map<String, Object>> selectFileList(int annNo) ; 
+	Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
+	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
 	//	Announcement annInsert(Announcement announcement);
 	
 	

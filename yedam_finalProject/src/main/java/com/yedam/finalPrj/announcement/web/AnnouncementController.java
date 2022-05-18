@@ -21,7 +21,6 @@ import com.yedam.finalPrj.announcement.service.AnnouncementPageMaker;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
-import com.yedam.finalPrj.common.FileVO;
 
 @Controller
 public class AnnouncementController {
@@ -31,7 +30,7 @@ public class AnnouncementController {
 	
 	// 공지사항 목록
 	@RequestMapping("/announcement")
-	public String FindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) {
+	public String FindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) throws Exception {
 
 		int total = service.totalCnt(cri);
 
@@ -70,7 +69,7 @@ public class AnnouncementController {
 	// 공지사항 상세페이지
 	@RequestMapping("/findOne")
 	public String findOne(AnnouncementVO announcement, Model model,
-			@ModelAttribute("cri") AnnouncementPagingCriteria cri) {
+			@ModelAttribute("cri") AnnouncementPagingCriteria cri) throws Exception {
 
 		service.updateView(announcement);
 		System.out.println("NUMBER : " + announcement.getAnnNo());
@@ -101,12 +100,12 @@ public class AnnouncementController {
 	}
 	// 파일 다운로드
 	@RequestMapping("/fileDown")
-	public void fileDown(@RequestParam Map<String, Object> maps, HttpServletResponse response) throws IOException {
+	public void fileDown(@RequestParam Map<String, Object> maps, HttpServletResponse response) throws Exception {
 		Map<String, Object> resultMap = service.selectFileInfo(maps);
 		String replaceName = (String) resultMap.get("replacedName");
 		String originalFileName = (String) resultMap.get("originalName");
 		
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\image\\"+ replaceName));
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\image\\"+replaceName));
 		// 서버에서 다루는 확장자명이 어떤형식의 자료인지 알려주는거
 		response.setContentType("application/octet-stream");
 		// 파일 길이 설정.

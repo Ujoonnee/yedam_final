@@ -69,9 +69,10 @@
 		FROM ATTACHED_FILE
 		WHERE ANN_NO = #{annNo}
 	</select>
+	
 	<!-- 첨부파일 다운 -->
 	<select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
-		SELECT ORIGINAL_NAME, REPLACED_NAME FROM WHERE FILE_NO = #{fileNo} 
+		SELECT ORIGINAL_NAME, REPLACED_NAME FROM ATTACHED_FILE WHERE FILE_NO = #{fileNo} 
 	</select>
 
 	<select id="totalCnt" resultType="int">

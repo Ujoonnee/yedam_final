@@ -85,7 +85,7 @@ public class FileUtils {
 				int size = Integer.parseInt(String.valueOf(multipartFile.getSize()));
 				
 				listMap = new HashMap<String, Object>();
-				listMap.put("ann_No", annNo);
+				listMap.put("annNo", annNo);
 				listMap.put("originalName", originalFileName);
 				listMap.put("replacedName", storedFileName);
 				listMap.put("fileSize", size);

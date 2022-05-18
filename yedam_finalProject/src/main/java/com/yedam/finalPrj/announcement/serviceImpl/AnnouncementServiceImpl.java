@@ -12,7 +12,6 @@ import com.yedam.finalPrj.announcement.service.AnnouncementVO;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 import com.yedam.finalPrj.common.FileUtils;
-import com.yedam.finalPrj.common.FileVO;
 
 @Service
 
@@ -79,13 +78,12 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 
 	@Override
-	public Map<String, Object> selectFileInfo(Map<String, Object> maps) {
+	public Map<String, Object> selectFileInfo(Map<String, Object> maps) throws Exception {
 		return map.selectFileInfo(maps);
 	}
 
 	@Override
-	public List<Map<String, Object>> selectFileList(int annNo) {
-		// TODO Auto-generated method stub
+	public List<Map<String, Object>> selectFileList(int annNo) throws Exception {
 		return map.selectFileList(annNo);
 	}
 

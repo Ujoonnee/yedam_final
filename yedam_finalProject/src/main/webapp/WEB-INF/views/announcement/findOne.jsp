@@ -8,23 +8,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>공지사항 상세</title>
-	<script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	
+</head>
+<script>
 	/* 다운로드 */
 	function fn_fileDown(fileNo){
-		var formObj = ${"form[name='readForm']"};
-		$("FILE_NO").attr("value", fileNo)
-		formObj.attr("action", "fileDown")
+		var formObj = $("form[name='readForm']");
+		$("#FILE_NO").attr("value", fileNo);
+		formObj.attr("action", "fileDown");
 		formObj.submit();
 	}
-	</script>
-</head>
+</script>
 <body>
+
 	<h1>공지사항 상세</h1>
 	<hr>
 	<section>
 			<form name="readForm" role="form" method="post">
 				<input name="seq" type="hidden" value="${announcement.annNo}" />
-				<input type="hidden" id="FILE_NO" name="FILE_NO" value="${file.fileNo }">
+				<input type="hidden" id="FILE_NO" name="fileNo" value="">
+				<input type="hidden" name="replacedName" value="${file.replacedName}">
 			</form>
 	</section>
 	<form id="frm" action="update" method="post" enctype="multipart/form-data">
@@ -56,10 +60,10 @@
 		</table>
 	</form>
 	<div>
-				<div>파일 목록</div>>
+				<div>파일 목록</div>
 				<div>
-					<c:forEach var="files" items="${file}">
-						<a href="#" onclick="fn_fileDown('${files.fileNo}'); return false;">${files.originalName}</a>(${files.fileSize}kb)<br>
+					<c:forEach var="file" items="${file}">
+						<a href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
 					</c:forEach>
 				</div>
 	</div>
