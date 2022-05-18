@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
+import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
@@ -39,6 +40,24 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		// TODO Auto-generated method stub
 		return map.exDetail( vo);
 	}
+	
+	
+	@Override
+	public int totalCnt(PagingVO vo) {
+		// TODO Auto-generated method stub
+		return map.totalCnt(vo);
+	}
+	
+	
+	@Override
+	public List<ExhibitionReservationVO> searchExhibition() {
+		// TODO Auto-generated method stub
+		return map.searchExhibition();
+	}
+
+	
+	
+	
 	
 	
 	// 준우
@@ -93,6 +112,8 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		// TODO Auto-generated method stub
 		return map.findExReVO(vo);
 	}
-	
+
+
+
 	
 }
