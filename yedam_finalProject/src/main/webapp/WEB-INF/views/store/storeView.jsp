@@ -49,7 +49,7 @@
 	 </div>
 	</section>
 <!-- 	상품검색 -->
-	<form action ="searchProduct.do" method="post" name="searchForm" autocomplete="off">
+	<form action ="searchProduct" method="post" name="searchForm" autocomplete="off">
 			<select id="type" name="type"
 				onchange="allSelected()">
 					<option value="1">전체</option>
@@ -87,7 +87,7 @@
 
 
 	
-	<form id="pagingFrm" name="pagingForm" action="storeView.do?store_no=${product.storeNo }" method="get">
+	<form id="pagingFrm" name="pagingForm" action="storeView?store_no=${product.storeNo }" method="get">
 		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
 		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
 		<input type="hidden" id="type" name="type" value="${paging.cri.type }">
