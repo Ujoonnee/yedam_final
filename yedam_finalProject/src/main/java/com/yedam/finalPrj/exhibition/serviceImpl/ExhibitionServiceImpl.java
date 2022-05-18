@@ -2,6 +2,7 @@ package com.yedam.finalPrj.exhibition.serviceImpl;
 
 import java.util.List;
 
+import org.apache.ibatis.jdbc.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,12 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 
-@Service("ExhibitionService")
+import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
+import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
+import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
+import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 
+@Service("ExhibitionService")
 public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	@Autowired ExhibitionMapper map;
@@ -108,12 +113,5 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		// TODO Auto-generated method stub
 		return map.findExReVO(vo);
 	}
-
-
-
-	
-
-	
-	
 	
 }
