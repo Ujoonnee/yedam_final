@@ -88,22 +88,7 @@
 	
 	
 <!-- 	성준 -->
-	<resultMap type = "com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO" id = "exhibition">
-		<id property = "exNo" column="ex_no"/>
-		<result property ="memNo" column="mem_no"/>
-		<result property ="name" column="name"/>
-		<result property ="showRoom" column="show_room"/>
-		<result property ="price" column="price"/>
-		<result property ="thumbnail" column="thumbnail"/>
-		<result property ="tel" column="tel"/>
-		<result property ="address" column="address"/>
-		<result property ="startDate" column="start_date"/>
-		<result property ="endDate" column="end_date"/>
-		<result property ="detail" column="detail"/>
-		<result property ="category" column="category"/>
-		<result property ="approvalStatus" column="approval_status"/>
-		<result property ="applicationDate" column="application_date"/>
-	</resultMap>
+
 	
 <!-- 	전시목록 -->
 	<select id ="exhibition" resultType="com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO">
@@ -150,13 +135,43 @@
 			ELSE MAX(ex_res_no) + 1 END AS ex_res_no
 			FROM exhibition_reservation
 		</selectKey>
-		insert into exhibition_reservation values (#{ex_res_no},#{exNo},#{memNo},#{exDate},#{Amount},#{paymentAmt},#{category},#{status})
+		insert into exhibition_reservation values (#{ex_res_no},#{exNo},#{memNo},#{exDate},#{Amount},#{paymentAmt},#{category},#{paymentStatus})
 	</insert>
 <!-- 	예약정보확인 -->
 	<select id = "findExReVO" resultType ="com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO">
 		select *
 		from exhibition_reservation
 		where mem_no = #{memNo}
+	</select>
+	
+	<select id ="searchEx" resultType = "com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO">
+		select * 
+		from
+		    (select a.* , ROWNUM rn 
+		    from
+		        (select *
+		        from exhibition 
+		            where address like ('%'||#{exVO.address}||'%')
+		            <if test ="exVO">
+		            and start_date <![CDATA[>]]> #{exVO.startDate}
+		            and end_date <![CDATA[<]]>#{exVO.endDate}
+		            </if>
+		            and name like ('%'||#{keyword}||'%') ) a
+		        where 
+		        rownum <![CDATA[<]]> #{pageNum} * #{amount}
+		    )b
+		where rn > (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 	페이징 위한 전시 개수  -->
+	<select id="totalExCnt" resultType="int">
+		select count(*)
+		from exhibition
+		where address like ('%'||#{exVO.address}||'%')
+				<if test ="exVO">
+				and start_date <![CDATA[>]]> #{exVO.startDate}
+				and end_date <![CDATA[<]]> #{exVO.endDate}
+				</if>
+				and name like ('%'||#{exVO.name}||'%')
 	</select>
 
 	

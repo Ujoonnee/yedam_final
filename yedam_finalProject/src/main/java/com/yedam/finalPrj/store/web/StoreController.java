@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yedam.finalPrj.store.service.Store;
 import com.yedam.finalPrj.store.service.StorePageMaker;
@@ -34,10 +35,11 @@ public class StoreController {
 	
 //	매장 리스트 출력
 	@GetMapping("/list")
-	public String list(StorePagingCriteria cri,Model model) {
+	public String list(StorePagingCriteria cri,Model model,@RequestParam String latitude, @RequestParam String longitude) {
 //		로그인한지 확인하는 session
 		int total = dao.totalCnt();
-		
+		cri.setLatitude(latitude);
+		cri.setLongitude(longitude);
 //		storeList출력
 		model.addAttribute("storeList", dao.storeList(cri));
 		model.addAttribute("paging",new StorePageMaker(cri, total));
@@ -46,7 +48,7 @@ public class StoreController {
 	
 
 //	매장에서의 검색처리
-	@RequestMapping(value ="searchList.do", method= {RequestMethod.POST})
+	@RequestMapping(value ="searchList", method= {RequestMethod.POST})
 	public String search(StorePagingCriteria cri,Model model) {
 		System.out.println("key : "+cri.getType() );
 		System.out.println("val : "+cri.getKeyword());

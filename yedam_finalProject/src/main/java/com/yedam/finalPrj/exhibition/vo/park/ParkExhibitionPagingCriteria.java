@@ -1,6 +1,6 @@
 package com.yedam.finalPrj.exhibition.vo.park;
 
-import java.sql.Date;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,11 +18,10 @@ public class ParkExhibitionPagingCriteria {
 	private String latitude;
 	private String longitude;
 	
-	//검색값
-	private String name;
-	private String address;
-	private Date startDate;
-	private Date endDate;
+	@Autowired ParkExhibitionVO exVO;
+	
+	
+	
 	
 	
 }

@@ -18,6 +18,7 @@ import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PageMaker;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO;
+import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPageMaker;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
@@ -91,12 +92,22 @@ public class ExhibitionController {
 //	전시 출력
 	@RequestMapping("list")
 	public String list(ParkExhibitionPagingCriteria cri, Model model) {
+		
 		model.addAttribute("exhibitionList", service.exhibition(cri));
+		model.addAttribute("paging",new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
+		return "exhibition/exhibitionList";
+	}
+	
+//	전시 목록 검색
+	@RequestMapping(value="searchExhibition", method= {RequestMethod.POST})
+	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
+		model.addAttribute("exhibitionList", service.searchEx(cri));
+		model.addAttribute("paging",new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
 		return "exhibition/exhibitionList";
 	}
 
 //	전시 상세보기
-	@RequestMapping(value = "DetailView.do", method = RequestMethod.GET)
+	@RequestMapping(value = "DetailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
 //		이건 추후에 삭제할거임 
 		MemberVO mem = new MemberVO();
@@ -106,9 +117,10 @@ public class ExhibitionController {
 		model.addAttribute("exhibitionView", service.findExVO(vo));
 		return "exhibition/exhibitionView";
 	}
-
+	
+	
 //	결제하기
-	@RequestMapping(value = "payment.do", method = RequestMethod.POST)
+	@RequestMapping(value = "payment", method = RequestMethod.POST)
 	public String payment(Model model, ParkExhibitionVO vo) {
 		System.out.println("paymentDo");
 		service.insertExhibition(vo);

@@ -22,7 +22,7 @@
 		<div>
 			<button type="button" id = "location_now" name ="location_now" onclick = "locationN()">현재 위치</button>
 		</div>
-		<form action ="searchList.do" method="post" name="searchForm" autocomplete="off">
+		<form action ="searchList" method="post" name="searchForm" autocomplete="off">
 			<select id="type" name="type"
 				onchange="allSelected()">
 					<option value="1">전체</option>
@@ -88,7 +88,7 @@
 			$('#pageNum').val($(this).attr("href"));
 			pagingForm.submit();
 		})
-		});
+	});
 		
 	// 검색 [전체] 선택 시 검색창 비우기
 	function allSelected() {
@@ -101,7 +101,7 @@
 	// 상점 클릭시 공지사항 번호를 넘겨줌
 	function storeView(n) {
 		frm.store_no.value = n;
-		frm.action = "product/productView.do";
+		frm.action = "product/productView";
 		frm.submit();
 	}
 // 	현재위치 재설정
@@ -115,8 +115,9 @@
 					headers: {'Authorization' : 'KakaoAK ee381ad2653c27997305ec26eef7c94b'},
 				success:function(xy){
 					console.log(xy);
-					location.href = "list/searchxy?latitude="+xy.documents[0].y+"&longitude="+xy.documents[0].x
-					
+					sessionStorage.setItem("latitude",xy.documents[0].y);
+					sessionStorage.setItem("longitude",xy.documents[0].x);
+					location.href = "list";
 				},
 				error : function(e){
 					console.log(e);
@@ -131,7 +132,7 @@
 // 	// 검색
 // 	function searchList() {
 // 		$.ajax({
-// 			url : "searchList.do",
+// 			url : "searchList",
 // 			type : "post",
 // 			data : {
 // 				"type" : $("#searchKey").val(),

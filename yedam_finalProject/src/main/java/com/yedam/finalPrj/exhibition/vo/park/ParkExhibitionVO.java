@@ -9,12 +9,12 @@ public class ParkExhibitionVO {
 
 	private int exNo;
 	private int memNo;
-	private String name;
+	private String name = "";
 	private String showRoom;
 	private int price;
 	private String thumbnail;
 	private String tel;
-	private String address;
+	private String address = "";
 	private Date startDate;
 	private Date endDate;
 	private String detail; 
