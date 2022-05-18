@@ -21,7 +21,7 @@ public class ProductController {
 	@Autowired ProductServiceImpl dao;
 	
 //	매장 상세정보(선택한 매장페이지)
-	@RequestMapping(value = "/productView.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/productView", method = RequestMethod.GET)
 	public String Storeview(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
 		String store_no =  (String) (request.getParameter("store_no"));
 		System.out.println("page : "+cri.getPageNum() );
@@ -35,7 +35,7 @@ public class ProductController {
 		return "store/storeView";
 	}
 //  상품 검색
-	@RequestMapping(value = "searchProduct.do",method = {RequestMethod.POST})
+	@RequestMapping(value = "searchProduct",method = {RequestMethod.POST})
 	public String searchProduct(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
 		
 		String store_no =  (String) (request.getParameter("store_no"));

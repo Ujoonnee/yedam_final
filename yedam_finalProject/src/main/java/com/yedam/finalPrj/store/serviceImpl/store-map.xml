@@ -34,29 +34,29 @@
 <!-- 매장 리스트 출력-->
 	<select id="storeList" 
 		resultType="com.yedam.finalPrj.store.service.Store">
-		<![CDATA[
+		
   		SELECT *
 		FROM
 		    (SELECT a.*,ROWNUM rn
 		    FROM(
-		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance 
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance 
 		        from store 
 		        order by distance)a
-		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+		     WHERE ROWNUM<![CDATA[ <= ]]>#{pageNum} * #{amount}
 		    <![CDATA[) b
 		WHERE rn>]]> (#{pageNum}-1) * #{amount}
 	</select>
 <!-- 매장 리스트 출력(카테고리검색)-->
 	<select id="searchaddress" resultType="com.yedam.finalPrj.store.service.Store">
-	<![CDATA[
+	
 		SELECT *
 		FROM
 		    (SELECT a.*,ROWNUM rn
 		    FROM(
-		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
 		        from 
 		             store 
-		             where store_cat LIKE]]> ('%'||#{keyword}||'%')
+		             where store_cat LIKE ('%'||#{keyword}||'%')
 		             <![CDATA[
 		        order by distance)a
 		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
@@ -69,7 +69,7 @@
 		FROM
 		    (SELECT a.*, ROWNUM rn
 		    FROM(
-		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
 		        from store 
 		        where name LIKE ('%'||#{keyword}||'%')
 				<![CDATA[
@@ -80,16 +80,15 @@
 	</select>
 <!-- 매장 리스트 출력(상품명검색)-->
 	<select id="searchProduct" resultType="com.yedam.finalPrj.store.service.Store">
-		<![CDATA[
 		SELECT *
 		FROM
 		    (SELECT a.*, ROWNUM rn
 		    FROM(
-		         select s.store_no, name, address, thumbnail, get_distance(latitude, longitude, '30.8690794214', '128.5942180675') distance
+		         select s.store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
 		         from 
 		               (select distinct store_no
 		                from product
-		                where prod_name LIKE]]> ('%'||#{keyword}||'%')
+		                where prod_name LIKE ('%'||#{keyword}||'%')
 				             <![CDATA[)p
 				             join store s
 				             on p.store_no = s.store_no
