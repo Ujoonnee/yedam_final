@@ -2,27 +2,28 @@ package com.yedam.finalPrj.common;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.yedam.finalPrj.announcement.service.Announcement;
+import com.yedam.finalPrj.announcement.service.AnnouncementVO;
 
 @Component("fileUtils")
 public class FileUtils {
 	//	파일경로 지정
-	private static final String filePath = "C:\\image";
+	private static final String filePath = "C:\\image\\";
 	
 	//
 	
-	public List<Map<String, Object>> parseInsertFileInfo(Announcement announcement ,MultipartHttpServletRequest fileRequest) throws IllegalStateException, IOException{
+	public List<Map<String, Object>> parseInsertFileInfo(AnnouncementVO announcement ,MultipartHttpServletRequest fileRequest) throws IllegalStateException, IOException{
 		//선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
 		Iterator<String> iterator = fileRequest.getFileNames();
 //		인터페이스는 업로드 한 파일 및 파일 데이터를 표현하기 위한 용도
@@ -39,7 +40,6 @@ public class FileUtils {
 		
 		Map<String, Object> listMap = null;
 				
-		int annNo = announcement.getAnnNo();
 		
 		File file = new File(filePath);
 //		폴더가 없을 시 폴더 만들어주는거
@@ -54,11 +54,26 @@ public class FileUtils {
 			multipartFile = fileRequest.getFile(iterator.next());
 			if(multipartFile.isEmpty() == false) {
 				
+		
+				
 				originalFileName = multipartFile.getOriginalFilename();
+				int str = originalFileName.indexOf(".");  
+				String fileName = originalFileName.substring(0,str);
+				
+				LocalTime now = LocalTime.now();
+			    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
+				/*
+				 *
+				 * DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(Locale.
+				 * KOREAN).withZone(ZoneId.systemDefault()); String formatterNow =
+				 * now.format(formatter);
+				 */
+				
 				
 				originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
+				
 				//화면 출력 되는 파일명 32개문자 랜덤으로 만들어서 반환해주는 메서드
-				storedFileName = getRandomString() + originalFileExtenstion;
+				storedFileName = fileName + time + originalFileExtenstion;
 				// 파일 경로와 화면에 출력되는 파일명 
 				file = new File(filePath + storedFileName);
 				multipartFile.transferTo(file);
@@ -66,13 +81,14 @@ public class FileUtils {
 				
 				
 				// vo가 카멜로 만들어져 있는데 페이지상으로는 스네이크로 되있어서 오류나면 1순위 확인해볼 것
+				int annNo = Integer.parseInt(String.valueOf(announcement.getAnnNo()));
+				int size = Integer.parseInt(String.valueOf(multipartFile.getSize()));
 				
 				listMap = new HashMap<String, Object>();
 				listMap.put("ann_No", annNo);
-				listMap.put("ORIGINAL_FILE_NAME", originalFileName);
-				listMap.put("STORED_FILE_NAME", storedFileName);
-				listMap.put("STORED_FILE_NAME", file);
-				listMap.put("FILE_SIZE", multipartFile.getSize());
+				listMap.put("originalName", originalFileName);
+				listMap.put("replacedName", storedFileName);
+				listMap.put("fileSize", size);
 				list.add(listMap);
 			}
 		}
@@ -83,10 +99,6 @@ public class FileUtils {
 	
 	// 32글자의 랜덤한 문자열을 만들어서 반환해주는 기능 
 	// 파일명 변환 때문에 만들어져 있음.
-	public static String getRandomString() {
-		
-		return UUID.randomUUID().toString().replaceAll("-", "");
-	}
 	
 	//
 }

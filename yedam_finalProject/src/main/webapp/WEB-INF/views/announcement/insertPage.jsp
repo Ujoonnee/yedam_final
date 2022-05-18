@@ -9,13 +9,14 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
+	/* 파일업로드 */
 	$(document).ready(function() {
 		var formObj = $("form[name='insertFrm']");
 		$(".write_btn").on("click", function() {
 			if (fn_valiChk()) {
 				return false;
 			}
-			formObj.attr("action", "/announcement/insertPage");
+			formObj.attr("action", "/announcement/annInsert");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
@@ -29,10 +30,13 @@
 			}
 		}
 	}
+	
+	
+	
 </script>
 <body>
 	<h1>공지사항 등록 페이지</h1>
-	<form name="insertFrm" action="insertPage" method="POST"
+	<form name="insertFrm" action="annInsert" method="POST"
 		enctype="multipart/form-data">
 		<label>제목</label>
 		<div>
@@ -58,13 +62,17 @@
 		</div>
 		<div>첨부파일</div>
 		<div>
-			<input type="file" accept="image/jpeg,.txt" name="file">
+			<input type="file" accept="image/jpeg, .txt" name="originalName" multiple>
+			<input type="file" accept="image/jpeg, .txt" name="originalName" multiple>
+			<input type="file" accept="image/jpeg, .txt" name="originalName" multiple>
+			<input type="file" accept="image/jpeg, .txt" name="originalName" multiple>
 		</div>
 		<br>
 		<div>
-			<input class=".write_btn" type="submit" value="작성"> 
-			<input type="button" onclick="findAll" value="취소">
+			<input class=".write_btn" type="submit"  onclick="location.href='list'" value="작성"> 
+			<input type="button" onclick="list" value="취소">
 		</div>
 	</form>
+	
 </body>
 </html>

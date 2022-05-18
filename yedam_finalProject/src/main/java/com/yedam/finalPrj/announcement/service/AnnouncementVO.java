@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class Announcement {
+public class AnnouncementVO {
 	private int annNo;
 	private String title;
 	private String annContent;
@@ -17,4 +17,11 @@ public class Announcement {
 	private int annView;
 	private String status;
 	private int annCnt;
+	@Override
+	public String toString() {
+		return "Announcement [annNo=" + annNo + ", title=" + title + ", annContent=" + annContent + ", annDate="
+				+ annDate + ", annView=" + annView + ", status=" + status + ", annCnt=" + annCnt + "]";
+	}
+	
+	
 }

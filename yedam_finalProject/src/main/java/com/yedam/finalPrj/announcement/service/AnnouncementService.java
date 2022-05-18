@@ -7,19 +7,23 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
+
 public interface AnnouncementService {
 
-	List<Announcement> findAll(AnnouncementPagingCriteria paging);
-	List<Announcement> getTopList();
-	Announcement findOne(Announcement announcement);
+	List<AnnouncementVO> findAll(AnnouncementPagingCriteria paging);
+	List<AnnouncementVO> getTopList();
+	AnnouncementVO findOne(AnnouncementVO announcement);
 //	Announcement annInsert(Announcement announcement);
 	
 	//파일업로드 더미
-	Announcement annInsert(Announcement announcement, MultipartHttpServletRequest filerequest) throws IllegalStateException, IOException;
+	void annInsert(AnnouncementVO announcement, MultipartHttpServletRequest filerequest) throws IllegalStateException, IOException;
 	void annInsertFile(Map<String, Object> map);
+
+	public Map<String, Object> selectFileInfo(Map<String, Object> map);
+	 List<Map<String, Object>> selectFileList(int annNo) ; 
 	
 	
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);
-	int updateView(Announcement ann);
+	int updateView(AnnouncementVO ann);
 }
