@@ -2,9 +2,9 @@ package com.yedam.finalPrj.exhibition.service;
 
 import java.util.List;
 
-
-import com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
+import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
+import com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
@@ -12,9 +12,12 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 public interface ExhibitionService {
 
 	// 홍제
-	List<ExhibitionReservationVO> selectAllExhibitionReservattion();
+	List<ExhibitionReservationVO> selectAllExhibitionReservattion(); // 전체조회
+	List<ExhibitionReservationVO> searchExhibition(); // 검색
 	ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO);
 	ExhibitionReservationVO exDetail(ExhibitionReservationVO vo);
+	
+	int totalCnt(PagingVO vo);
 	
 	// 준우
 	//전시등록신청 목록조회

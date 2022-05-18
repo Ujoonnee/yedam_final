@@ -15,7 +15,7 @@ public class ExhibitionReservationVO {
 	private int amount;
 	private int paymentAmt;
 	private String category;
-	private String status;
+	private String paymentStatus;
 	private int memNo;
 	
 	
