@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.member.serviceImpl.MemberServiceImpl;
 
 
@@ -14,7 +14,7 @@ public class MemberJoin  {
 		//String address = request.getParameter("addr1") + " " + request.getParameter("addr2");
 		
 		MemberServiceImpl memberDao = new MemberServiceImpl();
-		Member vo = new Member();
+		MemberVO vo = new MemberVO();
 		vo.setEmail(request.getParameter("email"));
 		vo.setPassword(request.getParameter("password"));
 		vo.setName(request.getParameter("name"));
