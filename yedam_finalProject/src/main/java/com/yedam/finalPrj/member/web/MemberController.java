@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.member.service.MemberEmail;
 import com.yedam.finalPrj.member.service.MemberService;
 import com.yedam.finalPrj.member.serviceImpl.MemberServiceImpl;
@@ -47,7 +47,7 @@ public class MemberController {
 	
 	
 	@PostMapping("/memberJoin.do")
-	public String memberJoin(@ModelAttribute("Member") Member vo) {
+	public String memberJoin(@ModelAttribute("Member") MemberVO vo) {
 //		memberService.insert(vo);
 		
 		return "home/home";
@@ -105,7 +105,7 @@ public class MemberController {
 	}
 	//회원 로그인 체크
 	@RequestMapping("login_check.do")
-	public ModelAndView login_check(@ModelAttribute Member vo, HttpSession session) {
+	public ModelAndView login_check(@ModelAttribute MemberVO vo, HttpSession session) {
 
 		String name = memberService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();

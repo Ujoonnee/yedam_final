@@ -3,7 +3,7 @@ package com.yedam.finalPrj.exhibition.vo.jo;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberVO;
 
 import lombok.Data;
 
@@ -27,5 +27,5 @@ public class ExhibitionVO {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date ApplicationDate;
 	
-	private Member member;
+	private MemberVO member;
 }

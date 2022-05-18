@@ -17,7 +17,7 @@ import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
-import com.yedam.finalPrj.member.service.Member;
+import com.yedam.finalPrj.member.service.MemberVO;
 
 @Controller
 @RequestMapping("/exhibition/*")
@@ -89,7 +89,7 @@ public class ExhibitionController {
 	@RequestMapping(value = "DetailView.do", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
 //		이건 추후에 삭제할거임 
-		Member mem = new Member();
+		MemberVO mem = new MemberVO();
 		mem.setName("길동");
 		mem.setTel("010-555-5555");
 		model.addAttribute("member", mem);
