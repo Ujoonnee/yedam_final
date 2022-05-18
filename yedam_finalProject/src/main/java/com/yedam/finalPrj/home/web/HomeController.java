@@ -56,7 +56,7 @@ public class HomeController {
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "home/home";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value ="/review", method = RequestMethod.GET)

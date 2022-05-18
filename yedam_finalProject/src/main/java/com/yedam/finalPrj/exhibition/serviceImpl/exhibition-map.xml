@@ -38,6 +38,13 @@
 		SELECT * FROM exhibition WHERE mem_no=#{memNo} AND approval_status='00401'
 	</select>
 	
+	<!-- 선택한 전시의 예약자 목록 -->
+	<select id="selectProviderReservationList" parameterType="ExhibitionReservationVO" resultType="ExhibitionReservationVO">
+		SELECT e.*, GET_CODE_NAME(category) AS category_code_name, GET_CODE_NAME(payment_status) AS payment_status_code_name
+		FROM exhibition_reservation
+		WHERE ex_no=#{exNo} AND mem_no=#{memNo}
+	</select>
+	
 <!-- 	성준 -->
 	
 	

@@ -73,26 +73,28 @@ public class ExhibitionController {
 	
 	// 전시 목록 (승인완료)
 	@GetMapping("provider/exhibition")
-	public String getProviderExhibitionList(Model model) {
-		
+	public String getProviderExhibitionList(HttpServletRequest request, Model model) {
+		model.addAttribute("list", service.getExhibitionList(request));
 		return "exhibition/provider/exhibitionList";
 	}
 	
-	// 전시 상세
+	// TODO 전시 상세
 	@GetMapping("provider/exhibition/{exNo}")
 	public String getProviderExhibition(@PathVariable("exNo") int exNo, Model model) {
 		
 		
-		// TODO 서비스의 전시 상세 페이지로 연결할 것
-		return "exhibition/provider/exhibition";
+		// 서비스의 전시 상세 페이지로 연결할 것
+		return "";
 	}
 	
 	// 전시 예약자 목록
 	@RequestMapping("provider/exhibition/{exNo}/reservation")
-	public String getProviderReservationList(@PathVariable("exNo") int exNo) {
+	public String getProviderReservationList(@PathVariable("exNo") int exNo, HttpServletRequest request) {
 		
 		return "";
 	}
+	
+	// TODO 예약정보 상세
 	
 	
 	// 사업자 끝 ===================
