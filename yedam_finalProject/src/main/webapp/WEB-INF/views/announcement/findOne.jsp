@@ -28,7 +28,6 @@
 			<form name="readForm" role="form" method="post">
 				<input name="seq" type="hidden" value="${announcement.annNo}" />
 				<input type="hidden" id="FILE_NO" name="fileNo" value="">
-				<input type="hidden" name="replacedName" value="${file.replacedName}">
 			</form>
 	</section>
 	<form id="frm" action="update" method="post" enctype="multipart/form-data">
@@ -64,6 +63,7 @@
 				<div>
 					<c:forEach var="file" items="${file}">
 						<a href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
+						
 					</c:forEach>
 				</div>
 	</div>

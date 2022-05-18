@@ -19,7 +19,7 @@ public interface AnnouncementService {
 	void annInsert(AnnouncementVO announcement, MultipartHttpServletRequest filerequest) throws IllegalStateException, IOException;
 	void annInsertFile(Map<String, Object> map);
 
-	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
+	public Map<String, Object> selectFileInfo(Map<String, Object> maps) throws Exception;
 	 List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
 	
 	

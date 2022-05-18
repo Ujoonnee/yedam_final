@@ -102,9 +102,9 @@ public class AnnouncementController {
 	@RequestMapping("/fileDown")
 	public void fileDown(@RequestParam Map<String, Object> maps, HttpServletResponse response) throws Exception {
 		Map<String, Object> resultMap = service.selectFileInfo(maps);
-		String replaceName = (String) resultMap.get("replacedName");
-		String originalFileName = (String) resultMap.get("originalName");
-		
+		String replaceName = (String) resultMap.get("REPLACED_NAME");
+		String originalFileName = (String) resultMap.get("original_name");
+		System.out.println("-----------------------------------"+replaceName);
 		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\image\\"+replaceName));
 		// 서버에서 다루는 확장자명이 어떤형식의 자료인지 알려주는거
 		response.setContentType("application/octet-stream");
@@ -112,6 +112,7 @@ public class AnnouncementController {
 		response.setContentLength(fileByte.length);
 		// attachment : 로컬에 다운로드 & 저장 대부분의 브라우저에서는 바로 다운로드가 되거나, “Save As” 다이얼로그가 표시됨
 																				// 웹 다운로드시 브라우저 별 한글 처리
+		//다운로드 시 파일이름을 정해줄 수 있음.
 		response.setHeader("Content-Disposition", "attachment; fileName=\""+URLEncoder.encode(originalFileName, "UTF-8")+"\";");
 		// 파읽읽어 응답
 		response.getOutputStream().write(fileByte);

@@ -32,8 +32,8 @@ public class FileUtils {
 		String originalFileName = null; 
 		//확장자 명
 		String originalFileExtenstion =null;
-		//업로드시 화면에 나오는 명칭
-		String storedFileName = null; 
+		//바뀐 이름으로 파일 들어감
+		String replacedname = null; 
 		
 		// 파일리스트
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
@@ -62,20 +62,12 @@ public class FileUtils {
 				
 				LocalTime now = LocalTime.now();
 			    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
-				/*
-				 *
-				 * DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(Locale.
-				 * KOREAN).withZone(ZoneId.systemDefault()); String formatterNow =
-				 * now.format(formatter);
-				 */
-				
-				
 				originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
 				
 				//화면 출력 되는 파일명 32개문자 랜덤으로 만들어서 반환해주는 메서드
-				storedFileName = fileName + time + originalFileExtenstion;
+				replacedname = fileName + time + originalFileExtenstion;
 				// 파일 경로와 화면에 출력되는 파일명 
-				file = new File(filePath + storedFileName);
+				file = new File(filePath + replacedname);
 				multipartFile.transferTo(file);
 				//정보 담겨진 정보를 put  annNo, 파일명, 화면에 출력되는 인코딩된 파일명, 파일 크기
 				
@@ -87,7 +79,7 @@ public class FileUtils {
 				listMap = new HashMap<String, Object>();
 				listMap.put("annNo", annNo);
 				listMap.put("originalName", originalFileName);
-				listMap.put("replacedName", storedFileName);
+				listMap.put("replacedName", replacedname);
 				listMap.put("fileSize", size);
 				list.add(listMap);
 			}
