@@ -1,4 +1,4 @@
-package com.yedam.finalPrj.store.vo.park;
+package com.yedam.finalPrj.store.vo.jo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ReservedGoods {
+public class ReservedProduct {
 
 	private long prodResNo; 
 	private int storeNo; 

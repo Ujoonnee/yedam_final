@@ -137,10 +137,49 @@
 
 
 	
-<!-- 	Jo -->
-	
+<!-- Jo -->
+<!-- 예약 상품 목록 출력 -->
+<select id = "reservedProductsList"  resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
+   SELECT *
+   FROM
+       (SELECT a.* , ROWNUM rn
+           FROM
+               (<!--밑에꺼안될시 다시 SELECT p.prod_res_no, p.store_no,p.mem_no,p.pickup_time,p.pickup_date,
+                       p.payment_amt, p.payment_status,p.order_date, r.count
+                   FROM
+                       reserved_product     r,
+                       product_reservation  p
+                   WHERE
+                       r.prod_res_no = p.prod_res_no
+                       and mem_no = 1 -->
+                 SELECT * FROM(
+                          SELECT p.prod_res_no, p.store_no,p.mem_no,p.pickup_time,p.pickup_date,
+                       p.payment_amt, p.payment_status,p.order_date, r.count AS "reservedProduct.count", s.name AS "store.name", t.prod_name AS "product.prodName"
+                   FROM
+                       reserved_product     r
+                    INNER JOIN product_reservation  p
+                    ON r.prod_res_no = p.prod_res_no    
+                   INNER JOIN store          s
+                    ON s.store_no = p.store_no
+                    and p.mem_no=1
+                    LEFT JOIN product       t
+                    ON t.prod_no = r.prod_no
+                    )
+                    WHERE ROWNUM=1
+               ) a
+           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+       ) b
+   WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+</select>
+<!-- 매장이름으로 예약 상품 출력 -->
+<select id="selectResProdListByStoreName" resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
 
-	
+</select>
+<!-- 매장이름으로 예약 상품 출력 -->
+<select id="selectResProdListByProdName" resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
+
+</select>
+
 <!-- 	Yoon -->
 	
 	

@@ -1,11 +1,11 @@
-package com.yedam.finalPrj.store.vo.park;
+package com.yedam.finalPrj.store.vo.jo;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class StorePagingCriteria {
+public class ReservedProductsListPagingCriteria {
 
 		//페이징
 		private int pageNum=1;	//페이지 번호
