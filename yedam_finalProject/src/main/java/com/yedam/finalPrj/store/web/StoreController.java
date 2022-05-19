@@ -23,6 +23,7 @@ public class StoreController {
 	
 //	Park
 	
+//	판매자
 //	매장신청 양식 페이지
 	@RequestMapping("register")
 	public String register() {
@@ -36,7 +37,11 @@ public class StoreController {
 		dao.regist(vo);
 		return "home/home";
 	}
+//	내상품관리
 	
+//	매장판매내역
+	
+//	일반회원
 //	매장 리스트 출력
 	@GetMapping("list")
 	public String list(StorePagingCriteria cri,Model model) {

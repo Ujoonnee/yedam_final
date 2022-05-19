@@ -13,6 +13,7 @@
 		<result property="soldOut" column="SOLD_OUT" />
 		<result property="price" column="PRICE" />
 		<result property="prodThumbnail" column="PROD_THUMBNAIL" />
+		<result property="prodCat" column="PROD_Cat" />
 	</resultMap>
 	
 	<!-- 매장 입장(상품출력) -->
@@ -78,7 +79,7 @@
 		SELECT COUNT(*) 
 	    FROM (SELECT *
 			FROM PRODUCT p
-			WHERE STORE_NO LIKE#{store_no}
+			WHERE STORE_NO LIKE #{storeNo}
 			AND STORE_NO > 0)
 	    where prod_name like ('%'||#{keyword}||'%')
 	</select>
@@ -87,11 +88,27 @@
 		SELECT COUNT(*) 
 	    FROM (SELECT *
 			FROM PRODUCT p
-			WHERE STORE_NO LIKE#{store_no}
+			WHERE STORE_NO LIKE#{storeNo}
 			AND STORE_NO > 0)
 	    where price between #{lowPrice} and #{highPrice}
 	</select>
 		
+	<select id = "myStoreProductManegement" resultType="com.yedam.finalPrj.product.vo.park.Product">
+	select * 
+	from
+	    (select a.* , ROWNUM rn 
+	    from
+	        (select * from product
+	        where store_no = #{storeNo})a    
+	    where ROWNUM <![CDATA[ <=]]> #{pageNum} * #{amount} )b
+	WHERE rn <![CDATA[ >]]>  (#{pageNum}-1) * #{amount}
+	</select>
+	
+	<select id = "myStoreProductCnt" resultType="int">
+	select count(*) 
+	from product
+        where store_no = #{storeNo}
+	</select>
 <!-- 		Hong -->
 
 	<!-- 상품 예약 목록 -->

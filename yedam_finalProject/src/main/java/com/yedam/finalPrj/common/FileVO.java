@@ -11,5 +11,6 @@ public class FileVO {
 	String originalName;
 	String replacedName;
 	int fileSize;
-	
+	String status;
+	String isNew;
 }

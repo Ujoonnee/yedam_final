@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 	/* 파일업로드 */
 	$(document).ready(function() {
@@ -20,6 +21,7 @@
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
+		fn_addFile();
 	})
 	function fn_valiChk() {
 		var regForm = $("form[name='insertFrm'] .chk").length;
@@ -30,8 +32,26 @@
 			}
 		}
 	}
-	
-	
+/* 	function fn_addFile(){
+		var fileIndex = 1;
+		$(".fileAdd_btn").on("click", function(){
+			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>")
+		});
+		$(document).on("click", "#fileDelBtn", function(){
+			$(this).parent().remove();
+		});
+	} */
+	function fn_addFile(){
+		var fileIndex = 1;
+		//$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"<button type='button' style='float:right;' id='fileAddBtn'>"+"추가"+"</button></div>");
+		$(".fileAdd_btn").on("click", function(){
+			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		});
+		$(document).on("click","#fileDelBtn", function(){
+			$(this).parent().remove();
+			
+		});
+	}	
 	
 </script>
 <body>
@@ -61,15 +81,14 @@
 			</select>
 		</div>
 		<div>첨부파일</div>
+		
 		<div>
-			<input type="file" accept="image/jpeg, .txt" name="originalName" multiple>
-			<input type="file" accept="image/jpeg, .txt" name="originalName" multiple>
-			<input type="file" accept="image/jpeg, .txt" name="originalName" multiple>
-			<input type="file" accept="image/jpeg, .txt" name="originalName" multiple>
+			<button class="fileAdd_btn" type="button">파일추가</button>
 		</div>
+		<div id="fileIndex"></div>
 		<br>
 		<div>
-			<input class=".write_btn" type="submit"  onclick="location.href='list'" value="작성"> 
+			<input class=".write_btn" type="submit" value="작성"> 
 			<input type="button" onclick="list" value="취소">
 		</div>
 	</form>
