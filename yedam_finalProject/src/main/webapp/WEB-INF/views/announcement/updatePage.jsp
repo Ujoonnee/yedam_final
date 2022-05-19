@@ -12,13 +12,14 @@
 	
 </head>
 <script>
-	/* 다운로드 */
-	function fn_fileDown(fileNo){
-		var formObj = $("form[name='readForm']");
-		$("#FILE_NO").attr("value", fileNo);
-		formObj.attr("action", "fileDown");
-		formObj.submit();
-	}
+	$(document).ready(function(){
+		var formObj = $("form[name='updateForm']");
+		
+		$(document).on("click", "#fileDel", function(){
+			$(this).parent().remove();
+		})
+		fn_addFile();
+	})
 	
 
 </script>
@@ -27,7 +28,7 @@
 	<h1>공지사항 수정</h1>
 	<hr>
 	<section>
-			<form name="readForm" role="form" method="post">
+			<form name="updateForm" role="form" method="post">
 				<input name="seq" type="hidden" value="${announcement.annNo}" />
 				<input type="hidden" id="FILE_NO" name="fileNo" value="">
 			</form>
@@ -85,6 +86,8 @@
 	</div>
 	<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
 	
+	<!-- TODO 업데이트 스크립트 짤것. 파일업로드 삭제 버튼 수정좀 할것 -->
+	<!--  -->
 </body>
 <script type="text/javascript">
  		//글 목록
