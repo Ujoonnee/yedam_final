@@ -3,8 +3,9 @@ package com.yedam.finalPrj.store.serviceImpl;
 
 import java.util.List;
 
-import com.yedam.finalPrj.store.service.Store;
-import com.yedam.finalPrj.store.service.StorePagingCriteria;
+import com.yedam.finalPrj.store.vo.park.ReservedGoods;
+import com.yedam.finalPrj.store.vo.park.Store;
+import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 
 public interface StoreMapper {
 	public int regist(Store store);
@@ -20,5 +21,30 @@ public interface StoreMapper {
 	public int totalCatCnt(StorePagingCriteria cri);
 	public int totalProdCnt(StorePagingCriteria cri);
 	
+//	매장 예약 페이지
+	public List <ReservedGoods> storeReserve(StorePagingCriteria cri);
+	public ReservedGoods storeReservationDetail(StorePagingCriteria cri);
+	 int numberOfReservation(StorePagingCriteria cri);
+	 
+	 
+		
+//		Hong
 
+	 
+
+		
+//		Jo
+		
+		
+	 
+		
+//		Yoon
+		
+		
+	 
+		
+//		Lee
+		
+	 
+	 
 }

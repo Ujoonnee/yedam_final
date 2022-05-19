@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form id="frm" name="frm" action="regist.do" method="post">
+<form id="frm" name="frm" action="regist" method="post">
 		<div>
 		<h2> 매장등록신청양식</h2>
 		<div id = "st_Table">
