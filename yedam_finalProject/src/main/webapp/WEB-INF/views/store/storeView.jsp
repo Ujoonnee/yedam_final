@@ -73,13 +73,12 @@
 						<td align = "center">가격 : ${product.price }</td>
 					</tr>
 				</c:forEach>
-			
-			
 		</c:if>
 	</table>	
-<!-- 	모달처리 -->
+<!-- 	모달 -->
 	<div class="modal"> 
 		<div class="modal_body">
+			<div>픽업 예상 시간 <input type="time"  min="00:00" max="23:59"></div>
 			<div id ="cart"></div>
 		</div>
 	</div> 

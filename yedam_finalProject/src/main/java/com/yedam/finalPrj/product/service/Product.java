@@ -1,8 +1,10 @@
 package com.yedam.finalPrj.product.service;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class Product {
 	private long prodNo;
 	private int storeNo;

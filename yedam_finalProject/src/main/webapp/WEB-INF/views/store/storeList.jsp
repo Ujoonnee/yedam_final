@@ -34,7 +34,6 @@
 			<button id = "searchBtn" >버튼</button>&nbsp;
 		</form>
 	</div>
-	
 	<!-- 	매장목록 -->
 	<div>
 		<form id ="frm" method ="get">
@@ -42,6 +41,7 @@
 				<c:if test="${empty storeList }">
 					<tr><td align ="center">등록된 매장이 없습니다.</td></tr>
 				</c:if>
+				
 				<c:if test="${not empty storeList }">
 					<c:forEach items="${storeList }" var = "list">
 						<tr height="150px" onclick ="storeView(${list.storeNo})" >
@@ -58,9 +58,11 @@
 	
 	<form id="pagingFrm" name="pagingForm" action="list" method="get">
 		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
+		<input type="hidden" id="pageNum" name="amount" value="${paging.cri.amount }">
 		<input type="hidden" id="type" name="type" value="${paging.cri.type }">
 		<input type="hidden" id="keyword" name="keyword" value="${paging.cri.keyword }">
+		<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
+		<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
 	</form>
 	
 	<div id="pagingDiv">
@@ -86,7 +88,7 @@
 		$('#pagingDiv a').click(function(e){
 			e.preventDefault();
 			$('#pageNum').val($(this).attr("href"));
-			pagingForm.submit();
+			pagingFrm.submit();
 		})
 	});
 		
@@ -115,9 +117,11 @@
 					headers: {'Authorization' : 'KakaoAK ee381ad2653c27997305ec26eef7c94b'},
 				success:function(xy){
 					console.log(xy);
-					sessionStorage.setItem("latitude",xy.documents[0].y);
-					sessionStorage.setItem("longitude",xy.documents[0].x);
-					location.href = "list";
+					$('input[name=latitude]').attr('value',xy.documents[0].y);
+					$('input[name=longitude]').attr('value',xy.documents[0].x);
+					pagingFrm.submit();
+// 					XYget(xy.documents[0].y,xy.documents[0].x);
+					
 				},
 				error : function(e){
 					console.log(e);
@@ -128,26 +132,6 @@
 		}).open();
 	}
 	
-	
-// 	// 검색
-// 	function searchList() {
-// 		$.ajax({
-// 			url : "searchList",
-// 			type : "post",
-// 			data : {
-// 				"type" : $("#searchKey").val(),
-// 				"keyword" : $("#keyword").val()
-// 			},
-// 			dataType : "json",
-// 			success : function(result) {
-// 				if (result.length > 0) {
-// 					searchResult(result); //json data>> html
-// 				} else {
-// 					alert("검색 결과가 존재하지 않습니다.");
-// 				}
-// 			}
-// 		});
-// }
 </script>
 </body>
 </html>

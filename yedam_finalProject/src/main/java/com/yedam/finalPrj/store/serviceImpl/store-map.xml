@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+<!-- Park -->
 <mapper
 	namespace="com.yedam.finalPrj.store.serviceImpl.StoreMapper">
-	<resultMap type="com.yedam.finalPrj.store.service.Store"
+	<resultMap type="com.yedam.finalPrj.store.vo.park.Store"
 		id="store">
 		<id property="storeNo" column="store_no" />
 		<result property="category" column="category" />
@@ -20,7 +22,7 @@
 
 	<!-- 서비스 등록 -->
 	<insert id="regist"
-		parameterType="com.yedam.finalPrj.store.service.Store">
+		parameterType="com.yedam.finalPrj.store.vo.park.Store">
 		<selectKey keyProperty="store_no" resultType="long"
 			order="BEFORE">
 			Select CASE when max(store_no) is null then 1
@@ -33,7 +35,7 @@
 	</insert>
 <!-- 매장 리스트 출력-->
 	<select id="storeList" 
-		resultType="com.yedam.finalPrj.store.service.Store">
+		resultType="com.yedam.finalPrj.store.vo.park.Store">
 		
   		SELECT *
 		FROM
@@ -47,7 +49,7 @@
 		WHERE rn>]]> (#{pageNum}-1) * #{amount}
 	</select>
 <!-- 매장 리스트 출력(카테고리검색)-->
-	<select id="searchaddress" resultType="com.yedam.finalPrj.store.service.Store">
+	<select id="searchaddress" resultType="com.yedam.finalPrj.store.vo.park.Store">
 	
 		SELECT *
 		FROM
@@ -64,7 +66,7 @@
 		WHERE rn>]]> (#{pageNum}-1) * #{amount}
 	</select>
 <!-- 매장 리스트 출력(매장이름)-->
-	<select id="searchName" resultType="com.yedam.finalPrj.store.service.Store" >
+	<select id="searchName" resultType="com.yedam.finalPrj.store.vo.park.Store" >
 		SELECT *
 		FROM
 		    (SELECT a.*, ROWNUM rn
@@ -79,7 +81,7 @@
 		WHERE rn > (#{pageNum}-1) * #{amount}
 	</select>
 <!-- 매장 리스트 출력(상품명검색)-->
-	<select id="searchProduct" resultType="com.yedam.finalPrj.store.service.Store">
+	<select id="searchProduct" resultType="com.yedam.finalPrj.store.vo.park.Store">
 		SELECT *
 		FROM
 		    (SELECT a.*, ROWNUM rn
@@ -128,6 +130,24 @@
 	</select>
 	
 
+	
+	
+		
+<!-- 	Hong -->
+
+
+	
+<!-- 	Jo -->
+	
+
+	
+<!-- 	Yoon -->
+	
+	
+	
+<!-- 	Lee -->
+	
+	
 	
 	
 	
