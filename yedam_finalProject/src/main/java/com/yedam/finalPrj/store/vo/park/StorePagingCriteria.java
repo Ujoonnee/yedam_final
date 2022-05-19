@@ -1,4 +1,4 @@
-package com.yedam.finalPrj.store.service;
+package com.yedam.finalPrj.store.vo.park;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,5 +16,6 @@ public class StorePagingCriteria {
 		//위도,경도
 		private String latitude;
 		private String longitude;
+		
 		
 }

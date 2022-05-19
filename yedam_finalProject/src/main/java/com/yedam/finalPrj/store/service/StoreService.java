@@ -2,19 +2,49 @@ package com.yedam.finalPrj.store.service;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
+
+import com.yedam.finalPrj.store.vo.park.ReservedGoods;
+import com.yedam.finalPrj.store.vo.park.Store;
+import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
+
 public interface StoreService {
-	public int regist(Store store);
+	
+//	Park
+	 int regist(Store store);
 //	매장 들어갈 시 리스트 출력
-	public List<Store> storeList(StorePagingCriteria cri);
+	 List<Store> storeList(StorePagingCriteria cri);
 //  매장 검색(매장명, 매장 카테고리, 상품명)
-	public List<Store> searchName(StorePagingCriteria cri);
-	public List<Store> searchProduct(StorePagingCriteria cri);
-	public List<Store> searchaddress(StorePagingCriteria cri);
+	void search(StorePagingCriteria cri, Model model);
+	
+	 List<Store> searchName(StorePagingCriteria cri);
+	 List<Store> searchProduct(StorePagingCriteria cri);
+	 List<Store> searchaddress(StorePagingCriteria cri);
 //	페이징을 위한 전체 개수
-	public int totalCnt();
-	public int totalNameCnt(StorePagingCriteria cri);
-	public int totalCatCnt(StorePagingCriteria cri);
-	public int totalProdCnt(StorePagingCriteria cri);
+	 int totalCnt();
+	 int totalNameCnt(StorePagingCriteria cri);
+	 int totalCatCnt(StorePagingCriteria cri);
+	 int totalProdCnt(StorePagingCriteria cri);
 	
 
+		
+//		Hong
+
+
+	 
+		
+//		Jo
+		
+	 
+		
+		
+//		Yoon
+		
+		
+	 
+		
+//		Lee
+		
+	 
+	 
 }

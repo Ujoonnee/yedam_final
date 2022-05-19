@@ -1,25 +1,25 @@
-package com.yedam.finalPrj.exhibition.vo.park;
+package com.yedam.finalPrj.exhibition.service;
 
 import java.sql.Date;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class ParkExhibitionVO {
-
+@Getter
+@Setter
+public class Exhibition {
 	private int exNo;
 	private int memNo;
-	private String name = "";
+	private String name;
 	private String showRoom;
 	private int price;
+	private String address;
 	private String thumbnail;
 	private String tel;
-	private String address = "";
 	private Date startDate;
 	private Date endDate;
-	private String detail; 
+	private String detail;
 	private String category;
 	private String approvalStatus;
-	private Date applicationDate;
 	
 }

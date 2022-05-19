@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
+import com.yedam.finalPrj.exhibition.vo.hong.PageMaker;
+import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO;
+import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPageMaker;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
@@ -32,15 +36,22 @@ public class ExhibitionController {
 
 	// 내 예약 목록
 	@GetMapping("/exSelectAllReservation")
-	public String exSelectAllReservation(Model model) {
+	public String exSelectAllReservation(PagingVO vo, Model model) {
 		List<ExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion();
+		
+		int total = service.totalCnt(vo);
+		
 		model.addAttribute("exhibitionReservationVO", exhibitionReservationVO);
+		
+		model.addAttribute("paging", new PageMaker(vo, total));
 		return "exhibition/exhibitionReservation";
 	}
 
 	// 예약목록 상세페이지
 	@RequestMapping(value = "/exhibitionReservationDetail", method = RequestMethod.GET)
 	public String exhibitionReservationDetail(Model model, ExhibitionReservationVO vo) {
+		System.out.println("값확인"+model.getAttribute("exResNo"));
+		System.out.println(vo.getExResNo());
 		ExhibitionReservationVO detail = service.exDetail(vo);
 		model.addAttribute("exRes", detail);
 		return "exhibition/exhibitionReservationDetail";
@@ -98,12 +109,22 @@ public class ExhibitionController {
 //	전시 출력
 	@RequestMapping("list")
 	public String list(ParkExhibitionPagingCriteria cri, Model model) {
+		
 		model.addAttribute("exhibitionList", service.exhibition(cri));
+		model.addAttribute("paging",new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
+		return "exhibition/exhibitionList";
+	}
+	
+//	전시 목록 검색
+	@RequestMapping(value="searchExhibition", method= {RequestMethod.POST})
+	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
+		model.addAttribute("exhibitionList", service.searchEx(cri));
+		model.addAttribute("paging",new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
 		return "exhibition/exhibitionList";
 	}
 
 //	전시 상세보기
-	@RequestMapping(value = "DetailView.do", method = RequestMethod.GET)
+	@RequestMapping(value = "DetailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
 //		이건 추후에 삭제할거임 
 		MemberVO mem = new MemberVO();
@@ -113,9 +134,10 @@ public class ExhibitionController {
 		model.addAttribute("exhibitionView", service.findExVO(vo));
 		return "exhibition/exhibitionView";
 	}
-
+	
+	
 //	결제하기
-	@RequestMapping(value = "payment.do", method = RequestMethod.POST)
+	@RequestMapping(value = "payment", method = RequestMethod.POST)
 	public String payment(Model model, ParkExhibitionVO vo) {
 		System.out.println("paymentDo");
 		service.insertExhibition(vo);
