@@ -40,7 +40,9 @@
 		SELECT * FROM ANNOUNCEMENT WHERE ANN_NO = #{annNo}
 	</select>
 
-	
+	<update id="annUpdate" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
+		update ANNOUNCEMENT SET title = #{title} ann_content = #{annConent} ann_date = #{annDate} status = #{status} ANNOUNCEMENT WHERE ANN_NO = #{annNo} 
+	</update>
 
 	<update id="updateView" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 		UPDATE ANNOUNCEMENT SET ann_view = ann_view + 1 WHERE
@@ -75,7 +77,12 @@
 	<select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
 		SELECT ORIGINAL_NAME, REPLACED_NAME FROM ATTACHED_FILE WHERE FILE_NO = #{fileNo} 
 	</select>
-
+	
+	<!-- 첨부파일 수정, 삭제하는 쿼리 -->
+	<update id="fileUpdate" parameterType="hashMap">
+		UPDATE ATTACHED_FILE SET status = 'Y' WHERE FILE_NO = #{fileNo} 
+	</update> 
+	<!-- 페이지 갯수 구하는거 -->
 	<select id="totalCnt" resultType="int">
 		SELECT count(*)
 		FROM ANNOUNCEMENT

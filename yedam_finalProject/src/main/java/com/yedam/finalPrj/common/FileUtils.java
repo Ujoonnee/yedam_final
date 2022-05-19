@@ -19,21 +19,28 @@ import com.yedam.finalPrj.announcement.service.AnnouncementVO;
 @Component("fileUtils")
 public class FileUtils {
 	//	파일경로 지정
-	private static final String filePath = "C:\\image\\";
+	private static String filePath = "C:\\image\\";
+
+	
+
 	
 	//
 	
 	public List<Map<String, Object>> parseInsertFileInfo(AnnouncementVO announcement ,MultipartHttpServletRequest fileRequest) throws IllegalStateException, IOException{
+//		TODO 프로젝트 진행 좀 됬을 시 공유폴더에 todo 찍으면 스티커 메모처럼 나옴.
+		//filePath = "\\\\192.168.0.2\\학생공유\\";
+		
 		//선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
 		Iterator<String> iterator = fileRequest.getFileNames();
 //		인터페이스는 업로드 한 파일 및 파일 데이터를 표현하기 위한 용도
 		MultipartFile multipartFile = null;
-		//원본 파일명
+		//	원본 파일명
 		String originalFileName = null; 
-		//확장자 명
+		//	확장자 명
 		String originalFileExtenstion =null;
-		//바뀐 이름으로 파일 들어감
+		//	바뀐 이름으로 파일 들어감
 		String replacedname = null; 
+		// 있는 파일인지 없는파일인지 확인하는곳.
 		
 		// 파일리스트
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
@@ -88,9 +95,65 @@ public class FileUtils {
 		return list;
 		
 	}
+	public static List<Map<String, Object>> parseUpdateFileInfo(AnnouncementVO announcement, String[] files, String[] fileNames, MultipartHttpServletRequest filerequest) throws Exception{
+		
+		filePath = filerequest.getServletContext().getRealPath("/resources/announcement");
+		
+		//선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
+				Iterator<String> iterator = filerequest.getFileNames();
+//				인터페이스는 업로드 한 파일 및 파일 데이터를 표현하기 위한 용도
+				MultipartFile multipartFile = null;
+				//원본 파일명
+				String originalFileName = null; 
+				//확장자 명
+				String originalFileExtenstion =null;
+				//바뀐 이름으로 파일 들어감
+				String replacedname = null; 
+				List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+
+				Map<String, Object> listMap = null;
+				int annNo= announcement.getAnnNo();
+				
+				while(iterator.hasNext()) {
+					multipartFile = filerequest.getFile(iterator.next());
+					if(multipartFile.isEmpty() == false) {
+//						원본 파일명
+						originalFileName = multipartFile.getOriginalFilename();
+//						확장자
+						originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
+						//						확장자 앞까지 명
+//						변경되서 들어가는 파일명 localTime에 나노초? 까지 해서 숫자 난수 생성
+						int str = originalFileName.indexOf(".");
+						String fileName = originalFileName.substring(0,str);
+						LocalTime now = LocalTime.now();
+					    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
+						originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
+						multipartFile.transferTo(new File(filePath + replacedname));
+						
+						//최종 변경된 파일명
+						replacedname = fileName + time + originalFileExtenstion;
+				
+								
+						listMap = new HashMap<String, Object>();
+						listMap.put("IS_NEW", "Y"); 
+						listMap.put("annNo", annNo);
+						listMap.put("originalName", originalFileName);
+						listMap.put("replacedName", replacedname);
+						listMap.put("fileSize", multipartFile.getSize());
+						list.add(listMap);
+					}
+					
+				}
+				
+				if(files !=null && fileNames != null) {
+					for(int i = 0; i<fileNames.length; i++) {
+						listMap = new HashMap<String, Object>();
+						listMap.put("IS_NEW", "N");
+						listMap.put("fileNo", files[i]);
+						list.add(listMap);
+					}
+				}
+		return list;
+	}
 	
-	// 32글자의 랜덤한 문자열을 만들어서 반환해주는 기능 
-	// 파일명 변환 때문에 만들어져 있음.
-	
-	//
 }
