@@ -19,10 +19,12 @@
 		formObj.attr("action", "fileDown");
 		formObj.submit();
 	}
+	
+
 </script>
 <body>
 
-	<h1>공지사항 상세</h1>
+	<h1>공지사항 상세페이지(단순조회)</h1>
 	<hr>
 	<section>
 			<form name="readForm" role="form" method="post">
@@ -30,7 +32,6 @@
 				<input type="hidden" id="FILE_NO" name="fileNo" value="">
 			</form>
 	</section>
-	<form id="frm" action="update" method="post" enctype="multipart/form-data">
 		
 		<table border="1">
 			<tr>
@@ -57,17 +58,19 @@
 			
 			
 		</table>
-	</form>
 	<div>
 				<div>파일 목록</div>
 				<div>
 					<c:forEach var="file" items="${file}">
 						<a href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
-						
 					</c:forEach>
 				</div>
 	</div>
-	<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
+		<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
+	<!-- session에서 가져온 값으로 할거임 -->
+	<c:if test="${memType eq '00101' }">
+		<button type="button" id="" onclick="location.href='updatePage'">수정페이지</button>
+	</c:if>
 	
 </body>
 <script type="text/javascript">
