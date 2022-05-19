@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -190,4 +191,208 @@
 	
 	
 	
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Park -->
+<mapper
+	namespace="com.yedam.finalPrj.store.serviceImpl.StoreMapper">
+	<resultMap type="com.yedam.finalPrj.store.vo.park.Store"
+		id="store">
+		<id property="storeNo" column="store_no" />
+		<result property="category" column="category" />
+		<result property="name" column="name" />
+		<result property="storeCat" column="store_cat" />
+		<result property="address" column="address" />
+		<result property="latitude" column="latitude" />
+		<result property="longitude" column="longitude" />
+		<result property="tel" column="tel" />
+		<result property="thumbnail" column="thumbnail" />
+	</resultMap>
+
+
+	<!-- 서비스 등록 -->
+	<insert id="regist"
+		parameterType="com.yedam.finalPrj.store.vo.park.Store">
+		<selectKey keyProperty="store_no" resultType="long"
+			order="BEFORE">
+			Select CASE when max(store_no) is null then 1
+			ELSE MAX(store_no)
+			+1 END from store
+		</selectKey>
+		insert into store values(
+		#{store_no},#{category},#{name},#{store_cat},#{address},
+		#{latitude},#{longitude},#{tel},#{thumbnail},4)
+	</insert>
+<!-- 매장 리스트 출력-->
+	<select id="storeList" 
+		resultType="com.yedam.finalPrj.store.vo.park.Store">
+		
+  		SELECT *
+		FROM
+		    (SELECT a.*,ROWNUM rn
+		    FROM(
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance 
+		        from store 
+		        order by distance)a
+		     WHERE ROWNUM<![CDATA[ <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn>]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 리스트 출력(카테고리검색)-->
+	<select id="searchaddress" resultType="com.yedam.finalPrj.store.vo.park.Store">
+	
+		SELECT *
+		FROM
+		    (SELECT a.*,ROWNUM rn
+		    FROM(
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
+		        from 
+		             store 
+		             where store_cat LIKE ('%'||#{keyword}||'%')
+		             <![CDATA[
+		        order by distance)a
+		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn>]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 리스트 출력(매장이름)-->
+	<select id="searchName" resultType="com.yedam.finalPrj.store.vo.park.Store" >
+		SELECT *
+		FROM
+		    (SELECT a.*, ROWNUM rn
+		    FROM(
+		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
+		        from store 
+		        where name LIKE ('%'||#{keyword}||'%')
+				<![CDATA[
+		        order by distance) a
+		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+		    ) b
+		WHERE rn > (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 리스트 출력(상품명검색)-->
+	<select id="searchProduct" resultType="com.yedam.finalPrj.store.vo.park.Store">
+		SELECT *
+		FROM
+		    (SELECT a.*, ROWNUM rn
+		    FROM(
+		         select s.store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
+		         from 
+		               (select distinct store_no
+		                from product
+		                where prod_name LIKE ('%'||#{keyword}||'%')
+				             <![CDATA[)p
+				             join store s
+				             on p.store_no = s.store_no
+				        order by distance)a
+				     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
+				    <![CDATA[ ) b
+				WHERE rn >]]> (#{pageNum}-1) * #{amount}
+	</select>
+<!-- 매장 개수 처리  -->
+	<select id="totalCnt" resultType="int">
+		<![CDATA[
+		SELECT count(*)
+		FROM store s
+		where store_no > 0
+		]]>
+	</select>
+	<!-- 매장명 개수 처리 -->
+	<select id ="totalNameCnt" resultType="int">
+		select count(*) 
+		from store s
+		where name like ('%'||#{keyword}||'%')
+	    and store_no > 0
+	</select>
+	<!-- 매장 카테고리 개수 처리 -->
+	<select id ="totalCatCnt" resultType="int">
+		select count(*) 
+		from store s
+		where store_cat like ('%'||#{keyword}||'%')
+		    and store_no > 0
+	</select>
+	<!-- 상품명 개수 처리  -->
+	<select id ="totalProdCnt" resultType="int">
+		select count(*)
+		from store s ,product p
+		where s.store_no = p.store_no
+		and prod_name like ('%'||#{keyword}||'%')
+	</select>
+	
+
+	
+	
+		
+<!-- 	Hong -->
+
+
+	
+<!-- 	Jo -->
+<!-- 예약 상품 목록 출력 -->
+<select id = "reservedProductsList"  resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
+   SELECT *
+   FROM
+       (SELECT a.* , ROWNUM rn
+           FROM
+               (SELECT p.prod_res_no, p.store_no,p.mem_no,p.pickup_time,p.pickup_date,
+                       p.payment_amt, p.payment_status,p.order_date, r.count
+                   FROM
+                       reserved_product     r,
+                       product_reservation  p
+                   WHERE
+                       r.prod_res_no = p.prod_res_no
+                       and mem_no = 1
+               ) a
+           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+       ) b
+   WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+</select>
+<!-- 매장번호로 매장명 찾아오기 -->
+<select id="findStoreNameByStoreNum" parameterType="int">
+	SELECT *
+	   FROM
+	       (SELECT a.* , ROWNUM rn
+	           FROM
+	               (SELECT s.name
+	                   FROM
+	                       store                s,
+	                       product_reservation  p
+	                   WHERE
+	                       s.store_name = p.store_name
+	                       and mem_no = 1
+	                       order by p.prod_res_no
+	               ) a
+	           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+	       ) b
+    WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+
+
+
+
+	SELECT s.name
+			FROM store s INNER JOIN product_reservation r
+		ON s.store_no = r.store_no
+	WHERE store_no = (SELECT p.store_no
+                   FROM
+                       reserved_product     r,
+                       product_reservation  p
+                   WHERE
+                       r.prod_res_no = p.prod_res_no
+                       and mem_no = 1)
+</select>
+<!-- 	Yoon -->
+	
+	
+	
+<!-- 	Lee -->
+	
+	
+	
+	
+	
+>>>>>>> branch 'JO' of https://github.com/Ujoonnee/yedam_final.git
 </mapper>

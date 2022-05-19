@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,34 +58,49 @@ public class ExhibitionController {
 	}
 
 	// 준우
-	// 모든 등록신청목록조회.
-	@GetMapping("exRegAppList")
-	public String exRegAppList(String approvalStatus, Model model) {
-		model.addAttribute("regList", service.selectAllExh());
-		return "exhibition/exRegAppList";
-	}
-
-	// 승인여부로 검색.
-	@GetMapping("exRegAppList2")
-	@ResponseBody
-	public List<ExhibitionVO> exRegAppList2(String approvalStatus) {
-		return service.selectAllExhByStatus(approvalStatus);
-	}
-
-	// 전시명으로 검색.
-	@GetMapping("exRegAppListByExhName")
-	@ResponseBody
-	public List<ExhibitionVO> selectAllByExhName(String exhName) {
-		return service.selectAllByExhName(exhName);
-	}
-
-	// 사업자명으로 검색.
-	@GetMapping("exRegAppListByMemName")
-	@ResponseBody
-	public List<ExhibitionVO> selectAllByMemName(String memName) {
-		return service.selectAllByMemName(memName);
-	}
-
+		//모든 등록신청목록조회.
+			@GetMapping("exRegAppList")
+			public String exRegAppList(String approvalStatus, Model model) {
+				model.addAttribute("regList", service.selectAllExh());
+				return "exhibition/exRegAppList";
+			}
+		//승인여부로 검색.
+			@GetMapping("exRegAppList2")
+			@ResponseBody
+			public List<ExhibitionVO> exRegAppList2(String approvalStatus) {
+				return service.selectAllExhByStatus(approvalStatus);
+			}
+		//전시명으로 검색.
+			@GetMapping("exRegAppListByExhName")
+			@ResponseBody
+			public List<ExhibitionVO> selectAllByExhName(String exhName){
+				return service.selectAllByExhName(exhName);
+			}
+		//사업자명으로 검색.
+			@GetMapping("exRegAppListByMemName")
+			@ResponseBody
+			public List<ExhibitionVO> selectAllByMemName(String memName){
+				return service.selectAllByMemName(memName);
+			}
+		//전시등록번호에 따라 상세내용 출력하는 페이지로 넘어감
+			@GetMapping("exRegAppDetail/{exNo}")
+			public String selectOneByExNo(@PathVariable int exNo, Model model){
+				model.addAttribute("detail", service.selectOneByExNo(exNo));
+				return "exhibition/exRegAppDetail";
+			}
+		//전시등록 승인(00401로 update)
+			@PostMapping("exRegAppDetail/exhPermit")
+			@ResponseBody
+			public int exhPermit(int exNo){
+				return service.exhPermit(exNo);
+			}
+		//전시등록 반려(00402로 update)
+			@PostMapping("exRegAppDetail/exhReject")
+			@ResponseBody
+			public int exhReject(int exNo){
+				return service.exhReject(exNo);
+			}
+			
 	// 성환
 
 	// 우준
