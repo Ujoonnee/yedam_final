@@ -1,7 +1,5 @@
 package com.yedam.finalPrj.store.vo.park;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +17,5 @@ public class StorePagingCriteria {
 		private String latitude;
 		private String longitude;
 		
-//		예약과 관련된 VO 집합
-		@Autowired ReservedGoods resGoodsVO;
 		
 }

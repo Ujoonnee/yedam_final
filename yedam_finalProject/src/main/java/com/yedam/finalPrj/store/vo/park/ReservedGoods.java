@@ -2,7 +2,7 @@ package com.yedam.finalPrj.store.vo.park;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yedam.finalPrj.product.service.Product;
+import com.yedam.finalPrj.product.vo.park.Product;
 
 import lombok.Getter;
 import lombok.Setter;

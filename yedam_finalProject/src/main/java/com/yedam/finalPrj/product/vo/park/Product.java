@@ -1,4 +1,4 @@
-package com.yedam.finalPrj.product.service;
+package com.yedam.finalPrj.product.vo.park;
 
 import lombok.Getter;
 import lombok.Setter;
