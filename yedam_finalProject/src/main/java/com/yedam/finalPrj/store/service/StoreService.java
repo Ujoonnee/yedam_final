@@ -4,7 +4,13 @@ import java.util.List;
 
 import org.springframework.ui.Model;
 
+import com.yedam.finalPrj.store.vo.park.ReservedGoods;
+import com.yedam.finalPrj.store.vo.park.Store;
+import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
+
 public interface StoreService {
+	
+//	Park
 	 int regist(Store store);
 //	매장 들어갈 시 리스트 출력
 	 List<Store> storeList(StorePagingCriteria cri);
@@ -20,9 +26,25 @@ public interface StoreService {
 	 int totalCatCnt(StorePagingCriteria cri);
 	 int totalProdCnt(StorePagingCriteria cri);
 	
-//	매장 예약 페이지
-	 List <ReservedGoods> storeReserve(StorePagingCriteria cri);
-	 ReservedGoods storeReservationDetail(StorePagingCriteria cri);
-	 int numberOfReservation(StorePagingCriteria cri);
 
+		
+//		Hong
+
+
+	 
+		
+//		Jo
+		
+	 
+		
+		
+//		Yoon
+		
+		
+	 
+		
+//		Lee
+		
+	 
+	 
 }

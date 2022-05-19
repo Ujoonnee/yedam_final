@@ -6,15 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.yedam.finalPrj.store.service.ReservedGoods;
-import com.yedam.finalPrj.store.service.Store;
-import com.yedam.finalPrj.store.service.StorePageMaker;
-import com.yedam.finalPrj.store.service.StorePagingCriteria;
 import com.yedam.finalPrj.store.service.StoreService;
+import com.yedam.finalPrj.store.vo.park.ReservedGoods;
+import com.yedam.finalPrj.store.vo.park.Store;
+import com.yedam.finalPrj.store.vo.park.StorePageMaker;
+import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 
 @Service("StoreService")
 public class StoreServiceImpl implements StoreService{
 	@Autowired StoreMapper map;
+	
+	
+//	Park
 //	매장등록
 	@Override
 	public int regist(Store store) {
@@ -96,26 +99,22 @@ public class StoreServiceImpl implements StoreService{
 		// TODO Auto-generated method stub
 		return map.totalProdCnt(cri);
 	}
-	@Override
-	public List<ReservedGoods> storeReserve(StorePagingCriteria cri) {
-		System.out.println("impl차례");
-//		멤버 번호 조회후 셋팅. 
-		cri.getResGoodsVO().getProResVO().setMemNo(Integer.parseInt("1"));
-		System.out.println("멤버 넘버 조회"+cri.getResGoodsVO().getProResVO().getMemNo());
-		// TODO Auto-generated method stub
-		return map.storeReserve(cri);
-	}
-	@Override
-	public ReservedGoods storeReservationDetail(StorePagingCriteria cri) {
-		cri.getResGoodsVO().setProdResNo(Long.parseLong("20220511001"));
-		// TODO Auto-generated method stub
-		return map.storeReservationDetail(cri);
-	}
-	@Override
-	public int numberOfReservation(StorePagingCriteria cri) {
-		// TODO Auto-generated method stub
-		return map.numberOfReservation(cri);
-	}
 
 
+//	Hong
+
+	 
+
+	
+//	Jo
+	
+	
+ 
+	
+//	Yoon
+	
+	
+ 
+	
+//	Lee
 }

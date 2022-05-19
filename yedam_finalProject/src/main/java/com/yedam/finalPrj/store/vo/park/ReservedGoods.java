@@ -1,4 +1,4 @@
-package com.yedam.finalPrj.store.service;
+package com.yedam.finalPrj.store.vo.park;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,8 +12,8 @@ import lombok.Setter;
 public class ReservedGoods {
 
 	private long prodResNo; 
-	private int storeNo3; 
-	private int prodNo2; 
+	private int storeNo; 
+	private int prodNo; 
 	private int count; 
 	
 	@Autowired ProductReservation proResVO;

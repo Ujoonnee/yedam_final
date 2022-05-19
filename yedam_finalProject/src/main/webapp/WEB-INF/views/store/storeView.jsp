@@ -73,8 +73,6 @@
 						<td align = "center">가격 : ${product.price }</td>
 					</tr>
 				</c:forEach>
-			
-			
 		</c:if>
 	</table>	
 <!-- 	모달 -->
