@@ -2,8 +2,13 @@ package com.yedam.finalPrj.product.service;
 
 import java.util.List;
 
-public interface ProductService {
+import com.yedam.finalPrj.product.vo.park.Product;
+import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 
+public interface ProductService {
+	
+	
+//	Park
 	//상품 상세 페이지
 //	매장클릭 시 -> 상품 정보 확인
 	public List<Product> selectOne(ProductPagingCriteria cri);
@@ -15,4 +20,25 @@ public interface ProductService {
 	public int productCnt(String prodNo);
 	public int searchProductCnt(ProductPagingCriteria cri);
 	public int searchPriceCnt(ProductPagingCriteria cri);
+	 
+	
+//	Hong
+
+
+ 
+	
+//	Jo
+	
+ 
+	
+	
+//	Yoon
+	
+	
+ 
+	
+//	Lee
+	
+ 
+ 
 }

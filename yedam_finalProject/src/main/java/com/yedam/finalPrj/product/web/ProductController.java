@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.yedam.finalPrj.product.service.ProductPageMaker;
-import com.yedam.finalPrj.product.service.ProductPagingCriteria;
 import com.yedam.finalPrj.product.serviceImpl.ProductServiceImpl;
+import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
+import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 
 
 
@@ -20,6 +20,8 @@ public class ProductController {
 
 	@Autowired ProductServiceImpl dao;
 	
+	
+	// park
 //	매장 상세정보(선택한 매장페이지)
 	@RequestMapping(value = "/productView", method = RequestMethod.GET)
 	public String Storeview(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
@@ -63,4 +65,25 @@ public class ProductController {
 		}
 		return "store/storeView";
 	}
+	
+	
+	
+//	Hong
+
+
+ 
+	
+//	Jo
+	
+ 
+	
+	
+//	Yoon
+	
+	
+ 
+	
+//	Lee
+	
 }
+
