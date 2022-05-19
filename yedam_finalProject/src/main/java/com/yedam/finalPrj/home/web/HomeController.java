@@ -44,13 +44,13 @@ public class HomeController {
 	@PostMapping("login")
 	public String login(MemberVO member, HttpServletRequest request) {
 		service.login(member, request);
-		return "main/home";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	@GetMapping("tempLogin")
 	public String tempLogin(MemberVO member, HttpServletRequest request) {
 		service.login(member, request);
-		return "main/home";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	@GetMapping("logout")
@@ -61,7 +61,7 @@ public class HomeController {
 	
 	@GetMapping("myPage")
 	public String myPage() {
-		return "main/member/myPageMain";
+		return "layouts/myPage/myPageMain";
 	}
 	
 }
