@@ -11,21 +11,20 @@
 <body>
 
 <h3>내 예약 정보</h3>
-
-	<form name="frm" method="get" action="">
-			<label class="hidden"></label>
-				<select id="searchCondition" name="searchCondition">
-					<option value="none">전체</option>
-					<option value="show_no">전시등록번호</option>
-					<option value="name">전시명</option>
-				</select>
-			<label></label>	
-				<input type="text" id="searchKeyword" name="searchKeyword" />
-				<input type="submit" value="검색">
 	
 	
+	<div id="search">
+		<form name="searchfrm" method="get" action="exSelectAllReservation">
+					<select id="sel" name="type">
+						<option value="" <c:out value="${paging.vo.type == null?'selected':'' }" />>전체</option>
+						<option value="exResNo" <c:out value="${paging.vo.type eq 'exResNo'?'selected':'' }" />>예약번호</option>
+						<option value="name" <c:out value="${paging.vo.type eq 'name'?'selected':'' }" />>전시명</option>
+					</select>
+					<input type="text" name="keyword" id="input"/>
+					<button id="searchBtn">검색</button>
+		</form>
+	</div>
 
-	</form>
 
 	<table>
 		<thead>
@@ -51,13 +50,13 @@
 					</td>
 					<td><fmt:formatDate value="${exRes.startDate }" pattern="yyyy-MM-dd"/></td>
 					<td>
-						<c:set var="status" value="N"/>
+						<c:set var="paymentStatus" value="N"/>
 							<c:choose>
-								<c:when test="${exRes.status eq 'N' }">
+								<c:when test="${exRes.paymentStatus eq 'N' }">
 									미결제
 								</c:when>
 								
-								<c:when test="${exRes.status eq 'Y' }">
+								<c:when test="${exRes.paymentStatus eq 'Y' }">
 									결제
 								</c:when>
 								
@@ -72,7 +71,71 @@
 				</tr>
 			
 			</c:forEach>
+			
+			
+			
+			
 		</tbody>
 	</table>
+	
+	
+	<div id="pagingDiv">
+				<c:if test="${paging.prev }">
+					<a href="${paging.startPage - 1 }">이전</a>
+				</c:if>
+				
+				<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
+					&nbsp;<a href="${num }">${num }</a>&nbsp;
+				</c:forEach>
+				
+				<c:if test="${paging.next }">
+					<a id="next" href="${paging.endPage + 1 }">다음</a>
+				</c:if>
+	</div>
+			
+			<form id="pagingFrm" name="pagingForm" action="exSelectAllReservation" method="get">
+				<input type="hidden" id="pageNum" name="pageNum" value="${paging.vo.pageNum }">
+				<input type="hidden" id="amount" name="amount" value="${paging.vo.amount }">
+			</form>
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		//페이지 번호 이동
+		$('#pagingDiv a').click(function(e){
+			e.preventDefault();
+			$('#pageNum').val($(this).attr("href"));
+			pagingForm.submit();
+			
+		});
+		
+		//게시글에 pageNum넘기기
+// 		$('table a').click(function(e){
+// 			e.preventDefault();
+// 			var html = "<input type='hidden' name='ex_res_no' value='" +$(this).attr("href")+"'>";
+			
+// 			$('#pagingFrm').append(html);
+// 			$('#pagingFrm').attr("action", "exSelectAllReservation");
+// 			$('#pagingFrm').submit();
+// 		})
+		
+	});
+	
+	
+	
+	// 검색
+// 	$("#searchBtn").on("click",function(){
+// 		var selectedVal = $("#sel option:selected").val()
+// 		if(selectedVal == "exResNo") {
+// 			$.ajax({
+// 				url: "exSelectAllReservation",
+// 				method : "GET",
+// 				data : {exResNo:$("#input").val()},
+// 			}).done(function(data){
+// 				$("")
+// 			})
+// 		}
+// 	})
+</script>
 </html>

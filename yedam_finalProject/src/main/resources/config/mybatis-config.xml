@@ -9,6 +9,6 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.yedam.finalPrj.announcement.service.Announcement" alias="Announcement"/>
+		<typeAlias type="com.yedam.finalPrj.announcement.service.AnnouncementVO" alias="Announcement"/>
 	</typeAliases>
 </configuration>

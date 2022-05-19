@@ -1,34 +1,42 @@
 package com.yedam.finalPrj.announcement.serviceImpl;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.yedam.finalPrj.announcement.service.Announcement;
+import com.yedam.finalPrj.announcement.service.AnnouncementVO;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
+import com.yedam.finalPrj.common.FileUtils;
 
 @Service
+
 public class AnnouncementServiceImpl implements AnnouncementService {
 
-	@Autowired AnnouncementMapper map;
-	
+	@Autowired
+	AnnouncementMapper map;
+
+	@Autowired
+	FileUtils file;
+
 	@Override
-	public List<Announcement> findAll(AnnouncementPagingCriteria paging) {
+	public List<AnnouncementVO> findAll(AnnouncementPagingCriteria paging) {
 		return map.findAll(paging);
 	}
-	
+
 	@Override
-	public List<Announcement> getTopList() {
+	public List<AnnouncementVO> getTopList() {
 		return map.getTopList();
 	}
-	
+
 	@Override
-	public Announcement findOne(Announcement announcement) {
+	public AnnouncementVO findOne(AnnouncementVO announcement) {
 		return map.findOne(announcement);
 	}
-
 
 	@Override
 	public int totalCnt(AnnouncementPagingCriteria cri) {
@@ -36,13 +44,55 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 
 	@Override
-	public int updateView(Announcement ann) {
+	public int updateView(AnnouncementVO ann) {
 		return map.updateView(ann);
 	}
 
-	
+	/*
+	 * @Override public Announcement annInsert(Announcement announcement) {
+	 * 
+	 * return map.annInsert(announcement); }
+	 */
+
+	@Override
+	public void annInsert(AnnouncementVO announcement, MultipartHttpServletRequest filerequest)
+
+		throws IllegalStateException, IOException {
+
+		List<Map<String, Object>> list = file.parseInsertFileInfo(announcement, filerequest);
+
+		map.annInsert(announcement);
+		
+		int size = list.size();
+		System.out.println("-----------------------size"+size);
+		for (int i = 0; i < size; i++) {
+			map.annInsertFile(list.get(i));
+			System.out.println("------------------------------list"+list.get(i));
+		}
+		
+	}
+
+	@Override
+	public void annInsertFile(Map<String, Object> map) {
+
+	}
+
+	@Override
+	public Map<String, Object> selectFileInfo(Map<String, Object> maps) throws Exception {
+		return map.selectFileInfo(maps);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectFileList(int annNo) throws Exception {
+		return map.selectFileList(annNo);
+	}
+
+
+
+
 
 	
+
 
 
 
