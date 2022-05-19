@@ -127,8 +127,43 @@
 		and prod_name like ('%'||#{keyword}||'%')
 	</select>
 	
-
+<!-- 	내 상품 예약목록 조회 -->
+	<select id = "storeReserve"  resultType = "com.yedam.finalPrj.store.service.ReservedGoods">
+	SELECT *
+	FROM
+	    (SELECT a.* , ROWNUM rn
+	        FROM
+	            (SELECT p.prod_res_no, p.store_no,p.mem_no,p.pickup_time,p.pickup_date,
+	                    p.payment_amt, p.payment_status,p.order_date, r.count
+	                FROM
+	                    reserved_goods       r,
+	                    product_reservation  p
+	                WHERE
+	                    r.prod_res_no = p.prod_res_no
+	                    and mem_no = #{resGoodsVO.proResVO.memNo}
+	            ) a
+	        WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+	    ) b
+	WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+	</select>
 	
+	<select id = "numberOfReservation" resultType ="int">
+	select count(*)
+	from reserved_goods r,
+	product_reservation p
+	where  r.prod_res_no = p.prod_res_no
+	and mem_no = #{memNo}
+		
+	</select>
+	
+<!-- 	내 상품 예약상세 조회 -->
+	<select id = "storeReservationDetail" resultType = "com.yedam.finalPrj.store.service.ReservedGoods">
+		select * from 
+		reserved_goods r,
+		product_reservation p
+		where  r.prod_res_no = p.prod_res_no
+		and r.prod_res_no = #{prodResNo}
+	</select>
 	
 	
 </mapper>

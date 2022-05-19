@@ -1,8 +1,10 @@
 package com.yedam.finalPrj.store.service;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class Store {
 	private long storeNo;
 	private String category;
