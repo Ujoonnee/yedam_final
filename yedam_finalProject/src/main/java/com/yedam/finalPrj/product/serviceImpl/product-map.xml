@@ -109,6 +109,32 @@
 	from product
         where store_no = #{storeNo}
 	</select>
+	
+	<insert id = "myStoreProductInsert" parameterType="com.yedam.finalPrj.product.vo.park.Product">
+		<selectKey keyProperty="prodNo" resultType="long"
+		order="BEFORE">
+			Select CASE when max(prod_no) is null then 1
+			ELSE MAX(prod_no)
+			+1 END from product
+		</selectKey>
+			insert into product values(#{prodNo},4,#{prodName},#{stock},'N',#{price},'null',#{prodCat})	
+		
+	</insert>
+	
+	<update id = "myStoreProductUpdate" parameterType="java.util.HashMap">
+		UPDATE PRODUCT
+		SET SOLD_OUT = #{soldOut}
+		WHERE PROD_NO = #{prodNo}
+	</update>
+	
+	<select id ="salesbyDate" resultType="com.yedam.finalPrj.store.vo.park.ProductReservation">
+		SELECT PICKUP_DATE,  SUM(PAYMENT_AMT) AS PAYMENT_AMT
+		FROM (SELECT * FROM
+			PRODUCT_RESERVATION
+			WHERE STORE_NO = #{storeNo})
+			GROUP BY PICKUP_DATE
+	</select>
+	
 <!-- 		Hong -->
 
 	<!-- 상품 예약 목록 -->

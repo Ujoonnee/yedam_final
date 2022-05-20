@@ -39,6 +39,7 @@
 	        transform: translateX(-50%) translateY(-50%);
 	      }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -69,7 +70,9 @@
 				<c:forEach items="${products }" var= "product">
 					<tr>	
 						<td align = "center">${product.prodThumbnail }</td>
-						<td align = "center"><input type ="checkbox" id = "checkf" name="checkf" value ="${product }">${product.prodName }</td>
+						<td align = "center"><input type ="checkbox" id = "checkf" name="checkf" value ="${product }"
+						data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }"  
+						>${product.prodName }</td>
 						<td align = "center">가격 : ${product.price }</td>
 					</tr>
 				</c:forEach>
@@ -160,12 +163,12 @@
     	  // 선택된 목록에서 value 찾기
     	  let result = '';
     	  selectedEls.forEach((el) => {
-    	    result += el.value + "\n";
+    	    result += el.dataset.thumbnail + " "+el.dataset.name+ " 가격 : " +el.dataset.price+"원 \n";
     	  });
     	  
     	  // 출력
     	  document.getElementById('cart').innerText = result;
-    	}
+     }
     	
    // 검색 [전체] 선택 시 검색창 비우기
   	function allSelected() {

@@ -1,5 +1,6 @@
 package com.yedam.finalPrj.product.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,10 +30,13 @@ public interface ProductService {
 	 
 //	내 상품 관리
 	public List<Product> myStoreProductManegement(ProductPagingCriteria cri); //cri.storeNo사용
-	public int myStoreProductInsert(String file);
-	public int myStoreProductUpdate(String file);
+	void myStoreProductInsert(String file);
+	void myStoreProductUpdate(List<HashMap<String, String>> vo);
+	void myStoreProductDelete(List<HashMap<String, String>> vo);
 	int myStoreProductCnt(ProductPagingCriteria cri);
 	
+//	통계조회
+	List<ProductReservation> salesbyDate(int storeNo);
 //	Hong
 
 //	상품예약목록 

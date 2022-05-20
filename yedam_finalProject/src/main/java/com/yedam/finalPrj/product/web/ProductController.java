@@ -1,14 +1,15 @@
 package com.yedam.finalPrj.product.web;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,15 +51,39 @@ public class ProductController {
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
 		return"store/myProductManagement";
 	}
+	
+	
 //	Json값 
 	@RequestMapping("productInsert")
 	@ResponseBody
-	public String productInsert(String file)  {
+	public String productInsert(String file,ProductPagingCriteria cri,Model model)  {
 	
-		System.out.println(file);
+		System.out.println("===========================================================file:"+file);
 		dao.myStoreProductInsert(file);
-		return "";
+		
+		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
+		return "store/myProductManagement";
 	}
+	
+	
+	@PostMapping("updateTempStock")
+	public String TemporarilyOutOfStock(@RequestBody List<HashMap<String,String>> vo,String file,ProductPagingCriteria cri,Model model) {
+		System.out.println(vo);
+		dao.myStoreProductUpdate(vo);
+		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
+		return"store/myProductManagement";
+		
+	}
+	
+	@RequestMapping("statisticsForm")
+	public String statistics(@RequestParam("selectStoreNo") int storeNo, Model model) {
+		
+		model.addAttribute("productReservation" , dao.salesbyDate(storeNo));
+		return "store/statistics";
+	}
+	
 //	Hong
 	
 //	상품 예약 목록
