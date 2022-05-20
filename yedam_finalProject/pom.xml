@@ -203,7 +203,6 @@
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.4</version>
 		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 		    <groupId>commons-io</groupId>
@@ -211,8 +210,7 @@
 		    <version>2.2</version>
 		</dependency>
 		
-		
-		
+				
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -233,28 +231,26 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		 <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${org.springframework-version}</version>
+		  </dependency>
 
+		
+		<!-- 이메일 때문에  -->		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-core</artifactId>
+		    <version>4.1.6.RELEASE</version>
+		 </dependency>		
 		<!-- log4jdbc-remix -->
 		<dependency>
 			<groupId>org.lazyluke</groupId>
 			<artifactId>log4jdbc-remix</artifactId>
 			<version>0.2.7</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-<dependency>
-    <groupId>commons-io</groupId>
-    <artifactId>commons-io</artifactId>
-    <version>2.11.0</version>
-</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-<dependency>
-    <groupId>commons-fileupload</groupId>
-    <artifactId>commons-fileupload</artifactId>
-    <version>1.4</version>
-</dependency>
-		
-		
+				
 	</dependencies>
 	<build>
 		<plugins>

@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,13 +23,18 @@ import com.yedam.finalPrj.announcement.service.AnnouncementPageMaker;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
-import com.yedam.finalPrj.common.FileVO;
+import com.yedam.finalPrj.common.EmailVO;
+import com.yedam.finalPrj.member.web.EmailSender;
 
 @Controller
 public class AnnouncementController {
 
 	@Autowired
 	private AnnouncementService service;
+	
+	/*
+	 * @Inject EmailSender emailService;
+	 */
 	
 	// 공지사항 목록
 	@RequestMapping("/announcement")
@@ -94,6 +100,7 @@ public class AnnouncementController {
 			@RequestParam(value="fileNameDel[]") String[] fileNames,
 			MultipartHttpServletRequest fileRequest,
 			@ModelAttribute AnnouncementPagingCriteria cri) throws Exception {
+		
 		service.annUpdate(announcement, files, fileNames, fileRequest);
 		
 		
@@ -104,11 +111,14 @@ public class AnnouncementController {
 	// 공지사항 수정페이지이동
 	@RequestMapping("/updatePage")
 	public String updatePage(AnnouncementVO announcement, Model model) throws Exception {
+
 		model.addAttribute("announcement", service.findOne(announcement));		
 
+		
 		List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
 		model.addAttribute("file",fileList);
-		System.out.println("=========================================="+fileList.toString());
+		
+		
 		return "announcement/updatePage";
 	}
 	
@@ -137,5 +147,17 @@ public class AnnouncementController {
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
 	}
-
-}
+	
+	@RequestMapping("write")
+	public String write() {
+		return"email/write";
+	}
+	
+	/*
+	 * @RequestMapping("send") public String send(@ModelAttribute EmailVO vo, Model
+	 * model) { try { service.sendMail(vo); model.addAttribute("message",
+	 * "이메일이 발송되었습니다."); } catch (Exception e) { e.printStackTrace();
+	 * model.addAttribute("message","이메일 발송 실패"); } return "email/write"; }
+	 */
+		
+}	
