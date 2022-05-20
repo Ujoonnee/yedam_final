@@ -41,9 +41,10 @@ public interface StoreMapper {
 //예약 상품 목록 들어갈 시 리스트 출력
 	List<ProductReservation> reservedProductsList(ReservedProductsListPagingCriteria cri);		
 //검색 리스트 출력(매장이름으로, 상품명으로)		 
-	public List<ProductReservation> selectResProdListByStoreName(ReservedProductsListPagingCriteria cri, Model model);
-	public List<ProductReservation> resProdListByProdName(ReservedProductsListPagingCriteria cri, Model model);
-
+	public List<ProductReservation> selectResProdListByStoreName(ReservedProductsListPagingCriteria cri);
+	public List<ProductReservation> selectResProdListByProdName(ReservedProductsListPagingCriteria cri, Model model);
+//상품예약번호로 상품명 찾아오기	 
+	 public String findProdNameByProdResNo(int prodResNo);
 	 
 		
 //		Yoon

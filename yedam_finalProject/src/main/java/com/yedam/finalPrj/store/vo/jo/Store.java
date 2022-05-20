@@ -17,4 +17,3 @@ public class Store {
 	private String thumbnail;
 	private int storeCnt;
 }
-

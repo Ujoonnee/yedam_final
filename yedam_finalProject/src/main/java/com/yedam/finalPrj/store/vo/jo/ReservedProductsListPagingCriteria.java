@@ -17,5 +17,6 @@ public class ReservedProductsListPagingCriteria {
 		private String latitude;
 		private String longitude;
 		
+		private String storeName;
 		
 }

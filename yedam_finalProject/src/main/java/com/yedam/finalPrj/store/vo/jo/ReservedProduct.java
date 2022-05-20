@@ -1,4 +1,3 @@
-
 package com.yedam.finalPrj.store.vo.jo;
 
 import org.springframework.beans.factory.annotation.Autowired;

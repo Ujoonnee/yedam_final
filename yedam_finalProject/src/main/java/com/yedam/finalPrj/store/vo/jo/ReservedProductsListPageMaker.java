@@ -26,4 +26,3 @@ public class ReservedProductsListPageMaker {
 		this.prev = getStartPage() > 1;
 	}
 }
-

@@ -1,17 +1,23 @@
 package com.yedam.finalPrj.store.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.finalPrj.store.serviceImpl.StoreServiceImpl;
+import com.yedam.finalPrj.store.vo.jo.ProductReservation;
+import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPageMaker;
 import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPagingCriteria;
 import com.yedam.finalPrj.store.vo.park.Store;
 import com.yedam.finalPrj.store.vo.park.StorePageMaker;
@@ -69,29 +75,36 @@ public class StoreController {
 	@GetMapping("reservedProductsList")
 	public String reservedProductsList(ReservedProductsListPagingCriteria cri,Model model) {
 //		예약 상품 목록 출력
-		/*
-		 * model.addAttribute("reservedProductsList", dao.reservedProductsList(cri));
-		 * 
-		 * model.addAttribute("paging",new ReservedProductsListPageMaker(cri,
-		 * dao.totalCnt()));
-		 */
+		
+		 model.addAttribute("reservedProductsList", dao.reservedProductsList(cri));
+		  
+		 model.addAttribute("paging",new ReservedProductsListPageMaker(cri, dao.totalCnt()));
+		 
 		return "store/reservedProductsList";
 	}
 // 	매장이름으로 검색 리스트 출력	
 	@PostMapping("resProdListByStoreName")
 	@ResponseBody
-	public String selectResProdListByStoreName(String inputVal) {
-		System.out.println(inputVal);
-		System.out.println("매장이름에 따라 리스트 출력");
-		return "매장명에 따라 리스트출력";
+	public List<ProductReservation> selectResProdListByStoreName(ReservedProductsListPagingCriteria cri, @RequestParam("storeName") String storeName) {
+		cri.setStoreName(storeName);
+//		System.out.println(dao.selectResProdListByStoreName(cri, storeName));
+		return dao.selectResProdListByStoreName(cri);
 	}
 // 	상품명으로 검색 리스트 출력	
 	@PostMapping("resProdListByProdName")
 	@ResponseBody
-	public String selectResProdListByProdName(String inputVal) {
-		System.out.println(inputVal);
-		System.out.println("상품명에 따라 리스트 출력");
-		return "상품명에 따라 리스트 출력";
+	public String selectResProdListByProdName(ReservedProductsListPagingCriteria cri, Model model, @RequestParam("prodName") String inputVal) {
+		 model.addAttribute("reservedProductsList", dao.reservedProductsList(cri));
+		  
+		 model.addAttribute("paging",new ReservedProductsListPageMaker(cri, dao.totalCnt()));
+		return "dao.reservedProductsList(cri)";
+	}
+// 	(예약번호 받아서)예약내역 상세페이지로 이동
+	@GetMapping("resProdListByProdName/{selectedResNo}")
+	public String reservedProductsDetail(@PathVariable long selectedResNo) {
+		System.out.println();
+		System.out.println("선택한상품예약번호에 따라 상세 출력");
+		return "store/reservedProductsDetail";
 	}
 //	Yoon
 	
@@ -99,5 +112,4 @@ public class StoreController {
 	
 //	Lee
 	
-
 }

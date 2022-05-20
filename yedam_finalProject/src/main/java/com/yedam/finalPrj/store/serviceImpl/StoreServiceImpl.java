@@ -117,12 +117,17 @@ public class StoreServiceImpl implements StoreService{
 		return map.reservedProductsList(cri);
 	}
 	@Override
-	public List<ProductReservation> selectResProdListByStoreName(ReservedProductsListPagingCriteria cri, Model model) {
+	public List<ProductReservation> selectResProdListByStoreName(ReservedProductsListPagingCriteria cri) {
 		// TODO Auto-generated method stub
-		return null;
+		return map.selectResProdListByStoreName(cri);
 	}
 	@Override
-	public List<ProductReservation> resProdListByProdName(ReservedProductsListPagingCriteria cri, Model model) {
+	public List<ProductReservation> selectResProdListByProdName(ReservedProductsListPagingCriteria cri, Model model) {
+		// TODO Auto-generated method stub
+		return map.selectResProdListByProdName(cri, model);
+	}
+	@Override
+	public String findProdNameByProdResNo(int prodResNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -136,4 +141,3 @@ public class StoreServiceImpl implements StoreService{
 	
 //	Lee
 }
-

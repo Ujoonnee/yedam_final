@@ -144,47 +144,98 @@
    FROM
        (SELECT a.* , ROWNUM rn
            FROM
-               (<!--밑에꺼안될시 다시 SELECT p.prod_res_no, p.store_no,p.mem_no,p.pickup_time,p.pickup_date,
-                       p.payment_amt, p.payment_status,p.order_date, r.count
-                   FROM
-                       reserved_product     r,
-                       product_reservation  p
-                   WHERE
-                       r.prod_res_no = p.prod_res_no
-                       and mem_no = 1 -->
-                 SELECT * FROM(
-                          SELECT p.prod_res_no, p.store_no,p.mem_no,p.pickup_time,p.pickup_date,
-                       p.payment_amt, p.payment_status,p.order_date, r.count AS "reservedProduct.count", s.name AS "store.name", t.prod_name AS "product.prodName"
-                   FROM
-                       reserved_product     r
-                    INNER JOIN product_reservation  p
-                    ON r.prod_res_no = p.prod_res_no    
-                   INNER JOIN store          s
-                    ON s.store_no = p.store_no
-                    and p.mem_no=1
-                    LEFT JOIN product       t
-                    ON t.prod_no = r.prod_no
-                    )
-                    WHERE ROWNUM=1
+               (
+                SELECT * FROM
+					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status , r.pickup_time, r.pickup_date, r.prod_res_no,
+						RANK()OVER(PARTITION BY r.prod_res_no ORDER BY p.prod_name) AS RANK
+								FROM store s, product_reservation r, product p
+							WHERE s.mem_no = r.mem_no
+						AND s.store_no = p.store_no 
+					ORDER BY RANK)
+				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM reserved_product)
                ) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
        ) b
    WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
 </select>
-<!-- 매장이름으로 예약 상품 출력 -->
+
+<!-- 매장이름으로 예약 상품리스트 출력 -->
 <select id="selectResProdListByStoreName" resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
-
+	SELECT *
+   FROM
+       (SELECT a.* , ROWNUM rn
+           FROM
+               (select * from(
+               	 select * from
+					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status , r.pickup_time, r.pickup_date, r.prod_res_no,
+						rank()over(partition by r.prod_res_no order by p.prod_name) as rank
+							FROM store s, product_reservation r, product p
+								WHERE s.mem_no = r.mem_no
+							AND s.store_no = p.store_no 
+						order by rank)
+					where ROWNUM <![CDATA[<=]]> (select count(*) from reserved_product)
+               ) where <![CDATA["store.name"]]> like '%'||#{storeName}||'%') a
+           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+       ) b
+   WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
 </select>
-<!-- 매장이름으로 예약 상품 출력 -->
+<!-- 상품명으로 예약 상품리스트 출력 -->
 <select id="selectResProdListByProdName" resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
-
+	SELECT *
+   FROM
+       (SELECT a.* , ROWNUM rn
+           FROM
+               (SELECT *
+					FROM(
+						SELECT p.prod_name, s.name, r.payment_amt, r.pickup_status, r.pickup_time, r.prod_res_no,rank()over(partition by r.prod_res_no order by p.prod_name) as rank
+							FROM store s, product_reservation r, product p
+								WHERE s.mem_no = r.mem_no
+							AND s.store_no = p.store_no
+						AND prod_name like '%'||#{prodName}||'%'
+					ORDER BY rank)
+				where rank = 1;) a
+           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+       ) b
+   WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
 </select>
-
+<!-- 예약상품 상세내역 -->
+<select id="resdetail" parameterType="int" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservation">
+SELECT * 
+	FROM(
+		SELECT a.*, ROWNUM rn 
+			FROM(
+				SELECT * FROM 
+				 	store s, member m, product_reservation r
+						WHERE m.mem_no=r.mem_no
+					AND r.store_no = s.store_no 
+				AND r.prod_res_no = #{prodResNo} ) a
+			WHERE rn <![CDATA[<=]]> #{pageNum} * #{amount} 
+		) b
+WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+</select>
+<!-- 예약상품 상세내역(상품목록) -->
+<select id="" parameterType="int" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservation">
+SELECT * 
+	FROM(
+		SELECT a.*, ROWNUM rn 
+			FROM(
+				SELECT * FROM 
+					product p, reserved_product r, product_reservation t
+						WHERE t.prod_res_no = r.prod_res_no
+					AND r.prod_no = p.prod_no
+				AND t.prod_res_no = #{prodResNo} ) a
+			WHERE rn <![CDATA[<=]]> #{pageNum} * #{amount} 
+		) b
+WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+ </select>
 <!-- 	Yoon -->
 	
 	
 	
 <!-- 	Lee -->
+	
+	
+	
 	
 	
 </mapper>
