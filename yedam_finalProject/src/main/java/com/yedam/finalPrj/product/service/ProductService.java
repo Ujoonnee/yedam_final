@@ -2,14 +2,20 @@ package com.yedam.finalPrj.product.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.ui.Model;
+
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 public interface ProductService {
 	
 	
 //	Park
 	//상품 상세 페이지
+	void search(ProductPagingCriteria cri,Model model,HttpServletRequest request);
 //	매장클릭 시 -> 상품 정보 확인
 	public List<Product> selectOne(ProductPagingCriteria cri);
 //	가격 검색
@@ -21,11 +27,24 @@ public interface ProductService {
 	public int searchProductCnt(ProductPagingCriteria cri);
 	public int searchPriceCnt(ProductPagingCriteria cri);
 	 
+//	내 상품 관리
+	public List<Product> myStoreProductManegement(ProductPagingCriteria cri); //cri.storeNo사용
+	public int myStoreProductInsert(String file);
+	public int myStoreProductUpdate(String file);
+	int myStoreProductCnt(ProductPagingCriteria cri);
 	
 //	Hong
 
-
+//	상품예약목록 
+	public List<ProductReservation> proReSelectAll();
  
+//  페이징
+	int totalCnt(ProductPagingCriteria cri);
+	
+//	상세페이지 이동
+	ProductReservation proReDetail(ProductReservation vo);
+//  상세페이지 상품목록
+	public List<ProductReservation> proReDetailList();
 	
 //	Jo
 	

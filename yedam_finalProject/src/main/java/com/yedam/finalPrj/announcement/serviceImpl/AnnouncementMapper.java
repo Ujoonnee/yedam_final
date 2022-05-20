@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import com.yedam.finalPrj.announcement.service.AnnouncementVO;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
+import com.yedam.finalPrj.announcement.service.AnnouncementVO;
 
 public interface AnnouncementMapper {
 	
@@ -17,6 +17,8 @@ public interface AnnouncementMapper {
 	void annInsertFile(Map<String, Object> map); 
 	Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
+	public void fileUpdate(Map<String, Object>maps);
+	public void annUpdate(AnnouncementVO announcement);
 	//	Announcement annInsert(Announcement announcement);
 	
 	

@@ -103,7 +103,7 @@
 
 <script type="text/javascript">
 	/* 페이지 번호 이동 id> pageNum > attr로 속성 href줌 */
-	$('#pagingDiv a').click(function(e){
+/* 	$('#pagingDiv a').click(function(e){
 		e.preventDefault();
 		$('#pageNum').val($(this).attr("href"));
 		pagingForm.submit();
@@ -123,7 +123,7 @@
 		
 	})
 
-	$('.chk').click( () => event.stopPropagation());
+	$('.chk').click( () => event.stopPropagation()); */
 	
 	
 
