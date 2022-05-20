@@ -43,8 +43,8 @@
 	
 	
 <!-- 	조준우 -->
-	<select id="loginCheck" resultType="String">
-		select name
+	<select id="loginCheck" resultType="com.yedam.finalPrj.member.service.MemberVO">
+		select name, mem_no
 		from MEMBER
 		where email=#{email} and password=#{password}
 	</select>

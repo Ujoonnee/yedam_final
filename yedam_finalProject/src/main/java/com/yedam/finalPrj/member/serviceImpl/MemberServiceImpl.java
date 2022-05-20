@@ -56,13 +56,17 @@ public class MemberServiceImpl implements MemberService {
 	// 조준우
 	// 로그인 체크
 	@Override
-	public String loginCheck(MemberVO vo, HttpSession session) {
-		String name = map.loginCheck(vo);
-		if (name != null) { // 세션변수저장.
+	public MemberVO loginCheck(MemberVO vo, HttpSession session) {
+		vo = map.loginCheck(vo);
+		if (vo != null) { // 세션변수저장.
+			session.setAttribute("memNo", vo.getMemNo());
 			session.setAttribute("email", vo.getEmail());
-			session.setAttribute("name", name);
+			session.setAttribute("name", vo.getName());
+			System.out.println("session memNo : "+session.getAttribute("memNo"));
+			System.out.println("session Email : "+session.getAttribute("email"));
+			System.out.println("session name : "+session.getAttribute("name"));
 		}
-		return name;
+		return vo;
 	}
 
 	@Override

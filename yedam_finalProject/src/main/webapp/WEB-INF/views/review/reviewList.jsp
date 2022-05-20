@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +10,18 @@
 </head>
 <body>
 	<h3>내 리뷰 목록</h3>
-	
+	<ul>
+		<c:forEach items="${reviewList }" var="list">
+			<input type="hidden" name="facResNo" value="${list.facResNo }">
+			<li>${list.serviceName }</li>
+			<li>평점</li>
+			<li>${list.score }</li>
+			<li>${list.content }</li>
+			<hr>
+			<li>답변</li>
+			<li>${list.replyContent }</li>
+			<hr>		
+		</c:forEach>
+	</ul>
 </body>
 </html>

@@ -40,18 +40,21 @@
 			<th>수량</th>
 			<th>금액</th>
 		</tr>
-		<c:forEach items="${detailList }" var="list">
+		<c:set var="total" value="0"/>
+		<c:forEach items="${detailList }" var="list" varStatus="status">
 		<tr>
 			<td>${list.prodThumbnail }</td>
 			<td>${list.prodName }</td>
 			<td>${list.price }</td>
 			<td>${list.payment }</td>
 		</tr>
+		<c:set var="total" value="${total + list.payment }"/>
 		<tr>
 			<td>총 금액</td>
-			<td></td>
+			<td><c:out value="${total }"/></td>
 		</tr>
 		</c:forEach>
 	</table>
+	<button align="center">주문취소</button>
 </body>
 </html>

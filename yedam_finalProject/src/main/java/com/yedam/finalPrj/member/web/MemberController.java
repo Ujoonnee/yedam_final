@@ -106,8 +106,10 @@ public class MemberController {
 	//회원 로그인 체크
 	@RequestMapping("login_check.do")
 	public ModelAndView login_check(@ModelAttribute MemberVO vo, HttpSession session) {
-
-		String name = memberService.loginCheck(vo, session);
+		System.out.println(vo.getEmail());
+		System.out.println(vo.getPassword());
+		
+		MemberVO name = memberService.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
 		if(name != null) { 
 			//로그인 성공 시
@@ -117,6 +119,7 @@ public class MemberController {
 			mav.setViewName("member/login");
 			mav.addObject("message", "error");
 		}
+		System.out.println(session.getAttribute("memNo"));
 		return mav;
 	}
 	

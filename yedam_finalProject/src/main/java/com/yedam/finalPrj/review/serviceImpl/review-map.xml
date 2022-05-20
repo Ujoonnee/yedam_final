@@ -8,5 +8,10 @@
 		)
 	</insert>
 	
+	<select id="reviewSelectAll" resultType="com.yedam.finalPrj.review.service.Review">
+		SELECT service_name, score, content, reply_content, res_no AS facResNo
+		FROM review 
+		WHERE mem_no = ${memNo}
+	</select>
 
 </mapper>
