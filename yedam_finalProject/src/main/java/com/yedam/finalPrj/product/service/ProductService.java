@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 public interface ProductService {
 	
@@ -34,8 +35,16 @@ public interface ProductService {
 	
 //	Hong
 
-
+//	상품예약목록 
+	public List<ProductReservation> proReSelectAll();
  
+//  페이징
+	int totalCnt(ProductPagingCriteria cri);
+	
+//	상세페이지 이동
+	ProductReservation proReDetail(ProductReservation vo);
+//  상세페이지 상품목록
+	public List<ProductReservation> proReDetailList();
 	
 //	Jo
 	

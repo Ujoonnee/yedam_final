@@ -21,6 +21,7 @@ import com.yedam.finalPrj.product.service.ProductService;
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 
 
@@ -61,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return map.searchPriceCnt(cri);
 	}
+
 
 	@Override
 	public void search(ProductPagingCriteria cri, Model model,HttpServletRequest request) {
@@ -164,12 +166,33 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return map.myStoreProductUpdate(file);
 	}
+
 	 
 	
 //	Hong
 
 
- 
+	@Override
+	public List<ProductReservation> proReSelectAll() {
+		// TODO Auto-generated method stub
+		return map.proReSelectAll();
+	}
+	@Override
+	public int totalCnt(ProductPagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.totalCnt(cri);
+	}
+	@Override
+	public ProductReservation proReDetail(ProductReservation vo) {
+		// TODO Auto-generated method stub
+		return map.proReDetail(vo);
+	}
+	@Override
+	public List<ProductReservation> proReDetailList() {
+		// TODO Auto-generated method stub
+		return map.proReDetailList();
+	}
+
 	
 //	Jo
 	

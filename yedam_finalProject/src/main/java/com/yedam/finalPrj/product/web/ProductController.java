@@ -3,6 +3,7 @@ package com.yedam.finalPrj.product.web;
 import java.util.List;
 import java.util.Map;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yedam.finalPrj.product.serviceImpl.ProductServiceImpl;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 
 
@@ -24,7 +26,6 @@ import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 public class ProductController {
 
 	@Autowired ProductServiceImpl dao;
-	
 	
 	// park
 //	매장 상세정보(선택한 매장페이지)
@@ -59,9 +60,23 @@ public class ProductController {
 		return "";
 	}
 //	Hong
+	
+//	상품 예약 목록
+	@RequestMapping(value = "/proReSelectAll", method = RequestMethod.GET)
+	public String proReSelectAll(Model model, ProductPagingCriteria cri) {
+		model.addAttribute("proReSelectAll", dao.proReSelectAll());
+		model.addAttribute("paging", new ProductPageMaker(cri, dao.totalCnt(cri)));
+		return "store/productReservation";
+	}
 
-
- 
+//  상품예약목록 상세페이지
+	@RequestMapping(value = "/proReDetail" , method = RequestMethod.GET)
+	public String proReDetail(Model model, ProductReservation vo) {
+		model.addAttribute("proRe", dao.proReDetail(vo));
+		model.addAttribute("detailList", dao.proReDetailList());
+		return "store/productReservationDetail";
+	}
+	
 	
 //	Jo
 	
