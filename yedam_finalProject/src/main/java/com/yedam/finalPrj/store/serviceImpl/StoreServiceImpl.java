@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import com.yedam.finalPrj.store.service.StoreService;
 import com.yedam.finalPrj.store.vo.jo.ProductReservation;
 import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPagingCriteria;
-import com.yedam.finalPrj.store.vo.park.ReservedProduct;
 import com.yedam.finalPrj.store.vo.park.Store;
 import com.yedam.finalPrj.store.vo.park.StorePageMaker;
 import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
@@ -118,9 +117,19 @@ public class StoreServiceImpl implements StoreService{
 		return map.reservedProductsList(cri);
 	}
 	@Override
-	public String findStoreNameByStoreNum(int StoreNo) {
-		
-		return map.findStoreNameByStoreNum(StoreNo);
+	public List<ProductReservation> selectResProdListByStoreName(ReservedProductsListPagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.selectResProdListByStoreName(cri);
+	}
+	@Override
+	public List<ProductReservation> selectResProdListByProdName(ReservedProductsListPagingCriteria cri, Model model) {
+		// TODO Auto-generated method stub
+		return map.selectResProdListByProdName(cri, model);
+	}
+	@Override
+	public String findProdNameByProdResNo(int prodResNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
  

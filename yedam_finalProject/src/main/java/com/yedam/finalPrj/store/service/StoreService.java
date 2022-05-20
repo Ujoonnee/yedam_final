@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 
 import com.yedam.finalPrj.store.vo.jo.ProductReservation;
 import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPagingCriteria;
-import com.yedam.finalPrj.store.vo.park.ReservedProduct;
 import com.yedam.finalPrj.store.vo.park.Store;
 import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 
@@ -38,10 +37,15 @@ public interface StoreService {
 //		Jo
 //예약 상품 목록 들어갈 시 리스트 출력
 	 List<ProductReservation> reservedProductsList(ReservedProductsListPagingCriteria cri);
-//매장번호로 매장명 찾아오기	 
-	 public String findStoreNameByStoreNum(int StoreNo);
-		
-		
+//검색 리스트 출력(매장이름, 상품명)		 
+	 public List<ProductReservation> selectResProdListByStoreName(ReservedProductsListPagingCriteria cri);
+	 public List<ProductReservation> selectResProdListByProdName(ReservedProductsListPagingCriteria cri, Model model);
+//상품예약번호로 상품명 찾아오기	 
+	 public String findProdNameByProdResNo(int prodResNo);
+		/*
+		 * //예약상품 상세내역 public List<ProductReservation> resProdDetail(); //예약상품
+		 * 상세내역(상품목록) public List<ProductReservation> resProdDetailList();
+		 */
 //		Yoon
 		
 		

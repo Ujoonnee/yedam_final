@@ -3,11 +3,11 @@ package com.yedam.finalPrj.store.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
 
 import com.yedam.finalPrj.store.vo.jo.ProductReservation;
 import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPagingCriteria;
 import com.yedam.finalPrj.store.vo.park.ReservedGoods;
-import com.yedam.finalPrj.store.vo.park.ReservedProduct;
 import com.yedam.finalPrj.store.vo.park.Store;
 import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 
@@ -26,8 +26,8 @@ public interface StoreMapper {
 	public int totalProdCnt(StorePagingCriteria cri);
 	
 //	매장 예약 페이지
-	public List <ReservedProduct> storeReserve(StorePagingCriteria cri);
-	public ReservedProduct storeReservationDetail(StorePagingCriteria cri);
+	public List <ReservedGoods> storeReserve(StorePagingCriteria cri);
+	public ReservedGoods storeReservationDetail(StorePagingCriteria cri);
 	 int numberOfReservation(StorePagingCriteria cri);
 	 
 	 
@@ -40,8 +40,11 @@ public interface StoreMapper {
 //		Jo
 //예약 상품 목록 들어갈 시 리스트 출력
 	List<ProductReservation> reservedProductsList(ReservedProductsListPagingCriteria cri);		
-//매장번호로 매장명 찾아오기	 
-	public String findStoreNameByStoreNum(int StoreNo);	
+//검색 리스트 출력(매장이름으로, 상품명으로)		 
+	public List<ProductReservation> selectResProdListByStoreName(ReservedProductsListPagingCriteria cri);
+	public List<ProductReservation> selectResProdListByProdName(ReservedProductsListPagingCriteria cri, Model model);
+//상품예약번호로 상품명 찾아오기	 
+	 public String findProdNameByProdResNo(int prodResNo);
 	 
 		
 //		Yoon
