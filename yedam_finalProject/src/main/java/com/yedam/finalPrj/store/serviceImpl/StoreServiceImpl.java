@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import com.yedam.finalPrj.store.service.StoreService;
 import com.yedam.finalPrj.store.vo.jo.ProductReservation;
 import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPagingCriteria;
+import com.yedam.finalPrj.store.vo.park.ReservedProduct;
 import com.yedam.finalPrj.store.vo.park.Store;
 import com.yedam.finalPrj.store.vo.park.StorePageMaker;
 import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;

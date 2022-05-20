@@ -13,6 +13,6 @@ public class Product {
 	private String soldOut;
 	private String price;
 	private String prodThumbnail;
-	private int productCnt;
+	private String prodCat;
 }
 
