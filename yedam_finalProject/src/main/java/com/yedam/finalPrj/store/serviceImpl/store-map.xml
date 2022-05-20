@@ -138,9 +138,58 @@
 
 	
 <!-- 	Jo -->
-	
+<!-- 예약 상품 목록 출력 -->
+<select id = "reservedProductsList"  resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
+   SELECT *
+   FROM
+       (SELECT a.* , ROWNUM rn
+           FROM
+               (SELECT p.prod_res_no, p.store_no,p.mem_no,p.pickup_time,p.pickup_date,
+                       p.payment_amt, p.payment_status,p.order_date, r.count
+                   FROM
+                       reserved_product     r,
+                       product_reservation  p
+                   WHERE
+                       r.prod_res_no = p.prod_res_no
+                       and mem_no = 1
+               ) a
+           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+       ) b
+   WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+</select>
+<!-- 매장번호로 매장명 찾아오기 -->
+<select id="findStoreNameByStoreNum" parameterType="int">
+	SELECT *
+	   FROM
+	       (SELECT a.* , ROWNUM rn
+	           FROM
+	               (SELECT s.name
+	                   FROM
+	                       store                s,
+	                       product_reservation  p
+	                   WHERE
+	                       s.store_name = p.store_name
+	                       and mem_no = 1
+	                       order by p.prod_res_no
+	               ) a
+	           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+	       ) b
+    WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
 
-	
+
+
+
+	SELECT s.name
+			FROM store s INNER JOIN product_reservation r
+		ON s.store_no = r.store_no
+	WHERE store_no = (SELECT p.store_no
+                   FROM
+                       reserved_product     r,
+                       product_reservation  p
+                   WHERE
+                       r.prod_res_no = p.prod_res_no
+                       and mem_no = 1)
+</select>
 <!-- 	Yoon -->
 	
 	

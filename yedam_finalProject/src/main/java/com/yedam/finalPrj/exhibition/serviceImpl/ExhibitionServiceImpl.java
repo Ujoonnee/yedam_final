@@ -14,7 +14,6 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 
 @Service("ExhibitionService")
-
 public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	@Autowired ExhibitionMapper map;
@@ -79,6 +78,21 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	@Override
 	public List<ExhibitionVO> selectAllByMemName(String memName) {
 		return map.selectAllByMemName(memName);
+	}
+	
+	@Override
+	public ExhibitionVO selectOneByExNo(int exNo) {
+		return map.selectOneByExNo(exNo);
+	}
+	
+	@Override
+	public int exhPermit(int exNo) {
+		return map.exhPermit(exNo);
+	}
+	
+	@Override
+	public int exhReject(int exNo) {
+		return map.exhReject(exNo);
 	}
 	
 	// 성환

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yedam.finalPrj.store.serviceImpl.StoreServiceImpl;
+import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPageMaker;
+import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPagingCriteria;
 import com.yedam.finalPrj.store.vo.park.Store;
 import com.yedam.finalPrj.store.vo.park.StorePageMaker;
 import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
@@ -67,6 +69,15 @@ public class StoreController {
 	
 //	Jo
 	
+//	예약한 상품 리스트 출력
+	@GetMapping("reservedProductsList")
+	public String reservedProductsList(ReservedProductsListPagingCriteria cri,Model model,int StoreNo) {
+//		예약 상품 목록 출력
+		model.addAttribute("reservedProductsList", dao.reservedProductsList(cri));
+		model.addAttribute("storeName", dao.findStoreNameByStoreNum(1));
+		model.addAttribute("paging",new ReservedProductsListPageMaker(cri, dao.totalCnt()));
+		return "store/reservedProductsList";
+	}
 	
 	
 //	Yoon

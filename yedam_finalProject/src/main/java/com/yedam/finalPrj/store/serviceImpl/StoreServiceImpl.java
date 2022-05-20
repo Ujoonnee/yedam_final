@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.yedam.finalPrj.store.service.StoreService;
+import com.yedam.finalPrj.store.vo.jo.ProductReservation;
+import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPagingCriteria;
 import com.yedam.finalPrj.store.vo.park.ReservedProduct;
 import com.yedam.finalPrj.store.vo.park.Store;
 import com.yedam.finalPrj.store.vo.park.StorePageMaker;
@@ -99,6 +101,7 @@ public class StoreServiceImpl implements StoreService{
 		// TODO Auto-generated method stub
 		return map.totalProdCnt(cri);
 	}
+	
 
 
 //	Hong
@@ -107,7 +110,18 @@ public class StoreServiceImpl implements StoreService{
 
 	
 //	Jo
-	
+	@Override
+	public List<ProductReservation> reservedProductsList(ReservedProductsListPagingCriteria cri) {
+		System.out.println("매장번호 출력하기.");
+		System.out.println(map.reservedProductsList(cri));
+		System.out.println("매장번호 출력하기.");
+		return map.reservedProductsList(cri);
+	}
+	@Override
+	public String findStoreNameByStoreNum(int StoreNo) {
+		
+		return map.findStoreNameByStoreNum(StoreNo);
+	}
 	
  
 	
