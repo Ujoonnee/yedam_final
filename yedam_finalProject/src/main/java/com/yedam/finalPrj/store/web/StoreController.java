@@ -83,7 +83,7 @@ public class StoreController {
 		return "store/resProdList";
 	}
 
-	/*
+	/* 0523커밋하기
 	 * // 매장이름으로 검색 리스트 출력
 	 * 
 	 * @PostMapping("resProdListByStoreName")
