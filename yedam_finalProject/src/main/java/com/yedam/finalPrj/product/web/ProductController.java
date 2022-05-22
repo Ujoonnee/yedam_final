@@ -78,8 +78,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping("statisticsForm")
-	public String statistics(@RequestParam("selectStoreNo") int storeNo, Model model) {
-		
+	public String statistics(@RequestParam("storeNo") int storeNo, Model model) {
+		System.out.println(storeNo);
 		model.addAttribute("productReservation" , dao.salesbyDate(storeNo));
 		return "store/statistics";
 	}

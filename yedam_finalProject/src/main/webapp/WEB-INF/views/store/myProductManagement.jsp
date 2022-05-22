@@ -121,25 +121,26 @@
 	<button id = "forSale"onclick = "ProductForSale()">판매</button>
 	
 <!-- 	통계확인 페이지로 storeNo값 넘김. -->
-	<form id ="statisticsFrm" method = "post" action ="statisticsForm">
-	<input type="hidden" name = "selectStoreNo" value = "${ProductList[0].storeNo }"></form>
-	<div><button id ="statistics">통계확인</button></div>
+	<form id ="statisticsFrm" method = "post" action = "statisticsForm">
+	<input type = "hidden" name = "storeNo" value ="${ProductList[0].storeNo }">
+	<div><button type = "submit" id ="statistics" name="storeNo" onclick = "statisticsView${ProductList[0].storeNo }">통계확인</button></div>
+	</form>
 </c:if>
 
 <!-- 	기본 양식 -->
 	<table id="excelForm" style="display: none;">
-		<tr><th>prod_name</th><th>prod_cat</th><th>price</th><th>stock</th><th>카테고리 종류 : 스낵류, 유제품, 커피 , 라면</th></tr>
+		<tr><th>prodName</th><th>prodCat</th><th>price</th><th>stock</th><th>카테고리 종류 : 스낵류, 유제품, 커피 , 라면</th></tr>
 	</table>
 
 
 
 <script>
-	$(document).ready(function(){
-		$("statistics").click(function(){
-			$("statisticsFrm").attr("action","statisticsForm");
-			$("statisticsFrm").submit();
-		})
-	})
+// 	function statisticsView(n){
+// 		statisticsFrm.storeNo.value = n;
+// 		alert(n);
+// 		statisticsFrm.action = "statisticsForm";
+// 		statisticsFrm.submit();
+// 	}
 
 
 
@@ -319,6 +320,8 @@
 	        data : {file: obj},
 	        success : function (data){
 	        	console.log(data);	
+	        	alert("등록성공");
+	  			location.reload();
 	        },
 	        error : function(e){
 	        	console.log(e);

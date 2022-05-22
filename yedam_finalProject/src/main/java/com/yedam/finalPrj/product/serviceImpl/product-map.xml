@@ -117,7 +117,7 @@
 			ELSE MAX(prod_no)
 			+1 END from product
 		</selectKey>
-			insert into product values(#{prodNo},4,#{prodName},#{stock},'N',#{price},'null',#{prodCat})	
+			insert into product values(#{prodNo},2,#{prodName},#{stock},'N',#{price},'',#{prodCat})	
 		
 	</insert>
 	
@@ -128,11 +128,17 @@
 	</update>
 	
 	<select id ="salesbyDate" resultType="com.yedam.finalPrj.store.vo.park.ProductReservation">
-		SELECT PICKUP_DATE,  SUM(PAYMENT_AMT) AS PAYMENT_AMT
-		FROM (SELECT * FROM
-			PRODUCT_RESERVATION
-			WHERE STORE_NO = #{storeNo})
-			GROUP BY PICKUP_DATE
+		SELECT*
+		FROM
+		    ( SELECT pickup_date, SUM(payment_amt) AS payment_amt
+		        FROM
+		            (SELECT *
+		                FROM  product_reservation
+		                WHERE
+		                    store_no = #{storeNo} )
+		        GROUP BY pickup_date
+		    )
+		ORDER BY pickup_date
 	</select>
 	
 <!-- 		Hong -->

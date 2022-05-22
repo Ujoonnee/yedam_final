@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
 		} else if(cri.getType().equals("price")) {
 //			가격검색 아직 구현 X 에러방지 기본값
 			cri.setLowPrice(0);
-			cri.setHighPrice(10000);
+			cri.setHighPrice(100000);
 			model.addAttribute("products", searchProduct(cri));
 			model.addAttribute("paging",new ProductPageMaker(cri,  searchPriceCnt(cri)));
 			
@@ -86,14 +86,14 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> myStoreProductManegement(ProductPagingCriteria cri) {
 		// TODO Auto-generated method stub
 		
-		cri.setStoreNo("4");
+		cri.setStoreNo("2");
 		System.out.println(cri.getStoreNo());
 		return map.myStoreProductManegement(cri);
 	}
 	@Override
 	public int myStoreProductCnt(ProductPagingCriteria cri) {
 		// TODO Auto-generated method stub
-		cri.setStoreNo("4");
+		cri.setStoreNo("2");
 		return map.myStoreProductCnt(cri);
 	}
 	
