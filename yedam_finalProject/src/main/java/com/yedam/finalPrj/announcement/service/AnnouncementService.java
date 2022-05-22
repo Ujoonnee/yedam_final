@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.yedam.finalPrj.common.EmailVO;
 import com.yedam.finalPrj.common.FileVO;
 
 
@@ -36,5 +35,4 @@ public interface AnnouncementService {
 	int totalCnt(AnnouncementPagingCriteria cri);
 	int updateView(AnnouncementVO ann);
 	
-//	public String sendMail(EmailVO vo);
 }
