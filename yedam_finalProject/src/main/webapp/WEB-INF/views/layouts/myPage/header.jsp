@@ -11,12 +11,18 @@
         <a href="${pageContext.request.contextPath}"><img src="<c:url value='/resources/img/logo.jpg'/>" width="200px"></a>
         <!-- / Search form -->
       </div>
+      
+      
       <!-- Navbar links -->
       <ul class="navbar-nav align-items-center">
+      
+      	<!-- 알림버튼 -->
         <li class="nav-item dropdown">
           <a class="nav-link text-dark notification-bell unread dropdown-toggle" data-unread-notifications="true" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
             <svg class="icon icon-sm text-gray-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path></svg>
           </a>
+          
+          <!-- 알림 목록 -->
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-center mt-2 py-0">
             <div class="list-group list-group-flush">
               <a href="#" class="text-center text-primary fw-bold border-bottom border-light py-3">Notifications</a>
@@ -122,22 +128,25 @@
             </div>
           </div>
         </li>
+        
+        <!-- 유저 버튼 -->
         <li class="nav-item dropdown ms-lg-3">
           <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="media d-flex align-items-center">
-              <img class="avatar rounded-circle" alt="Image placeholder" src="${pageContext.request.contextPath}/resources/assets/img/team/profile-picture-3.jpg">
               <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
-                <span class="mb-0 font-small fw-bold text-gray-900">Bonnie Green</span>
+                <span class="mb-0 font-small fw-bold text-gray-900">${user.name }</span>
               </div>
             </div>
           </a>
+          
+          <!-- 유저 버튼 목록 -->
           <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
-            <a class="dropdown-item d-flex align-items-center" href="#">
+            <a class="dropdown-item d-flex align-items-center" href="${pageContext.request.contextPath}/myPage">
               <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
               마이페이지
             </a>
             <div role="separator" class="dropdown-divider my-1"></div>
-            <a class="dropdown-item d-flex align-items-center" href="#">
+            <a class="dropdown-item d-flex align-items-center" href="${pageContext.request.contextPath}/logout">
               <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>                
               Logout
             </a>
