@@ -8,7 +8,8 @@ import org.springframework.ui.Model;
 
 import com.yedam.finalPrj.store.service.StoreService;
 import com.yedam.finalPrj.store.vo.jo.ProductReservation;
-import com.yedam.finalPrj.store.vo.jo.ReservedProductsListPagingCriteria;
+import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
+import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
 import com.yedam.finalPrj.store.vo.park.Store;
 import com.yedam.finalPrj.store.vo.park.StorePageMaker;
 import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
@@ -109,30 +110,72 @@ public class StoreServiceImpl implements StoreService{
 
 	
 //	Jo
+	
+//예약상품목록 출력
 	@Override
-	public List<ProductReservation> reservedProductsList(ReservedProductsListPagingCriteria cri) {
-		System.out.println("매장번호 출력하기.");
-		System.out.println(map.reservedProductsList(cri));
-		System.out.println("매장번호 출력하기.");
-		return map.reservedProductsList(cri);
+	public List<ProductReservation> resProdList(ResProdListPagingCriteria cri) {
+		return map.resProdList(cri);
 	}
+//총 예약건수 출력
 	@Override
-	public List<ProductReservation> selectResProdListByStoreName(ReservedProductsListPagingCriteria cri) {
-		// TODO Auto-generated method stub
+	public int resTotalCnt() {
+		return map.resTotalCnt();
+	}
+//예약 건 출력(매장이름/상품명 검색시)
+	@Override
+	public void search(ResProdListPagingCriteria cri, Model model) {
+
+		if(cri.getType().equals("name")) {
+			
+			model.addAttribute("resProdList", selectResProdListByStoreName(cri));
+			model.addAttribute("paging", new ResProdListPageMaker(cri, storeCnt(cri)));
+			
+		}else if(cri.getType().equals("prodName")){
+			
+			model.addAttribute("resProdList", selectResProdListByProdName(cri));
+			model.addAttribute("paging",new ResProdListPageMaker(cri, prodNameCnt(cri)));
+			
+		}else {
+			model.addAttribute("resProdList", resProdList(cri));
+			model.addAttribute("paging",new ResProdListPageMaker(cri, resTotalCnt()));
+		}		
+	}
+//예약상품 리스트 출력(매장이름 검색)	
+	@Override
+	public List<ProductReservation> selectResProdListByStoreName(ResProdListPagingCriteria cri) {
 		return map.selectResProdListByStoreName(cri);
 	}
+//예약상품 리스트 출력(상품명 검색)	
 	@Override
-	public List<ProductReservation> selectResProdListByProdName(ReservedProductsListPagingCriteria cri, Model model) {
-		// TODO Auto-generated method stub
-		return map.selectResProdListByProdName(cri, model);
+	public List<ProductReservation> selectResProdListByProdName(ResProdListPagingCriteria cri) {
+		return map.selectResProdListByProdName(cri);
 	}
 	@Override
 	public String findProdNameByProdResNo(int prodResNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return map.findProdNameByProdResNo(prodResNo);
+	}
+//예약 건수 출력(매장이름검색)
+	@Override
+	public int storeCnt(ResProdListPagingCriteria cri) {
+		return map.storeCnt(cri);
+	}
+//예약 건수 출력(상품명 검색)
+	@Override
+	public int prodNameCnt(ResProdListPagingCriteria cri) {
+		return map.prodNameCnt(cri);
 	}
 	
- 
+//예약상품 상세내역 
+	@Override
+	public List<ProductReservation> resProdDetail(long prodResNo) {
+		return map.resProdDetail(prodResNo);
+	}
+//예약상품 상세내역(상품목록)
+	@Override
+	public List<ProductReservation> resProdDetailList(long prodResNo) {
+		return map.resProdDetailList(prodResNo);
+	}
+
 	
 //	Yoon
 	

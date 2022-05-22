@@ -29,6 +29,7 @@ public class ProductReservation {
 	
 	@Autowired ReservedProduct reservedProduct;
 	@Autowired Store store;
-	@Autowired Product product;
-	@Autowired MemberVO member;
+	
+	private MemberVO member;
+	private Product product;
 }

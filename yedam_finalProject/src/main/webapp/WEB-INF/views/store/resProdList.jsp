@@ -9,12 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<select id="sel">
-	<option value="storeName" selected="selected">매장이름</option>
-	<option value="prodName">상품명</option>
+<form action="searchList2" method="post">
+<select id="type" name="type">
+	<option value="name" <c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장이름</option>
+	<option value="prodName" <c:out value="${paging.cri.type eq 'prodName'? 'selected': '' }" />>상품명</option>
 </select>
-<input type="text" id="input">
+<input type="text" id="keyword" name="keyword" value="${keyword}">
 <button id="search">검색</button>
+</form>
 <table>
 		<tr>
 			<td>매장이름</td>
@@ -24,7 +26,7 @@
 			<td>픽업시간</td>
 		</tr>
 	<tbody id="tbd">
-		<c:forEach var="list" items="${reservedProductsList}">
+		<c:forEach var="list" items="${resProdList}">
 			<tr class="list">
 				<td>${list.store.name }<input type="hidden" value="${list.prodResNo}"></td>
 				<td>${list.product.prodName }</td>
@@ -42,7 +44,13 @@
 	</tbody>
 </table>
 
-
+	<form id="pagingFrm" name="pagingForm" action="resProdList" method="get">
+		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
+		<input type="hidden" id="pageNum" name="amount" value="${paging.cri.amount }">
+		<input type="hidden" id="type" name="type" value="${paging.cri.type }">
+		<input type="hidden" id="keyword" name="keyword" value="${paging.cri.keyword }">
+	</form>
+	
 	
 	<div id="pagingDiv">
 		<!-- 이전페이지 -->
@@ -61,6 +69,24 @@
 	
 	
 <script>
+
+$(document).ready(function(){
+	/* 페이지 번호 이동 id> pageNum > attr로 속성 href줌 */
+	$('#pagingDiv a').click(function(e){
+		e.preventDefault();
+		$('#pageNum').val($(this).attr("href"));
+		pagingFrm.submit();
+	})
+});
+
+//검색 [전체] 선택 시 검색창 비우기
+	function allSelected() {
+		var selected = document.getElementById("type");
+		if (selected.options[selected.selectedIndex].value == 1) {
+			document.getElementById("keyword").value = '';
+		}
+	
+	}
 // 리스트 클릭시 상세페이지로 이동(예약번호넘겨서)
 $("#tbd").on("click", ".list", function(){
 	var selectedResNo = $(this).find("input").val();
@@ -69,7 +95,7 @@ $("#tbd").on("click", ".list", function(){
 });
 
 //검색버튼 클릭 시.
-$("#search").on("click", function(){
+/*  $("#search").on("click", function(){
 	
 	var selectedOpt = $("#sel option:selected").val();
 	
@@ -77,10 +103,10 @@ $("#search").on("click", function(){
 	if(selectedOpt =="storeName"){
 		console.log("매장명 데이터 전송예정")
 		$.ajax({
-			url : "resProdListByStoreName",
+			url : "searchList2",
 			method : "post",
 			data : {
-				"storeName" : $("#input").val()
+				"storeName" : $("#keyword").val()
 			},
 			success: function(result){
 				$("#tbd").empty();
@@ -88,9 +114,7 @@ $("#search").on("click", function(){
 
 						 var time = d.pickupTime;
 						 var date = d.pickupDate;
-						 /* console.log(date);
-						console.log(convertDate2(time))
-	 					console.log(convertDate1(date)) */
+
 						var cd1 = convertDate1(date);
 						var cd2 = convertDate2(time);
 						
@@ -99,7 +123,8 @@ $("#search").on("click", function(){
 						}else{
 							var ps="픽업대기"
 						}
-						
+						console.log(result);
+						console.log(d);
 				var trs = $("<tr>").append(`<td>\${d.store.name}</td>`)
 								   .append(`<input type="hidden" value="\${d.prodResNo}">`)
 								   .append(`<td>\${d.product.prodName}</td>`)
@@ -119,10 +144,10 @@ $("#search").on("click", function(){
 	}else if(selectedOpt =="prodName"){
 		console.log("상품명 데이터 전송예정");
 		$.ajax({
-			url:"resProdListByProdName",
+			url:"searchList2",
 			method:"POST",
 			data:{
-				"inputVal": $("#input").val()
+				"inputVal": $("#keyword").val()
 			},
 			success: function(result){
 				$("#tbd").empty();
@@ -153,8 +178,9 @@ $("#search").on("click", function(){
 			}
 		})
 	}
-});
+}); 
 
+ */
 
 
 

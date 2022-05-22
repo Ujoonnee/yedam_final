@@ -8,19 +8,22 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<c:forEach var="d" items="${detail }">
+
 <h3>예약내역 상세</h3><hr>
-<table>
+ <table>
 	<tr>
 		<td>예약번호</td>
-		<td>${detail.prodResNo}</td>
+		<td>${d.prodResNo}</td>
 	</tr>
 	<tr>
 		<td>예약자 이름</td>
-		<td>${detail.member.name}</td>
+		<td>${d.member.name}</td>
 	</tr>
 	<tr>
 		<td>결제일자</td>
-		<td>${detail.payDate}</td>
+		<td>${d.orderDate}</td>
 	</tr>
 </table><hr>
 <table>
@@ -29,11 +32,11 @@
 	</tr>
 	<c:forEach var="list" items="${prodList}">
 	<tr>
-		<td>${list.prodThumbnail}</td>
-		<td>${list.prodName}</td>
-		<td>${list.price}</td>
-		<td>${list.count}</td>
-		<td>금액 : ${list.price}</td>
+		<%-- <td>${list.prodThumbnail}</td> --%>
+		<td>${list.product.prodName}</td>
+		<td>${list.product.price}</td>
+		<td>${list.reservedProduct.count}개</td>
+		<td>금액 : ${list.product.price * list.reservedProduct.count}</td>
 	</tr>
 	<tr>
 		<td>총 금액</td>
@@ -44,18 +47,21 @@
 <table>
 	<tr>
 		<td>매장이름</td>
-		<td>${detail.store.name}</td>
+		<td>${d.store.name}</td>
 	</tr>
 	<tr>
 		<td>예약 일시</td>
-		<td>${detail.pickupTime} ${detail.pickupDate}</td>
+		<td>${d.pickupTime} ${d.pickupDate}</td>
 	</tr>
 	<tr>
 		<td>연락처</td>
-		<td>${detail.member.tel}</td>
+		<td>${d.member.tel}</td>
 	</tr>
-</table>
+</table> 
+</c:forEach>
 <button id="cancelRes">예약취소</button> <button id="review">리뷰작성</button>
+
+
 
 </body>
 </html>

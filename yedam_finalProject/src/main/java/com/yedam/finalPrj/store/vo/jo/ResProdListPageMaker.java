@@ -5,15 +5,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReservedProductsListPageMaker {
+public class ResProdListPageMaker {
 	private int startPage;
 	private int endPage;
 	private boolean prev;
 	private boolean next;
 	
-	private ReservedProductsListPagingCriteria cri;
+	private ResProdListPagingCriteria cri;
 	
-	public ReservedProductsListPageMaker(ReservedProductsListPagingCriteria cri, int total) {
+	public ResProdListPageMaker(ResProdListPagingCriteria cri, int total) {
 		this.cri=cri;
 		int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
 		this.endPage = (int) (Math.ceil(cri.getPageNum()/ 10.0)*10);

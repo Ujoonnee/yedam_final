@@ -165,7 +165,7 @@
     	  
     	  // 출력
     	  document.getElementById('cart').innerText = result;
-    	}
+    	}	
     	
    // 검색 [전체] 선택 시 검색창 비우기
   	function allSelected() {
