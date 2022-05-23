@@ -120,7 +120,7 @@
 							<input type="hidden" id="FILE_NO" name="fileNo_${var.index }" value="${file.FILE_NO}" >
 							<input type="hidden" id="FILE_NAME" name="fileName" value="FILE_NO_${var.index}">
 							<a href="#" id="fileName" onclick="return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
-							<button id="fileDels" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
+							<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
 					</c:forEach>
 				</div>
 			</div>

@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
 <h1>공지사항</h1>
 <div>	
 	<form action="announcement" method="post" name="searchForm" autocomplete="off">
@@ -50,7 +55,7 @@
 				</tr>
 		</c:forEach>
 		
-		<tr><td colspan="7">&nbsp;</td></tr>
+	<!-- 	<tr><td colspan="7">&nbsp;</td></tr> -->
 		
 		<c:forEach items="${list }" var="announcement">
 				<tr onclick="location.href='findOne?annNo=${announcement.annNo }'">
@@ -103,7 +108,7 @@
 
 <script type="text/javascript">
 	/* 페이지 번호 이동 id> pageNum > attr로 속성 href줌 */
-/* 	$('#pagingDiv a').click(function(e){
+$('#pagingDiv a').click(function(e){
 		e.preventDefault();
 		$('#pageNum').val($(this).attr("href"));
 		pagingForm.submit();
@@ -123,8 +128,10 @@
 		
 	})
 
-	$('.chk').click( () => event.stopPropagation()); */
+	$('.chk').click( () => event.stopPropagation()); 
 	
 	
 
 </script>
+</body>
+</html>

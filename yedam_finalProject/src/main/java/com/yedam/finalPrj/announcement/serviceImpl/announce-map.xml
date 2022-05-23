@@ -26,7 +26,6 @@
 	     <![CDATA[
             		 AND  rownum <= #{pageNum} * #{amount})
 			WHERE rn > (#{pageNum}-1) * #{amount}
-			ORDER BY ann_date DESC
 		]]>
 	</select>
 	
@@ -59,7 +58,7 @@
 		ANN_DATE, ANN_VIEW,
 		STATUS, ANN_CNT)
 		VALUES (ann_seq.nextval, #{title}, #{annContent},
-		#{annDate}, #{annView}, DEFAULT, 0)
+		#{annDate}, #{annView}, #{status}, 0)
 	</insert>
 		<!-- 파일업로드 -->
 	<insert id="annInsertFile" parameterType="com.yedam.finalPrj.common.FileVO">

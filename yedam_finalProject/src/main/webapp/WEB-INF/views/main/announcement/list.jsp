@@ -50,7 +50,7 @@
 				</tr>
 		</c:forEach>
 		
-		<tr><td colspan="7">&nbsp;</td></tr>
+		<!-- <tr><td colspan="7">&nbsp;</td></tr> -->
 		
 		<c:forEach items="${list }" var="announcement">
 				<tr onclick="location.href='findOne?annNo=${announcement.annNo }'">
