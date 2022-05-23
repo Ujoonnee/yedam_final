@@ -1,5 +1,6 @@
 package com.yedam.finalPrj.product.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 public interface ProductService {
@@ -29,10 +31,15 @@ public interface ProductService {
 	 
 //	내 상품 관리
 	public List<Product> myStoreProductManegement(ProductPagingCriteria cri); //cri.storeNo사용
-	public int myStoreProductInsert(String file);
-	public int myStoreProductUpdate(String file);
+	void myStoreProductInsert(String file);
+	void myStoreProductUpdate(List<HashMap<String, String>> vo);
+	void myStoreProductDelete(List<HashMap<String, String>> vo);
 	int myStoreProductCnt(ProductPagingCriteria cri);
 	
+//	통계조회
+	List<ProductReservation> salesbyDate(int storeNo);
+//	통계 날짜 검색
+	List<ProductReservation> searchDateInStatistics(Statistics vo);
 //	Hong
 
 //	상품예약목록 

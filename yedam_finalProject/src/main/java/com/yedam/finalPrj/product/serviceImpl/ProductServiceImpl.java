@@ -1,26 +1,21 @@
 package com.yedam.finalPrj.product.serviceImpl;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.MapUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.yedam.finalPrj.product.service.ProductService;
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 
@@ -78,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 		} else if(cri.getType().equals("price")) {
 //			가격검색 아직 구현 X 에러방지 기본값
 			cri.setLowPrice(0);
-			cri.setHighPrice(10000);
+			cri.setHighPrice(100000);
 			model.addAttribute("products", searchProduct(cri));
 			model.addAttribute("paging",new ProductPageMaker(cri,  searchPriceCnt(cri)));
 			
@@ -92,82 +87,62 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> myStoreProductManegement(ProductPagingCriteria cri) {
 		// TODO Auto-generated method stub
 		
-		cri.setStoreNo("1");
+		cri.setStoreNo("4");
 		System.out.println(cri.getStoreNo());
 		return map.myStoreProductManegement(cri);
 	}
 	@Override
 	public int myStoreProductCnt(ProductPagingCriteria cri) {
 		// TODO Auto-generated method stub
-		cri.setStoreNo("1");
+		cri.setStoreNo("4");
 		return map.myStoreProductCnt(cri);
 	}
 	
 	@Override
-	public int myStoreProductInsert(String file) {
-		JSONParser parser = new JSONParser();
-		try {
-			JSONObject jsonObject = (JSONObject) parser.parse(file);
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+	public void myStoreProductInsert(String file) {
+		map.deleteProduct(null);
+		System.out.println("Impl라인");
+		Gson gson = new Gson();
+		List<Product> list = gson.fromJson(file, new TypeToken<List<Product>>() {}.getType());
+		for (Product product : list) {
+			System.out.println("for시작");
+			System.out.println(product.getProdName());
+			System.out.println(product.getProdCat());
+			System.out.println(product.getPrice());
+			System.out.println(product.getStock());
+			System.out.println("for끝");
+			map.myStoreProductInsert(product);
 		}
+		System.out.println("for문 전체 끝" );
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		List<String>prodName = null;
-		List<String>prodCat = null;
-		List<String>price = null;
-		List<String>stock = null;
-		System.out.println("Impl");
-		try {
-			List<Map<String,Object>> readValue = objectMapper.readValue(file,
-					new TypeReference<List<Map<String,Object>>>(){});
-			
-			System.out.println("readValue크기"+readValue.size());
-			System.out.println("readValue값"+readValue);
-			
-			for(Map<String,Object>map : readValue) {
-				MapUtils.debugPrint(System.out,"map",map);
-				
-				
-				prodName=(List<String>)map.get("prodName");
-				prodCat=(List<String>)map.get("prodCat");
-				price=(List<String>)map.get("price");
-				stock=(List<String>)map.get("stock");
-				
-				System.out.println(prodName.get(0));
-				System.out.println(prodCat.get(1));
-				System.out.println(price.get(2));
-				System.out.println(stock.get(3));
-			}
-			
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		for(int i = 0; i< prodName.size(); i++) {
-			System.out.println(prodName.get(i));
-			System.out.println(prodCat.get(i));
-			System.out.println(price.get(i));
-			System.out.println(stock.get(i));
-			
-		}
-		
 		// TODO Auto-generated method stub
-		return map.myStoreProductInsert(null);
 	}
 	@Override
-	public int myStoreProductUpdate(String file) {
-		
+	public void myStoreProductUpdate(List<HashMap<String, String>> vo) {
+		System.out.println(vo);
+		for (HashMap<String, String> list : vo) {
+			map.myStoreProductUpdate(list);
+			
+		}
 		// TODO Auto-generated method stub
-		return map.myStoreProductUpdate(file);
+	}
+	@Override
+	public void myStoreProductDelete(List<HashMap<String, String>> vo) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public List<ProductReservation> salesbyDate(int storeNo) {
+		// TODO Auto-generated method stub
+		return map.salesbyDate(storeNo);
+	}
+	@Override
+	public List<ProductReservation> searchDateInStatistics(Statistics vo) {
+		// TODO Auto-generated method stub
+		return map.searchDateInStatistics(vo);
 	}
 
-	 
 	
 //	Hong
 
@@ -192,6 +167,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return map.proReDetailList();
 	}
+
 
 	
 //	Jo

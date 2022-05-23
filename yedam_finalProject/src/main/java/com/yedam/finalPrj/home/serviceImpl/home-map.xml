@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.finalPrj.home.serviceImpl.HomeMapper">
 	
-	<select id="selectMember" parameterType="com.yedam.finalPrj.member.service.MemberVO" resultType="com.yedam.finalPrj.member.service.MemberVO">
+	<select id="selectMember" parameterType="MemberVO" resultType="MemberVO">
 		SELECT * FROM member WHERE email=#{email}	
 	</select>
 	
