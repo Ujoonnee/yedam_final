@@ -11,5 +11,8 @@ public interface ReviewService {
 	List <Review> reviewSelectAll(Review vo, HttpSession session);
 //	리뷰 단건조회
 	Review reviewSelectOne(Review vo);
+//	리뷰 수정
+	public int reviewUpdate(Review vo);
+//	리뷰 삭제
 	
 }

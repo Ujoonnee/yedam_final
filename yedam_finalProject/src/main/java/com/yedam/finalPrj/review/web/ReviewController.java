@@ -1,16 +1,21 @@
 package com.yedam.finalPrj.review.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.finalPrj.review.service.Review;
 import com.yedam.finalPrj.review.serviceImpl.ReviewMapper;
@@ -54,5 +59,16 @@ public class ReviewController {
 		return "review/reviewList";
 	}
 	
+	
+//	리뷰 수정
+	@ResponseBody
+	@RequestMapping("/reviewUpdate")
+	public String reviewUpdate( Model model, @ModelAttribute Review vo) {
+		mapper.reviewUpdate(vo);
+//		Map<String,Object> map = new HashMap<>();
+//		map.put("isSuccess", true);
+		model.addAttribute("reviewUpdate", vo.getContent());
+		return "review/reviewList";
+	}
 	
 }

@@ -11,8 +11,11 @@
 <body>
 	<h3>내 리뷰 목록</h3>
 	<ul>
+		
 		<c:forEach items="${reviewList }" var="list">
 			<input type="hidden" name="facResNo" value="${list.facResNo }">
+		
+
 			<li>${list.serviceName }</li>
 			<li>평점</li>
 			<li>${list.score }</li>
@@ -25,4 +28,25 @@
 		</c:forEach>
 	</ul>
 </body>
+<script>
+	
+	//댓글 수정
+	$(".contentUpdate").on("submit", function(){
+		var url = $(this).attr("action");
+		var $(this) = $(this);
+		$.ajax({
+			url : url,
+			method : "post",
+			data : data,
+			success : function(responseDate){
+				if(responseData.isSuccess){
+					$this.slideUp(200);
+					var content = $this.find("textarea").val();
+					$this.parent().find("pre").text(content);
+				}
+			}
+		});
+		return false;
+	});
+</script>
 </html>

@@ -13,5 +13,9 @@
 		FROM review 
 		WHERE mem_no = ${memNo}
 	</select>
-
+	
+	<update id="reviewUpdate" parameterType="com.yedam.finalPrj.exhibition.vo.hong.ReviewVO">
+		UPDATE review SET content = #{content}
+		WHERE rev_no = #{revNo}
+	</update>
 </mapper>
