@@ -130,4 +130,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		
 		return null;
 	}
+
+	@Override
+	public int annUpdates(List<AnnouncementVO> announcement) {
+		return map.annUpdates(announcement);
+	}
 }

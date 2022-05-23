@@ -3,6 +3,7 @@ package com.yedam.finalPrj.announcement.web;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,7 +101,17 @@ public class AnnouncementController {
 		
 		return "redirect:announcement";
 	}
-
+	// 공지사항 다중 수정
+	@RequestMapping("/annUpdates")
+	public String annUpdates(AnnouncementVO announcement) throws Exception {
+//		List<AnnouncementVO> list = service.findOne(announcement);
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+//		paramMap.put("list", list);
+//		service.annUpdates(paramMap);
+		
+		return "redirect:announcement";
+	}
 	
 	// 공지사항 수정페이지이동
 	@RequestMapping("/updatePage")

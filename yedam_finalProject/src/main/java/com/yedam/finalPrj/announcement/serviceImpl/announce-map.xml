@@ -29,20 +29,17 @@
 		]]>
 	</select>
 	
+	<!-- 상단고정 -->
 	<select id="getTopList" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 		SELECT ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
 		FROM announcement
 		WHERE status='00502'
 	</select>
-
+	<!-- 상세페이지 -->
 	<select id="findOne" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 		SELECT * FROM ANNOUNCEMENT WHERE ANN_NO = #{annNo}
 	</select>
-
-	<update id="annUpdate" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
-		update ANNOUNCEMENT SET title = #{title}, ANN_CONTENT = #{annContent}, status = #{status} WHERE ANN_NO = #{annNo}
-	</update>
-
+	<!-- 조회수 -->
 	<update id="updateView" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 		UPDATE ANNOUNCEMENT SET ann_view = ann_view + 1 WHERE
 		ANN_NO = #{annNo}
@@ -77,6 +74,18 @@
 		SELECT ORIGINAL_NAME, REPLACED_NAME FROM ATTACHED_FILE WHERE FILE_NO = #{fileNo} 
 	</select>
 	
+	<!-- 업데이트 -->
+	<update id="annUpdate" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
+		update ANNOUNCEMENT SET title = #{title}, ANN_CONTENT = #{annContent}, status = #{status} WHERE ANN_NO = #{annNo}
+	</update>
+	<!-- 다중 업데이트 -->
+	<update id="annUpdates" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
+		UPDATE ANNOUNCEMENT SET status = #{status} WHERE ANN_NO = #{annNo}
+		<foreach collection="list" index="index" item="announcement" open="(" separator="," close=")">
+			#{announcement.annNo}
+		</foreach>
+	</update>
+	
 	<!-- 첨부파일 수정, 삭제하는 쿼리 -->
 	<update id="fileUpdate" parameterType="hashMap">
 		UPDATE ATTACHED_FILE SET status = 'Y' WHERE FILE_NO = #{fileNo} 
@@ -92,4 +101,5 @@
 		<include refid="AnnouncementPagingCriteria"/>
 		AND ANN_NO>0
 	</select>
+	
 </mapper>

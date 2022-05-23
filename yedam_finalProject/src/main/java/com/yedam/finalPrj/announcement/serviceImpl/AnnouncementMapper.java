@@ -17,6 +17,8 @@ public interface AnnouncementMapper {
 	//공지사항
 	void annInsert(AnnouncementVO announcement) throws IllegalStateException, IOException;
 	public void annUpdate(AnnouncementVO announcement);
+	int annUpdates(List<AnnouncementVO> announcement);
+	
 	
 	//파일 업로드 용
 	void annInsertFile(Map<String, Object> map); 
@@ -27,7 +29,7 @@ public interface AnnouncementMapper {
 	
 	//	Announcement annInsert(Announcement announcement);
 	
-	// 메일
+
 	
 	
 	
