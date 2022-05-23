@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.yedam.finalPrj.common.FileVO;
 
 
 
@@ -23,10 +28,14 @@ public interface AnnouncementService {
 
 	public Map<String, Object> selectFileInfo(Map<String, Object> maps) throws Exception;
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
-//	다중 파일 업로드 및 삭제 수정
-	public void fileUpdate(Map<String, Object>maps);
+
+	//	다중 파일 업로드 및 삭제 수정
 	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames, MultipartHttpServletRequest filerequest) throws Exception;
+	public void fileUpdate(Map<String, Object>maps);
+	public String fileDelete(HttpServletRequest request, HttpServletResponse response);
+//	public void annUpdate(AnnouncementVO announcement);
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);
 	int updateView(AnnouncementVO ann);
+	
 }
