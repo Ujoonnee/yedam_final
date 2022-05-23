@@ -20,6 +20,7 @@
 	</resultMap>
 
 
+
 	<!-- 서비스 등록 -->
 	<insert id="regist"
 		parameterType="com.yedam.finalPrj.store.vo.park.Store">
@@ -135,10 +136,109 @@
 		
 <!-- 	Hong -->
 
+<!-- Jo -->
+<!-- 예약 상품 목록 출력 -->
 
-	
-<!-- 	Jo -->
-	
+
+
+<select id = "resProdList"  resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
+   SELECT *
+   FROM
+       (SELECT a.* , ROWNUM rn
+           FROM
+               (
+                SELECT * FROM
+					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status , r.pickup_time, r.pickup_date, r.prod_res_no,
+						RANK()OVER(PARTITION BY r.prod_res_no ORDER BY p.prod_name) AS RANK
+								FROM store s, product_reservation r, product p
+							WHERE s.mem_no = r.mem_no
+						AND s.store_no = p.store_no 
+					ORDER BY RANK)
+				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM reserved_product)
+               ) a
+           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+       ) b
+   WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+</select>
+
+<!-- 매장이름으로 예약 상품리스트 출력 -->
+<select id="selectResProdListByStoreName" resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
+	SELECT *
+   FROM
+       (SELECT a.* , ROWNUM rn
+           FROM
+               (select * from(
+               	 select * from
+					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status , r.pickup_time, r.pickup_date, r.prod_res_no,
+						rank()over(partition by r.prod_res_no order by p.prod_name) as rank
+							FROM store s, product_reservation r, product p
+								WHERE s.mem_no = r.mem_no
+							AND s.store_no = p.store_no 
+						order by rank)
+					where ROWNUM <![CDATA[<=]]> (select count(*) from reserved_product)
+               ) where <![CDATA["store.name"]]> like '%'||#{keyword}||'%') a
+           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+       ) b
+   WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+</select>
+<!-- 상품명으로 예약 상품리스트 출력 -->
+<select id="selectResProdListByProdName" resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
+	SELECT *
+   FROM
+       (SELECT a.* , ROWNUM rn
+           FROM
+               (SELECT *
+					FROM(
+						SELECT p.prod_name, s.name, r.payment_amt, r.pickup_status, r.pickup_time, r.prod_res_no,rank()over(partition by r.prod_res_no order by p.prod_name) as rank
+							FROM store s, product_reservation r, product p
+								WHERE s.mem_no = r.mem_no
+							AND s.store_no = p.store_no
+						AND prod_name like '%'||#{keyword}||'%'
+					ORDER BY rank)
+				where rank = 1) a
+           WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
+       ) b
+   WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+</select>
+<!-- 예약상품 상세내역 -->
+<select id="resProdDetail" parameterType="long" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservation">
+	SELECT r.order_date, prod_res_no, m.name AS "member.name", r.order_date, s.name AS "store.name", r.pickup_time, r.pickup_date, m.tel AS "member.tel" FROM 
+	 	store s, member m, product_reservation r
+			WHERE m.mem_no=r.mem_no
+		AND r.store_no = s.store_no 
+	AND r.prod_res_no = #{keyword}
+</select>
+<!-- 예약상품 상세내역(상품목록) -->
+<select id="resProdDetailList" parameterType="long" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservation">
+	SELECT p.prod_name AS "product.prodName", r.count AS "reserved_product.count", p.price AS "product.price", t.payment_amt  FROM 
+		product p, reserved_product r, product_reservation t
+			WHERE t.prod_res_no = r.prod_res_no
+		AND r.prod_no = p.prod_no
+	AND t.prod_res_no = #{keyword} 
+ </select>
+ 
+ <!--상품 총 예약 건수 처리  -->
+<select id="resTotalCnt" resultType="int">
+	SELECT count(*)
+	FROM product_reservation
+</select>
+<!-- 매장이름으로 검색시 나오는 예약 건수 -->
+<select id="storeCnt" resultType="int">
+ SELECT count(*)
+	FROM product_reservation r, store s
+		WHERE r.store_no = s.store_no
+  AND s.name like '%'||#{keyword}||'%'
+</select>
+<!-- 상품명으로 검색시 나오는 예약건수 -->
+<select id="prodNameCnt" resultType="int">
+SELECT count(*) 
+	FROM(
+		SELECT count(*)
+			FROM  product_reservation t,  reserved_product r, product p
+				WHERE t.prod_res_no = r.prod_res_no AND r.store_no = p.store_no
+			AND p.prod_name like '%'||#{keyword}||'%'
+		GROUP BY r.prod_res_no)
+</select>
 
 	
 <!-- 	Yoon -->
