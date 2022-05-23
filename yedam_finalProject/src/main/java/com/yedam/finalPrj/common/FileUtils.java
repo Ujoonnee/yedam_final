@@ -28,9 +28,9 @@ public class FileUtils {
 	
 	public List<Map<String, Object>> parseInsertFileInfo(AnnouncementVO announcement ,MultipartHttpServletRequest fileRequest) throws IllegalStateException, IOException{
 //		TODO 프로젝트 진행 좀 됬을 시 공유폴더에 todo 찍으면 스티커 메모처럼 나옴.
-		//filePath = "\\\\192.168.0.2\\학생공유\\";
+//		filePath = "\\\\192.168.0.2\\학생공유\\";
 		
-		//선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
+//		선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
 		Iterator<String> iterator = fileRequest.getFileNames();
 //		인터페이스는 업로드 한 파일 및 파일 데이터를 표현하기 위한 용도
 		MultipartFile multipartFile = null;
@@ -47,7 +47,7 @@ public class FileUtils {
 		
 		Map<String, Object> listMap = null;
 				
-		
+		// 파일객체 생성
 		File file = new File(filePath);
 //		폴더가 없을 시 폴더 만들어주는거
 		if(file.exists() == false) {
@@ -71,7 +71,7 @@ public class FileUtils {
 			    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
 				originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
 				
-				//화면 출력 되는 파일명 32개문자 랜덤으로 만들어서 반환해주는 메서드
+				//초단위로 파일이름 나눠놓음
 				replacedname = fileName + time + originalFileExtenstion;
 				// 파일 경로와 화면에 출력되는 파일명 
 				file = new File(filePath + replacedname);
@@ -91,10 +91,9 @@ public class FileUtils {
 				list.add(listMap);
 			}
 		}
-			
 		return list;
-		
 	}
+	
 	public static List<Map<String, Object>> parseUpdateFileInfo(AnnouncementVO announcement, String[] files, String[] fileNames, MultipartHttpServletRequest filerequest) throws Exception{
 		
 		filePath = filerequest.getServletContext().getRealPath("/resources/announcement");
@@ -153,7 +152,24 @@ public class FileUtils {
 						list.add(listMap);
 					}
 				}
+				
 		return list;
 	}
-	
+
+//	파일 삭제 메서드
+	public static void fileDelete(FileVO vo, String[] files, String[] fileNames){
+		//경로 파일 이름
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Map<String, Object> listMap = null;
+		File file = new File(filePath);
+		if(files !=null && fileNames != null) {
+			for(int i = 0; i<fileNames.length; i++) {
+				listMap = new HashMap<String, Object>();
+				listMap.put("IS_NEW", "D");
+				listMap.put("fileNo", files[i]);
+				list.add(listMap);
+			}
+		}
+	}	
 }
+

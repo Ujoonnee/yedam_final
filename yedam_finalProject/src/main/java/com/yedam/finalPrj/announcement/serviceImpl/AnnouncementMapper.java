@@ -6,20 +6,29 @@ import java.util.Map;
 
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
+import com.yedam.finalPrj.common.FileVO;
 
 public interface AnnouncementMapper {
 	
 	List<AnnouncementVO> findAll(AnnouncementPagingCriteria paging);
 	List<AnnouncementVO> getTopList();
 	AnnouncementVO findOne(AnnouncementVO announcement);
-	//파일 업로드 테스트용
+	
+	//공지사항
 	void annInsert(AnnouncementVO announcement) throws IllegalStateException, IOException;
+	public void annUpdate(AnnouncementVO announcement);
+	
+	//파일 업로드 용
 	void annInsertFile(Map<String, Object> map); 
 	Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
 	public void fileUpdate(Map<String, Object>maps);
-	public void annUpdate(AnnouncementVO announcement);
+	public void fileDelete(Map<String, Object> map);
+	
 	//	Announcement annInsert(Announcement announcement);
+	
+	// 메일
+	
 	
 	
 	//글 갯수

@@ -41,7 +41,7 @@
 	</select>
 
 	<update id="annUpdate" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
-		update ANNOUNCEMENT SET title = #{title} ann_content = #{annConent} ann_date = #{annDate} status = #{status} ANNOUNCEMENT WHERE ANN_NO = #{annNo} 
+		update ANNOUNCEMENT SET title = #{title}, ANN_CONTENT = #{annContent}, status = #{status} WHERE ANN_NO = #{annNo}
 	</update>
 
 	<update id="updateView" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
@@ -82,6 +82,9 @@
 	<update id="fileUpdate" parameterType="hashMap">
 		UPDATE ATTACHED_FILE SET status = 'Y' WHERE FILE_NO = #{fileNo} 
 	</update> 
+	<delete id="fileDelete" parameterType="hashMap">
+		DELETE ATTACHED_FILE WHERE file_no = #{fileNo}
+	</delete>
 	<!-- 페이지 갯수 구하는거 -->
 	<select id="totalCnt" resultType="int">
 		SELECT count(*)
