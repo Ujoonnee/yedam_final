@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 public interface ProductMapper {
@@ -32,9 +33,12 @@ public interface ProductMapper {
 	public int myStoreProductInsert(Product product);
 	public int myStoreProductUpdate(HashMap<String, String> list);
 	int myStoreProductCnt(ProductPagingCriteria cri);
+	int deleteProduct(ProductPagingCriteria cri);
 	
 //	통계조회
 	List<ProductReservation> salesbyDate(int storeNo);
+//	통계 날짜 검색
+	List<ProductReservation> searchDateInStatistics(Statistics vo);
 //	Hong
 	// 상품예약목록 
 	public List<ProductReservation> proReSelectAll();

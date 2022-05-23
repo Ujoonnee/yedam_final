@@ -15,6 +15,7 @@ import com.yedam.finalPrj.product.service.ProductService;
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 
@@ -86,19 +87,20 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> myStoreProductManegement(ProductPagingCriteria cri) {
 		// TODO Auto-generated method stub
 		
-		cri.setStoreNo("2");
+		cri.setStoreNo("4");
 		System.out.println(cri.getStoreNo());
 		return map.myStoreProductManegement(cri);
 	}
 	@Override
 	public int myStoreProductCnt(ProductPagingCriteria cri) {
 		// TODO Auto-generated method stub
-		cri.setStoreNo("2");
+		cri.setStoreNo("4");
 		return map.myStoreProductCnt(cri);
 	}
 	
 	@Override
 	public void myStoreProductInsert(String file) {
+		map.deleteProduct(null);
 		System.out.println("Impl라인");
 		Gson gson = new Gson();
 		List<Product> list = gson.fromJson(file, new TypeToken<List<Product>>() {}.getType());
@@ -135,9 +137,12 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return map.salesbyDate(storeNo);
 	}
-	
-	
-	 
+	@Override
+	public List<ProductReservation> searchDateInStatistics(Statistics vo) {
+		// TODO Auto-generated method stub
+		return map.searchDateInStatistics(vo);
+	}
+
 	
 //	Hong
 

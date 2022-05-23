@@ -1,5 +1,6 @@
 package com.yedam.finalPrj.product.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yedam.finalPrj.product.serviceImpl.ProductServiceImpl;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 
@@ -78,9 +80,20 @@ public class ProductController {
 	}
 	
 	@RequestMapping("statisticsForm")
-	public String statistics(@RequestParam("storeNo") int storeNo, Model model) {
-		System.out.println(storeNo);
+	public String Statistics(@RequestParam("storeNo") int storeNo, Model model) {
+		
 		model.addAttribute("productReservation" , dao.salesbyDate(storeNo));
+		return "store/statistics";
+	}
+	
+	@RequestMapping("searchDate")
+	public String SearchDateInStatistics(HttpServletRequest request, Statistics vo,Model model) {
+		System.out.println("ㅇㅅㅇ");
+		System.out.println(vo.getStartDate());
+		System.out.println(vo.getStoreNo());
+		System.out.println(vo.getEndDate());
+		
+		model.addAttribute("productReservation", dao.searchDateInStatistics(vo));
 		return "store/statistics";
 	}
 	
