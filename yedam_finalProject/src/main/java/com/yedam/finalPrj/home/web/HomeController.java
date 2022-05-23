@@ -25,43 +25,27 @@ public class HomeController {
 	
 	@RequestMapping("")
 	public String home(Model model) {
-		ObjectMapper om = new ObjectMapper();
-		try {
-			om.writeValueAsString(service.getRecommendation());
-			model.addAttribute("exhibitionList", om.writeValueAsString(service.getRecommendation().get("exhibitionList")));
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		
-		return "home/home";
+		return "main/home";
 	}
 	
-	@GetMapping("login")
-	public String login() {
-		return "home/login";
-	}
 	
-	@PostMapping("login")
-	public String login(MemberVO member, HttpServletRequest request) {
-		service.login(member, request);
-		return "home/home";
-	}
+
 	
 	@GetMapping("tempLogin")
 	public String tempLogin(MemberVO member, HttpServletRequest request) {
 		service.login(member, request);
-		return "home/home";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "home/home";
+		return "redirect:/";
 	}
 	
-	@RequestMapping(value ="/review", method = RequestMethod.GET)
-	public String review() {
-		return "review/review";
+	@GetMapping("myPage")
+	public String myPage() {
+		return "layouts/myPage/myPageMain";
 	}
 	
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,13 +23,13 @@ import com.yedam.finalPrj.announcement.service.AnnouncementPageMaker;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
-import com.yedam.finalPrj.common.FileVO;
 
 @Controller
 public class AnnouncementController {
 
 	@Autowired
 	private AnnouncementService service;
+	
 	
 	// 공지사항 목록
 	@RequestMapping("/announcement")
@@ -94,6 +95,7 @@ public class AnnouncementController {
 			@RequestParam(value="fileNameDel[]") String[] fileNames,
 			MultipartHttpServletRequest fileRequest,
 			@ModelAttribute AnnouncementPagingCriteria cri) throws Exception {
+		
 		service.annUpdate(announcement, files, fileNames, fileRequest);
 		
 		
@@ -104,11 +106,14 @@ public class AnnouncementController {
 	// 공지사항 수정페이지이동
 	@RequestMapping("/updatePage")
 	public String updatePage(AnnouncementVO announcement, Model model) throws Exception {
+
 		model.addAttribute("announcement", service.findOne(announcement));		
 
+		
 		List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
 		model.addAttribute("file",fileList);
-		System.out.println("=========================================="+fileList.toString());
+		
+		
 		return "announcement/updatePage";
 	}
 	
@@ -137,5 +142,8 @@ public class AnnouncementController {
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
 	}
+	
 
-}
+
+		
+}	
