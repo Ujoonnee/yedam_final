@@ -63,6 +63,15 @@
 			<version>${org.springframework.security-version}</version>
 		</dependency>
 
+		
+		<!-- 회원가입 이메일 인증 -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+		
 
 		<!-- AspectJ -->
 		<dependency>
@@ -219,13 +228,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- 회원가입 이메일 인증 -->
-		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>mail</artifactId>
-		    <version>1.4.7</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<dependency>
 			<groupId>org.springframework</groupId>

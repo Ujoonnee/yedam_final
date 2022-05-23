@@ -4,8 +4,9 @@ import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
@@ -13,10 +14,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class CongratulationMailSender {
 
-//	@Autowired
-//	JavaMailSender mailSender;
 	
-	private JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	@Autowired JavaMailSender mailSender;
+
 	
 	//랜덤 값 생성을 위한 Random
 	Random random = new Random();
@@ -50,7 +50,7 @@ public class CongratulationMailSender {
 						+ "				  </head>\n" + "				  <body>\n"
 						+ "				    <div class=\"jumbotron jumbotron-fluid\">\n"
 						+ "				  <div align=\"center\" class=\"container\">\n"
-						+ "				    <h1 class=\"display-3\">이메일 인증</h1><br>\n"
+						+ "				    <h1 class=\"display-3\">테스트 이메일 인증</h1><br>\n"
 						+ "				    <p class=\"lead\">안녕하세요. <font size=\"5\" color=\"red\"><b>OOOO</b></font> 입니다.\n"
 						+ "				        <br>\n" + "				        인증번호는 다음과 같습니다.<br><font size=\"7\"> [ "
 						+ random.nextInt(100000) +

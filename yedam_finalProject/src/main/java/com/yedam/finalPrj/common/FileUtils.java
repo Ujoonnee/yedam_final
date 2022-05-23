@@ -2,10 +2,6 @@ package com.yedam.finalPrj.common;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -157,24 +152,29 @@ public class FileUtils {
 						list.add(listMap);
 					}
 				}
+				if(files !=null && fileNames != null) {
+					for(int i = 0; i<fileNames.length; i++) {
+						listMap = new HashMap<String, Object>();
+						listMap.put("IS_NEW", "D");
+						listMap.put("fileNo", files[i]);
+						list.add(listMap);
+					}
+				}
+				
 		return list;
 	}
 	
-	public static void DeleteFile(String fileName ,MultipartHttpServletRequest fileRequest){
-				//경로 파일 이름
-		String srcfileName= null;
-			
+	public static void deleteFile(FileVO vo,String fileName ,MultipartHttpServletRequest fileRequest){
+		//경로 파일 이름
+		File file = new File(filePath);
 		
 		
-		try {
-			srcfileName = URLDecoder.decode(fileName, "UTF-8");
-			File file = new File(filePath + File.separator + srcfileName);
+			if(file.exists()) {
+				file.delete();
+			}
 			
 			
-		} catch (IOException e) {
-			System.out.println("일치되는 파일이 없습니다.");
-			e.printStackTrace();
-		}
-	}
+			
 	
+}
 }

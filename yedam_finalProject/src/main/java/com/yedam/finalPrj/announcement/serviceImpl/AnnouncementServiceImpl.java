@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -122,7 +121,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Override
 	public void fileDelete(FileVO file) {
 //		TODO 너무 시간뺏겨서 메일로 잠깐 넘어감 파일 삭제 구현해야함
-//		FileUtils.fileDelete(file);
+//		FileUtils.fileDelete(file.getFileNo());
 	}
 
 	
