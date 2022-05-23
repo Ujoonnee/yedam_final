@@ -1,7 +1,5 @@
 package com.yedam.finalPrj.exhibition.vo.park;
 
-import com.yedam.finalPrj.product.service.ProductPagingCriteria;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,9 +11,9 @@ public class ParkExhibitionPageMaker {
 	private boolean prev;
 	private boolean next;
 	
-	private ProductPagingCriteria cri;
+	private ParkExhibitionPagingCriteria cri;
 	
-	public ParkExhibitionPageMaker(ProductPagingCriteria cri, int total) {
+	public ParkExhibitionPageMaker(ParkExhibitionPagingCriteria cri, int total) {
 		this.cri=cri;
 		int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
 		this.endPage = (int) (Math.ceil(cri.getPageNum()/ 10.0)*10);

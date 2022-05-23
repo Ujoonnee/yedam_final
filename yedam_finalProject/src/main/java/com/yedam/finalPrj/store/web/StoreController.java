@@ -1,16 +1,21 @@
 package com.yedam.finalPrj.store.web;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.yedam.finalPrj.store.service.Store;
-import com.yedam.finalPrj.store.service.StorePageMaker;
-import com.yedam.finalPrj.store.service.StorePagingCriteria;
 import com.yedam.finalPrj.store.serviceImpl.StoreServiceImpl;
+import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
+import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
+import com.yedam.finalPrj.store.vo.park.Store;
+import com.yedam.finalPrj.store.vo.park.StorePageMaker;
+import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 
 @Controller
 @RequestMapping("/store/*")
@@ -18,13 +23,16 @@ public class StoreController {
 	
 	@Autowired StoreServiceImpl dao;
 
+	
+//	Park
+	
 //	매장신청 양식 페이지
-	@RequestMapping("/register")
+	@RequestMapping("register")
 	public String register() {
 		return "store/storeRegister";
 	}
 //	매장신청 양식 전송
-	@RequestMapping("/regist.do")
+	@RequestMapping("regist")
 	public String regist(Store vo,Model model) {
 //		매장등록 번호 입력.
 		vo.setCategory("00204");
@@ -33,59 +41,85 @@ public class StoreController {
 	}
 	
 //	매장 리스트 출력
-	@GetMapping("/list")
+	@GetMapping("list")
 	public String list(StorePagingCriteria cri,Model model) {
-//		로그인한지 확인하는 session
-		int total = dao.totalCnt();
-		
 //		storeList출력
 		model.addAttribute("storeList", dao.storeList(cri));
-		model.addAttribute("paging",new StorePageMaker(cri, total));
+		model.addAttribute("paging",new StorePageMaker(cri, dao.totalCnt()));
 		return "store/storeList";
 	}
 	
 
 //	매장에서의 검색처리
-	@RequestMapping(value ="searchList.do", method= {RequestMethod.POST})
-	public String search(StorePagingCriteria cri,Model model) {
-		System.out.println("key : "+cri.getType() );
-		System.out.println("val : "+cri.getKeyword());
-//		위도와 경도 임의 지정 -> 로그인 테이블 받아오면 재설정
-		cri.setLongitude("30.8690794214");
-		cri.setLatitude("128.5942180675");
-//		페이지수 설정 (검색 한 후 토털값으로 수정해야함.)
-//		상품명 검색 후 매장출력
-		if(cri.getType().equals("prod_name")) {
-			System.out.println("prod_name통과");
-			int total = dao.totalProdCnt(cri);
-			model.addAttribute("storeList",dao.searchProduct(cri));
-			model.addAttribute("paging",new StorePageMaker(cri,total));
-			}
-//		매장명 검색 후 매장출력
-		else if(cri.getType().equals("name")) {
-			System.out.println("cri" + cri.getPageNum());
-			int total = dao.totalNameCnt(cri);
-			model.addAttribute("storeList",dao.searchName(cri));
-			model.addAttribute("paging",new StorePageMaker(cri,total));
-		}
-//		카테고리 검색 후 매장출력
-		else if(cri.getType().equals("store_cat")) {
-			System.out.println("store_cat통과");
-			int total = dao.totalCatCnt(cri);
-			model.addAttribute("storeList",dao.searchaddress(cri));
-			model.addAttribute("paging",new StorePageMaker(cri,total));
-		}
-//		전체 검색 후 매장출력
-		else {
-			System.out.println("통과한거없음.");
-			int total = dao.totalCnt();
-			model.addAttribute("storeList", dao.storeList(cri));
-			model.addAttribute("paging",new StorePageMaker(cri, total));
-		}
+	@RequestMapping(value ="searchList", method= {RequestMethod.POST})
+	public String search(StorePagingCriteria cri,Model model, HttpServletRequest request ) {
+		dao.search(cri, model);
 		return "store/storeList";
 	}
 	
+		
+	
+//	Hong
+
+
+	
+//	Jo
+	
+//	예약한 상품 리스트 출력
+	@GetMapping("resProdList")
+	public String reservedProductsList(ResProdListPagingCriteria cri,Model model) {
+
+		model.addAttribute("resProdList", dao.resProdList(cri));
+		model.addAttribute("paging",new ResProdListPageMaker(cri, dao.resTotalCnt()));
+		
+		return "store/resProdList";
+	}
+	
+
+//예약상품 검색처리
+	@RequestMapping(value="searchList2", method= {RequestMethod.POST})
+	public String resProdSearch(ResProdListPagingCriteria cri, Model model, HttpServletRequest request) {
+		dao.search(cri, model);
+		return "store/resProdList";
+	}
+
+	/* 0523커밋하기
+	 * // 매장이름으로 검색 리스트 출력
+	 * 
+	 * @PostMapping("resProdListByStoreName")
+	 * 
+	 * @ResponseBody public List<ProductReservation>
+	 * selectResProdListByStoreName(ResProdListPagingCriteria
+	 * cri, @RequestParam("storeName") String storeName) {
+	 * cri.setStoreName(storeName); //
+	 * System.out.println(dao.selectResProdListByStoreName(cri, storeName)); return
+	 * dao.selectResProdListByStoreName(cri); } // 상품명으로 검색 리스트 출력
+	 * 
+	 * @PostMapping("resProdListByProdName")
+	 * 
+	 * @ResponseBody public String
+	 * selectResProdListByProdName(ResProdListPagingCriteria cri, Model
+	 * model, @RequestParam("prodName") String inputVal) {
+	 * model.addAttribute("reservedProductsList", dao.reservedProductsList(cri));
+	 * 
+	 * model.addAttribute("paging",new ResProdListPageMaker(cri, dao.totalCnt()));
+	 * return "dao.reservedProductsList(cri)"; }
+	 */
+// 	(예약번호 받아서)예약내역 상세페이지로 이동
+	@GetMapping("resProdListByProdName/{selectedResNo}")
+	public String reservedProductsDetail(@PathVariable("selectedResNo") long selectedResNo, Model model) {
+		System.out.println(selectedResNo);
+		model.addAttribute("detail", dao.resProdDetail(selectedResNo));
+		model.addAttribute("prodList", dao.resProdDetailList(selectedResNo));
+		System.out.println("선택한상품예약번호에 따라 상세 출력");
+		System.out.println(dao.resProdDetail(selectedResNo));
+		System.out.println("선택한상품예약번호에 따라 상세 출력");
+		return "store/reservedProductsDetail";
+	}
+//	Yoon
 	
 	
+	
+//	Lee
 	
 }

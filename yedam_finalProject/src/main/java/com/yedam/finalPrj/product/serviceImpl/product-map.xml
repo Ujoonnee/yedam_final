@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.yedam.finalPrj.product.serviceImpl.ProductMapper">
-	<resultMap type="com.yedam.finalPrj.product.service.Product" id="product">
+	
+	
+<!-- 	Park -->
+	 <resultMap type="com.yedam.finalPrj.product.vo.park.Product" id="product">
 		<id property="prodNo" column="PROD_NO" />
 		<result property="storeNo" column="STORE_NO" />
 		<result property="prodName" column="PROD_NAME" />
@@ -10,10 +13,11 @@
 		<result property="soldOut" column="SOLD_OUT" />
 		<result property="price" column="PRICE" />
 		<result property="prodThumbnail" column="PROD_THUMBNAIL" />
+		<result property="prodCat" column="PROD_Cat" />
 	</resultMap>
 	
 	<!-- 매장 입장(상품출력) -->
-	<select id = "selectOne" resultType="com.yedam.finalPrj.product.service.Product"  >
+	<select id = "selectOne" resultType="com.yedam.finalPrj.product.vo.park.Product"  >
 		SELECT * 
 		FROM
 			 (SELECT a.*, ROWNUM rn
@@ -29,7 +33,7 @@
 	</select>
 	
 <!-- 	상품 리스트 출력 (가격 검색) -->
-	<select id = "searchPrice" resultType="com.yedam.finalPrj.product.service.Product">
+	<select id = "searchPrice" resultType="com.yedam.finalPrj.product.vo.park.Product">
 		SELECT * 
 		FROM
 		 (SELECT a.*, ROWNUM rn
@@ -46,7 +50,7 @@
 			where rn > (#{pageNum}-1) * #{amount}
 	</select>
 <!-- 	상품 리스트 출력(상품명) -->
-	<select id="searchProduct" resultType="com.yedam.finalPrj.product.service.Product">
+	<select id="searchProduct" resultType="com.yedam.finalPrj.product.vo.park.Product">
 		SELECT * 
 		FROM
 		 (SELECT a.*, ROWNUM rn
@@ -71,23 +75,118 @@
 		and store_no > 0
 	</select>
 	<!-- 	상품갯수(상품명) -->
-	<select id = "searchProductCnt" resultType="com.yedam.finalPrj.product.service.Product">
+	<select id = "searchProductCnt" resultType="com.yedam.finalPrj.product.vo.park.Product">
 		SELECT COUNT(*) 
 	    FROM (SELECT *
 			FROM PRODUCT p
-			WHERE STORE_NO LIKE#{store_no}
+			WHERE STORE_NO LIKE #{storeNo}
 			AND STORE_NO > 0)
 	    where prod_name like ('%'||#{keyword}||'%')
 	</select>
 	<!-- 	상품갯수(가격) -->
-	<select id = "searchPriceCnt" resultType="com.yedam.finalPrj.product.service.Product">
+	<select id = "searchPriceCnt" resultType="com.yedam.finalPrj.product.vo.park.Product">
 		SELECT COUNT(*) 
 	    FROM (SELECT *
 			FROM PRODUCT p
-			WHERE STORE_NO LIKE#{store_no}
+			WHERE STORE_NO LIKE#{storeNo}
 			AND STORE_NO > 0)
 	    where price between #{lowPrice} and #{highPrice}
 	</select>
+		
+	<select id = "myStoreProductManegement" resultType="com.yedam.finalPrj.product.vo.park.Product">
+	select * 
+	from
+	    (select a.* , ROWNUM rn 
+	    from
+	        (select * from product
+	        where store_no = #{storeNo})a    
+	    where ROWNUM <![CDATA[ <=]]> #{pageNum} * #{amount} )b
+	WHERE rn <![CDATA[ >]]>  (#{pageNum}-1) * #{amount}
+	</select>
+	
+	<select id = "myStoreProductCnt" resultType="int">
+	select count(*) 
+	from product
+        where store_no = #{storeNo}
+	</select>
+	
+	<insert id = "myStoreProductInsert" parameterType="com.yedam.finalPrj.product.vo.park.Product">
+		<selectKey keyProperty="prodNo" resultType="long"
+		order="BEFORE">
+			Select CASE when max(prod_no) is null then 1
+			ELSE MAX(prod_no)
+			+1 END from product
+		</selectKey>
+			insert into product values(#{prodNo},2,#{prodName},#{stock},'N',#{price},'',#{prodCat})	
+		
+	</insert>
+	
+	<update id = "myStoreProductUpdate" parameterType="java.util.HashMap">
+		UPDATE PRODUCT
+		SET SOLD_OUT = #{soldOut}
+		WHERE PROD_NO = #{prodNo}
+	</update>
+	
+	<select id ="salesbyDate" resultType="com.yedam.finalPrj.store.vo.park.ProductReservation">
+		SELECT*
+		FROM
+		    ( SELECT pickup_date, SUM(payment_amt) AS payment_amt
+		        FROM
+		            (SELECT *
+		                FROM  product_reservation
+		                WHERE
+		                    store_no = #{storeNo} )
+		        GROUP BY pickup_date
+		    )
+		ORDER BY pickup_date
+	</select>
+	
+<!-- 		Hong -->
+
+	<!-- 상품 예약 목록 -->
+	<select id="proReSelectAll" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservation">
+		SELECT r.prod_res_no, m.name, r.pickup_time, r.payment_status
+		FROM member m , product_reservation r
+		WHERE m.mem_no = r.mem_no
+	</select>
+
+	<!-- 상품예약상세 -->
+	<select id="proReDetail" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservation">
+		SELECT r.prod_res_no , m.name, m.tel, r.pickup_time
+		FROM member m, product_reservation r
+		WHERE m.mem_no = r.mem_no
+		AND r.prod_res_no = #{prodResNo}
+	</select>
+	
+	<select id="proReDetailList" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservation">
+		SELECT p.prod_thumbnail, p.prod_name, p.price, rd.count, (p.price * rd.count) AS payment
+		FROM product p , reserved_product rd
+		WHERE rd.prod_no = p.prod_no
+	</select>
+		
+	<!-- 페이징 -->
+	<select id="totalCnt" resultType="int">
+		SELECT count(r.prod_res_no)
+		FROM member m , product_reservation r
+		WHERE m.mem_no = r.mem_no
+	</select>
+	 
+		
+<!-- 		Jo -->
+		
+	 
+		
+		
+<!-- 		Yoon -->
+		
+		
+	 
+		
+<!-- 		Lee -->
+		
+	 
+	 
+	
 	
 	
 </mapper>
