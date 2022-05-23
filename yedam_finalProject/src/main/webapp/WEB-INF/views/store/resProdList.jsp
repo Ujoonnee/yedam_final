@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="searchList2" method="post">
+<form action="resProdList" method="get">
 <select id="type" name="type">
 	<option value="name" <c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장이름</option>
 	<option value="prodName" <c:out value="${paging.cri.type eq 'prodName'? 'selected': '' }" />>상품명</option>
