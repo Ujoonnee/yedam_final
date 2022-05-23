@@ -56,7 +56,7 @@
 		</form>
 	</div>
 	
-	<form id="pagingFrm" name="pagingForm" action="list" method="get">
+	<form id="pagingFrm" name="pagingForm" action="searchList" method="post">
 		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
 		<input type="hidden" id="pageNum" name="amount" value="${paging.cri.amount }">
 		<input type="hidden" id="type" name="type" value="${paging.cri.type }">

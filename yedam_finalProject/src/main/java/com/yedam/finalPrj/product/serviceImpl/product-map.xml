@@ -94,14 +94,9 @@
 	</select>
 		
 	<select id = "myStoreProductManegement" resultType="com.yedam.finalPrj.product.vo.park.Product">
-	select * 
-	from
-	    (select a.* , ROWNUM rn 
-	    from
-	        (select * from product
-	        where store_no = #{storeNo})a    
-	    where ROWNUM <![CDATA[ <=]]> #{pageNum} * #{amount} )b
-	WHERE rn <![CDATA[ >]]>  (#{pageNum}-1) * #{amount}
+	
+	        select * from product
+	        where store_no = #{storeNo}
 	</select>
 	
 	<select id = "myStoreProductCnt" resultType="int">
@@ -117,9 +112,13 @@
 			ELSE MAX(prod_no)
 			+1 END from product
 		</selectKey>
-			insert into product values(#{prodNo},2,#{prodName},#{stock},'N',#{price},'',#{prodCat})	
+			insert into product values(#{prodNo},4,#{prodName},#{stock},'N',#{price},'',#{prodCat})	
 		
 	</insert>
+	
+	<delete id ="deleteProduct">
+	 	delete from product where store_no = 4
+	</delete>
 	
 	<update id = "myStoreProductUpdate" parameterType="java.util.HashMap">
 		UPDATE PRODUCT
@@ -130,17 +129,26 @@
 	<select id ="salesbyDate" resultType="com.yedam.finalPrj.store.vo.park.ProductReservation">
 		SELECT*
 		FROM
-		    ( SELECT pickup_date, SUM(payment_amt) AS payment_amt
+		    ( SELECT pickup_date, SUM(payment_amt) AS payment_amt, store_no
 		        FROM
 		            (SELECT *
 		                FROM  product_reservation
 		                WHERE
 		                    store_no = #{storeNo} )
-		        GROUP BY pickup_date
+		        GROUP BY pickup_date, store_no
 		    )
-		ORDER BY pickup_date
+       <![CDATA[where pickup_date between sysdate-30 and sysdate
+		ORDER BY pickup_date]]>
 	</select>
 	
+	<select id="searchDateInStatistics" resultType="com.yedam.finalPrj.store.vo.park.ProductReservation">
+		SELECT pickup_date, SUM(payment_amt) AS payment_amt , store_no
+		from product_reservation
+		where store_no=#{storeNo}
+		AND pickup_date BETWEEN to_date(#{startDate},'yyMMdd') AND  to_date(#{endDate},'yyMMdd')
+		group by pickup_date,store_no
+		order by pickup_date
+	</select>
 <!-- 		Hong -->
 
 	<!-- 상품 예약 목록 -->

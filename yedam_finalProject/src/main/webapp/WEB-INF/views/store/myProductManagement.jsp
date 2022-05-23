@@ -15,8 +15,29 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+
     <!-- <script type="text/javascript" src="js/main.js"></script> -->
  <style>
+  .btn-file{
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+                right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+
 	.modal { 
 		position: absolute; 
 		top: 0; 
@@ -55,7 +76,9 @@
 	<tr><td>등록된 매장이 없습니다.</td></tr>
 </c:if>
 <button type="button" id="excelFormDownload" class="download">양식다운</button>
-<input type="file" id="id_file_upload"/>
+    <label class="btn btn-primary btn-file">
+        재고변경<input type="file" id="id_file_upload" style="display: none;">
+    </label>
 
 <c:if test="${not empty ProductList }">
 	<table id="tableData" >
@@ -78,13 +101,14 @@
 				 data-name="${list.prodName }" data-price="${list.price }" data-stock="${list.stock }" data-prodnum ="${list.prodNo }" data-prodCat="${list.prodCat }" 
 				 data-thumbnail="${list.prodThumbnail }" data-soldOut ="${list.soldOut }" >
 				 ${list.prodNo }</td>	
-			<c:if test="${empty list.prodThumbnail }">
-			<td align="center"><button >이미지 업로드</button></td></c:if>	
+			<c:if test="${list.prodThumbnail eq null } ">	
+			<td align="center"><button >사진등록</button></td>
+			</c:if>	
 			<td align="center">${list.prodThumbnail }</td>
 			<td align="center">${list.prodName }</td>		
 			<td align="center">${list.prodCat }</td>		
 			<td align="center">${list.price }</td>		
-			<td align="center">${list.stock }</td>		
+			<td align="center"> ${list.stock }</td>		
 			<td align="center">
 			<c:if test="${list.soldOut eq 'N' }">판매중</c:if>
 			<c:if test="${list.soldOut eq 'Y' }">품절</c:if>
@@ -94,13 +118,14 @@
 	</c:forEach>
 	</tbody>
 	</table>
+</c:if>
 	<button type="button" id="excelDownload" class="download">재고다운로드</button>
 	<!-- 	메인모달 -->
 	<div class="modal"> 
 		<div class="modal_body">
 		<form>
 			<div id="management"></div>
-			<div id = "modalButton"><button class = "btn-sub-popup">결제하기</button></div>
+			<div id = "modalButton"><button class = "btn-sub-popup">버튼임둥</button></div>
 		</form>
 		</div>
 	</div> 
@@ -114,7 +139,7 @@
 	<input type = "hidden" name = "storeNo" value ="${ProductList[0].storeNo }">
 	<div><button type = "submit" id ="statistics" name="storeNo" onclick = "statisticsView${ProductList[0].storeNo }">통계확인</button></div>
 	</form>
-</c:if>
+
 
 <!-- 	기본 양식 -->
 	<table id="excelForm" style="display: none;">
@@ -296,8 +321,13 @@
 	}
 	
 	$('#id_file_upload').on('change', event => {
-		console.log(event.target);
-		upload(event); 
+		if(!confirm("확인을 누를시 기존의 재고는 삭제되고 작성한 데이터가 반영됩니다. 하시겠습니까?")){
+			alert("취소되었습니다.")
+		}else{
+			console.log(event.target);
+			upload(event); 
+		}
+				
 	});
 
 	function insertProduct(obj){
@@ -308,11 +338,12 @@
 	        dataType: "json",
 	        data : {file: obj},
 	        success : function (data){
+	  			location.reload();
 	        	console.log(data);	
 	        	alert("등록성공");
-	  			location.reload();
 	        },
 	        error : function(e){
+	  			location.reload();
 	        	console.log(e);
 	        }
 	})
@@ -345,6 +376,11 @@
 	  	  let result = '';
 	  	  var obj_length = Object.keys(selectedEls).length;
 	  	  
+	  	  if (obj_length == '' ){
+	  		  alert("체크된 값이 없습니다. ")
+	  		  return;
+	  		  
+	  	  }
 		 let prodList = [];
 	  	 for(let obj of selectedEls) {
 	  		 obj.dataset.soldOut = 'T';
@@ -385,6 +421,10 @@
 	  	  let result = '';
 	  	  var obj_length = Object.keys(selectedEls).length;
 	  	  
+	 	  if (obj_length == '' ){
+	  		  alert("체크된 값이 없습니다. ")
+	  		  return;
+	  	  }
 		 let prodList = [];
 	  	 for(let obj of selectedEls) {
 	  		 obj.dataset.soldOut = 'D';
@@ -435,7 +475,11 @@
 	  	  // 선택된 목록을 모달창에 value출력
 	  	  let result = '';
 	  	  var obj_length = Object.keys(selectedEls).length;
-	  	  
+	 	  if (obj_length == '' ){
+	  		  alert("체크된 값이 없습니다. ")
+	  		  return;
+	  		  
+	  	  }
 		 let prodList = [];
 	  	 for(let obj of selectedEls) {
 	  		 obj.dataset.soldOut = 'N';
