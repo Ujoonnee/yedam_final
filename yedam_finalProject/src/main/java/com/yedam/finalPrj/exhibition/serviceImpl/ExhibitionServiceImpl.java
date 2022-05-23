@@ -180,6 +180,8 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		System.out.println(cri.getExVO().getStartDate());
 		System.out.println(cri.getExVO().getEndDate());
 		System.out.println(cri.getKeyword());
+		System.out.println(cri.getAmount());
+		System.out.println(cri.getPageNum());
 		// TODO Auto-generated method stub
 		return map.searchEx(cri);
 	}

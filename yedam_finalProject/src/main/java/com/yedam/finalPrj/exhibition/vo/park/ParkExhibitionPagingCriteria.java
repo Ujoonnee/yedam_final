@@ -1,7 +1,5 @@
 package com.yedam.finalPrj.exhibition.vo.park;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,11 +12,8 @@ public class ParkExhibitionPagingCriteria {
 	//검색
 	private String type ="";
 	private String keyword = "";
-	//위도,경도
-	private String latitude;
-	private String longitude;
-	
-	@Autowired ParkExhibitionVO exVO;
+
+	ParkExhibitionVO exVO;
 	
 	
 	

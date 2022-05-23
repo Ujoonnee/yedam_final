@@ -1,18 +1,15 @@
-
-$(function() {
-	var oEditors = []; 
-	nhn.husky.EZCreator.createInIFrame({
+var oEditors = []; nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors, 
 	elPlaceHolder: "smartEditor",
-	sSkinURI: "resources/Editor/SmartEditor2Skin.html",
+	sSkinURI: "Editor/SmartEditor2Skin.html",
 	fCreator: "createSEditor2", 
 	htParams: {
 		bUseToolbar: true,
 		bUseVerticalResizer: false, 
 		bUseModeChanger: false
 	}
-    });
-
+});
+$(function() {
 	$("#savebutton").click(function() {
 		oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
 
@@ -36,6 +33,3 @@ $(function() {
 		}
 	});
 })
-
-
-

@@ -4,8 +4,7 @@
 
 
 <!-- Park -->
-<mapper
-	namespace="com.yedam.finalPrj.store.serviceImpl.StoreMapper">
+<mapper namespace="com.yedam.finalPrj.store.serviceImpl.StoreMapper">
 	<resultMap type="com.yedam.finalPrj.store.vo.park.Store"
 		id="store">
 		<id property="storeNo" column="store_no" />
@@ -18,10 +17,7 @@
 		<result property="tel" column="tel" />
 		<result property="thumbnail" column="thumbnail" />
 	</resultMap>
-
-
-
-	<!-- 서비스 등록 -->
+<!-- 서비스 등록 -->
 	<insert id="regist"
 		parameterType="com.yedam.finalPrj.store.vo.park.Store">
 		<selectKey keyProperty="store_no" resultType="long"
@@ -139,8 +135,52 @@
 <!-- Jo -->
 <!-- 예약 상품 목록 출력 -->
 
+<!-- <sql id="ResProdListPagingCriteria">
+		상태사항이 Y일 경우.
+		<choose>
+			매장이름검색
+			<when test="type == 'name'">
+				AND <![CDATA["store.name"]]> LIKE ('%'||#{keyword}||'%')
+			</when>
+			상품명 검색
+			<when test="type == 'prodName'">
+				AND prod_name LIKE ('%'||#{keyword}||'%')
+			</when>
+		</choose>
+	</sql>
 
+<select id = "resProdList"  resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
 
+                SELECT * FROM
+					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status , r.pickup_time, r.pickup_date, r.prod_res_no,
+						RANK()OVER(PARTITION BY r.prod_res_no ORDER BY p.prod_name) AS RANK
+								FROM store s, product_reservation r, product p
+							WHERE s.mem_no = r.mem_no
+						AND s.store_no = p.store_no 
+					ORDER BY RANK)
+				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM reserved_product)
+              <include refid="ResProdListPagingCriteria"/>
+	     <![CDATA[
+            		 AND  rownum <= #{pageNum} * #{amount})
+			WHERE rn > (#{pageNum}-1) * #{amount}
+			ORDER BY ann_date DESC
+		]]>
+</select> -->
+<!-- 
+	공지사항 목록	
+	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
+			SELECT ann_no, title, ann_content, ann_date, ann_view, status
+			FROM	(SELECT rownum rn, ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
+				     FROM ANNOUNCEMENT
+				     WHERE status IN ('00501','00502')
+		<include refid="AnnouncementPagingCriteria"/>
+	     <![CDATA[
+            		 AND  rownum <= #{pageNum} * #{amount})
+			WHERE rn > (#{pageNum}-1) * #{amount}
+			ORDER BY ann_date DESC
+		]]>
+	</select> -->
+<!-- 예약 상품 목록 출력 -->	
 <select id = "resProdList"  resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
    SELECT *
    FROM
@@ -158,7 +198,7 @@
                ) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
        ) b
-   WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+   WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
 </select>
 
 <!-- 매장이름으로 예약 상품리스트 출력 -->
@@ -179,7 +219,7 @@
                ) where <![CDATA["store.name"]]> like '%'||#{keyword}||'%') a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
        ) b
-   WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+   WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
 </select>
 <!-- 상품명으로 예약 상품리스트 출력 -->
 <select id="selectResProdListByProdName" resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservation">
@@ -189,7 +229,7 @@
            FROM
                (SELECT *
 					FROM(
-						SELECT p.prod_name, s.name, r.payment_amt, r.pickup_status, r.pickup_time, r.prod_res_no,rank()over(partition by r.prod_res_no order by p.prod_name) as rank
+						SELECT p.prod_name AS "product.prodName", s.name AS "store.name", r.payment_amt, r.pickup_status, r.pickup_time, r.prod_res_no,rank()over(partition by r.prod_res_no order by p.prod_name) as rank
 							FROM store s, product_reservation r, product p
 								WHERE s.mem_no = r.mem_no
 							AND s.store_no = p.store_no
@@ -198,8 +238,11 @@
 				where rank = 1) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
        ) b
-   WHERE ROWNUM <![CDATA[>]]> (#{pageNum}-1) * #{amount}
+   WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
 </select>
+
+
+
 <!-- 예약상품 상세내역 -->
 <select id="resProdDetail" parameterType="long" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservation">
 	SELECT r.order_date, prod_res_no, m.name AS "member.name", r.order_date, s.name AS "store.name", r.pickup_time, r.pickup_date, m.tel AS "member.tel" FROM 
@@ -224,10 +267,15 @@
 </select>
 <!-- 매장이름으로 검색시 나오는 예약 건수 -->
 <select id="storeCnt" resultType="int">
- SELECT count(*)
-	FROM product_reservation r, store s
-		WHERE r.store_no = s.store_no
-  AND s.name like '%'||#{keyword}||'%'
+  SELECT count(*)
+		FROM(
+			SELECT p.prod_name AS "product.prodName", s.name AS "store.name", r.payment_amt, r.pickup_status, r.pickup_time, r.prod_res_no,rank()over(partition by r.prod_res_no order by p.prod_name) as rank
+				FROM store s, product_reservation r, product p
+					WHERE s.mem_no = r.mem_no
+				AND s.store_no = p.store_no
+			AND s.name like '%'||#{keyword}||'%'
+		ORDER BY rank)
+	where rank = 1
 </select>
 <!-- 상품명으로 검색시 나오는 예약건수 -->
 <select id="prodNameCnt" resultType="int">

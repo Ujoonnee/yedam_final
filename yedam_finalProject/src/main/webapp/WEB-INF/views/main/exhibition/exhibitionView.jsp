@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <!-- 날짜 구하는 함수 -->
@@ -94,7 +95,7 @@ View페이징
 <pre>매장번호;${exhibitionView.exNo },
 멤버번호;${exhibitionView.memNo },
 이름;${exhibitionView.name },
-쇼룸;${exhibitionView.locationName },
+쇼룸;${exhibitionView.showRoom },
 날짜;${exhibitionView.startDate } ~ ${exhibitionView.endDate },
 카테고리;${exhibitionView.category }
 </pre>
@@ -231,7 +232,7 @@ View페이징
 	function payment(){
 		var queryString = $('#frm').serialize();
 		$.ajax({
-			url : "payment.do",
+			url : "payment",
 			type : "post",
 			data : {
 				"exhibitionReservation" : queryString
@@ -250,8 +251,8 @@ View페이징
 		 const today = new Date("${date}");
 		 const dateStart = new Date("${sta}");
 		 const dateEnd = new Date("${end}");
-		 var startDate =  Math.abs((today.getTime() - dateStart.getTime())/(24*60*60*1000));
-		 var endDate =  Math.abs((dateEnd.getTime() - today.getTime())/(24*60*60*1000));
+		 var startDate =  Math.floor((today.getTime() - dateStart.getTime())/(24*60*60*1000));
+		 var endDate =  Math.floor((dateEnd.getTime() - today.getTime())/(24*60*60*1000));
 		 console.log(startDate);
 		 console.log(endDate);
          $.datepicker.setDefaults($.datepicker.regional['ko']); 

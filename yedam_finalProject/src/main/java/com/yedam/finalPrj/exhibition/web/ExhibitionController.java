@@ -192,7 +192,7 @@ public class ExhibitionController {
 	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
 		model.addAttribute("exhibitionList", service.searchEx(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
-		return "exhibition/exhibitionList";
+		return "main/exhibition/exhibitionList";
 	}
 
 //	전시 상세보기
