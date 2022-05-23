@@ -152,29 +152,24 @@ public class FileUtils {
 						list.add(listMap);
 					}
 				}
-				if(files !=null && fileNames != null) {
-					for(int i = 0; i<fileNames.length; i++) {
-						listMap = new HashMap<String, Object>();
-						listMap.put("IS_NEW", "D");
-						listMap.put("fileNo", files[i]);
-						list.add(listMap);
-					}
-				}
 				
 		return list;
 	}
-	
-	public static void deleteFile(FileVO vo,String fileName ,MultipartHttpServletRequest fileRequest){
+
+//	파일 삭제 메서드
+	public static void fileDelete(FileVO vo, String[] files, String[] fileNames){
 		//경로 파일 이름
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Map<String, Object> listMap = null;
 		File file = new File(filePath);
-		
-		
-			if(file.exists()) {
-				file.delete();
+		if(files !=null && fileNames != null) {
+			for(int i = 0; i<fileNames.length; i++) {
+				listMap = new HashMap<String, Object>();
+				listMap.put("IS_NEW", "D");
+				listMap.put("fileNo", files[i]);
+				list.add(listMap);
 			}
-			
-			
-			
-	
+		}
+	}	
 }
-}
+

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -12,7 +15,6 @@ import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
 import com.yedam.finalPrj.common.FileUtils;
-import com.yedam.finalPrj.common.FileVO;
 
 @Service("AnnouncementServiceImpl")
 public class AnnouncementServiceImpl implements AnnouncementService {
@@ -102,6 +104,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 			MultipartHttpServletRequest filerequest) throws Exception {
 
 		map.annUpdate(announcement);
+		
 		List<Map<String, Object>> list = FileUtils.parseUpdateFileInfo(announcement, files, fileNames, filerequest);
 		Map<String, Object> tempMap = null;
 		int size = list.size();
@@ -112,17 +115,20 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 //			N이면 update하는 문장
 			if (tempMap.get("IS_NEW").equals("Y")) {
 				map.annInsertFile(tempMap);
-			} else {
+			} else if(tempMap.get("IS_NEW").equals("N")){
 				map.fileUpdate(tempMap);
 			}
 		}
+	
 	}
 
 	@Override
-	public void fileDelete(FileVO file) {
-//		TODO 너무 시간뺏겨서 메일로 잠깐 넘어감 파일 삭제 구현해야함
-//		FileUtils.fileDelete(file.getFileNo());
+	public String fileDelete(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
+		
+		return null;
 	}
-
-	
 }
+	
