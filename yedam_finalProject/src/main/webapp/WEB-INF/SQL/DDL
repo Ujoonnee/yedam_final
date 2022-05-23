@@ -275,7 +275,9 @@ create table product_reservation(
     pickup_date     DATE,
     payment_amt     VARCHAR2(30),
     payment_status  VARCHAR2(20),
-    order_date      DATE DEFAULT SYSDATE
+    order_date      DATE DEFAULT SYSDATE,
+    pickup_status   VARCHAR2(1) DEFAULT 'N',
+    category 		VARCHAR2(10) NOT NULL
 )
 
 create table reserved_goods(
