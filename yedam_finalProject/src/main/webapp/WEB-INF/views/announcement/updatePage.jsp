@@ -52,11 +52,23 @@
 		$(".fileAdd_btn").on("click", function(){
 			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		})
-		//  삭제 버튼 누를 시 상태가 Y N값으로 변경되는 건데 이건 아예 삭제되게 만들어야함
+		// 삭제 버튼 누를 시 상태가 Y N값으로 변경되는 건데 이건 아예 삭제되게 만들어야함
+		// 
 		$(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();
 		})
 	}
+		// 파일삭제 
+		var fileNoArry = new Array();
+		var fileNameArry = new Array();
+		function fn_del(value, name){
+			
+			fileNoArry.push(value);
+			fileNameArry.push(name);
+			$("#fileNoDel").attr("value", fileNoArry);
+			$("#fileNameDel").attr("value", fileNameArry);
+		}
+	
 </script>
 <body>
 
