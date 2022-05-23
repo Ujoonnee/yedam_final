@@ -33,35 +33,35 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		
-		return "home/home";
+		return "main/home";
 	}
 	
 	@GetMapping("login")
 	public String login() {
-		return "home/login";
+		return "main/member/login";
 	}
 	
 	@PostMapping("login")
 	public String login(MemberVO member, HttpServletRequest request) {
 		service.login(member, request);
-		return "home/home";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	@GetMapping("tempLogin")
 	public String tempLogin(MemberVO member, HttpServletRequest request) {
 		service.login(member, request);
-		return "home/home";
+		return "redirect:" + request.getHeader("Referer");
 	}
 	
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "home/home";
+		return "redirect:/";
 	}
 	
-	@RequestMapping(value ="/review", method = RequestMethod.GET)
-	public String review() {
-		return "review/review";
+	@GetMapping("myPage")
+	public String myPage() {
+		return "layouts/myPage/myPageMain";
 	}
 	
 }

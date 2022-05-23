@@ -4,10 +4,12 @@ import java.util.List;
 
 import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
-import com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO;
+import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
+import com.yedam.finalPrj.member.service.MemberVO;
+
 
 public interface ExhibitionMapper {
 
@@ -31,6 +33,11 @@ public interface ExhibitionMapper {
 	
 	
 	// 우준
+	int insertExhibition(ExhibitionVO vo);
+	List<ExhibitionVO> selectRegistrationList(MemberVO vo);
+	ExhibitionVO selectRegistrationDetail(int exNo);
+	List<ExhibitionVO> selectProviderExhibitionList(MemberVO vo);
+	List<ExhibitionReservationVO> selectProviderReservationList(ExhibitionReservationVO vo);
 	
 	
 	// 성준
@@ -39,6 +46,6 @@ public interface ExhibitionMapper {
 	public List<ParkExhibitionVO> searchEx(ParkExhibitionPagingCriteria cri); //	전시 목록에서의 검색처리
 	int totalExCnt(ParkExhibitionPagingCriteria cri); //페이징 위한 전시 개수 
 	ParkExhibitionVO findExVO(ParkExhibitionVO vo); //	전시 상세 페이지
-	int insertExhibition(ParkExhibitionVO vo);//예약 정보 등록
+	int insertExhibitionReservation(ParkExhibitionVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인
 }

@@ -14,16 +14,18 @@
 	<h3>공 연</h3>
 	<form name="frm" method="get" action="">
 			<label class="hidden"></label>
-				<select name="f">
+				<select id="searchCondition" name="searchCondition">
 					<option value="none">전체</option>
 					<option value="show_no">공연등록번호</option>
 					<option value="name">공연명</option>
 				</select>
 			<label></label>	
-				<input type="text" name="q" value=""/>
+				<input type="text" id="searchKeyword" name="searchKeyword" />
 				<input type="submit" value="검색">
 	
 	
+
+	</form>
 			<label class="hidden" align="right">
 				<select name="status">
 					<option value="none">전체</option>
@@ -33,8 +35,6 @@
 					<option value="">종료</option>
 				</select>
 			</label>
-
-	</form>
 		
 	<table>
 		<thead>

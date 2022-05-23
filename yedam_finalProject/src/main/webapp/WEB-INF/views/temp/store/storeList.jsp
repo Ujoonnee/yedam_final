@@ -101,7 +101,7 @@
 	// 상점 클릭시 공지사항 번호를 넘겨줌
 	function storeView(n) {
 		frm.store_no.value = n;
-		frm.action = "storeView.do";
+		frm.action = "product/productView.do";
 		frm.submit();
 	}
 // 	현재위치 재설정

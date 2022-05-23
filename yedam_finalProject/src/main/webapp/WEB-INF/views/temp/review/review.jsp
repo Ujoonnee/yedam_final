@@ -5,12 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
 
 <script src="resources/Editor/js/HuskyEZCreator.js"></script>
 
-
-<link rel="stylesheet" href="resources/css/notice_write.css">
 <style>
   #star a{
    text-decoration: none;
@@ -42,23 +39,57 @@
 <hr>
 에디터
 
+<form id="smartEditorText" name="smartEditorText" >
 	<div class="jsx-2303464893 editor">
 		<div class="fr-box fr-basic fr-top" role="application">
 			<div class="fr-wrapper show-placeholder" dir="auto"
 				style="overflow: scroll;">
-				<textarea name="notice_content" id="smartEditor"
-					style="width: 100%; height: 412px;"></textarea>
+				<input type="text" name="content" id="smartEditor"
+					style="width: 100%; height: 412px;">
 			</div>
 		</div>
 	</div>
+	<button type="button" id="saveBtn">전송</button>
+	</form>
 <hr>
-
 <script>
 $('#star a').click(function(){ 
 	 $(this).parent().children("a").removeClass("on");    
 	 $(this).addClass("on").prevAll("a").addClass("on");
 	 console.log($(this).attr("value"));
 });
+
+$("#saveBtn").click(
+	 function ajax(){
+		 var score = $('#star a.on').last().attr("value");
+	 //var score = $(this).attr("value");
+	 console.log(score);
+	 var content = $("#smartEditor").val();
+	 console.log(content);
+	 $.ajax({
+		 url:"rev_insert.do",
+		 method : "POST",
+		 data : {score:score,
+			 	 content:content },
+	 	success : function(data){
+	 	      alert("성공")
+ 	    },
+ 	    error : function(){
+	 	      alert("에러")		
+ 	    }
+			})
+	 });
+
+
+/* function submitContents(){
+	oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD",[]);
+} */
+
+/* $("#saveBtn").on("click", function(){
+	$("#smartEditor").html()
+}) */
+
+
 </script>
 <!-- SmartEditor2 --> 
 <script type="text/javascript" src = "resources/js/notice-write.js"></script>

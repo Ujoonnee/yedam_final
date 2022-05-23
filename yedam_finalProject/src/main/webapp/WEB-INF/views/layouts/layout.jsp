@@ -12,6 +12,11 @@
 <style>
 	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
 	body {font-family: 'Jeju Gothic', sans-serif;}
+	
+	a:not(#loginInfo a) {
+		color: black;
+		text-decoration: none;
+	}
 </style>
 <title> <tiles:getAsString name="title"/> </title>
 </head>
