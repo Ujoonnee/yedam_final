@@ -50,17 +50,6 @@
 	  }
  </style>
 </head>
-
-
-
-
-
-
-
-
-
-
-
 <body>
 <c:if test="${empty ProductList }">
 	<tr><td>등록된 매장이 없습니다.</td></tr>

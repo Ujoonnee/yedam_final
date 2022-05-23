@@ -1,19 +1,19 @@
-package com.yedam.finalPrj.store.vo.park;
+package com.yedam.finalPrj.store.vo.jo;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class StorePageMaker {
+public class ResProdListPageMaker {
 	private int startPage;
 	private int endPage;
 	private boolean prev;
 	private boolean next;
 	
-	private StorePagingCriteria cri;
+	private ResProdListPagingCriteria cri;
 	
-	public StorePageMaker(StorePagingCriteria cri, int total) {
+	public ResProdListPageMaker(ResProdListPagingCriteria cri, int total) {
 		this.cri=cri;
 		int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
 		this.endPage = (int) (Math.ceil(cri.getPageNum()/ 10.0)*10);
