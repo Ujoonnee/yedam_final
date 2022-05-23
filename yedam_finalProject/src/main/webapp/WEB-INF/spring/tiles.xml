@@ -34,4 +34,15 @@
   <definition name="*/*/*" extends="mypage">
   	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
   </definition>
+  
+  
+  <!-- member -->
+  <definition name="none" template="/WEB-INF/views/layouts/none.jsp">
+    <put-attribute name="title" value="My Web" />
+  </definition>
+  
+  <definition name="member/*" extends="none">
+  	<put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp"/>
+  </definition>
+  
 </tiles-definitions>
