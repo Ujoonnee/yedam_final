@@ -4,14 +4,22 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
-import com.yedam.finalPrj.store.service.Store;
-import com.yedam.finalPrj.store.service.StorePagingCriteria;
 import com.yedam.finalPrj.store.service.StoreService;
+import com.yedam.finalPrj.store.vo.jo.ProductReservation;
+import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
+import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
+import com.yedam.finalPrj.store.vo.park.Store;
+import com.yedam.finalPrj.store.vo.park.StorePageMaker;
+import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 
 @Service("StoreService")
 public class StoreServiceImpl implements StoreService{
 	@Autowired StoreMapper map;
+	
+	
+//	Park
 //	매장등록
 	@Override
 	public int regist(Store store) {
@@ -21,6 +29,10 @@ public class StoreServiceImpl implements StoreService{
 //	매장출력
 	@Override
 	public List<Store> storeList(StorePagingCriteria cri) {
+		if(cri.getLatitude() == "" || cri.getLongitude() == "") {
+			cri.setLatitude("30.8690794214");
+			cri.setLongitude("128.5942180675");
+		}
 		// TODO Auto-generated method stub
 		return map.storeList(cri);
 	}
@@ -32,6 +44,31 @@ public class StoreServiceImpl implements StoreService{
 		return map.totalCnt();
 	}
 //	매장출력(상품명검색)
+	@Override
+	public void search(StorePagingCriteria cri, Model model) {
+
+		if(cri.getType().equals("prod_name")) {
+			
+			model.addAttribute("storeList", searchProduct(cri));
+			model.addAttribute("paging", new StorePageMaker(cri, totalProdCnt(cri)));
+			
+		} else if(cri.getType().equals("name")) {
+			
+			model.addAttribute("storeList",searchName(cri));
+			model.addAttribute("paging",new StorePageMaker(cri,totalNameCnt(cri)));
+			
+		} else if(cri.getType().equals("store_cat")) {
+			 
+			model.addAttribute("storeList",searchaddress(cri));
+			model.addAttribute("paging",new StorePageMaker(cri,totalCatCnt(cri)));
+			
+		} else {
+			
+			model.addAttribute("storeList", storeList(cri));
+			model.addAttribute("paging",new StorePageMaker(cri, totalCnt()));
+			
+		}
+	}
 	@Override
 	public List<Store> searchProduct(StorePagingCriteria cri) {
 		// TODO Auto-generated method stub
@@ -64,6 +101,86 @@ public class StoreServiceImpl implements StoreService{
 		// TODO Auto-generated method stub
 		return map.totalProdCnt(cri);
 	}
+	
 
 
+//	Hong
+
+	 
+
+	
+//	Jo
+	
+//예약상품목록 출력
+	@Override
+	public List<ProductReservation> resProdList(ResProdListPagingCriteria cri) {
+		return map.resProdList(cri);
+	}
+//총 예약건수 출력
+	@Override
+	public int resTotalCnt() {
+		return map.resTotalCnt();
+	}
+//예약 건 출력(매장이름/상품명 검색시)
+	@Override
+	public void search(ResProdListPagingCriteria cri, Model model) {
+
+		if(cri.getType().equals("name")) {
+			
+			model.addAttribute("resProdList", selectResProdListByStoreName(cri));
+			model.addAttribute("paging", new ResProdListPageMaker(cri, storeCnt(cri)));
+			
+		}else if(cri.getType().equals("prodName")){
+			
+			model.addAttribute("resProdList", selectResProdListByProdName(cri));
+			model.addAttribute("paging",new ResProdListPageMaker(cri, prodNameCnt(cri)));
+			
+		}else {
+			model.addAttribute("resProdList", resProdList(cri));
+			model.addAttribute("paging",new ResProdListPageMaker(cri, resTotalCnt()));
+		}		
+	}
+//예약상품 리스트 출력(매장이름 검색)	
+	@Override
+	public List<ProductReservation> selectResProdListByStoreName(ResProdListPagingCriteria cri) {
+		return map.selectResProdListByStoreName(cri);
+	}
+//예약상품 리스트 출력(상품명 검색)	
+	@Override
+	public List<ProductReservation> selectResProdListByProdName(ResProdListPagingCriteria cri) {
+		return map.selectResProdListByProdName(cri);
+	}
+	@Override
+	public String findProdNameByProdResNo(int prodResNo) {
+		return map.findProdNameByProdResNo(prodResNo);
+	}
+//예약 건수 출력(매장이름검색)
+	@Override
+	public int storeCnt(ResProdListPagingCriteria cri) {
+		return map.storeCnt(cri);
+	}
+//예약 건수 출력(상품명 검색)
+	@Override
+	public int prodNameCnt(ResProdListPagingCriteria cri) {
+		return map.prodNameCnt(cri);
+	}
+	
+//예약상품 상세내역 
+	@Override
+	public List<ProductReservation> resProdDetail(long prodResNo) {
+		return map.resProdDetail(prodResNo);
+	}
+//예약상품 상세내역(상품목록)
+	@Override
+	public List<ProductReservation> resProdDetailList(long prodResNo) {
+		return map.resProdDetailList(prodResNo);
+	}
+
+	
+//	Yoon
+	
+	
+ 
+	
+//	Lee
 }

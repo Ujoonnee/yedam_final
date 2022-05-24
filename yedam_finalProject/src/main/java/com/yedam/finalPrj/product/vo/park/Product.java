@@ -1,8 +1,10 @@
-package com.yedam.finalPrj.product.service;
+package com.yedam.finalPrj.product.vo.park;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class Product {
 	private long prodNo;
 	private int storeNo;
@@ -11,6 +13,6 @@ public class Product {
 	private String soldOut;
 	private String price;
 	private String prodThumbnail;
-	private int productCnt;
+	private String prodCat;
 }
 

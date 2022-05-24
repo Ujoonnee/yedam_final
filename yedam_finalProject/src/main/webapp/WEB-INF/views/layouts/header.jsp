@@ -7,7 +7,7 @@
 	
 	<div class="my-2" id="loginInfo" align="right">
 		<c:if test="${empty user }">
-			<a href="">로그인</a>　 |　 <a href="">회원가입</a> 
+			<a href="" onclick="window.open('${pageContext.request.contextPath}/member/sign-in','sign-in','width=600,height=650')">로그인</a>　 |　 <a href="${pageContext.request.contextPath}/member/sign-up">회원가입</a> 
 			<a href="${pageContext.request.contextPath}/tempLogin?email=admin&password=123456">관리자</a>
 			<a href="${pageContext.request.contextPath}/tempLogin?email=provider&password=123456">사업자</a>
 			<a href="${pageContext.request.contextPath}/tempLogin?email=general&password=123456">일반회원</a>

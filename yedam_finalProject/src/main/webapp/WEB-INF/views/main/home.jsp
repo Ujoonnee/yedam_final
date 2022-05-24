@@ -89,14 +89,14 @@
 // 	}
 	
 	$(document).ready(() => {
-		<%--
+
 // 		const showRecommedation= ${recommendation.showList};
 // 		const facilityRecommedation= ${recommendation.facilityList};
---%>
-		const exhibitionRecommendation= ${exhibitionList};
-		exhibitionRecommendation.forEach( rec => {
-			$('#exhibitionList').append(paintContent(rec.thumbnail, rec.name, rec.startDate, rec.endDate));
-		})
+
+// 		const exhibitionRecommendation= ${exhibitionList};
+// 		exhibitionRecommendation.forEach( rec => {
+// 			$('#exhibitionList').append(paintContent(rec.thumbnail, rec.name, rec.startDate, rec.endDate));
+// 		})
 		
 	})
 	
