@@ -97,7 +97,12 @@ public class ProductServiceImpl implements ProductService {
 		cri.setStoreNo("4");
 		return map.myStoreProductCnt(cri);
 	}
-	
+	@Override
+	public int oneProductInsert(Product product) {
+		// TODO Auto-generated method stub
+		return map.oneProductInsert(product);
+	}
+
 	@Override
 	public void myStoreProductInsert(String file) {
 		file = file.replace("제품명","prodName");

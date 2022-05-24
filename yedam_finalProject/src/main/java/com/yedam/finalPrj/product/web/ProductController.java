@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yedam.finalPrj.product.serviceImpl.ProductServiceImpl;
+import com.yedam.finalPrj.product.service.ProductService;
+import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
@@ -27,7 +28,7 @@ import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 @RequestMapping("/store/product/*")
 public class ProductController {
 
-	@Autowired ProductServiceImpl dao;
+	@Autowired ProductService dao;
 	
 	// park
 //	매장 상세정보(선택한 매장페이지)
@@ -92,6 +93,13 @@ public class ProductController {
 		return "provider/store/statistics";
 	}
 	
+	@RequestMapping("singleProductRegist")
+	public String SingleProductRegist(HttpServletRequest request, ProductPagingCriteria cri,Product vo, Model model) {
+		dao.oneProductInsert(vo);
+		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
+		return "provider/store/myProductManagement";
+	}
 //	Hong
 	
 //	상품 예약 목록

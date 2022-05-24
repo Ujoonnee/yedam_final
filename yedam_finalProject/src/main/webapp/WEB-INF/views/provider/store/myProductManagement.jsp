@@ -73,12 +73,12 @@
 </head>
 <body>
 <c:if test="${empty ProductList }">
-	<tr><td>등록된 매장이 없습니다.</td></tr>
-</c:if>
 <button type="button" id="excelFormDownload" class="download">양식다운</button>
     <label class="btn btn-primary btn-file">
         재고변경<input type="file" id="id_file_upload" style="display: none;">
     </label>
+	<tr><td>등록된 매장이 없습니다.</td></tr>
+</c:if>
 
 <c:if test="${not empty ProductList }">
 	<table id="tableData" >
@@ -145,17 +145,21 @@
 		</div>
 	</div> 
 	<button class="btn-open-popup" onclick="getCheckboxValue()">상품관리</button>
-	<button onclick = "add_textbox()">단일상품등록</button>
-	<form>
+	<button id = "showButton" onclick = "addTextBox()">단일상품등록</button>
+<!-- 	; this.onclick=null; -->
+	<form id = "productRegist" name="productRegist">
         <div id="box">
         </div>
+        <input type="button" id ="submitOne" style="visibility: hidden;" value="전송">
 	</form>        
 	
 
 	<input type="hidden" id ="prodNo" value="${ProductList[0].prodNo }" > 
 <!-- 	통계확인 페이지로 storeNo값 넘김. -->
 	<form id ="statisticsFrm" method = "post" action = "statisticsForm">
+	
 	<input type = "hidden" name = "storeNo" value ="${ProductList[0].storeNo }">
+	
 	<div><button type = "submit" id ="statistics" name="storeNo" onclick = "statisticsView${ProductList[0].storeNo }">통계확인</button></div>
 	</form>
 
@@ -167,17 +171,56 @@
 
 
 <script>
-
-
-
-		function add_textbox(){
+		$("#submitOne").on('click',function(){ // 제출 버튼 이벤트 지정
+		    $.ajax({
+		        url: "singleProductRegist", 
+		        type: "POST", 
+		        data: $("#productRegist").serialize(), // 전송 데이터
+		        dataType: 'text', // 전송 데이터 형식
+		        success: function(res){ // 성공 시 실행
+		            alert("입력성공");
+		            location.reload();
+		        },
+		        error:function(err){ //실패 시 실행
+		            alert("실패 원인 : " + err);
+		        }
+		    });
+		});
+		function check(){
+			var f = document.productRegist;
+			if(f.prodName.value ==""){
+				alert("상품명을 입력하세요.");
+				f.prodName.focus();
+				
+				return false;
+			}
+			if(f.price.value ==""){
+				alert("가격을 입력하세요.");
+				f.price.focus();
+				
+				return false;
+			}
+			if(f.stock.value ==""){
+				alert("수량을 입력하세요.");
+				f.stock.focus();
+				return false;
+			}
+		}
+	
+		function addTextBox(){
+			$('#showButton:button').attr("disabled", true);
+			document.getElementById("submitOne").style.visibility = "visible";
+			
 		    const box = document.getElementById("box");
 		    const newP = document.createElement('p');
-		    newP.innerHTML = "<input type ='text' name='prodName' placeholder='상품명을 입력하세요.'><select><option value = '라면'>라면</option><option value = '커피'>커피</option><option value = '스낵류'>스낵류</option><option value = '유제품'>유제품</option></select><input type ='text' name='price'  placeholder='가격을 입력하세요.'><input type ='number' name='stock'  placeholder='수량을 입력하세요.'> <button type='submit' value='등록'><input type='button' value='삭제' onclick='remove(this)'>";
+		    newP.innerHTML = "<input type ='text' name='prodName' placeholder='상품명을 입력하세요.'><select name = 'prodCat'><option value = '전체'>전체</option><option value = '라면'>라면</option><option value = '커피'>커피</option><option value = '스낵류'>스낵류</option><option value = '유제품'>유제품</option></select><input type ='text' name='price'  placeholder='가격을 입력하세요.'><input type ='number' name='stock'  placeholder='수량을 입력하세요.'> <input type='button' value='취소' onclick='remove(this)'>";
 		    box.appendChild(newP);
 		}
+		
 		function remove(obj){
+			$('#showButton:button').attr("disabled", false);
 		    document.getElementById('box').removeChild(obj.parentNode);
+			document.getElementById("submitOne").style.visibility = "hidden";
 		}
 //   재고 변경
 	function productUpdate(){
@@ -185,7 +228,6 @@
   	    var list = [];
   	    const trVal = $("tr[name='checkVal']")
   	    var prodNo = document.getElementById('prodNo'); 
-  	    console.log(prodNo);
 	  	for(var i =0; i< trVal.length ; i++){
 	  		
 	  		var status = trVal.eq(i).find("select[name='selectValue']").val();
@@ -193,7 +235,6 @@
 	  		var prodNo = trVal.eq(i).find("input[name='checkValProdNo']").val();
 	  		list.push({status,stock,prodNo})
 	  	}
-	  	console.log(list);
 	  	
 	  	$.ajax({
 	  		 url: 'updateTempStock',
@@ -295,7 +336,7 @@
 			}
 
 			tr.append($('<td>').html(select));
-
+			
 			const stock = $('<input>').attr('value',obj.재고).attr('name','checkValName').attr('style','width:50px;')
 			const prod = $('<input>').attr('value',obj.상품번호).attr('type','hidden').attr('name','checkValProdNo').attr('style','width:50px;')
 			tr.append($('<td>').append(stock));
@@ -409,10 +450,8 @@
 			var read_buffer = XLSX.read(fdata, {type : 'binary'}); 
 			read_buffer.SheetNames.forEach(function(sheetName){
 				var rowdata =XLSX.utils.sheet_to_json(read_buffer.Sheets[sheetName]); 
-				console.log(JSON.stringify(rowdata));
 // 				엑셀 등록 처리 AJAX
 				var obj = JSON.stringify(rowdata);
-				console.log(typeof obj);
 				insertProduct(obj);
 
 			}) 
@@ -431,7 +470,6 @@
 	});
 
 	function insertProduct(obj){
-		console.log("여기는 insertProduct"+obj);
 		$.ajax({
 	        type: "post",
 	        url : "productInsert",
