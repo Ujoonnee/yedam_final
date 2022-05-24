@@ -95,11 +95,12 @@
 	</thead>
 	<c:forEach items="${ProductList }" var = "list">
 	<tbody>
-	<c:if test="${list.soldOut ne 'D' }">
+	<c:if test="${list.status ne '00603' }">
 			<tr>
 			<td align="center"><input type ="checkbox" id = "checkf" name="checkf" value="${list }"
-				 data-name="${list.prodName }" data-price="${list.price }" data-stock="${list.stock }" data-prodnum ="${list.prodNo }" data-prodCat="${list.prodCat }" 
-				 data-thumbnail="${list.prodThumbnail }" data-soldOut ="${list.soldOut }" >
+				 data-prodName="${list.prodName }" data-price="${list.price }" data-stock="${list.stock }" data-prodNo ="${list.prodNo }"
+				 data-thumbnail="${list.prodThumbnail }"  data-prodCat="${list.prodCat }" data-status ="${list.status }"
+				 >
 				 ${list.prodNo }</td>	
 			<c:if test="${list.prodThumbnail eq null } ">	
 			<td align="center"><button >사진등록</button></td>
@@ -110,9 +111,9 @@
 			<td align="center">${list.price }</td>		
 			<td align="center"> ${list.stock }</td>		
 			<td align="center">
-			<c:if test="${list.soldOut eq 'N' }">판매중</c:if>
-			<c:if test="${list.soldOut eq 'Y' }">품절</c:if>
-			<c:if test="${list.soldOut eq 'T' }">임시품절</c:if></td>		
+			<c:if test="${list.status eq '00601' }">판매중</c:if>
+			<c:if test="${list.status eq '00602' }">품절</c:if>
+			<c:if test="${list.status eq '00603' }">삭제</c:if></td>		
 			</tr>
 		</c:if>
 	</c:forEach>
@@ -123,17 +124,35 @@
 	<!-- 	메인모달 -->
 	<div class="modal"> 
 		<div class="modal_body">
-		<form>
-			<div id="management"></div>
-			<div id = "modalButton"><button class = "btn-sub-popup">버튼임둥</button></div>
-		</form>
+<!-- 		<form method = "post" action = "updateStock" id = "frm"> -->
+			<div id="management">
+				<table>
+					<thead>
+						<tr>
+							<th>사진</th>
+							<th>카테고리</th>
+							<th>가격</th>
+							<th>상품명</th>
+							<th>상태</th>
+							<th>수량</th>
+						</tr>
+					</thead>
+					<tbody id="tbody"></tbody>
+				</table>
+			</div>
+			<div id = "modalButton"><button class = "btn-sub-popup" onclick="productUpdate()">버튼임둥</button></div>
+<!-- 		</form> -->
 		</div>
 	</div> 
 	<button class="btn-open-popup" onclick="getCheckboxValue()">상품관리</button>
-	<button id = "outOfStock" onclick = "tempOutOfStock()">임시품절</button>
-	<button id = "prodDel"onclick = "Productdeletion()">상품삭제</button>
-	<button id = "forSale"onclick = "ProductForSale()">판매</button>
+	<button onclick = "add_textbox()">단일상품등록</button>
+	<form>
+        <div id="box">
+        </div>
+	</form>        
 	
+
+	<input type="hidden" id ="prodNo" value="${ProductList[0].prodNo }" > 
 <!-- 	통계확인 페이지로 storeNo값 넘김. -->
 	<form id ="statisticsFrm" method = "post" action = "statisticsForm">
 	<input type = "hidden" name = "storeNo" value ="${ProductList[0].storeNo }">
@@ -144,20 +163,52 @@
 <!-- 	기본 양식 -->
 	<table id="excelForm" style="display: none;">
 		<tr><th>prodName</th><th>prodCat</th><th>price</th><th>stock</th><th>카테고리 종류 : 스낵류, 유제품, 커피 , 라면</th></tr>
-	</table>
-
+	</table>   
 
 
 <script>
-// 	function statisticsView(n){
-// 		statisticsFrm.storeNo.value = n;
-// 		alert(n);
-// 		statisticsFrm.action = "statisticsForm";
-// 		statisticsFrm.submit();
-// 	}
 
 
 
+		function add_textbox(){
+		    const box = document.getElementById("box");
+		    const newP = document.createElement('p');
+		    newP.innerHTML = "<input type ='text' name='prodName' placeholder='상품명을 입력하세요.'><select><option value = '라면'>라면</option><option value = '커피'>커피</option><option value = '스낵류'>스낵류</option><option value = '유제품'>유제품</option></select><input type ='text' name='price'  placeholder='가격을 입력하세요.'><input type ='number' name='stock'  placeholder='수량을 입력하세요.'> <button type='submit' value='등록'><input type='button' value='삭제' onclick='remove(this)'>";
+		    box.appendChild(newP);
+		}
+		function remove(obj){
+		    document.getElementById('box').removeChild(obj.parentNode);
+		}
+//   재고 변경
+	function productUpdate(){
+		// 선택된 목록 가져오기
+  	    var list = [];
+  	    const trVal = $("tr[name='checkVal']")
+  	    var prodNo = document.getElementById('prodNo'); 
+  	    console.log(prodNo);
+	  	for(var i =0; i< trVal.length ; i++){
+	  		
+	  		var status = trVal.eq(i).find("select[name='selectValue']").val();
+	  		var stock = trVal.eq(i).find("input[name='checkValName']").val();
+	  		var prodNo = trVal.eq(i).find("input[name='checkValProdNo']").val();
+	  		list.push({status,stock,prodNo})
+	  	}
+	  	console.log(list);
+	  	
+	  	$.ajax({
+	  		 url: 'updateTempStock',
+	  		 type : 'post',
+	  		 contentType: "application/json; charset=utf-8",
+	  		 data: JSON.stringify(list),
+	  		 success: function(result){
+	  			 	alert("상품수정 완료");
+		  			location.reload();
+	  		 },
+	  		 error: function(result){
+		  			console.log(result) 
+	  		 }
+	  	 });
+	}
 
 
 	// 모달 생성
@@ -185,29 +236,78 @@
 	
 //  체크처리한 값 모달로 가져오기
     function getCheckboxValue()  {
-    	const newP = document.createElement('p');
-    	
+		
   	  // 선택된 목록 가져오기
-  	  const query = 'input[name="checkf"]:checked';
-  	  const selectedEls = document.querySelectorAll(query);
+		const query = 'input[name="checkf"]:checked';
+  	    const selectedEls = document.querySelectorAll(query);
   	  
   	  // 선택된 목록을 모달창에 value출력
-  	  let result = '';
-  	  var obj_length = Object.keys(selectedEls).length;
-  	  
+  	    let result = '';
+  	    var obj_length = Object.keys(selectedEls).length;
+  	    var checkList = [];
+  		var inputNo = document.createElement('input');
+  		var inputStock = document.createElement('input');
+//   	    오브젝트 생성
 // 		for문사용 -> var result에 체크한 값 담기
-  	  for(var step = 0; step < obj_length ; step++){
-  		  result += selectedEls[step].dataset.thumbnail +' '+selectedEls[step].dataset.name + ' '+selectedEls[step].dataset.prodCat +' '
-  		  +selectedEls[step].dataset.price +' '+selectedEls[step].dataset.stock +"\n";
-  	  }
 
-  	  console.log(result);
-  	  // 모달에 result 출력.
-  	  document.getElementById('management').innerText = result;
+		for(let obj of selectedEls){
+			
+			let checkValue ={
+				사진 : obj.dataset.thumbnail,
+				상품번호 :  obj.dataset.prodno,
+				카테고리 : obj.dataset.prodcat,
+				상품명 : obj.dataset.prodname,
+				가격 : obj.dataset.price,
+				재고 : obj.dataset.stock,
+				상태 : obj.dataset.status
+			};
+			checkList.push(checkValue);
+			
+		};
+
+		$('#tbody').html('');
+		
+		for(let obj of checkList) {
+			
+			const tr = $('<tr>').attr('name','checkVal');
+			tr.append($('<td>').html(obj.사진))
+			tr.append($('<td>').html(obj.카테고리))
+			tr.append($('<td>').html(obj.가격))
+			tr.append($('<td>').html(obj.상품명))
+				
+// 			select 생성
+			const select = $('<select>').attr('name','selectValue');
+			
+			const 판매중 = $('<option>').attr('value','00601').html('판매중').appendTo(select);
+			const 일시품절 = $('<option>').attr('value','00602').html('일시품절').appendTo(select);
+			const 삭제 = $('<option>').attr('value','00603').html('삭제').appendTo(select);
+			
+			switch(obj.상태) {
+				case '00601':
+					판매중.attr('selected','selected');
+					break;
+				case '00602':
+					일시품절.attr('selected','selected');
+					break;
+				case '00603':
+					삭제.attr('selected','selected');
+					break;
+			}
+
+			tr.append($('<td>').html(select));
+
+			const stock = $('<input>').attr('value',obj.재고).attr('name','checkValName').attr('style','width:50px;')
+			const prod = $('<input>').attr('value',obj.상품번호).attr('type','hidden').attr('name','checkValProdNo').attr('style','width:50px;')
+			tr.append($('<td>').append(stock));
+			tr.append($('<td>').append(prod));
+			
+			$('#tbody').append(tr);
+		}
+// 			tr.append($('<td>'). )
+// 		const stock2 = $('<select>').attr('option','option');
   	  
+		
   	}
-	
-	
 	
 	
 	
@@ -366,160 +466,7 @@
 	}
 		
 		
-// 	임시품절
-	function tempOutOfStock(){
-		const query = 'input[name="checkf"]:checked';
-	  	const selectedEls = document.querySelectorAll(query);
-	  	console.log(typeof selectedEls);
-	  	console.log(selectedEls);
-	  	  // 선택된 목록을 모달창에 value출력
-	  	  let result = '';
-	  	  var obj_length = Object.keys(selectedEls).length;
-	  	  
-	  	  if (obj_length == '' ){
-	  		  alert("체크된 값이 없습니다. ")
-	  		  return;
-	  		  
-	  	  }
-		 let prodList = [];
-	  	 for(let obj of selectedEls) {
-	  		 obj.dataset.soldOut = 'T';
-	  		 console.log(obj);
-	  		 let prod = {
-	  				 soldOut : obj.dataset.soldOut,
-	  				 prodNo : obj.dataset.prodnum,
-	  				 prodName : obj.dataset.name,
-	  				 price: obj.dataset.price,
-	  				 stock: obj.dataset.stock
-	  		 };
-	  		 prodList.push(prod);
-	  	 }
-	  	  console.log(JSON.stringify(prodList));
-	  	  
-	  	 $.ajax({
-	  		 url: 'updateTempStock',
-	  		 type : 'post',
-	  		 contentType: "application/json; charset=utf-8",
-	  		 data: JSON.stringify(prodList),
-	  		 success: function(result){
-	  			 	alert("임시품절 완료");
-		  			location.reload();
-	  		 },
-	  		 error: function(result){
-		  			console.log(result) 
-	  		 }
-	  	 });
-	}
-	
-// 	상품삭제
-	function Productdeletion(){
-		const query = 'input[name="checkf"]:checked';
-	  	const selectedEls = document.querySelectorAll(query);
-	  	console.log(typeof selectedEls);
-	  	console.log(selectedEls);
-	  	  // 선택된 목록을 모달창에 value출력
-	  	  let result = '';
-	  	  var obj_length = Object.keys(selectedEls).length;
-	  	  
-	 	  if (obj_length == '' ){
-	  		  alert("체크된 값이 없습니다. ")
-	  		  return;
-	  	  }
-		 let prodList = [];
-	  	 for(let obj of selectedEls) {
-	  		 obj.dataset.soldOut = 'D';
-	  		 console.log(obj);
-	  		 let prod = {
-	  				 soldOut : obj.dataset.soldOut,
-	  				 prodNo : obj.dataset.prodnum,
-	  				 prodName : obj.dataset.name,
-	  				 price: obj.dataset.price,
-	  				 stock: obj.dataset.stock
-	  		 };
-	  		 prodList.push(prod);
-	  	 }
-	  	  console.log(JSON.stringify(prodList));
-	  	  
-	  	 $.ajax({
-	  		 url: 'updateTempStock',
-	  		 type : 'post',
-	  		 contentType: "application/json; charset=utf-8",
-	  		 data: JSON.stringify(prodList),
-	  		 success: function(result){
-	  			 	alert("삭제 완료");
-		  			location.reload();
-	  		 },
-	  		 error: function(result){
-		  			console.log(result) 
-	  		 }
-	  	 });
-	}
 
-	$(document).ready(function() {
-	    $("#modal_show").click(function() {
-	        $("#exampleModal").modal("show");
-	    });
-	
-	    $("#close_modal").click(function() {
-	        $("#exampleModal").modal("hide");
-	    });
-	});
-	
-	
-// 	판매중변경
-	function ProductForSale(){
-		const query = 'input[name="checkf"]:checked';
-	  	const selectedEls = document.querySelectorAll(query);
-	  	console.log(typeof selectedEls);
-	  	console.log(selectedEls);
-	  	  // 선택된 목록을 모달창에 value출력
-	  	  let result = '';
-	  	  var obj_length = Object.keys(selectedEls).length;
-	 	  if (obj_length == '' ){
-	  		  alert("체크된 값이 없습니다. ")
-	  		  return;
-	  		  
-	  	  }
-		 let prodList = [];
-	  	 for(let obj of selectedEls) {
-	  		 obj.dataset.soldOut = 'N';
-	  		 console.log(obj);
-	  		 let prod = {
-	  				 soldOut : obj.dataset.soldOut,
-	  				 prodNo : obj.dataset.prodnum,
-	  				 prodName : obj.dataset.name,
-	  				 price: obj.dataset.price,
-	  				 stock: obj.dataset.stock
-	  		 };
-	  		 prodList.push(prod);
-	  	 }
-	  	  console.log(JSON.stringify(prodList));
-	  	  
-	  	 $.ajax({
-	  		 url: 'updateTempStock',
-	  		 type : 'post',
-	  		 contentType: "application/json; charset=utf-8",
-	  		 data: JSON.stringify(prodList),
-	  		 success: function(result){
-	  			 	alert("판매중 변경 완료");
-		  			location.reload();
-	  		 },
-	  		 error: function(result){
-		  			console.log(result) 
-	  		 }
-	  	 });
-	}
-
-	$(document).ready(function() {
-	    $("#modal_show").click(function() {
-	        $("#exampleModal").modal("show");
-	    });
-	
-	    $("#close_modal").click(function() {
-	        $("#exampleModal").modal("hide");
-	    });
-	});
-	
 	
 </script>
 </body>
