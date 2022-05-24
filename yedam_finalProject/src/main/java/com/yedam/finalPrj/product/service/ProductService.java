@@ -35,7 +35,7 @@ public interface ProductService {
 	void myStoreProductUpdate(List<HashMap<String, String>> vo);
 	void myStoreProductDelete(List<HashMap<String, String>> vo);
 	int myStoreProductCnt(ProductPagingCriteria cri);
-	
+	int oneProductInsert(Product product);
 //	통계조회
 	List<ProductReservation> salesbyDate(int storeNo);
 //	통계 날짜 검색
