@@ -1,5 +1,6 @@
 package com.yedam.finalPrj.member.service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public interface MemberService {
@@ -16,4 +17,6 @@ public interface MemberService {
 	public String loginCheck(MemberVO vo, HttpSession session);
 	public void logout(HttpSession session);
 	
+	
+	 MemberVO getCurrentUser(HttpServletRequest request);
 }

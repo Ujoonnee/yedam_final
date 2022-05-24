@@ -13,14 +13,13 @@ import com.yedam.finalPrj.home.service.HomeService;
 import com.yedam.finalPrj.member.service.MemberVO;
 
 @Controller
-@RequestMapping("member/*")
+@RequestMapping("/member/*")
 public class MemberController {
 
-	// 이홍제
 	@Autowired HomeService service;
 
 	// 로그인
-	@GetMapping("login")
+	@GetMapping("sign-in")
 	public String login() {
 		return "member/sign-in";
 	}
@@ -29,5 +28,10 @@ public class MemberController {
 	@ResponseBody
 	public String login(MemberVO member, HttpServletRequest request) {
 		return service.login(member, request);
+	}
+	
+	@GetMapping("sign-up")
+	public String register() {
+		return "member/sign-up";
 	}
 }

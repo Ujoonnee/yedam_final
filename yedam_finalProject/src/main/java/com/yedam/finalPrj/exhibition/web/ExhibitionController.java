@@ -47,7 +47,7 @@ public class ExhibitionController {
 	}
 
 	// 예약목록 상세페이지
-	@RequestMapping(value = "/exhibitionReservationDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "exhibitionReservationDetail", method = RequestMethod.GET)
 	public String exhibitionReservationDetail(Model model, ExhibitionReservationVO vo) {
 		System.out.println("값확인" + model.getAttribute("exResNo"));
 		System.out.println(vo.getExResNo());
@@ -203,7 +203,7 @@ public class ExhibitionController {
 
 //	전시 상세보기
 
-	@RequestMapping(value = "DetailView", method = RequestMethod.GET)
+	@RequestMapping(value = "detailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
 //		이건 추후에 삭제할거임 
 		MemberVO mem = new MemberVO();
@@ -222,4 +222,7 @@ public class ExhibitionController {
 		return "";
 	}
 
+	
+	
+	
 }

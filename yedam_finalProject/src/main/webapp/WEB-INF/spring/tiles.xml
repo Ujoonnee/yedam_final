@@ -36,7 +36,7 @@
   </definition>
   
   
-  <!-- member -->
+  <!-- tiles 미 적용 페이지 -->
   <definition name="none" template="/WEB-INF/views/layouts/none.jsp">
     <put-attribute name="title" value="My Web" />
   </definition>
