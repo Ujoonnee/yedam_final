@@ -103,7 +103,7 @@
 					<tr>
 						<td>
 							<select name="status">
-								<option value="" disabled="disabled" selected>공개여부</option>
+								<option value="00501" selected>공개여부</option>
 								<option value="00501">공개</option>
 								<option value="00502">우선순위</option>
 								<option value="00503">비공개</option>
@@ -116,7 +116,7 @@
 			<div>
 				<div>파일 목록</div>
 				<div id="fileIndex">
-					<c:forEach var="file" items="${file}">
+					<c:forEach var="file" items="${file}" varStatus="var">
 							<input type="hidden" id="FILE_NO" name="fileNo_${var.index }" value="${file.FILE_NO}" >
 							<input type="hidden" id="FILE_NAME" name="fileName" value="FILE_NO_${var.index}">
 							<a href="#" id="fileName" onclick="return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
@@ -127,9 +127,9 @@
 				
 			
 			<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
+			<button type="submit" class="update_btn">수정</button>
 			<button type="button" class="cancel_btn">취소</button>
 			<button type="button" class="fileAdd_btn">파일추가</button>
-			<button type="submit" class="update_btn">수정</button>
 		</form>
 </section>
 	
@@ -138,10 +138,10 @@
 </body>
 <script type="text/javascript">
  		//글 목록
-		/* $('#list').click(function(e){
+	$('#list').click(function(e){
 			e.preventDefault();
 			var $form = $('<form></form>');
-			$form.attr('action','findAll');
+			$form.attr('action','announcement');
 			$form.attr('method','get');
 			$form.appendTo('body');
 			
@@ -149,6 +149,6 @@
 			$form.append("<input type='hidden' name='amount' value='<c:out value='${cri.amount}'/>'>");
 			$form.submit();
 		});
-	});  */
+	 
 </script>
 </html>

@@ -26,6 +26,7 @@
 	
 <br>
 
+<form name="annUpdates" action="annUpdates" method="post">
 <table border="1" id="boardtable">
 	<thead>
 		<tr>
@@ -42,7 +43,7 @@
 	<tbody>
 	
 		<c:forEach items="${topList}" var="announcement">
-				<tr onclick="location.href='findOne?annNo=${announcement.annNo }'">
+				<tr onclick="location.href='annDetail?annNo=${announcement.annNo }'">
 					<td><button class="unfixBtn">고정 해제</button></td>
 					<td>${announcement.annNo }</td>
 					<td>${announcement.title }</td>
@@ -58,8 +59,8 @@
 	<!-- 	<tr><td colspan="7">&nbsp;</td></tr> -->
 		
 		<c:forEach items="${list }" var="announcement">
-				<tr onclick="location.href='findOne?annNo=${announcement.annNo }'">
-					<td><input type="checkbox" class="chk"></td>
+				<tr onclick="location.href='annDetail?annNo=${announcement.annNo }'">
+					<td><input type="checkbox" name="status" class="chk" value="${announcement.annNo }"></td>
 					<td>${announcement.annNo }</td>
 					<td>${announcement.title }</td>
 					<td>${announcement.annContent }</td>
@@ -70,6 +71,19 @@
 		</c:forEach>
 	</tbody>
 </table>
+<!-- 	상태변경 -->
+<div>
+	<select name="status">
+		<option value="">선택</option>
+		<option value="00501">공개</option>
+		<option value="00502">상단고정</option>
+		<option value="00503">비공개</option>
+	</select>
+	<button type="submit" id="changeStatus">상태변경</button>
+</form>
+	<button id="delBtn">삭제</button>
+</div>
+
 <form id="pagingFrm" name="pagingForm" action="announcement" method="post">
 	<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
 	<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
@@ -91,18 +105,6 @@
 		<c:if test="${paging.next }">
 			<a id="next" href="${paging.endPage + 1 }">다음</a>
 		</c:if>
-</div>
-
-<!-- 	상태변경 -->
-<div>
-	<select>
-		<option value="">선택</option>
-		<option value="00501">공개</option>
-		<option value="00502">상단고정</option>
-		<option value="00503">비공개</option>
-	</select>
-	<button id="changeStatus">상태변경</button>
-	<button id="delBtn">삭제</button>
 </div>
 
 

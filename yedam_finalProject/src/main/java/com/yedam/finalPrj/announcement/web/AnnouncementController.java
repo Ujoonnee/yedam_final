@@ -32,13 +32,13 @@ public class AnnouncementController {
 	
 	
 	// 공지사항 목록
-	@RequestMapping("/announcement")
-	public String FindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) throws Exception {
+	@RequestMapping("admin/announcement")
+	public String adminFindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) throws Exception {
 
 		int total = service.totalCnt(cri);
 
 		// 전체목록
-		model.addAttribute("list", service.findAll(cri));
+		model.addAttribute("list", service.adminFindAll(cri));
 		// 상단고정목록
 		model.addAttribute("topList", service.getTopList());
 		// 페이징
@@ -50,12 +50,34 @@ public class AnnouncementController {
 		
 		model.addAttribute("file", fileList);
 		 
-		return "announcement/list";
+		return "admin/announcement/list";
 	}
+	
+	// 공지사항 목록
+		@RequestMapping("main/announcement")
+		public String userFindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) throws Exception {
 
+			int total = service.totalCnt(cri);
+
+			// 전체목록
+			model.addAttribute("list", service.adminFindAll(cri));
+			// 상단고정목록
+			model.addAttribute("topList", service.getTopList());
+			// 페이징
+			model.addAttribute("paging", new AnnouncementPageMaker(cri, total));
+			//파일업로드
+			
+			
+			List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
+			
+			model.addAttribute("file", fileList);
+			 
+			return "main/announcement/list";
+		}
+	
 	// 공지사항 등록
 	
-	  @RequestMapping(value = "/annInsert", method = RequestMethod.POST) 
+	  @RequestMapping(value = "admin/annInsert", method = RequestMethod.POST) 
 	  public void anninsert(AnnouncementVO announcement, MultipartHttpServletRequest fileRequest) throws IOException {
 		  System.out.println(fileRequest.getSession().getServletContext().getRealPath("/resources/announcement"));
 		  service.annInsert(announcement,fileRequest);
@@ -63,14 +85,14 @@ public class AnnouncementController {
 	 
 	
 	// 공지사항 등록하는 페이지
-	@RequestMapping("/insertPage")
+	@RequestMapping("admin/insertPage")
 	public String insertPage() {
 
-		return "announcement/insertPage";
+		return "admin/announcement/insertPage";
 	}
 
 	// 공지사항 상세페이지(일반)
-	@RequestMapping("/findOne")
+	@RequestMapping("main/annDetail")
 	public String findOne(AnnouncementVO announcement, Model model,
 			@ModelAttribute("cri") AnnouncementPagingCriteria cri) throws Exception {
 
@@ -83,13 +105,13 @@ public class AnnouncementController {
 			
 		model.addAttribute("file", fileList);
 		  
-		return "announcement/findOne";
+		return "main/announcement/annDetail";
 
 	}
 
 
 	// 공지사항 수정
-	@RequestMapping("/annUpdate")
+	@RequestMapping("admin/annUpdate")
 	public String annUpdate(AnnouncementVO announcement,
 			@RequestParam(value="fileNoDel[]") String[] files,
 			@RequestParam(value="fileNameDel[]") String[] fileNames,
@@ -102,19 +124,32 @@ public class AnnouncementController {
 		return "redirect:announcement";
 	}
 	// 공지사항 다중 수정
-	@RequestMapping("/annUpdates")
-	public String annUpdates(AnnouncementVO announcement) throws Exception {
-//		List<AnnouncementVO> list = service.findOne(announcement);
+	@RequestMapping("admin/annUpdates")
+	public void annUpdates(String[] lists, String status) throws Exception {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-//		paramMap.put("list", list);
-//		service.annUpdates(paramMap);
+
+			paramMap.put("status", status);
+			paramMap.put("list", lists);
 		
-		return "redirect:announcement";
+			service.annUpdates(paramMap);
+			
+	}
+	
+	@RequestMapping("admin/annDelete")
+	public void annDelete(String[] lists, String status) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("status", "00504");
+		paramMap.put("list", lists);
+		
+		service.annUpdates(paramMap);
+		
 	}
 	
 	// 공지사항 수정페이지이동
-	@RequestMapping("/updatePage")
+	@RequestMapping("admin/annDetail")
 	public String updatePage(AnnouncementVO announcement, Model model) throws Exception {
 
 		model.addAttribute("announcement", service.findOne(announcement));		
@@ -124,18 +159,18 @@ public class AnnouncementController {
 		model.addAttribute("file",fileList);
 		
 		
-		return "announcement/updatePage";
+		return "admin/announcement/annDetail";
 	}
 	
 	
 	// 파일 다운로드
-	@RequestMapping("/fileDown")
+	@RequestMapping("main/fileDown")
 	public void fileDown(@RequestParam Map<String, Object> maps, HttpServletResponse response,HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = service.selectFileInfo(maps);
 		String replaceName = (String) resultMap.get("REPLACED_NAME");
 		String originalFileName = (String) resultMap.get("ORIGINAL_NAME");
 		System.out.println("-----------------------------------"+replaceName);
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(request.getServletContext().getRealPath("/resources/announcement/")+replaceName));
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\image\\"+replaceName));
 		System.out.println("===================================================="+originalFileName);
 
 		// 서버에서 다루는 확장자명이 어떤형식의 자료인지 알려주는거

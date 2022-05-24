@@ -1,6 +1,7 @@
 package com.yedam.finalPrj.announcement.serviceImpl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,13 +22,13 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
 	@Autowired
 	AnnouncementMapper map;
-
+	
 	@Autowired
 	FileUtils file;
 	
 	@Override
-	public List<AnnouncementVO> findAll(AnnouncementPagingCriteria paging) {
-		return map.findAll(paging);
+	public List<AnnouncementVO> adminFindAll(AnnouncementPagingCriteria paging) {
+		return map.adminFindAll(paging);
 	}
 
 	@Override
@@ -132,7 +133,17 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 
 	@Override
-	public int annUpdates(List<AnnouncementVO> announcement) {
-		return map.annUpdates(announcement);
+	public void annUpdates(Map<String, Object> map) {
+	
+	}
+
+	@Override
+	public List<AnnouncementVO> annFindAll(Map<String, Object> map) {
+		return null;
+	}
+
+	@Override
+	public List<AnnouncementVO> userFindAll(AnnouncementPagingCriteria paging) {
+		return map.userFindAll(paging);
 	}
 }

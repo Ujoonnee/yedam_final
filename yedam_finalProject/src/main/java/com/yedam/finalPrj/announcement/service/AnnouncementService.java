@@ -15,12 +15,18 @@ import com.yedam.finalPrj.common.FileVO;
 
 public interface AnnouncementService {
 
-	List<AnnouncementVO> findAll(AnnouncementPagingCriteria paging);
+	List<AnnouncementVO> adminFindAll(AnnouncementPagingCriteria paging);
+	List<AnnouncementVO> userFindAll(AnnouncementPagingCriteria paging);
 	List<AnnouncementVO> getTopList();
+//	다중쿼리를 위해서 만들어둔 service
+	List<AnnouncementVO> annFindAll(Map<String, Object>map);
+	
 	AnnouncementVO findOne(AnnouncementVO announcement);
 	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames, MultipartHttpServletRequest filerequest) throws Exception;
-	int annUpdates(List<AnnouncementVO> announcement);
-//	public void annUpdate(AnnouncementVO announcement);		
+	public void annUpdates(Map<String, Object>map);
+	
+	
+	//	public void annUpdate(AnnouncementVO announcement);		
 	//	Announcement annInsert(Announcement announcement);
 	
 	//파일업로드

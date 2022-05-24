@@ -6,18 +6,20 @@ import java.util.Map;
 
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
-import com.yedam.finalPrj.common.FileVO;
 
 public interface AnnouncementMapper {
 	
-	List<AnnouncementVO> findAll(AnnouncementPagingCriteria paging);
+	List<AnnouncementVO> adminFindAll(AnnouncementPagingCriteria paging);
+	List<AnnouncementVO> userFindAll(AnnouncementPagingCriteria paging);
 	List<AnnouncementVO> getTopList();
+//	다중쿼리를 위해서 만들어둔 service
+	List<AnnouncementVO> annFindAll(Map<String, Object>map);
 	AnnouncementVO findOne(AnnouncementVO announcement);
 	
 	//공지사항
 	void annInsert(AnnouncementVO announcement) throws IllegalStateException, IOException;
 	public void annUpdate(AnnouncementVO announcement);
-	int annUpdates(List<AnnouncementVO> announcement);
+	int annUpdates(Map<String, Object> map);
 	
 	
 	//파일 업로드 용

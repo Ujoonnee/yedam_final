@@ -93,7 +93,8 @@ public class FileUtils {
 		}
 		return list;
 	}
-	
+
+//	수정 관련 메서드
 	public static List<Map<String, Object>> parseUpdateFileInfo(AnnouncementVO announcement, String[] files, String[] fileNames, MultipartHttpServletRequest filerequest) throws Exception{
 		
 		filePath = filerequest.getServletContext().getRealPath("/resources/announcement");
