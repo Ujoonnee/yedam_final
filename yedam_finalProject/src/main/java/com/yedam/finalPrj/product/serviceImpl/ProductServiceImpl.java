@@ -100,7 +100,12 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public void myStoreProductInsert(String file) {
-		map.deleteProduct(null);
+		file = file.replace("제품명","prodName");
+		file = file.replace("상품상태","status");
+		file = file.replace("가격","price");
+		file = file.replace("재고","stock");
+		file = file.replace("제품 카테고리","prodCat");
+		System.out.println("replace 후 파일 값"+file);
 		System.out.println("Impl라인");
 		Gson gson = new Gson();
 		List<Product> list = gson.fromJson(file, new TypeToken<List<Product>>() {}.getType());

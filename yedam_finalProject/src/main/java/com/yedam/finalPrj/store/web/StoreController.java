@@ -29,7 +29,7 @@ public class StoreController {
 //	매장신청 양식 페이지
 	@RequestMapping("register")
 	public String register() {
-		return "store/storeRegister";
+		return "provider/store/storeRegister";
 	}
 //	매장신청 양식 전송
 	@RequestMapping("regist")
@@ -46,7 +46,7 @@ public class StoreController {
 //		storeList출력
 		model.addAttribute("storeList", dao.storeList(cri));
 		model.addAttribute("paging",new StorePageMaker(cri, dao.totalCnt()));
-		return "store/storeList";
+		return "main/store/storeList";
 	}
 	
 
@@ -54,7 +54,7 @@ public class StoreController {
 	@RequestMapping(value ="searchList", method= {RequestMethod.POST})
 	public String search(StorePagingCriteria cri,Model model, HttpServletRequest request ) {
 		dao.search(cri, model);
-		return "store/storeList";
+		return "main/store/storeList";
 	}
 	
 		

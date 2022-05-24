@@ -1,6 +1,5 @@
 package com.yedam.finalPrj.product.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,13 +36,13 @@ public class ProductController {
 		cri.setStoreNo(store_no);
 		model.addAttribute("products" ,dao.selectOne(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(store_no)));
-		return "store/storeView";
+		return "main/store/storeView";
 	}
 //  상품 검색
 	@RequestMapping(value = "searchProduct",method = {RequestMethod.POST})
 	public String searchProduct(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
 		dao.search(cri, model,request);
-		return "store/storeView";
+		return "main/store/storeView";
 	}
 	
 	@RequestMapping("management")
@@ -51,7 +50,7 @@ public class ProductController {
 		
 		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
-		return"store/myProductManagement";
+		return"provider/store/myProductManagement";
 	}
 	
 	
@@ -65,7 +64,7 @@ public class ProductController {
 		
 		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
-		return "store/myProductManagement";
+		return "provider/store/myProductManagement";
 	}
 	
 	
@@ -75,7 +74,7 @@ public class ProductController {
 		dao.myStoreProductUpdate(vo);
 		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
-		return"store/myProductManagement";
+		return"provider/store/myProductManagement";
 		
 	}
 	
@@ -83,18 +82,14 @@ public class ProductController {
 	public String Statistics(@RequestParam("storeNo") int storeNo, Model model) {
 		
 		model.addAttribute("productReservation" , dao.salesbyDate(storeNo));
-		return "store/statistics";
+		return "provider/store/statistics";
 	}
 	
 	@RequestMapping("searchDate")
 	public String SearchDateInStatistics(HttpServletRequest request, Statistics vo,Model model) {
-		System.out.println("ㅇㅅㅇ");
-		System.out.println(vo.getStartDate());
-		System.out.println(vo.getStoreNo());
-		System.out.println(vo.getEndDate());
 		
 		model.addAttribute("productReservation", dao.searchDateInStatistics(vo));
-		return "store/statistics";
+		return "provider/store/statistics";
 	}
 	
 //	Hong
