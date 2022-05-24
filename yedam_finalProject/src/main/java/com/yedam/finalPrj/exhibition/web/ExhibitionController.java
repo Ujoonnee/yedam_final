@@ -188,8 +188,14 @@ public class ExhibitionController {
 	}
 
 //	전시 목록 검색
-	@RequestMapping(value = "searchExhibition", method = { RequestMethod.POST })
+	@RequestMapping(value = "searchExhibition", method = { RequestMethod.GET })
 	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
+		System.out.println("검색이요");
+		System.out.println(cri.getExVO().getAddress());
+		System.out.println(cri.getExVO().getStartDate());
+		System.out.println(cri.getExVO().getEndDate());
+		System.out.println(cri.getKeyword());
+		System.out.println("검색 끝 보내기시작");
 		model.addAttribute("exhibitionList", service.searchEx(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
 		return "main/exhibition/exhibitionList";
