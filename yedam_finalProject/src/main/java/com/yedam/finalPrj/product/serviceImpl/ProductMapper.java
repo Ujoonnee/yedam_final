@@ -2,10 +2,12 @@ package com.yedam.finalPrj.product.serviceImpl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
@@ -34,6 +36,10 @@ public interface ProductMapper {
 	public int myStoreProductUpdate(HashMap<String, String> list);
 	int myStoreProductCnt(ProductPagingCriteria cri);
 	int oneProductInsert(Product product);
+	
+//	파일업로드
+	void thumbnailUpdate(Product product,MultipartFile multi, Model model) throws Exception;
+
 //	통계조회
 	List<ProductReservation> salesbyDate(int storeNo);
 //	통계 날짜 검색

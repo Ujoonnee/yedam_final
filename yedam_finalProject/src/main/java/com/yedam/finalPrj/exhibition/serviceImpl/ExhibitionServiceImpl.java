@@ -15,13 +15,14 @@ import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
+import com.yedam.finalPrj.member.service.MemberService;
 import com.yedam.finalPrj.member.service.MemberVO;
 
 @Service
 public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	@Autowired ExhibitionMapper map;
-
+	@Autowired MemberService service;
 	// 홍제
 	
 	// 예약목록 전체 조회
@@ -36,7 +37,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO) {
 		// TODO Auto-generated method stub
 		return map.selectOneExhibitionReservationVO(exhibitionReservationVO);
-	}
+	}	
 
 	@Override
 	public ExhibitionReservationVO exDetail(ExhibitionReservationVO vo) {
