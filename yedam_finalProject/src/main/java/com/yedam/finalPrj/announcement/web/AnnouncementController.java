@@ -66,6 +66,7 @@ public class AnnouncementController {
 	@RequestMapping("/insertPage")
 	public String insertPage() {
 
+		
 		return "announcement/insertPage";
 	}
 
