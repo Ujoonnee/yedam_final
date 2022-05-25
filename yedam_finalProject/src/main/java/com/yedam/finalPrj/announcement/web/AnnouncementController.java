@@ -89,6 +89,7 @@ public class AnnouncementController {
 	public String insertPage() {
 
 		return "admin/announcement/insertPage";
+
 	}
 
 	// 공지사항 상세페이지(일반)

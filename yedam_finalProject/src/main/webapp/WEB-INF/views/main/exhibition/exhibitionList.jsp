@@ -107,7 +107,7 @@
 	}
 	function exhibitionView(n){
 		frm.exNo.value= n;
-		frm.action = "DetailView";
+		frm.action = "detailView";
 		frm.submit();
 	}
 </script>
