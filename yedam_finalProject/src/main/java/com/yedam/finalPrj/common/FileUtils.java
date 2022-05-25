@@ -163,6 +163,12 @@ public class FileUtils {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null;
 		File file = new File(filePath);
+		if(file.exists()) {
+			if(file.delete()) {
+				
+			}
+		}
+		
 		if(files !=null && fileNames != null) {
 			for(int i = 0; i<fileNames.length; i++) {
 				listMap = new HashMap<String, Object>();
