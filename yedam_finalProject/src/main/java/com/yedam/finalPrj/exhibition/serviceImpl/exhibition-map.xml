@@ -173,7 +173,7 @@
 <!-- 		WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount} -->
 	
 <!-- 	전시상세페이지 -->
-	<select id = "findExVO" resultType = "ExhibitionVO">
+	<select id = "findExVO" resultType = "com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO">
 	select * 
 	from exhibition
 	where ex_no = #{exNo}
@@ -194,7 +194,7 @@
 		where mem_no = #{memNo}
 	</select>
 	
-	<select id ="searchEx" resultType = "com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO">
+	<select id ="searchEx" resultType = "ExhibitionVO">
 		select * 
 		from
 		    (select a.* , ROWNUM rn 
@@ -221,7 +221,7 @@
 				and start_date <![CDATA[>]]> #{exVO.startDate}
 				and end_date <![CDATA[<]]> #{exVO.endDate}
 				</if>
-				and name like ('%'||#{exVO.name}||'%')
+		and name like ('%'||#{exVO.name}||'%')
 	</select>
 
 	

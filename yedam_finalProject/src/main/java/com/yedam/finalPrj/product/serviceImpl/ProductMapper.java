@@ -33,8 +33,7 @@ public interface ProductMapper {
 	public int myStoreProductInsert(Product product);
 	public int myStoreProductUpdate(HashMap<String, String> list);
 	int myStoreProductCnt(ProductPagingCriteria cri);
-	int deleteProduct(ProductPagingCriteria cri);
-	
+	int oneProductInsert(Product product);
 //	통계조회
 	List<ProductReservation> salesbyDate(int storeNo);
 //	통계 날짜 검색

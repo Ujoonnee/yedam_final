@@ -12,7 +12,7 @@
 
 <div>
 
-	<form action ="searchExhibition" method="post" name="searchForm" autocomplete="off">
+	<form action ="searchExhibition" method="get" name="searchForm" autocomplete="off">
 		<div>지역</div>
 		<select id="exVO.address" name="exVO.address"
 			onchange="allSelected()">
@@ -60,11 +60,14 @@
 		<input type="hidden" id = "exNo" name= "exNo"/>
 	</form>
 
-	<form id="pagingForm" name="pagingForm" action="searchExhibition" method="POST">
+	<form id="pagingFrm" name="pagingForm" action="searchExhibition" method="get">
 		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-		<input type="hidden" id="amount" name="amount" value="${paging.cri.amount }">
+		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
 		<input type="hidden" id="type" name="type" value="${paging.cri.type }">
 		<input type="hidden" id="keyword" name="keyword" value="${paging.cri.keyword }">
+		<input type="hidden"  name="exVO.address" value="${paging.cri.exVO.address }">
+		<input type="hidden"  name="exVO.startDate" value="${paging.cri.exVO.startDate }">
+		<input type="hidden"  name="exVO.endDate" value="${paging.cri.exVO.endDate }">
 	</form>
 
 	<div id="pagingDiv">
