@@ -17,6 +17,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.yedam.finalPrj.common.FileUtils;
 import com.yedam.finalPrj.member.service.MemberService;
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.product.service.ProductService;
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
@@ -35,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 //	Park
 //	매장의 상품 개수
 	@Override
-	public int productCnt(String prodNo) {
+	public int productCnt(int prodNo) {
 		// TODO Auto-generated method stub
 		return map.productCnt(prodNo);
 	}
@@ -70,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void search(ProductPagingCriteria cri, Model model,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		String store_no =  (String) (request.getParameter("store_no"));
+		int store_no =   Integer.parseInt(request.getParameter("store_no"));
 		System.out.println("/상품페이지/ 매장번호 값 확인: "+store_no);	
 		
 //		option 값에 따른 sql 구문 출력.
@@ -92,16 +93,23 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 	@Override
-	public List<Product> myStoreProductManegement(ProductPagingCriteria cri) {
+	public List<Product> myStoreProductManegement(ProductPagingCriteria cri,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		cri.setStoreNo("4");
-		System.out.println(cri.getStoreNo());
+		MemberVO user = (MemberVO) request.getAttribute("user");
+		System.out.println("myStoreProductManagement 에서 user세션값"+user);
+		int memNo = map.getStoreNo(user);
+		System.out.println("getStoreNo : "+memNo);
+		cri.setStoreNo(memNo);
 		return map.myStoreProductManegement(cri);
 	}
 	@Override
-	public int myStoreProductCnt(ProductPagingCriteria cri) {
+	public int myStoreProductCnt(ProductPagingCriteria cri,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		cri.setStoreNo("4");
+		MemberVO user = (MemberVO) request.getAttribute("user");
+		
+		int memNo = map.getStoreNo(user);
+		System.out.println("getStoreNo : "+memNo);
+		cri.setStoreNo(memNo);
 		return map.myStoreProductCnt(cri);
 	}
 	@Override
