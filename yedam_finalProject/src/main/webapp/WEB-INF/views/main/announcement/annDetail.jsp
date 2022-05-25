@@ -37,7 +37,7 @@
 			<tr>
 				<td bgcolor="" width="70">제목</td>
 				<td align="left"><input id="title" name="title" type="text"
-					value="${announcement.title}" /></td>
+					value="${announcement.title}" disabled/></td>
 			</tr>
 			<tr>
 				<td bgcolor="">작성자</td>
@@ -82,8 +82,6 @@
 			$form.attr('method','get');
 			$form.appendTo('body');
 			
-			$form.append("<input type='hidden' name='pageNum' value='<c:out value='${cri.pageNum}'/>'>");
-			$form.append("<input type='hidden' name='amount' value='<c:out value='${cri.amount}'/>'>");
 			$form.submit();
 		});
 	});  

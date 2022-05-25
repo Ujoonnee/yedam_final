@@ -131,10 +131,12 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		
 		return null;
 	}
-
-	@Override
-	public void annUpdates(Map<String, Object> map) {
 	
+	
+	@Override
+	public int statusUpdates(Map<String, Object> maps) {
+			
+		return map.statusUpdates(maps);
 	}
 
 	@Override
@@ -145,5 +147,15 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	@Override
 	public List<AnnouncementVO> userFindAll(AnnouncementPagingCriteria paging) {
 		return map.userFindAll(paging);
+	}
+
+	@Override
+	public int statusDelete(Map<String, Object> maps) {
+		return map.statusDelete(maps);
+	}
+
+	@Override
+	public int topStatus(Map<String, Object> maps) {
+		return map.topStatus(maps);
 	}
 }

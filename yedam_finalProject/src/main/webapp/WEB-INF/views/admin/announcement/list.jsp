@@ -26,7 +26,7 @@
 	
 <br>
 
-<form name="annUpdates" action="annUpdates" method="post">
+<form action="statusUpdates" method="post">
 <table border="1" id="boardtable">
 	<thead>
 		<tr>
@@ -34,7 +34,6 @@
 			<th width="50">N O</th>
 			<th width="150">제목</th>
 			<th width="150">내용</th>
-			<th width="150">작성자</th>
 			<th width="150">등록일</th>
 			<th width="150">상태</th>
 		</tr>
@@ -43,12 +42,11 @@
 	<tbody>
 	
 		<c:forEach items="${topList}" var="announcement">
-				<tr onclick="location.href='annDetail?annNo=${announcement.annNo }'">
-					<td><button class="unfixBtn">고정 해제</button></td>
+				<tr>
+					<td><button type="submit" class="unfixBtn" name="lists" formaction="topStatus" value="${announcement.annNo }">상단해제</button></td>
 					<td>${announcement.annNo }</td>
 					<td>${announcement.title }</td>
-					<td>${announcement.annContent }</td>
-					<td>관리자</td>
+					<td><a href="annDetail?annNo=${announcement.annNo }">${announcement.annContent }</a></td>
 					<td>${announcement.annDate }</td>
 					<td>
 						<span>${announcement.status}</span>
@@ -59,12 +57,11 @@
 	<!-- 	<tr><td colspan="7">&nbsp;</td></tr> -->
 		
 		<c:forEach items="${list }" var="announcement">
-				<tr onclick="location.href='annDetail?annNo=${announcement.annNo }'">
-					<td><input type="checkbox" name="status" class="chk" value="${announcement.annNo }"></td>
+				<tr>
+					<td><input type="checkbox" name="lists" class="chk" value="${announcement.annNo }"></td>
 					<td>${announcement.annNo }</td>
 					<td>${announcement.title }</td>
-					<td>${announcement.annContent }</td>
-					<td>관리자</td>
+					<td><a href="annDetail?annNo=${announcement.annNo }">${announcement.annContent }</a></td>
 					<td>${announcement.annDate }</td>
 					<td><span>${announcement.status}</span></td>
 				</tr>
@@ -72,17 +69,18 @@
 	</tbody>
 </table>
 <!-- 	상태변경 -->
-<div>
+
 	<select name="status">
 		<option value="">선택</option>
 		<option value="00501">공개</option>
 		<option value="00502">상단고정</option>
 		<option value="00503">비공개</option>
 	</select>
-	<button type="submit" id="changeStatus">상태변경</button>
+	<input type="submit" id="changeStatus" value="상태변경">
+	<input type="submit" id="delete" formaction="statusDelete" name="status" value="삭제">		
 </form>
-	<button id="delBtn">삭제</button>
-</div>
+
+
 
 <form id="pagingFrm" name="pagingForm" action="announcement" method="post">
 	<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
@@ -117,20 +115,24 @@ $('#pagingDiv a').click(function(e){
 	});
 
 
+	
 	// 상단고정 해제
-	$('.unfixBtn').click( () => {
+  	/* $('.unfixBtn').click( () => {
 		event.stopPropagation();
+		
 		
 		const unfix = confirm('상단고정 해제?');
 		
+		
+		<td><button type="submit" class="unfixBtn" name="lists" formaction="topStatus" value="${announcement.annNo }">상단해제</button></td>		
 		if (!unfix) return;
 		
 		const memNo = $(event.target.parentNode).next().html();
 		
 		
-	})
+	}) */
 
-	$('.chk').click( () => event.stopPropagation()); 
+	$('.chk').click( () => event.stopPropagation());   
 	
 	
 

@@ -26,6 +26,7 @@
 				event.preventDefault();
 				location.href = "/findOne?annNo=${announcement.annNo}"
 	})	
+	
 	//  업데이트 폼 아래 경고 문구가 뜰 시 수정이 안되게 만들어둠.
 	$(".update_btn").on("click", function(){
 		if(fn_valiChk()){
@@ -35,7 +36,9 @@
 		formObj.attr("method", "post");
 		formObj.submit();
 	})
-		 
+	
+	
+	
 	// 제목에 아무값이 없을시 경고 문구 알럴트로 띄워줌 경고 문구
 	function fn_valiChk(){
 			var updateForm = $("form[name='updateForm'] .chk").length;
@@ -88,7 +91,7 @@
 							value="${announcement.title}" /></td>
 					</tr>
 					<tr>
-						<td bgcolor="">작성자</td>
+						<td>작성자</td>
 						<td align="left">관리자</td>
 					</tr>
 					<tr>
@@ -145,8 +148,6 @@
 			$form.attr('method','get');
 			$form.appendTo('body');
 			
-			$form.append("<input type='hidden' name='pageNum' value='<c:out value='${cri.pageNum}'/>'>");
-			$form.append("<input type='hidden' name='amount' value='<c:out value='${cri.amount}'/>'>");
 			$form.submit();
 		});
 	 

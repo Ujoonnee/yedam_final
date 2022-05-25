@@ -19,9 +19,11 @@ public interface AnnouncementMapper {
 	//공지사항
 	void annInsert(AnnouncementVO announcement) throws IllegalStateException, IOException;
 	public void annUpdate(AnnouncementVO announcement);
-	int annUpdates(Map<String, Object> map);
-	
-	
+
+	//	다중 업데이트
+	int statusUpdates(Map<String, Object> maps);
+	int statusDelete(Map<String, Object> maps);
+	int topStatus(Map<String, Object>maps);
 	//파일 업로드 용
 	void annInsertFile(Map<String, Object> map); 
 	Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;

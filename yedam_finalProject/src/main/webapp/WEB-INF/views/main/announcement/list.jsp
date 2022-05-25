@@ -32,7 +32,6 @@
 			<th width="100">N O</th>
 			<th width="50">제목</th>
 			<th width="150">내용</th>
-			<th width="150">작성자</th>
 			<th width="150">등록일</th>
 		</tr>
 	</thead>
@@ -44,7 +43,6 @@
 					<td>${announcement.annNo }</td>
 					<td>${announcement.title }</td>
 					<td>${announcement.annContent }</td>
-					<td>관리자</td>
 					<td>${announcement.annDate }</td>
 				</tr>
 		</c:forEach>
@@ -56,7 +54,6 @@
 					<td>${announcement.annNo }</td>
 					<td>${announcement.title }</td>
 					<td>${announcement.annContent }</td>
-					<td>관리자</td>
 					<td>${announcement.annDate }</td>
 				</tr>
 		</c:forEach>

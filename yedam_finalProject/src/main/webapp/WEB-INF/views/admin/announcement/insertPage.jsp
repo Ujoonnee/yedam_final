@@ -89,7 +89,7 @@
 		<br>
 		<div>
 			<input class=".write_btn" type="submit" value="작성"> 
-			<input type="button" onclick="list" value="취소">
+			<input type="button" onclick="announcement" value="취소">
 		</div>
 	</form>
 	

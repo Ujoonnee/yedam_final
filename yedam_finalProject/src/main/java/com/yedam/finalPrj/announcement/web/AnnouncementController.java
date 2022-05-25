@@ -124,28 +124,45 @@ public class AnnouncementController {
 		return "redirect:announcement";
 	}
 	// 공지사항 다중 수정
-	@RequestMapping("admin/annUpdates")
-	public void annUpdates(String[] lists, String status) throws Exception {
+	@RequestMapping("admin/statusUpdates")
+	public String annUpdates(String[] lists, String status) throws Exception {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
-			paramMap.put("status", status);
-			paramMap.put("list", lists);
+		paramMap.put("status", status);
+		paramMap.put("list", lists);
+		System.out.println("list------------------------------------------"+lists.length);
+		System.out.println("status------------------------------------------"+status);
+		service.statusUpdates(paramMap);
 		
-			service.annUpdates(paramMap);
-			
+		return "redirect:announcement";
 	}
-	
-	@RequestMapping("admin/annDelete")
-	public void annDelete(String[] lists, String status) throws Exception {
+//	상단고정 해제	
+	@RequestMapping("admin/topStatus")
+	public String topStatus(String[] lists, String status) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		paramMap.put("status", "00501");
+		paramMap.put("list", lists);
+		System.out.println("list------------------------------------------"+lists.length);
+		System.out.println("status------------------------------------------"+status);
+		service.statusUpdates(paramMap);
+		
+		return "redirect:announcement";
+	}
+//	상단삭제
+	@RequestMapping("admin/statusDelete")
+	public String statusDelete(String[] lists, String status) throws Exception {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
 		paramMap.put("status", "00504");
 		paramMap.put("list", lists);
 		
-		service.annUpdates(paramMap);
+		service.statusUpdates(paramMap);
 		
+		return "redirect:announcement";
 	}
 	
 	// 공지사항 수정페이지이동
