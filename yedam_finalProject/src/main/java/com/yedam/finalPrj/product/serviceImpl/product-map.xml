@@ -10,7 +10,7 @@
 		<result property="storeNo" column="STORE_NO" />
 		<result property="prodName" column="PROD_NAME" />
 		<result property="stock" column="STOCK" />
-		<result property="soldOut" column="SOLD_OUT" />
+		<result property="status" column="STATUS" />
 		<result property="price" column="PRICE" />
 		<result property="prodThumbnail" column="PROD_THUMBNAIL" />
 		<result property="prodCat" column="PROD_Cat" />
@@ -22,7 +22,7 @@
 		FROM
 			 (SELECT a.*, ROWNUM rn
 			 FROM(
-			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.sold_out,p.price
+			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.status,p.price
 				from product p, store s 
 				where s.store_no = p.store_no
 				and s.store_no like #{storeNo} 
@@ -39,7 +39,7 @@
 		 (SELECT a.*, ROWNUM rn
 		 FROM( select 
 		     * from (
-		            select p.prod_no, p.store_no,p.prod_name,p.stock,p.sold_out,p.price
+		            select p.prod_no, p.store_no,p.prod_name,p.stock,p.status,p.price
 		            from product p, store s 
 		            where s.store_no = p.store_no
 		            and s.store_no like #{storeNo}
@@ -56,7 +56,7 @@
 		 (SELECT a.*, ROWNUM rn
 		 FROM( select 
 		     * from (
-		            select p.prod_no, p.store_no,p.prod_name,p.stock,p.sold_out,p.price
+		            select p.prod_no, p.store_no,p.prod_name,p.stock,p.status,p.price
 		            from product p, store s 
 		            where s.store_no = p.store_no
 		            and s.store_no like  #{storeNo} 
@@ -94,9 +94,12 @@
 	</select>
 		
 	<select id = "myStoreProductManegement" resultType="com.yedam.finalPrj.product.vo.park.Product">
-	
-	        select * from product
-	        where store_no = #{storeNo}
+	    select * 
+	    from product
+	    where store_no = #{storeNo}
+	    and status = '00601' or status = '00602'
+	    	 
+	    	 
 	</select>
 	
 	<select id = "myStoreProductCnt" resultType="int">
@@ -104,25 +107,32 @@
 	from product
         where store_no = #{storeNo}
 	</select>
-	
+	<insert id="oneProductInsert" parameterType="com.yedam.finalPrj.product.vo.park.Product">
+		<selectKey keyProperty="prodNo" resultType="long"
+		order="BEFORE">
+			Select CASE when max(prod_no) is null then 1
+				   ELSE MAX(prod_no) +1
+			       END
+			from product
+		</selectKey>
+		insert into product values(#{prodNo},4,#{prodName},#{stock},#{price},'',#{prodCat},'00601')	
+	</insert>
 	<insert id = "myStoreProductInsert" parameterType="com.yedam.finalPrj.product.vo.park.Product">
 		<selectKey keyProperty="prodNo" resultType="long"
 		order="BEFORE">
 			Select CASE when max(prod_no) is null then 1
-			ELSE MAX(prod_no)
-			+1 END from product
+				   ELSE MAX(prod_no) +1
+			       END
+			from product
 		</selectKey>
-			insert into product values(#{prodNo},4,#{prodName},#{stock},'N',#{price},'',#{prodCat})	
+			insert into product values(#{prodNo},4,#{prodName},#{stock},#{status},#{price},'',#{prodCat})	
 		
 	</insert>
 	
-	<delete id ="deleteProduct">
-	 	delete from product where store_no = 4
-	</delete>
 	
 	<update id = "myStoreProductUpdate" parameterType="java.util.HashMap">
 		UPDATE PRODUCT
-		SET SOLD_OUT = #{soldOut}
+		SET status = #{status} , stock= #{stock}
 		WHERE PROD_NO = #{prodNo}
 	</update>
 	
@@ -132,13 +142,13 @@
 		    ( SELECT pickup_date, SUM(payment_amt) AS payment_amt, store_no
 		        FROM
 		            (SELECT *
-		                FROM  product_reservation
-		                WHERE
-		                    store_no = #{storeNo} )
+	                 FROM  product_reservation
+	                 WHERE store_no = #{storeNo}
+	                 )
 		        GROUP BY pickup_date, store_no
 		    )
-       <![CDATA[where pickup_date between sysdate-30 and sysdate
-		ORDER BY pickup_date]]>
+       where pickup_date between sysdate-30 and sysdate
+	   ORDER BY pickup_date
 	</select>
 	
 	<select id="searchDateInStatistics" resultType="com.yedam.finalPrj.store.vo.park.ProductReservation">

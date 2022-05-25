@@ -33,6 +33,8 @@
 	<input type ="hidden" id = "salesData" name="salesData" value = "${list }"
 	data-pickupDate="${list.pickupDate } " data-paymentAmt = "${list.paymentAmt }">
 </c:forEach>
+
+
 <script>
 // 	salesDate value값 전체 받아오기.
 	const salesData = 'input[name="salesData"]';
@@ -66,6 +68,7 @@
 //   	 날짜, 하루매출액 배열로 치환
   	 var resultDate = new Array();
   	 var resultAmt = new Array();
+  	 
   	for (var i=0 ; i< dateValLength; i++){
   		resultDate.push(dateVal[i].pickupDate);
   	}
@@ -76,14 +79,23 @@
   	 console.log(resultDate);
   	 console.log(resultAmt);
   	 
+  	 console.log(dateAmtLength);
+  	 
+//   	if(dateAmtLength <= 1){
+//   		alert ('차트를 생성하기 위한 자료가 부족합니다.');
+//   		window.history.go(-1);
+//   	}
   	 
   	 
-  	const list = [dateVal[0].pickupDate,dateVal[1].pickupDate]
-  	console.log(list);
+//   	const list = [dateVal[0].pickupDate,dateVal[1].pickupDate]
+//   	console.log(list);
 //   	 차트생성
 	const myChartOne = document.getElementById('myChartOne').getContext('2d');
+	
+	let chartType = (resultDate.length >= 7)? 'line' : 'bar';
+	
 	const barChart = new Chart(myChartOne, {
-		type : 'line',//line
+		type : chartType,
 		data :{
 			labels : resultDate,
 			datasets : [{

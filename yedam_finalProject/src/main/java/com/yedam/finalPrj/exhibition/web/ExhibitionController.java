@@ -23,6 +23,7 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPageMaker;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
+import com.yedam.finalPrj.member.serviceImpl.MemberServiceImpl;
 
 @Controller
 @RequestMapping("/exhibition/*")
@@ -31,13 +32,13 @@ public class ExhibitionController {
 	@Autowired
 	ExhibitionService service;
 
+	
 	// 홍제
 
 	// 내 예약 목록
 	@GetMapping("/exSelectAllReservation")
 	public String exSelectAllReservation(PagingVO vo, Model model) {
 		List<ExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion();
-
 		int total = service.totalCnt(vo);
 
 		model.addAttribute("exhibitionReservationVO", exhibitionReservationVO);
@@ -47,7 +48,7 @@ public class ExhibitionController {
 	}
 
 	// 예약목록 상세페이지
-	@RequestMapping(value = "/exhibitionReservationDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "exhibitionReservationDetail", method = RequestMethod.GET)
 	public String exhibitionReservationDetail(Model model, ExhibitionReservationVO vo) {
 		System.out.println("값확인" + model.getAttribute("exResNo"));
 		System.out.println(vo.getExResNo());
@@ -188,18 +189,19 @@ public class ExhibitionController {
 	}
 
 //	전시 목록 검색
-	@RequestMapping(value = "searchExhibition", method = { RequestMethod.POST })
+	@RequestMapping(value = "searchExhibition", method = { RequestMethod.GET })
 	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
 		model.addAttribute("exhibitionList", service.searchEx(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
-		return "exhibition/exhibitionList";
+		return "main/exhibition/exhibitionList";
 	}
 
 //	전시 상세보기
 
-	@RequestMapping(value = "DetailView", method = RequestMethod.GET)
+	@RequestMapping(value = "detailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
 //		이건 추후에 삭제할거임 
+		request.getAttribute("");
 		MemberVO mem = new MemberVO();
 		mem.setName("길동");
 		mem.setTel("010-555-5555");
@@ -216,4 +218,7 @@ public class ExhibitionController {
 		return "";
 	}
 
+	
+	
+	
 }
