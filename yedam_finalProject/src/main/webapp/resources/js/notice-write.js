@@ -1,4 +1,6 @@
-var oEditors = []; 
+
+$(function() {
+	var oEditors = []; 
 	nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors, 
 	elPlaceHolder: "smartEditor",
@@ -9,8 +11,8 @@ var oEditors = [];
 		bUseVerticalResizer: false, 
 		bUseModeChanger: false
 	}
-});
-$(function() {
+    });
+
 	$("#savebutton").click(function() {
 		oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
 

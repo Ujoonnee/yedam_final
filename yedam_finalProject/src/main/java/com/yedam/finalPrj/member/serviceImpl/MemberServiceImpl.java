@@ -1,14 +1,15 @@
 package com.yedam.finalPrj.member.serviceImpl;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.member.service.MemberService;
+import com.yedam.finalPrj.member.service.MemberVO;
 
-@Service("memberService")
+@Service
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
@@ -73,5 +74,13 @@ public class MemberServiceImpl implements MemberService {
 	public void logout(HttpSession session) {
 		session.invalidate(); // 세션 초기화.
 	}
+	
+	public MemberVO getCurrentUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		
+		return user;
+	}
+	
 
 }

@@ -1,22 +1,25 @@
 package com.yedam.finalPrj.product.web;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yedam.finalPrj.product.serviceImpl.ProductServiceImpl;
+import com.yedam.finalPrj.product.service.ProductService;
+import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
+import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 
 
@@ -25,7 +28,7 @@ import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
 @RequestMapping("/store/product/*")
 public class ProductController {
 
-	@Autowired ProductServiceImpl dao;
+	@Autowired ProductService dao;
 	
 	// park
 //	매장 상세정보(선택한 매장페이지)
@@ -34,13 +37,13 @@ public class ProductController {
 		cri.setStoreNo(store_no);
 		model.addAttribute("products" ,dao.selectOne(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(store_no)));
-		return "store/storeView";
+		return "main/store/storeView";
 	}
 //  상품 검색
 	@RequestMapping(value = "searchProduct",method = {RequestMethod.POST})
 	public String searchProduct(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
 		dao.search(cri, model,request);
-		return "store/storeView";
+		return "main/store/storeView";
 	}
 	
 	@RequestMapping("management")
@@ -48,16 +51,54 @@ public class ProductController {
 		
 		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
-		return"store/myProductManagement";
+		return"provider/store/myProductManagement";
 	}
+	
+	
 //	Json값 
 	@RequestMapping("productInsert")
 	@ResponseBody
-	public String productInsert(String file)  {
+	public String productInsert(String file,ProductPagingCriteria cri,Model model)  {
 	
-		System.out.println(file);
+		System.out.println("===========================================================file:"+file);
 		dao.myStoreProductInsert(file);
-		return "";
+		
+		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
+		return "provider/store/myProductManagement";
+	}
+	
+	
+	@PostMapping("updateTempStock")
+	public String TemporarilyOutOfStock(@RequestBody List<HashMap<String,String>> vo,String file,ProductPagingCriteria cri,Model model) {
+		System.out.println(vo);
+		dao.myStoreProductUpdate(vo);
+		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
+		return"provider/store/myProductManagement";
+		
+	}
+	
+	@RequestMapping("statisticsForm")
+	public String Statistics(@RequestParam("storeNo") int storeNo, Model model) {
+		
+		model.addAttribute("productReservation" , dao.salesbyDate(storeNo));
+		return "provider/store/statistics";
+	}
+	
+	@RequestMapping("searchDate")
+	public String SearchDateInStatistics(HttpServletRequest request, Statistics vo,Model model) {
+		
+		model.addAttribute("productReservation", dao.searchDateInStatistics(vo));
+		return "provider/store/statistics";
+	}
+	
+	@RequestMapping("singleProductRegist")
+	public String SingleProductRegist(HttpServletRequest request, ProductPagingCriteria cri,Product vo, Model model) {
+		dao.oneProductInsert(vo);
+		model.addAttribute("ProductList",dao.myStoreProductManegement(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri)));
+		return "provider/store/myProductManagement";
 	}
 //	Hong
 	

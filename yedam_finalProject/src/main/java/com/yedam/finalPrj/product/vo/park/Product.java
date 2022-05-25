@@ -10,7 +10,7 @@ public class Product {
 	private int storeNo;
 	private String prodName;
 	private int stock;
-	private String soldOut;
+	private String status;
 	private String price;
 	private String prodThumbnail;
 	private String prodCat;

@@ -1,8 +1,7 @@
 package com.yedam.finalPrj.exhibition.vo.jo;
 
-import java.util.Date;
+import java.sql.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yedam.finalPrj.member.service.MemberVO;
 
 import lombok.Data;
@@ -13,6 +12,7 @@ public class ExhibitionVO {
 	private int exNo;
 	private int memNo;
 	private String name;
+	private String locationName;
 	private String showRoom;
 	private int price;
 	private String thumbnail;
@@ -23,8 +23,6 @@ public class ExhibitionVO {
 	private String detail;
 	private String category;
 	private String approvalStatus;
-	
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date ApplicationDate;
 	
 	private MemberVO member;
