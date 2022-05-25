@@ -37,6 +37,7 @@
 		<tr>
 			<th>썸네일</th>
 			<th>상품명</th>
+			<th>가격</th>
 			<th>수량</th>
 			<th>금액</th>
 		</tr>
@@ -46,6 +47,7 @@
 			<td>${list.prodThumbnail }</td>
 			<td>${list.prodName }</td>
 			<td>${list.price }</td>
+			<td>${list.count }</td>
 			<td>${list.payment }</td>
 		</tr>
 		<c:set var="total" value="${total + list.payment }"/>
