@@ -2,10 +2,14 @@ package com.yedam.finalPrj.store.serviceImpl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.yedam.finalPrj.member.service.MemberService;
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.store.service.StoreService;
 import com.yedam.finalPrj.store.vo.jo.ProductReservation;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
@@ -14,16 +18,21 @@ import com.yedam.finalPrj.store.vo.park.Store;
 import com.yedam.finalPrj.store.vo.park.StorePageMaker;
 import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 
-@Service("StoreService")
+@Service
 public class StoreServiceImpl implements StoreService{
 	@Autowired StoreMapper map;
-	
+	@Autowired MemberService service;
 	
 //	Park
 //	매장등록
 	@Override
-	public int regist(Store store) {
+	public int regist(Store store, HttpServletRequest request) {
+		
 		// TODO Auto-generated method stub
+		service.getCurrentUser(request);
+		MemberVO user = (MemberVO) request.getAttribute("user");
+		System.out.println(user.getMemNo());
+		store.setMemNo(user.getMemNo());
 		return map.regist(store);
 	}
 //	매장출력

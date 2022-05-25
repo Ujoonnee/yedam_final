@@ -177,12 +177,6 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 //	전시 목록에서의 검색처리
 	@Override
 	public List<ParkExhibitionVO> searchEx(ParkExhibitionPagingCriteria cri) {
-		System.out.println(cri.getExVO().getAddress());
-		System.out.println(cri.getExVO().getStartDate());
-		System.out.println(cri.getExVO().getEndDate());
-		System.out.println(cri.getKeyword());
-		System.out.println(cri.getAmount());
-		System.out.println(cri.getPageNum());
 		// TODO Auto-generated method stub
 		return map.searchEx(cri);
 	}

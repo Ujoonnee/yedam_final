@@ -33,10 +33,9 @@ public class StoreController {
 	}
 //	매장신청 양식 전송
 	@RequestMapping("regist")
-	public String regist(Store vo,Model model) {
+	public String regist(Store vo,Model model,HttpServletRequest request) {
 //		매장등록 번호 입력.
-		vo.setCategory("00204");
-		dao.regist(vo);
+		dao.regist(vo, request);
 		return "home/home";
 	}
 	
