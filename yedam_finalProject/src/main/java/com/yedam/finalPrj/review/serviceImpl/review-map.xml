@@ -3,9 +3,8 @@
 <mapper namespace="com.yedam.finalPrj.review.serviceImpl.ReviewMapper">
 
 	<insert id="insert" >
-		INSERT INTO REVIEW VALUES(
-		SEQ_REVIEW.NEXTVAL, '1', '시설', #{score}, #{content}, '감사합니다.', default, default, '22'
-		)
+		INSERT INTO REVIEW(REV_NO, RES_NO, CATEGORY, SCORE, CONTENT, REV_TIME, REPLY_TIME, MEM_NO) 
+		VALUES(SEQ_REVIEW.NEXTVAL, (SELECT NVL(MAX(RES_NO), 0) + 1 FROM REVIEW), '시설', #{score}, #{content}, default, default, #{memNo})
 	</insert>
 	
 

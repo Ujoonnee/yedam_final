@@ -76,7 +76,7 @@ public class StoreController {
 			dao.search(cri, model);
 		}
 		
-		return "store/resProdList";
+		return "general/store/resProdList";
 	}
 	
 // 	(예약번호 받아서)예약내역 상세페이지로 이동
@@ -86,7 +86,7 @@ public class StoreController {
 		model.addAttribute("detail", dao.resProdDetail(selectedResNo));
 		model.addAttribute("prodList", dao.resProdDetailList(selectedResNo));
 			
-		return "store/reservedProductsDetail";
+		return "general/store/resProdDetail.jsp";
 	}
 	
 //	Yoon

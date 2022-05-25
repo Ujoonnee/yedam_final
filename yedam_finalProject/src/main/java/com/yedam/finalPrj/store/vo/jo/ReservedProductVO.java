@@ -9,14 +9,14 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ReservedProduct {
+public class ReservedProductVO {
 
-	private long prodResNo; 
+	private int prodResNo; 
 	private int storeNo; 
 	private int prodNo; 
 	private int count; 
 	
-	@Autowired ProductReservation proResVO;
-	@Autowired Store storeVO;
+	@Autowired ProductReservationVO proResVO;
+	@Autowired StoreVO storeVO;
 	@Autowired Product productVO;
 }

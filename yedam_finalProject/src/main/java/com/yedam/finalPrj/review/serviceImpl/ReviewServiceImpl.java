@@ -3,7 +3,7 @@ package com.yedam.finalPrj.review.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.finalPrj.review.service.Review;
+import com.yedam.finalPrj.review.service.ReviewVO;
 import com.yedam.finalPrj.review.service.ReviewService;
 
 @Service("ReviewService")
@@ -13,7 +13,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 
 	@Override
-	public int insert(Review vo) {
-		return 0;
+	public int insert(ReviewVO vo) {
+		return map.insert(vo);
 	}
 }

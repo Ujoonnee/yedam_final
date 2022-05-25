@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.yedam.finalPrj.store.service.StoreService;
-import com.yedam.finalPrj.store.vo.jo.ProductReservation;
+import com.yedam.finalPrj.store.vo.jo.ProductReservationVO;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
 import com.yedam.finalPrj.store.vo.park.Store;
@@ -113,7 +113,7 @@ public class StoreServiceImpl implements StoreService{
 	
 //예약상품목록 출력
 	@Override
-	public List<ProductReservation> resProdList(ResProdListPagingCriteria cri) {
+	public List<ProductReservationVO> resProdList(ResProdListPagingCriteria cri) {
 		return map.resProdList(cri);
 	}
 //총 예약건수 출력
@@ -142,12 +142,12 @@ public class StoreServiceImpl implements StoreService{
 	}
 //예약상품 리스트 출력(매장이름 검색)	
 	@Override
-	public List<ProductReservation> selectResProdListByStoreName(ResProdListPagingCriteria cri) {
+	public List<ProductReservationVO> selectResProdListByStoreName(ResProdListPagingCriteria cri) {
 		return map.selectResProdListByStoreName(cri);
 	}
 //예약상품 리스트 출력(상품명 검색)	
 	@Override
-	public List<ProductReservation> selectResProdListByProdName(ResProdListPagingCriteria cri) {
+	public List<ProductReservationVO> selectResProdListByProdName(ResProdListPagingCriteria cri) {
 		return map.selectResProdListByProdName(cri);
 	}
 	@Override
@@ -167,12 +167,12 @@ public class StoreServiceImpl implements StoreService{
 	
 //예약상품 상세내역 
 	@Override
-	public List<ProductReservation> resProdDetail(long prodResNo) {
+	public List<ProductReservationVO> resProdDetail(long prodResNo) {
 		return map.resProdDetail(prodResNo);
 	}
 //예약상품 상세내역(상품목록)
 	@Override
-	public List<ProductReservation> resProdDetailList(long prodResNo) {
+	public List<ProductReservationVO> resProdDetailList(long prodResNo) {
 		return map.resProdDetailList(prodResNo);
 	}
 

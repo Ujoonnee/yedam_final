@@ -17,8 +17,8 @@ public class ResProdListPagingCriteria {
 		private String keyword = "";
 
 
-		@Autowired Store store;
-		@Autowired Product product;
+		@Autowired StoreVO store;
+		@Autowired ProductVO product;
 		private String storeName;
 		private String prodName;
 }
