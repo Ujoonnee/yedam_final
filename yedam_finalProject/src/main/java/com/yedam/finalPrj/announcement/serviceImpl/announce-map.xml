@@ -123,7 +123,7 @@
 	<update id="fileUpdate" parameterType="hashMap">
 		UPDATE ATTACHED_FILE SET status = 'Y' WHERE FILE_NO = #{fileNo} 
 	</update> 
-	<delete id="fileDelete" parameterType="hashMap">
+	<delete id="fileDelete" parameterType="com.yedam.finalPrj.common.FileVO">
 		DELETE ATTACHED_FILE WHERE file_no = #{fileNo}
 	</delete>
 	<!-- 페이지 갯수 구하는거 -->

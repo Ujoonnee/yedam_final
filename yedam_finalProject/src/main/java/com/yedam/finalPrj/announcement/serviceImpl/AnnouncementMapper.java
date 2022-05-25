@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
+import com.yedam.finalPrj.common.FileVO;
 
 public interface AnnouncementMapper {
 	
@@ -29,7 +30,7 @@ public interface AnnouncementMapper {
 	Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
 	public void fileUpdate(Map<String, Object>maps);
-	public void fileDelete(Map<String, Object> map);
+	public String fileDelete(FileVO file);
 	
 	//	Announcement annInsert(Announcement announcement);
 	

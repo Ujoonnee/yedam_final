@@ -16,6 +16,7 @@ import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
 import com.yedam.finalPrj.common.FileUtils;
+import com.yedam.finalPrj.common.FileVO;
 
 @Service("AnnouncementServiceImpl")
 public class AnnouncementServiceImpl implements AnnouncementService {
@@ -30,7 +31,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	public List<AnnouncementVO> adminFindAll(AnnouncementPagingCriteria paging) {
 		return map.adminFindAll(paging);
 	}
-
+	
 	@Override
 	public List<AnnouncementVO> getTopList() {
 		return map.getTopList();
@@ -124,12 +125,12 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 
 	@Override
-	public String fileDelete(HttpServletRequest request, HttpServletResponse response) {
+	public String fileDelete(FileVO file) {
 		
 		
 		
 		
-		return null;
+		return map.fileDelete(file);
 	}
 	
 	
