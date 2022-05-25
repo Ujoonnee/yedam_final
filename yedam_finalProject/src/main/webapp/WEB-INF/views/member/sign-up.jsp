@@ -26,11 +26,7 @@
 <!-- Primary Meta Tags -->
 <title>Volt Premium Bootstrap Dashboard - Sign up page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="title" content="Volt Premium Bootstrap Dashboard - Sign up page">
-<meta name="author" content="Themesberg">
-<meta name="description" content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
-<meta name="keywords" content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, themesberg, themesberg dashboard, themesberg admin dashboard" />
-<link rel="canonical" href="https://themesberg.com/product/admin-dashboard/volt-premium-bootstrap-5-dashboard">
+<meta name="title" content="회원가입">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
@@ -74,12 +70,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <style>
 	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+	html {overflow-x:hidden; overflow-y:auto;}
 	body {font-family: 'Jeju Gothic', sans-serif;}
-	
-	a:not(#loginInfo a) {
-		color: black;
-		text-decoration: none;
-	}
 </style>
 
 </head>
@@ -106,25 +98,19 @@
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h3">회원가입</h1>
+                                <h1 class="mb-0 h3" style="font-family: 'Jeju Gothic', sans-serif;">회원가입</h1>
                             </div>
                             
                             
                             <!-- Tab Nav -->
 							<div class="nav-wrapper position-relative mb-2 justify-content-between">
 							    <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text" role="tablist">
-							        <li class="nav-item">
+							        <li class="nav-item" style="font-family: 'Jeju Gothic', sans-serif;">
 							            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-bs-toggle="tab" href="#tabs-text-1" role="tab" aria-controls="tabs-text-1" aria-selected="true">일반회원</a>
-							            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab" data-bs-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-text-2" aria-selected="false">일반회원2</a>
+							            <a class="nav-link mb-sm-3 mb-md-0 d-none" id="tabs-text-2-tab" data-bs-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-text-2" aria-selected="false">일반회원2</a>
 							        </li>
-							        <li class="nav-item d-none">
-							            <a class="nav-link mb-sm-3 mb-md-0 " id="tabs-text-2-tab" data-bs-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-text-2" aria-selected="false">일반회원2</a>
-							        </li>
-							        <li class="nav-item">
-							            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab" data-bs-toggle="tab" href="#tabs-text-3" role="tab" aria-controls="tabs-text-3" aria-selected="false">사업자회원</a>
-							        </li>
-							        <li class="nav-item d-none">
-							            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-4-tab" data-bs-toggle="tab" href="#tabs-text-4" role="tab" aria-controls="tabs-text-4" aria-selected="false">사업자회원2</a>
+							        <li class="nav-item" style="font-family: 'Jeju Gothic', sans-serif;">
+							            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab" data-bs-toggle="tab" href="#tabs-text-1" role="tab" aria-controls="tabs-text-1" aria-selected="false">사업자회원</a>
 							        </li>
 							    </ul>
 							</div>
@@ -135,23 +121,23 @@
 							        <div class="tab-content" id="tabcontent1">
 							                
 						            	<div class="tab-pane fade show active" id="tabs-text-1" role="tabpanel" aria-labelledby="tabs-text-1-tab">
-					                        <form>
+					                        <form id="form1">
 					                            <div class="row">
 					                                <div class="col-sm-4 mb-2">
 					                                    <div class="form-group">
-					                                        <label for="city">이메일</label>
-					                                        <input class="form-control" id="city" type="text" placeholder="이메일" required>
+					                                        <label for="">이메일</label>
+					                                        <input class="form-control" id="email1" type="text" placeholder="이메일" required>
 					                                    </div>
 					                                </div>
 					                                <div class="col-sm-4 mb-2">
 					                                    <div class="form-group">
-					                                        <label for="zip">&nbsp;</label>
-					                                        <input class="form-control" id="zip" type="tel" placeholder="주소" required disabled>
+					                                        <label for="">&nbsp;</label>
+					                                        <input class="form-control" id="email2" type="text" placeholder="주소" required readonly>
 					                                    </div>
 					                                </div>
 					                                <div class="col-sm-4 mb-2">
-					                                    <label for="state">&nbsp;</label>
-					                                    <select class="form-select w-100 mb-0" id="state" name="state" aria-label="State select example">
+					                                    <label for="">&nbsp;</label>
+					                                    <select class="form-select w-100 mb-0" id="site">
 					                                        <option value="" selected>직접 입력</option>
 					                                        <option value="naver.com">naver.com</option>
 					                                        <option value="gmail.com">gmail.com</option>
@@ -159,83 +145,103 @@
 					                                        <option value="nate.com">nate.com</option>
 					                                    </select>
 					                                </div>
-					                                <div class="mb-3">
+					                                <div class="mb-3" id="emailValidation">
 					                                	<span style="font-size: small;">중복확인 결과 출력</span>
 					                                </div>
 					                            </div>
 					                            
 					                            <div class="form-group mb-4">
-			                                        <label for="password">비밀번호</label>
+			                                        <label for="">비밀번호</label>
 			                                        <div class="input-group">
 			                                            <span class="input-group-text" id="basic-addon2">
 			                                                <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
 			                                            </span>
-			                                            <input type="password" placeholder="Password" class="form-control" id="password" required>
+			                                            <input type="password" placeholder="비밀번호" class="form-control" id="password1" required>
 			                                        </div>  
 			                                    </div>
 			                                    <!-- End of Form -->
 			                                    <!-- Form -->
 			                                    <div class="form-group mb-4">
-			                                        <label for="confirm_password">비밀번호 확인</label>
+			                                        <label for="">비밀번호 확인</label>
 			                                        <div class="input-group">
 			                                            <span class="input-group-text" id="basic-addon2">
 			                                                <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
 			                                            </span>
-			                                            <input type="password" placeholder="Confirm Password" class="form-control" id="confirm_password" required>
+			                                            <input type="password" placeholder="비밀번호 확인" class="form-control" id="password2" required>
 			                                        </div>
-			                                        <div class="mb-3">
+			                                        <div class="mb-3" id="passwordValidation">
 					                                	<span style="font-size: small;">비밀번호 일치여부 출력</span>
 					                                </div>
 			                                    </div>
 					                            
-					                            <input type="button" class="btn btn-gray-800" value="다음" onclick="$('#tabs-text-2-tab')[0].click()" style="width: 100%;">
-					                            
 					                        </form>
+
+				                            <input type="button" class="btn btn-gray-800" value="다음" onclick="$('#tabs-text-2-tab')[0].click()" style="width: 100%;">
+					                            
 							            </div>
 				                        
 							            <div class="tab-pane fade" id="tabs-text-2" role="tabpanel" aria-labelledby="tabs-text-2-tab">
 			                                <div class="mb-3">
 			                                    <div>
-			                                        <label for="first_name">이름</label>
-			                                        <input class="form-control" id="first_name" type="text" required>
+			                                        <label for="">이름</label>
+			                                        <input class="form-control" id="name" type="text" required>
+			                                    </div>
+				                            </div>
+				                            
+			                                <div class="row mb-1">
+			                                    <div class="col-7">
+			                                        <label for="">주소</label>
+			                                        <div class="input-group">
+				                                        <input class="form-control" type="text" required readonly>
+				                                        <button class="btn btn-outline-gray-700" id="addressSearchBtn">검색</button>
+			                                        </div>
+			                                    </div>
+				                            </div>
+			                                <div class="mb-1">
+			                                    <div>
+			                                        <input class="form-control" id="address1" type="text" required readonly>
+			                                    </div>
+				                            </div>
+			                                <div class="mb-3">
+			                                    <div>
+			                                        <input class="form-control" id="address2" type="text" required>
 			                                    </div>
 				                            </div>
 				                            
 			                                <div class="mb-3">
 			                                    <div>
-			                                        <label for="first_name">주소</label>
-			                                        <input class="form-control" id="address" type="text" required>
-			                                    </div>
-				                            </div>
-			                                <div class="mb-1">
-			                                    <div>
-			                                        <label for="first_name">주소</label>
-			                                        <input class="form-control" id="address" type="text" required>
-			                                    </div>
-				                            </div>
-			                                <div class="mb-1">
-			                                    <div>
-			                                        <label for="first_name">주소</label>
-			                                        <input class="form-control" id="address" type="text" required>
+			                                        <label for="">전화번호</label>
+			                                        <div class="input-group">
+				                                        <select class="form-select w-30" id="tel1" name="state" aria-label="State select example">
+					                                        <option value="" selected>선택</option>
+					                                        <option value="010">010</option>
+					                                        <option value="011">011</option>
+					                                        <option value="017">017</option>
+					                                    </select>
+				                                        <input class="form-control w-30" id="tel2" type="text" maxlength="4" required>
+				                                        <input class="form-control w-30" id="tel3" type="text" maxlength="4" required>
+			                                        </div>
 			                                    </div>
 				                            </div>
 				                            
-			                                <div class="mb-3">
+				                            <div class="mb-3">
 			                                    <div>
-			                                        <label for="first_name">전화번호</label>
-			                                        <input class="form-control" id="tel" type="text" required>
+			                                        <label for="">사업자등록번호</label>
+			                                        <div class="input-group">
+				                                        <input class="form-control" id="busnissNum" type="text" required>
+				                                        <button class="btn btn-outline-gray-700" id="buisnessNumCheckBtn">확인</button>
+			                                        </div>
 			                                    </div>
 				                            </div>
 				                            
-				                            
-				                            <input type="button" class="btn btn-gray-800 mb-3" value="이전" onclick="$('#tabs-text-1-tab')[0].click()" style="width: 100%;">
+				                            <input type="button" class="btn btn-gray-800 mb-5" value="이전" onclick="$('#tabs-text-1-tab')[0].click()" style="width: 100%;">
 				                            
 				                            <div class="form-group">
 			                                    <div class="mb-4">
 			                                        <div class="form-check">
-			                                            <input class="form-check-input" type="checkbox" value="" id="remember">
+			                                            <input class="form-check-input" type="checkbox" id="termCheckbox">
 			                                            <a class="fw-bold" data-bs-toggle="modal" data-bs-target="#modal-default" style="text-decoration: underline;">서비스 이용약관</a>
-			                                            <label class="form-check-label fw-normal mb-0" for="remember">
+			                                            <label class="form-check-label fw-normal mb-0" for="">
 			                                            	에 동의합니다.
 			                                            </label>
 			                                        </div>
@@ -245,24 +251,15 @@
 			                                <div class="d-grid">
 			                                    <button type="submit" class="btn btn-gray-800">회원가입</button>
 			                                </div>
-				                            
 							            </div>
 
-							            <div class="tab-pane fade" id="tabs-text-3" role="tabpanel" aria-labelledby="tabs-text-3-tab">
-							                <p>사업자회원</p>
-							            </div>
-							            <div class="tab-pane fade" id="tabs-text-4" role="tabpanel" aria-labelledby="tabs-text-4-tab">
-							                <p>사업자회원2</p>
-							            </div>
+
 							        </div>
 							    </div>
 							</div>
 							<!-- End of Tab Content -->
 							
 							
-                            <form action="#" class="mt-4">
-                                
-                            </form>
 	                            
                         </div>
                     </div>
@@ -291,46 +288,52 @@
 	</div>
 	<!-- End of Modal Content -->
 
+
+	<!-- script -->
+	<script>
+		
+	</script>
+
     <!-- Core -->
-<script src="${pageContext.request.contextPath}/resources/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- Vendor JS -->
-<script src="${pageContext.request.contextPath}/resources/vendor/onscreen/dist/on-screen.umd.min.js"></script>
-
-<!-- Slider -->
-<script src="${pageContext.request.contextPath}/resources/vendor/nouislider/distribute/nouislider.min.js"></script>
-
-<!-- Smooth scroll -->
-<script src="${pageContext.request.contextPath}/resources/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-
-<!-- Charts -->
-<script src="${pageContext.request.contextPath}/resources/vendor/chartist/dist/chartist.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-
-<!-- Datepicker -->
-<script src="${pageContext.request.contextPath}/resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
-
-<!-- Sweet Alerts 2 -->
-<script src="${pageContext.request.contextPath}/resources/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
-
-<!-- Moment JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-
-<!-- Vanilla JS Datepicker -->
-<script src="${pageContext.request.contextPath}/resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
-
-<!-- Notyf -->
-<script src="${pageContext.request.contextPath}/resources/vendor/notyf/notyf.min.js"></script>
-
-<!-- Simplebar -->
-<script src="${pageContext.request.contextPath}/resources/vendor/simplebar/dist/simplebar.min.js"></script>
-
-<!-- Github buttons -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-<!-- Volt JS -->
-<script src="${pageContext.request.contextPath}/resources/assets/js/volt.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	
+	<!-- Vendor JS -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+	
+	<!-- Slider -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/nouislider/distribute/nouislider.min.js"></script>
+	
+	<!-- Smooth scroll -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+	
+	<!-- Charts -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/chartist/dist/chartist.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+	
+	<!-- Datepicker -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+	
+	<!-- Sweet Alerts 2 -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	
+	<!-- Moment JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+	
+	<!-- Vanilla JS Datepicker -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+	
+	<!-- Notyf -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/notyf/notyf.min.js"></script>
+	
+	<!-- Simplebar -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/simplebar/dist/simplebar.min.js"></script>
+	
+	<!-- Github buttons -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+	<!-- Volt JS -->
+	<script src="${pageContext.request.contextPath}/resources/assets/js/volt.js"></script>
 
     
 </body>
