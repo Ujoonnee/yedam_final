@@ -14,7 +14,7 @@ public interface MemberService {
 	boolean idCheck(String str); // id중복체크
 	
 	// 조준우
-	public String loginCheck(MemberVO vo, HttpSession session);
+	public MemberVO loginCheck(MemberVO vo, HttpSession session);
 	public void logout(HttpSession session);
 	
 	

@@ -51,7 +51,7 @@ public interface ProductService {
 //	Hong
 
 //	상품예약목록 
-	public List<ProductReservation> proReSelectAll();
+	public List<ProductReservation> proReSelectAll(HttpServletRequest request);
  
 //  페이징
 	int totalCnt(ProductPagingCriteria cri);

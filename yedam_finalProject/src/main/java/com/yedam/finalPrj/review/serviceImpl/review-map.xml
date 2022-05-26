@@ -3,10 +3,19 @@
 <mapper namespace="com.yedam.finalPrj.review.serviceImpl.ReviewMapper">
 
 	<insert id="insert" >
-		INSERT INTO REVIEW VALUES(
-		SEQ_REVIEW.NEXTVAL, '1', '시설', #{score}, #{content}, '감사합니다.', default, default, '22'
-		)
+		INSERT INTO REVIEW(REV_NO, RES_NO, CATEGORY, SCORE, CONTENT, REV_TIME, REPLY_TIME, MEM_NO) 
+		VALUES(SEQ_REVIEW.NEXTVAL, (SELECT NVL(MAX(RES_NO), 0) + 1 FROM REVIEW), '시설', #{score}, #{content}, default, default, #{memNo})
 	</insert>
 	
-
+	<select id="reviewSelectAll" resultType="com.yedam.finalPrj.review.service.ReviewVO">
+		SELECT service_name, score, content, reply_content, res_no AS facResNo
+		FROM review 
+		WHERE mem_no = #{memNo}
+	</select>
+	
+	<update id="reviewUpdate" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
+		UPDATE review SET content = #{content}
+		WHERE rev_no = #{revNo}
+	</update>
+	
 </mapper>

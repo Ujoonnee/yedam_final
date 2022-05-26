@@ -239,11 +239,7 @@ public class ProductServiceImpl implements ProductService {
 //	Hong
 
 
-	@Override
-	public List<ProductReservation> proReSelectAll() {
-		// TODO Auto-generated method stub
-		return map.proReSelectAll();
-	}
+
 	@Override
 	public int totalCnt(ProductPagingCriteria cri) {
 		// TODO Auto-generated method stub
@@ -253,6 +249,16 @@ public class ProductServiceImpl implements ProductService {
 	public ProductReservation proReDetail(ProductReservation vo) {
 		// TODO Auto-generated method stub
 		return map.proReDetail(vo);
+	}
+	
+//	전제 예약조회
+	@Override
+	public List<ProductReservation> proReSelectAll(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		String memType = user.getMemType();
+		System.out.println("======serviceImpl"+user);
+		return map.proReSelectAll(user);
 	}
 	@Override
 	public List<ProductReservation> proReDetailList() {

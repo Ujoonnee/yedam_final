@@ -26,6 +26,7 @@
 				event.preventDefault();
 				location.href = "/findOne?annNo=${announcement.annNo}"
 	})	
+	
 	//  업데이트 폼 아래 경고 문구가 뜰 시 수정이 안되게 만들어둠.
 	$(".update_btn").on("click", function(){
 		if(fn_valiChk()){
@@ -35,7 +36,9 @@
 		formObj.attr("method", "post");
 		formObj.submit();
 	})
-		 
+	
+	
+	
 	// 제목에 아무값이 없을시 경고 문구 알럴트로 띄워줌 경고 문구
 	function fn_valiChk(){
 			var updateForm = $("form[name='updateForm'] .chk").length;
@@ -52,11 +55,23 @@
 		$(".fileAdd_btn").on("click", function(){
 			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		})
-		//  삭제 버튼 누를 시 상태가 Y N값으로 변경되는 건데 이건 아예 삭제되게 만들어야함
+		// 삭제 버튼 누를 시 상태가 Y N값으로 변경되는 건데 이건 아예 삭제되게 만들어야함
+		// 
 		$(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();
 		})
 	}
+		// 파일삭제 
+		var fileNoArry = new Array();
+		var fileNameArry = new Array();
+		function fn_del(value, name){
+			
+			fileNoArry.push(value);
+			fileNameArry.push(name);
+			$("#fileNoDel").attr("value", fileNoArry);
+			$("#fileNameDel").attr("value", fileNameArry);
+		}
+	
 </script>
 <body>
 
@@ -76,7 +91,7 @@
 							value="${announcement.title}" /></td>
 					</tr>
 					<tr>
-						<td bgcolor="">작성자</td>
+						<td>작성자</td>
 						<td align="left">관리자</td>
 					</tr>
 					<tr>
@@ -91,7 +106,7 @@
 					<tr>
 						<td>
 							<select name="status">
-								<option value="" disabled="disabled" selected>공개여부</option>
+								<option value="00501" selected>공개여부</option>
 								<option value="00501">공개</option>
 								<option value="00502">우선순위</option>
 								<option value="00503">비공개</option>
@@ -104,20 +119,20 @@
 			<div>
 				<div>파일 목록</div>
 				<div id="fileIndex">
-					<c:forEach var="file" items="${file}">
+					<c:forEach var="file" items="${file}" varStatus="var">
 							<input type="hidden" id="FILE_NO" name="fileNo_${var.index }" value="${file.FILE_NO}" >
 							<input type="hidden" id="FILE_NAME" name="fileName" value="FILE_NO_${var.index}">
 							<a href="#" id="fileName" onclick="return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
-							<button id="fileDels" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
+							<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
 					</c:forEach>
 				</div>
 			</div>
 				
 			
 			<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
+			<button type="submit" class="update_btn">수정</button>
 			<button type="button" class="cancel_btn">취소</button>
 			<button type="button" class="fileAdd_btn">파일추가</button>
-			<button type="submit" class="update_btn">수정</button>
 		</form>
 </section>
 	
@@ -126,17 +141,15 @@
 </body>
 <script type="text/javascript">
  		//글 목록
-		/* $('#list').click(function(e){
+	$('#list').click(function(e){
 			e.preventDefault();
 			var $form = $('<form></form>');
-			$form.attr('action','findAll');
+			$form.attr('action','announcement');
 			$form.attr('method','get');
 			$form.appendTo('body');
 			
-			$form.append("<input type='hidden' name='pageNum' value='<c:out value='${cri.pageNum}'/>'>");
-			$form.append("<input type='hidden' name='amount' value='<c:out value='${cri.amount}'/>'>");
 			$form.submit();
 		});
-	});  */
+	 
 </script>
 </html>

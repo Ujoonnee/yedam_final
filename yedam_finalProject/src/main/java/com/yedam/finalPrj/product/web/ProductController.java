@@ -118,18 +118,20 @@ public class ProductController {
 	
 //	상품 예약 목록
 	@RequestMapping(value = "/proReSelectAll", method = RequestMethod.GET)
-	public String proReSelectAll(Model model, ProductPagingCriteria cri) {
-		model.addAttribute("proReSelectAll", dao.proReSelectAll());
+	public String proReSelectAll(Model model, ProductPagingCriteria cri, HttpServletRequest request) {
+		model.addAttribute("proReSelectAll", dao.proReSelectAll(request));
 		model.addAttribute("paging", new ProductPageMaker(cri, dao.totalCnt(cri)));
-		return "store/productReservation";
+		return "provider/store/productReservation";
 	}
 
 //  상품예약목록 상세페이지
 	@RequestMapping(value = "/proReDetail" , method = RequestMethod.GET)
-	public String proReDetail(Model model, ProductReservation vo) {
+	public String proReDetail(Model model, ProductReservation vo, HttpServletRequest request) {
 		model.addAttribute("proRe", dao.proReDetail(vo));
-		model.addAttribute("detailList", dao.proReDetailList());
-		return "store/productReservationDetail";
+//	   TODO  세션 가져오기 
+//		model.addAttribute("detailList", dao.proReDetailList(user));
+		
+		return "provider/store/productReservationDetail";
 	}
 	
 	
