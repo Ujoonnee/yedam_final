@@ -16,4 +16,5 @@ public class Store {
 	private String tel;
 	private String thumbnail;
 	private int storeCnt;
+	private int memNo;
 }

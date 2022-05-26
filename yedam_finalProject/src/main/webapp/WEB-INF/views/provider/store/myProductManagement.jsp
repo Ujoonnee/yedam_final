@@ -102,10 +102,13 @@
 				 data-thumbnail="${list.prodThumbnail }"  data-prodCat="${list.prodCat }" data-status ="${list.status }"
 				 >
 				 ${list.prodNo }</td>	
-			<c:if test="${list.prodThumbnail eq null } ">	
-			<td align="center"><button >사진등록</button></td>
-			</c:if>	
-			<td align="center">${list.prodThumbnail }</td>
+			<c:if test = "${list.prodThumbnail != null}">
+			<td align="center"> ${list.prodThumbnail }</td></c:if>
+			<c:if test ="${list.prodThumbnail == null }">
+				<td align = "center">
+					<input type="file" class = "thumbnail_file_upload" name="fileUpload" value ="사진등록">
+				</td>
+			</c:if>
 			<td align="center">${list.prodName }</td>		
 			<td align="center">${list.prodCat }</td>		
 			<td align="center">${list.price }</td>		
@@ -171,6 +174,87 @@
 
 
 <script>
+
+// 		$(document).ready(function(){
+// 			var formObj = $("form[name='fileUploadForm']");
+// 			$(".fileUploadForm").on("click", function(){
+// 				if(fn_valiChk()){
+// 					return false;
+// 				}
+// 				formObj.attr("action", "ThumbnailUpdate");
+// 				formObj.attr("method", "post");
+// 				formObj.submit();
+// 			});
+// 		})
+
+// 		$('.thumbnail_file_upload').addEventListener('change', () => {
+// 			if(!confirm("사진을 등록하시겠습니까?")){
+// 				alert("취소되었습니다.")
+// 			}else{
+// 				var form = new FormData();
+// 				  form.append( "prodThumbnail", $(".file1").files[0] );
+			        
+// 			         jQuery.ajax({
+// 			             url : "ThumbnailUpdate"
+// 			           , type : "POST"
+// 			           , processData : false
+// 			           , contentType : false
+// 			           , data : form
+// 			           , success:function(response) {
+// 			               alert("성공하였습니다.");
+// 			               console.log(response);
+// 			           }
+// 			           ,error: function (jqXHR) 
+// 			           { 
+// 			               alert(jqXHR.responseText); 
+// 			           }
+// 			}
+					
+// 		});
+// 		function fn_valiChk(){
+// 			var regForm = $("form[name='fileUploadForm'] .chk").length;
+// 			for(var i = 0; i<regForm; i++){
+// 				if($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null){
+// 					alert($(".chk").eq(i).attr("title"));
+// 					return true;
+// 				}
+// 			}
+// 		}
+// 		function uploadFile(event){ 
+// 			var input = event.target; 
+// 			var reader = new FileReader(); 
+// 			reader.onload = function(){
+// 				var fdata = reader.result; 
+// 				var read_buffer = XLSX.read(fdata, {type : 'binary'}); 
+// 				read_buffer.SheetNames.forEach(function(sheetName){
+// 					var rowdata =XLSX.utils.sheet_to_json(read_buffer.Sheets[sheetName]); 
+// //	 				엑셀 등록 처리 AJAX
+// 					var obj = JSON.stringify(rowdata);
+// 					updateThumbnail(obj);
+			
+// 				}) 
+// 			};
+// 			reader.readAsBinaryString(input.files[0]);
+// 		}
+		
+// 		function updateThumbnail(obj){
+// 			console.log(obj);
+// 			$.ajax({
+// 		        type: "post",
+// 		        url : "ThumbnailUpdate",
+// 		        dataType: "json",
+// 		        data : {prodThumbnail: obj},
+// 		        success : function (data){
+// 		  			location.reload();
+// 		        	console.log(data);	
+// 		        	alert("등록성공");
+// 		        },
+// 		        error : function(e){
+// // 		  			location.reload();
+// 		        	console.log(e);
+// 		        }
+// 			})
+// 		}
 		$("#submitOne").on('click',function(){ // 제출 버튼 이벤트 지정
 		    $.ajax({
 		        url: "singleProductRegist", 
@@ -311,7 +395,10 @@
 		for(let obj of checkList) {
 			
 			const tr = $('<tr>').attr('name','checkVal');
-			tr.append($('<td>').html(obj.사진))
+			
+			const button = $('<input>').attr('name','pictureVal').attr('value',obj.사진).attr('type','button');
+// 			tr.append($('<td>').html(obj.사진))
+			tr.append($('<td>').append(button));
 			tr.append($('<td>').html(obj.카테고리))
 			tr.append($('<td>').html(obj.가격))
 			tr.append($('<td>').html(obj.상품명))
@@ -344,9 +431,6 @@
 			
 			$('#tbody').append(tr);
 		}
-// 			tr.append($('<td>'). )
-// 		const stock2 = $('<select>').attr('option','option');
-  	  
 		
   	}
 	
@@ -484,7 +568,7 @@
 	  			location.reload();
 	        	console.log(e);
 	        }
-	})
+		})
 	}
 // 	엑셀 끝
 

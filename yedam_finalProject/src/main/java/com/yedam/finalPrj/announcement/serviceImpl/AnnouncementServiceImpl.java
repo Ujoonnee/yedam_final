@@ -1,6 +1,7 @@
 package com.yedam.finalPrj.announcement.serviceImpl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,21 +16,22 @@ import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
 import com.yedam.finalPrj.common.FileUtils;
+import com.yedam.finalPrj.common.FileVO;
 
 @Service("AnnouncementServiceImpl")
 public class AnnouncementServiceImpl implements AnnouncementService {
 
 	@Autowired
 	AnnouncementMapper map;
-
+	
 	@Autowired
 	FileUtils file;
 	
 	@Override
-	public List<AnnouncementVO> findAll(AnnouncementPagingCriteria paging) {
-		return map.findAll(paging);
+	public List<AnnouncementVO> adminFindAll(AnnouncementPagingCriteria paging) {
+		return map.adminFindAll(paging);
 	}
-
+	
 	@Override
 	public List<AnnouncementVO> getTopList() {
 		return map.getTopList();
@@ -123,12 +125,38 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 
 	@Override
-	public String fileDelete(HttpServletRequest request, HttpServletResponse response) {
+	public String fileDelete(FileVO file) {
 		
 		
 		
 		
+		return map.fileDelete(file);
+	}
+	
+	
+	@Override
+	public int statusUpdates(Map<String, Object> maps) {
+			
+		return map.statusUpdates(maps);
+	}
+
+	@Override
+	public List<AnnouncementVO> annFindAll(Map<String, Object> map) {
 		return null;
 	}
+
+	@Override
+	public List<AnnouncementVO> userFindAll(AnnouncementPagingCriteria paging) {
+		return map.userFindAll(paging);
+	}
+
+	@Override
+	public int statusDelete(Map<String, Object> maps) {
+		return map.statusDelete(maps);
+	}
+
+	@Override
+	public int topStatus(Map<String, Object> maps) {
+		return map.topStatus(maps);
+	}
 }
-	

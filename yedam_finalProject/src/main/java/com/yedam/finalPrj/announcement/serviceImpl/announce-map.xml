@@ -16,8 +16,8 @@
 			</when>
 		</choose>
 	</sql>
-	<!-- 공지사항 목록 -->	
-	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
+	<!-- 관리자 공지사항 목록 -->	
+	<select id="adminFindAll" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 			SELECT ann_no, title, ann_content, ann_date, ann_view, status
 			FROM	(SELECT rownum rn, ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
 				     FROM ANNOUNCEMENT
@@ -26,24 +26,36 @@
 	     <![CDATA[
             		 AND  rownum <= #{pageNum} * #{amount})
 			WHERE rn > (#{pageNum}-1) * #{amount}
-			ORDER BY ann_date DESC
 		]]>
 	</select>
+	<!-- 일반 유저 공지사항 목록 -->
+	<select id="userFindAll" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
+			SELECT ann_no, title, ann_content, ann_date, ann_view, status
+			FROM	(SELECT rownum rn, ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
+				     FROM ANNOUNCEMENT
+				     WHERE status IN ('00501','00502')
+		<include refid="AnnouncementPagingCriteria"/>
+	     <![CDATA[
+            		 AND  rownum <= #{pageNum} * #{amount})
+			WHERE rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+	<!-- 다중 쿼리를 위해서 따로 만든 값만 가지고오는 map -->
+	<select id="annFindAll" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO" parameterType="map">
+		SELECT * FROM ANNOUNCEMENT LIMIT #{start}, #{limit}
+	</select>
 	
+	<!-- 상단고정 -->
 	<select id="getTopList" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 		SELECT ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
 		FROM announcement
 		WHERE status='00502'
 	</select>
-
+	<!-- 상세페이지 -->
 	<select id="findOne" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 		SELECT * FROM ANNOUNCEMENT WHERE ANN_NO = #{annNo}
 	</select>
-
-	<update id="annUpdate" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
-		update ANNOUNCEMENT SET title = #{title}, ANN_CONTENT = #{annContent}, status = #{status} WHERE ANN_NO = #{annNo}
-	</update>
-
+	<!-- 조회수 -->
 	<update id="updateView" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 		UPDATE ANNOUNCEMENT SET ann_view = ann_view + 1 WHERE
 		ANN_NO = #{annNo}
@@ -59,7 +71,7 @@
 		ANN_DATE, ANN_VIEW,
 		STATUS, ANN_CNT)
 		VALUES (ann_seq.nextval, #{title}, #{annContent},
-		#{annDate}, #{annView}, DEFAULT, 0)
+		#{annDate}, #{annView}, #{status}, 0)
 	</insert>
 		<!-- 파일업로드 -->
 	<insert id="annInsertFile" parameterType="com.yedam.finalPrj.common.FileVO">
@@ -78,11 +90,40 @@
 		SELECT ORIGINAL_NAME, REPLACED_NAME FROM ATTACHED_FILE WHERE FILE_NO = #{fileNo} 
 	</select>
 	
+	<!-- 업데이트 -->
+	<update id="annUpdate" parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
+		update ANNOUNCEMENT SET title = #{title}, ANN_CONTENT = #{annContent}, status = #{status} WHERE ANN_NO = #{annNo}
+	</update>
+	
+	
+	<!-- 상태 다중 업데이트 -->
+	<update id="statusUpdates" parameterType="map">
+		UPDATE ANNOUNCEMENT SET status = #{status} WHERE ANN_NO IN
+		<foreach collection="list" index="index" item="annNo" open="(" separator="," close=")">
+			#{annNo}
+		</foreach>
+	</update>
+	
+	<update id="topStatus" parameterType="map">
+		UPDATE ANNOUNCEMENT SET status = #{status} WHERE ANN_NO IN
+		<foreach collection="list" index="index" item="annNo" open="(" separator="," close=")">
+			#{annNo}
+		</foreach>
+	</update>
+	
+	
+	<update id="statusDelete" parameterType="map">
+		UPDATE ANNOUNCEMENT SET status = #{status} WHERE ANN_NO IN
+		<foreach collection="list" index="index" item="annNo" open="(" separator="," close=")">
+			#{annNo}
+		</foreach>
+	</update>
+	
 	<!-- 첨부파일 수정, 삭제하는 쿼리 -->
 	<update id="fileUpdate" parameterType="hashMap">
 		UPDATE ATTACHED_FILE SET status = 'Y' WHERE FILE_NO = #{fileNo} 
 	</update> 
-	<delete id="fileDelete" parameterType="hashMap">
+	<delete id="fileDelete" parameterType="com.yedam.finalPrj.common.FileVO">
 		DELETE ATTACHED_FILE WHERE file_no = #{fileNo}
 	</delete>
 	<!-- 페이지 갯수 구하는거 -->
@@ -93,4 +134,5 @@
 		<include refid="AnnouncementPagingCriteria"/>
 		AND ANN_NO>0
 	</select>
+	
 </mapper>

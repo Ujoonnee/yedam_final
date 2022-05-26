@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class Store {
-	private long storeNo;
+public class StoreVO {
+	private int storeNo;
 	private String category;
 	private String name;
 	private String storeCat;
