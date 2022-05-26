@@ -77,7 +77,8 @@
 		<option value="00503">비공개</option>
 	</select>
 	<input type="submit" id="changeStatus" value="상태변경">
-	<input type="submit" id="delete" formaction="statusDelete" name="status" value="삭제">		
+	<input type="submit" id="delete" formaction="statusDelete" name="status" value="삭제">
+	<button type="button" onclick="location.href='insertPage'">글작성</button>		
 </form>
 
 
@@ -113,24 +114,6 @@ $('#pagingDiv a').click(function(e){
 		$('#pageNum').val($(this).attr("href"));
 		pagingForm.submit();
 	});
-
-
-	
-	// 상단고정 해제
-  	/* $('.unfixBtn').click( () => {
-		event.stopPropagation();
-		
-		
-		const unfix = confirm('상단고정 해제?');
-		
-		
-		<td><button type="submit" class="unfixBtn" name="lists" formaction="topStatus" value="${announcement.annNo }">상단해제</button></td>		
-		if (!unfix) return;
-		
-		const memNo = $(event.target.parentNode).next().html();
-		
-		
-	}) */
 
 	$('.chk').click( () => event.stopPropagation());   
 	

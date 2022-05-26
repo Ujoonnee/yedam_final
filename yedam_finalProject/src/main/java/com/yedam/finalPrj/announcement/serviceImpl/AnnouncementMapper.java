@@ -30,7 +30,6 @@ public interface AnnouncementMapper {
 	Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
 	public void fileUpdate(Map<String, Object>maps);
-	public String fileDelete(FileVO file);
 	
 	//	Announcement annInsert(Announcement announcement);
 	

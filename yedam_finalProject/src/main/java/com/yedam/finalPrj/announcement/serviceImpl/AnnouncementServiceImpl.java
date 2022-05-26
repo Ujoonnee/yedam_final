@@ -1,12 +1,8 @@
 package com.yedam.finalPrj.announcement.serviceImpl;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,22 +113,13 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 //			N이면 update하는 문장
 			if (tempMap.get("IS_NEW").equals("Y")) {
 				map.annInsertFile(tempMap);
-			} else if(tempMap.get("IS_NEW").equals("N")){
+			} else{
 				map.fileUpdate(tempMap);
 			}
 		}
 	
 	}
 
-	@Override
-	public String fileDelete(FileVO file) {
-		
-		
-		
-		
-		return map.fileDelete(file);
-	}
-	
 	
 	@Override
 	public int statusUpdates(Map<String, Object> maps) {

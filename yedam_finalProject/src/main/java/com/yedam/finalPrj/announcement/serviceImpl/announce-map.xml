@@ -67,11 +67,9 @@
 	<insert id="annInsert"
 		parameterType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 		
-		INSERT INTO ANNOUNCEMENT(ANN_NO, TITLE, ANN_CONTENT,
-		ANN_DATE, ANN_VIEW,
-		STATUS, ANN_CNT)
+		INSERT INTO ANNOUNCEMENT
 		VALUES (ann_seq.nextval, #{title}, #{annContent},
-		#{annDate}, #{annView}, #{status}, 0)
+		#{annDate}, #{annView}, #{status})
 	</insert>
 		<!-- 파일업로드 -->
 	<insert id="annInsertFile" parameterType="com.yedam.finalPrj.common.FileVO">

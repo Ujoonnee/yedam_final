@@ -37,7 +37,6 @@ public interface AnnouncementService {
 	public Map<String, Object> selectFileInfo(Map<String, Object> maps) throws Exception;
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
 	public void fileUpdate(Map<String, Object>maps);
-	public String fileDelete(FileVO file);
 
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);

@@ -23,6 +23,7 @@ import com.yedam.finalPrj.announcement.service.AnnouncementPageMaker;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
+import com.yedam.finalPrj.common.FileVO;
 
 @Controller
 public class AnnouncementController {
@@ -78,9 +79,11 @@ public class AnnouncementController {
 	// 공지사항 등록
 	
 	  @RequestMapping(value = "admin/annInsert", method = RequestMethod.POST) 
-	  public void anninsert(AnnouncementVO announcement, MultipartHttpServletRequest fileRequest) throws IOException {
+	  public String anninsert(AnnouncementVO announcement, MultipartHttpServletRequest fileRequest) throws IOException {
 		  System.out.println(fileRequest.getSession().getServletContext().getRealPath("/resources/announcement"));
 		  service.annInsert(announcement,fileRequest);
+		  
+		  return "redirect:announcement";
 	  }
 	 
 	
@@ -96,9 +99,7 @@ public class AnnouncementController {
 	@RequestMapping("main/annDetail")
 	public String findOne(AnnouncementVO announcement, Model model,
 			@ModelAttribute("cri") AnnouncementPagingCriteria cri) throws Exception {
-
 		service.updateView(announcement);
-		System.out.println("NUMBER : " + announcement.getAnnNo());
 
 		model.addAttribute("announcement", service.findOne(announcement));
 		
@@ -117,10 +118,9 @@ public class AnnouncementController {
 			@RequestParam(value="fileNoDel[]") String[] files,
 			@RequestParam(value="fileNameDel[]") String[] fileNames,
 			MultipartHttpServletRequest fileRequest,
-			@ModelAttribute AnnouncementPagingCriteria cri) throws Exception {
+			@ModelAttribute AnnouncementPagingCriteria cri, FileVO file) throws Exception {
 		
 		service.annUpdate(announcement, files, fileNames, fileRequest);
-		
 		
 		return "redirect:announcement";
 	}

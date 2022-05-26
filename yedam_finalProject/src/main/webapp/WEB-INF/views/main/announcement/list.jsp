@@ -92,25 +92,6 @@ $('#pagingDiv a').click(function(e){
 		$('#pageNum').val($(this).attr("href"));
 		pagingForm.submit();
 	});
-
-
-	// 상단고정 해제
-	$('.unfixBtn').click( () => {
-		event.stopPropagation();
-		
-		const unfix = confirm('상단고정 해제?');
-		
-		if (!unfix) return;
-		
-		const memNo = $(event.target.parentNode).next().html();
-		
-		
-	})
-
-	$('.chk').click( () => event.stopPropagation()); 
-	
-	
-
 </script>
 </body>
 </html>
