@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.product.service.ProductService;
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
-import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 
 
 
@@ -112,10 +114,11 @@ public class ProductController {
 
 //  상품예약목록 상세페이지
 	@RequestMapping(value = "/proReDetail" , method = RequestMethod.GET)
-	public String proReDetail(Model model, ProductReservation vo, HttpServletRequest request) {
+	public String proReDetail(Model model, ProductReservationVO vo) {
+		
 		model.addAttribute("proRe", dao.proReDetail(vo));
 //	   TODO  세션 가져오기 
-//		model.addAttribute("detailList", dao.proReDetailList(user));
+		model.addAttribute("proReDetail", dao.proReDetailList(vo));
 		
 		return "provider/store/productReservationDetail";
 	}

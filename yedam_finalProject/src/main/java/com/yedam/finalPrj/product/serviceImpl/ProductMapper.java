@@ -11,7 +11,7 @@ import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
-import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 
 public interface ProductMapper {
 	
@@ -36,22 +36,22 @@ public interface ProductMapper {
 	int myStoreProductCnt(ProductPagingCriteria cri);
 	int oneProductInsert(Product product);
 //	통계조회
-	List<ProductReservation> salesbyDate(int storeNo);
+	List<ProductReservationVO> salesbyDate(int storeNo);
 //	통계 날짜 검색
-	List<ProductReservation> searchDateInStatistics(Statistics vo);
+	List<ProductReservationVO> searchDateInStatistics(Statistics vo);
 
 //	Hong
 	// 상품예약목록 
-	public List<ProductReservation> proReSelectAll(MemberVO user);
+	public List<ProductReservationVO> proReSelectAll(MemberVO user);
 
 //  페이징
 	int totalCnt(ProductPagingCriteria cri);
 	
 //	상세페이지 이동
-	ProductReservation proReDetail(ProductReservation vo);
+	ProductReservationVO proReDetail(ProductReservationVO vo);
 
 //  상세페이지 상품목록
-	public List<ProductReservation> proReDetailList();
+	public List<ProductReservationVO> proReDetailList(ProductReservationVO vo);
 	
 //	Jo
 	

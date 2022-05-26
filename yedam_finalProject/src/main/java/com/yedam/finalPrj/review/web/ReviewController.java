@@ -35,15 +35,4 @@ public class ReviewController {
 	}
 	
 	
-//	리뷰 수정
-//	@ResponseBody
-//	@RequestMapping("/reviewUpdate")
-//	public String reviewUpdate( Model model, @ModelAttribute Review vo) {
-//		mapper.reviewUpdate(vo);
-//		Map<String,Object> map = new HashMap<>();
-//		map.put("isSuccess", true);
-//		model.addAttribute("reviewUpdate", vo.getContent());
-//		return "review/reviewList";
-//	}
-	
 }

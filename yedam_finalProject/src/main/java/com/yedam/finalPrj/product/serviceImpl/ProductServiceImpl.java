@@ -18,7 +18,7 @@ import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
-import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 
 
 
@@ -145,12 +145,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductReservation> salesbyDate(int storeNo) {
+	public List<ProductReservationVO> salesbyDate(int storeNo) {
 		// TODO Auto-generated method stub
 		return map.salesbyDate(storeNo);
 	}
 	@Override
-	public List<ProductReservation> searchDateInStatistics(Statistics vo) {
+	public List<ProductReservationVO> searchDateInStatistics(Statistics vo) {
 		// TODO Auto-generated method stub
 		return map.searchDateInStatistics(vo);
 	}
@@ -166,14 +166,14 @@ public class ProductServiceImpl implements ProductService {
 		return map.totalCnt(cri);
 	}
 	@Override
-	public ProductReservation proReDetail(ProductReservation vo) {
+	public ProductReservationVO proReDetail(ProductReservationVO vo) {
 		// TODO Auto-generated method stub
 		return map.proReDetail(vo);
 	}
 	
 //	전제 예약조회
 	@Override
-	public List<ProductReservation> proReSelectAll(HttpServletRequest request) {
+	public List<ProductReservationVO> proReSelectAll(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		String memType = user.getMemType();
@@ -181,9 +181,8 @@ public class ProductServiceImpl implements ProductService {
 		return map.proReSelectAll(user);
 	}
 	@Override
-	public List<ProductReservation> proReDetailList() {
-		// TODO Auto-generated method stub
-		return map.proReDetailList();
+	public List<ProductReservationVO> proReDetailList(ProductReservationVO vo) {
+		return map.proReDetailList(vo);
 	}
 
 
