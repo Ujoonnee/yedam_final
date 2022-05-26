@@ -172,21 +172,21 @@
 <!-- 		Hong -->
 
 	<!-- 상품 예약 목록 -->
-	<select id="proReSelectAll" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservation">
+	<select id="proReSelectAll" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO">
 		SELECT r.prod_res_no, m.name, r.pickup_time, r.payment_status, m.mem_type
 		FROM member m , product_reservation r
 		WHERE m.mem_no = r.mem_no
 	</select>
 
 	<!-- 상품예약상세 -->
-	<select id="proReDetail" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservation">
+	<select id="proReDetail" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO">
 		SELECT r.prod_res_no , m.name, m.tel, r.pickup_time
 		FROM member m, product_reservation r
 		WHERE m.mem_no = r.mem_no
 		AND r.prod_res_no = #{prodResNo}
 	</select>
 	
-	<select id="proReDetailList" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservation">
+	<select id="proReDetailList" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO">
 		SELECT p.prod_thumbnail, p.prod_name, p.price, rd.count, (p.price * rd.count) AS payment
 		FROM product p , reserved_product rd
 		WHERE rd.prod_no = p.prod_no

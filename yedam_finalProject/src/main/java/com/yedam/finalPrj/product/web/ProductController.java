@@ -27,7 +27,7 @@ import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
-import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 
 
 
@@ -188,10 +188,11 @@ public class ProductController {
 
 //  상품예약목록 상세페이지
 	@RequestMapping(value = "/proReDetail" , method = RequestMethod.GET)
-	public String proReDetail(Model model, ProductReservation vo, HttpServletRequest request) {
+	public String proReDetail(Model model, ProductReservationVO vo) {
+		
 		model.addAttribute("proRe", dao.proReDetail(vo));
 //	   TODO  세션 가져오기 
-//		model.addAttribute("detailList", dao.proReDetailList(user));
+		model.addAttribute("proReDetail", dao.proReDetailList(vo));
 		
 		return "provider/store/productReservationDetail";
 	}

@@ -53,11 +53,11 @@
 					<td>
 						<c:set var="status" value="N"/>
 							<c:choose>
-								<c:when test="${exRes.status eq 'N' }">
+								<c:when test="${exRes.paymentStatus eq 'N' }">
 									미결제
 								</c:when>
 								
-								<c:when test="${exRes.status eq 'Y' }">
+								<c:when test="${exRes.paymentStatus eq 'Y' }">
 									결제
 								</c:when>
 								

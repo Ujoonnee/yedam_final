@@ -37,7 +37,7 @@ public class ExhibitionController {
 	// 홍제
 
 	// 내 예약 목록
-	@GetMapping("/exSelectAllReservation")
+	@GetMapping("exSelectAllReservation")
 	public String exSelectAllReservation(PagingVO vo, Model model) {
 		List<ExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion();
 		int total = service.totalCnt(vo);

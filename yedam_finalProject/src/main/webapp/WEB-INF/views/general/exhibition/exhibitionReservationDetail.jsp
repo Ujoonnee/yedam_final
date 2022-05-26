@@ -21,11 +21,11 @@
 			<td>
 				<c:set var="status" value="N"/>
 					<c:choose>
-						<c:when test="${exRes.status eq 'N' }">
+						<c:when test="${exRes.paymentStatus eq 'N' }">
 							취소
 						</c:when>
 						
-						<c:when test="${exRes.status eq 'Y' }">
+						<c:when test="${exRes.paymentStatus eq 'Y' }">
 							결제
 						</c:when>
 				
@@ -76,7 +76,7 @@
 		</tr>
 	</table>
 	<hr>
-	<c:if test="${exRes.status eq 'Y' }">
+	<c:if test="${exRes.paymentStatus eq 'Y' }">
 	<button>예약취소</button><button>리뷰작성</button>
 	</c:if>
 </body>
