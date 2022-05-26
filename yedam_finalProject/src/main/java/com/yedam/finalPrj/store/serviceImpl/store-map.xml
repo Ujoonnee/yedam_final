@@ -27,8 +27,8 @@
 			+1 END from store
 		</selectKey>
 		insert into store values(
-		#{store_no},#{category},#{name},#{store_cat},#{address},
-		#{latitude},#{longitude},#{tel},#{thumbnail},4)
+		#{store_no},'00204',#{name},#{store_cat},#{address},
+		#{latitude},#{longitude},#{tel},#{thumbnail},#{mem_no})
 	</insert>
 <!-- 매장 리스트 출력-->
 	<select id="storeList" 

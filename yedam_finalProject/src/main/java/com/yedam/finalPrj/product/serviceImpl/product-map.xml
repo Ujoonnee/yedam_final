@@ -88,11 +88,16 @@
 		SELECT COUNT(*) 
 	    FROM (SELECT *
 			FROM PRODUCT p
-			WHERE STORE_NO LIKE#{storeNo}
+			WHERE STORE_NO LIKE #{storeNo}
 			AND STORE_NO > 0)
 	    where price between #{lowPrice} and #{highPrice}
 	</select>
-		
+	
+	<select id = "getStoreNo" resultType= "int">
+		select store_no 
+		from store
+		where mem_no = #{memNo};
+	</select>
 	<select id = "myStoreProductManegement" resultType="com.yedam.finalPrj.product.vo.park.Product">
 	    select * 
 	    from product

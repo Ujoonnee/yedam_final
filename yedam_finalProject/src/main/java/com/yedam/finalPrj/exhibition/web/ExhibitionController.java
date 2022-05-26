@@ -23,6 +23,7 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPageMaker;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
+import com.yedam.finalPrj.member.serviceImpl.MemberServiceImpl;
 
 @Controller
 @RequestMapping("/exhibition/*")
@@ -31,13 +32,13 @@ public class ExhibitionController {
 	@Autowired
 	ExhibitionService service;
 
+	
 	// 홍제
 
 	// 내 예약 목록
 	@GetMapping("/exSelectAllReservation")
 	public String exSelectAllReservation(PagingVO vo, Model model) {
 		List<ExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion();
-
 		int total = service.totalCnt(vo);
 
 		model.addAttribute("exhibitionReservationVO", exhibitionReservationVO);
@@ -190,12 +191,6 @@ public class ExhibitionController {
 //	전시 목록 검색
 	@RequestMapping(value = "searchExhibition", method = { RequestMethod.GET })
 	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
-		System.out.println("검색이요");
-		System.out.println(cri.getExVO().getAddress());
-		System.out.println(cri.getExVO().getStartDate());
-		System.out.println(cri.getExVO().getEndDate());
-		System.out.println(cri.getKeyword());
-		System.out.println("검색 끝 보내기시작");
 		model.addAttribute("exhibitionList", service.searchEx(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
 		return "main/exhibition/exhibitionList";
@@ -206,6 +201,7 @@ public class ExhibitionController {
 	@RequestMapping(value = "detailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
 //		이건 추후에 삭제할거임 
+		request.getAttribute("");
 		MemberVO mem = new MemberVO();
 		mem.setName("길동");
 		mem.setTel("010-555-5555");
