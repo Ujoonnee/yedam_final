@@ -41,7 +41,7 @@ public interface ProductMapper {
 	
 	
 //	파일업로드
-	void thumbnailUpdate(Product product,MultipartFile multi, Model model) throws Exception;
+	String thumbnailUpdate(Product product) throws Exception;
 
 //	통계조회
 	List<ProductReservation> salesbyDate(int storeNo);

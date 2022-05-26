@@ -2,13 +2,11 @@ package com.yedam.finalPrj.product.service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
@@ -34,14 +32,14 @@ public interface ProductService {
 	 
 //	내 상품 관리
 	public List<Product> myStoreProductManegement(ProductPagingCriteria cri,HttpServletRequest request); //cri.storeNo사용
-	void myStoreProductInsert(String file);
+	void myStoreProductInsert(String file,HttpServletRequest request);
 	void myStoreProductUpdate(List<HashMap<String, String>> vo);
 	void myStoreProductDelete(List<HashMap<String, String>> vo);
 	int myStoreProductCnt(ProductPagingCriteria cri, HttpServletRequest request);
-	int oneProductInsert(Product product);
+	int oneProductInsert(Product product,HttpServletRequest request);
 //	파일업로드
 	
-	void myStoreProductUpdate(MultipartFile multi, Model model, Product vo);
+	String productThumbnailUpdate(MultipartFile multi, HttpServletRequest request,Model model, Product vo);
 	
 //	통계조회
 	List<ProductReservation> salesbyDate(int storeNo);
