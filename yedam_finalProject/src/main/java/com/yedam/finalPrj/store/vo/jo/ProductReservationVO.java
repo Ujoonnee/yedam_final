@@ -11,8 +11,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ProductReservation {
-	private long prodResNo;
+public class ProductReservationVO {
+	private int prodResNo;
 	private int storeNo;
 	private int memNo;
 	private Date pickupTime;
@@ -21,15 +21,15 @@ public class ProductReservation {
 	private String paymentAmt;
 	private String paymentStatus;
 	private Date orderDate;
-	
+	private String category;
 	/*
 	 * private ReservedProduct reservedProduct; private Store store; private Product
 	 * product;
 	 */
 	
-	@Autowired ReservedProduct reservedProduct;
-	@Autowired Store store;
+	@Autowired ReservedProductVO reservedProduct;
+	@Autowired StoreVO store;
 	
 	private MemberVO member;
-	private Product product;
+	private ProductVO product;
 }

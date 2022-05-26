@@ -11,15 +11,16 @@ import org.springframework.stereotype.Service;
 import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.review.service.Review;
 import com.yedam.finalPrj.review.service.ReviewService;
+import com.yedam.finalPrj.review.service.ReviewVO;
 
-@Service("ReviewService")
+@Service
 public class ReviewServiceImpl implements ReviewService {
 
 	@Autowired ReviewMapper map;
 
 
 	@Override
-	public int insert(Review vo) {
+	public int insert(ReviewVO vo) {
 		return 0;
 	}
 
@@ -37,14 +38,14 @@ public class ReviewServiceImpl implements ReviewService {
 
 
 	@Override
-	public Review reviewSelectOne(Review vo) {
+	public Review reviewSelectOne(ReviewVO vo) {
 		// TODO Auto-generated method stub
 		return map.reviewSelectOne(vo);
 	}
 
 
 	@Override
-	public int reviewUpdate(Review vo) {
+	public int reviewUpdate(ReviewVO vo) {
 		// TODO Auto-generated method stub
 		return map.reviewUpdate(vo);
 	}
