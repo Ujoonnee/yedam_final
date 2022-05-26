@@ -60,19 +60,19 @@
 		enctype="multipart/form-data">
 		<label>제목</label>
 		<div>
-			<input type="text" name="title">
+			<input type="text" name="title" required>
 		</div>
 		<br> <label>내용</label>
 		<div>
-			<textarea name="annContent"></textarea>
+			<textarea name="annContent" required></textarea>
 		</div>
 		<br>
 		<div>
-			날짜<input type="date" name="annDate">
+			날짜<input type="date" name="annDate" required>
 		</div>
 		<br>
 		<div>
-			<select name="status">
+			<select name="status" required>
 				<option value="" disabled="disabled" selected>공개여부</option>
 				<option value="00501">공개</option>
 				<option value="00502">우선순위</option>
@@ -89,7 +89,7 @@
 		<br>
 		<div>
 			<input class=".write_btn" type="submit" value="작성"> 
-			<input type="button" onclick="list" value="취소">
+			<input type="button" onclick="announcement" value="취소">
 		</div>
 	</form>
 	

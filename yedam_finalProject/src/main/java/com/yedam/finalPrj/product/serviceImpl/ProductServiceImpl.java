@@ -1,5 +1,8 @@
 package com.yedam.finalPrj.product.serviceImpl;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,9 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.yedam.finalPrj.common.FileUtils;
+import com.yedam.finalPrj.member.service.MemberService;
 import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.product.service.ProductService;
 import com.yedam.finalPrj.product.vo.park.Product;
@@ -22,14 +28,16 @@ import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 
 
 
-@Service("ProductService")
+@Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired ProductMapper map;
+	@Autowired FileUtils file;
+	@Autowired MemberService service;
 	
 //	Park
 //	매장의 상품 개수
 	@Override
-	public int productCnt(String prodNo) {
+	public int productCnt(int prodNo) {
 		// TODO Auto-generated method stub
 		return map.productCnt(prodNo);
 	}
@@ -64,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void search(ProductPagingCriteria cri, Model model,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		String store_no =  (String) (request.getParameter("store_no"));
+		int store_no =   Integer.parseInt(request.getParameter("store_no"));
 		System.out.println("/상품페이지/ 매장번호 값 확인: "+store_no);	
 		
 //		option 값에 따른 sql 구문 출력.
@@ -86,17 +94,23 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 	@Override
-	public List<Product> myStoreProductManegement(ProductPagingCriteria cri) {
+	public List<Product> myStoreProductManegement(ProductPagingCriteria cri,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		
-		cri.setStoreNo("4");
-		System.out.println(cri.getStoreNo());
+		MemberVO user = (MemberVO) request.getAttribute("user");
+		System.out.println("myStoreProductManagement 에서 user세션값"+user);
+		int memNo = map.getStoreNo(user);
+		System.out.println("getStoreNo : "+memNo);
+		cri.setStoreNo(memNo);
 		return map.myStoreProductManegement(cri);
 	}
 	@Override
-	public int myStoreProductCnt(ProductPagingCriteria cri) {
+	public int myStoreProductCnt(ProductPagingCriteria cri,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		cri.setStoreNo("4");
+		MemberVO user = (MemberVO) request.getAttribute("user");
+		
+		int memNo = map.getStoreNo(user);
+		System.out.println("getStoreNo : "+memNo);
+		cri.setStoreNo(memNo);
 		return map.myStoreProductCnt(cri);
 	}
 	@Override
@@ -104,7 +118,60 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return map.oneProductInsert(product);
 	}
-
+	
+	@Override
+	public void myStoreProductUpdate(MultipartFile multi, Model model, Product vo) {
+		// TODO Auto-generated method stub
+		String path="C:\\image\\";
+		
+		String url = null;
+		
+		String uploadpath = path;
+        String originFilename = multi.getOriginalFilename();
+        String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
+        long size = multi.getSize();
+        String saveFileName = genSaveFileName(extName);
+        
+        System.out.println("uploadpath : " + uploadpath);
+        
+        System.out.println("originFilename : " + originFilename);
+        System.out.println("extensionName : " + extName);
+        System.out.println("size : " + size);
+        System.out.println("saveFileName : " + saveFileName);
+        
+        if(!multi.isEmpty())
+        {
+            File file = new File(uploadpath, multi.getOriginalFilename());
+            try {
+				multi.transferTo(file);
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+            model.addAttribute("filename", multi.getOriginalFilename());
+            model.addAttribute("uploadPath", file.getAbsolutePath());
+            
+//            return "filelist";
+        }
+        return ;
+	}
+	// 현재 시간을 기준으로 파일 이름 생성
+	 private String genSaveFileName(String extName) {
+	        String fileName = "";
+	        
+	        Calendar calendar = Calendar.getInstance();
+	        fileName += calendar.get(Calendar.YEAR);
+	        fileName += calendar.get(Calendar.MONTH);
+	        fileName += calendar.get(Calendar.DATE);
+	        fileName += calendar.get(Calendar.HOUR);
+	        fileName += calendar.get(Calendar.MINUTE);
+	        fileName += calendar.get(Calendar.SECOND);
+	        fileName += calendar.get(Calendar.MILLISECOND);
+	        fileName += extName;
+	        
+	        return fileName;
+	    }
 	@Override
 	public void myStoreProductInsert(String file) {
 		file = file.replace("제품명","prodName");
@@ -184,6 +251,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductReservationVO> proReDetailList(ProductReservationVO vo) {
 		return map.proReDetailList(vo);
 	}
+
+	
 
 
 	

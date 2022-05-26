@@ -15,13 +15,14 @@ import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
+import com.yedam.finalPrj.member.service.MemberService;
 import com.yedam.finalPrj.member.service.MemberVO;
 
 @Service
 public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	@Autowired ExhibitionMapper map;
-
+	@Autowired MemberService service;
 	// 홍제
 	
 	// 예약목록 전체 조회
@@ -36,7 +37,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO) {
 		// TODO Auto-generated method stub
 		return map.selectOneExhibitionReservationVO(exhibitionReservationVO);
-	}
+	}	
 
 	@Override
 	public ExhibitionReservationVO exDetail(ExhibitionReservationVO vo) {
@@ -176,12 +177,6 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 //	전시 목록에서의 검색처리
 	@Override
 	public List<ParkExhibitionVO> searchEx(ParkExhibitionPagingCriteria cri) {
-		System.out.println(cri.getExVO().getAddress());
-		System.out.println(cri.getExVO().getStartDate());
-		System.out.println(cri.getExVO().getEndDate());
-		System.out.println(cri.getKeyword());
-		System.out.println(cri.getAmount());
-		System.out.println(cri.getPageNum());
 		// TODO Auto-generated method stub
 		return map.searchEx(cri);
 	}
