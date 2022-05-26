@@ -24,7 +24,7 @@
 			<li>답변</li>
 			<li>${list.replyContent }</li>
 			<hr>
-			
+			<hr>
 		</c:forEach>
 	</ul>
 </body>
