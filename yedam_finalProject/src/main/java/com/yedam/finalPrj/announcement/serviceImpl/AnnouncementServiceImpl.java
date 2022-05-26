@@ -2,8 +2,6 @@ package com.yedam.finalPrj.announcement.serviceImpl;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
@@ -95,84 +92,32 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
 	@Override
 	public void fileUpdate(FileVO file, HttpServletRequest fileRequest) {
-		String filePath = "C:\\image\\";
-		
-		String originalFileName = null; 
-		
-		MultipartFile multipartfile = null;
-		
-		String originalFileExtenstion =null;
-		
-		String replacedname = null; 
-		
-		originalFileName = multipartfile.getOriginalFilename(); 
-		
-		int str = originalFileName.indexOf(".");  
-		String fileName = originalFileName.substring(0,str);
-		
-		LocalTime now = LocalTime.now();
-	    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
-		originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
-		
-		replacedname = fileName + time + originalFileExtenstion;
-		
-		
-		File files = new File(filePath + replacedname + originalFileExtenstion);
-		if(files.exists()) {
-			files.delete();
 		}
-	}
-//
-//	@Override
-//	public void annUpdate(AnnouncementVO announcement) {
-//		map.annUpdate(announcement);
-//	}
+
 
 	@Override
 	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames,
 			MultipartHttpServletRequest filerequest) throws Exception {
-		
 		String filePath = "C:\\image\\";
-		
-		String originalFileName = null; 
-		
-		MultipartFile multipartfile = null;
-		
-		String originalFileExtenstion =null;
-		
-		String replacedname = null; 
-		
-		originalFileName = multipartfile.getOriginalFilename(); 
-		
-		int str = originalFileName.indexOf(".");  
-		String fileName = originalFileName.substring(0,str);
-		
-		LocalTime now = LocalTime.now();
-	    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
-		originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
-		
-		replacedname = fileName + time + originalFileExtenstion;
-		
-		
-		File file = new File(filePath + replacedname + originalFileExtenstion);
 		
 		map.annUpdate(announcement);
 		
-		if(file.exists()) {
-			file.delete();
-		}
-		List<Map<String, Object>> list = FileUtils.parseUpdateFileInfo(announcement, files, fileNames, filerequest);
+		List<Map<String, Object>> lists = FileUtils.parseUpdateFileInfo(announcement, files, fileNames, filerequest);
 		Map<String, Object> tempMap = null;
-		int size = list.size();
-
+		int size = lists.size();
 		for (int i = 0; i < size; i++) {
-			tempMap = list.get(i);
+			tempMap = lists.get(i);
 //			새로운 파일이면 insert 
 //			N이면 update하는 문장
+			
 			if (tempMap.get("IS_NEW").equals("Y")) {
 				map.annInsertFile(tempMap);
 			} else {
 				
+				File file = new File(filePath+"파일명가져와야함");
+				if(file.exists()) {
+					file.delete();
+				}
 				map.fileUpdate(tempMap);
 				
 			}

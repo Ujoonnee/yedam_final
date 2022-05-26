@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.common;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
@@ -210,15 +212,16 @@ public class FileUtils {
 				}
 						
 				if(files !=null && fileNames != null) {
+				
 					for(int i = 0; i<fileNames.length; i++) {
 						listMap = new HashMap<String, Object>();
 						listMap.put("IS_NEW", "N");
 						listMap.put("fileNo", files[i]);
 						list.add(listMap);
 					}
+					
 				}
 						
-				
 				
 						
 						

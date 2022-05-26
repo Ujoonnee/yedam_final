@@ -8,6 +8,17 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
+<script type="text/javascript">
+function fn_valiChk(){
+	var updateForm = $("form[name='updateForm'] .chk").length;
+	for(var i = 0; i<updateForm; i++){
+		if($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null){
+			alert($(".chk").eq(i).attr("title"));
+			return true;
+		}
+	}
+}
+</script>
 <h1>공지사항</h1>
 <div>	
 	<form action="announcement" method="post" name="searchForm" autocomplete="off">
@@ -71,13 +82,13 @@
 <!-- 	상태변경 -->
 
 	<select name="status">
-		<option value="">선택</option>
+		<option value="00501" selected>선택</option>
 		<option value="00501">공개</option>
 		<option value="00502">상단고정</option>
 		<option value="00503">비공개</option>
 	</select>
-	<input type="submit" id="changeStatus" value="상태변경">
-	<input type="submit" id="delete" formaction="statusDelete" name="status" value="삭제">
+	<input type="submit" id="changeStatus" value="상태변경" >
+	<input type="submit" id="delete" formaction="statusDelete" name="status" value="삭제" >
 	<button type="button" onclick="location.href='insertPage'">글작성</button>		
 </form>
 

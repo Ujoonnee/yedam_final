@@ -117,12 +117,9 @@ public class AnnouncementController {
 			@RequestParam(value="fileNameDel[]") String[] fileNames,
 			MultipartHttpServletRequest fileRequest,
 			@ModelAttribute AnnouncementPagingCriteria cri, FileVO file) throws Exception {
-		System.out.println("------------------------------------------------"+files.toString().indexOf(0));
-		System.out.println("-----------------------------------------------"+fileNames.toString().indexOf(0));
-		
+
 		service.annUpdate(announcement, files, fileNames, fileRequest);
 		
-		System.out.println();
 		return "redirect:announcement";
 	}
 	// 공지사항 다중 수정
@@ -147,8 +144,6 @@ public class AnnouncementController {
 
 		paramMap.put("status", "00501");
 		paramMap.put("list", lists);
-		System.out.println("list------------------------------------------"+lists.length);
-		System.out.println("status------------------------------------------"+status);
 		service.statusUpdates(paramMap);
 		
 		return "redirect:announcement";
