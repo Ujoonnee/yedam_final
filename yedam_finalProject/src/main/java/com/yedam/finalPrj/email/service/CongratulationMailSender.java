@@ -50,7 +50,7 @@ public class CongratulationMailSender {
 						+ "				  </head>\n" + "				  <body>\n"
 						+ "				    <div class=\"jumbotron jumbotron-fluid\">\n"
 						+ "				  <div align=\"center\" class=\"container\">\n"
-						+ "				    <h1 class=\"display-3\">테스트 이메일 인증</h1><br>\n"
+						+ "				    <h1 class=\"display-3\">홍제형님</h1><br>\n"
 						+ "				    <p class=\"lead\">안녕하세요. <font size=\"5\" color=\"red\"><b>OOOO</b></font> 입니다.\n"
 						+ "				        <br>\n" + "				        인증번호는 다음과 같습니다.<br><font size=\"7\"> [ "
 						+ random.nextInt(100000) +

@@ -93,6 +93,8 @@ public class FileUtils {
 		}
 		return list;
 	}
+
+//	수정 관련 메서드
 	public Map<String, Object> parseInsertFileInfo(Product product,MultipartHttpServletRequest fileRequest) throws IllegalStateException, IOException{
 //		TODO 프로젝트 진행 좀 됬을 시 공유폴더에 todo 찍으면 스티커 메모처럼 나옴.
 //		filePath = "\\\\192.168.0.2\\학생공유\\";
@@ -222,18 +224,32 @@ public class FileUtils {
 
 //	파일 삭제 메서드
 	public static void fileDelete(FileVO vo, String[] files, String[] fileNames){
-		//경로 파일 이름
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		Map<String, Object> listMap = null;
-		File file = new File(filePath);
-		if(files !=null && fileNames != null) {
-			for(int i = 0; i<fileNames.length; i++) {
-				listMap = new HashMap<String, Object>();
-				listMap.put("IS_NEW", "D");
-				listMap.put("fileNo", files[i]);
-				list.add(listMap);
+		String filePath = "C:\\image\\";
+		MultipartFile multipartFile = null;
+		//원본 파일명
+		String originalFileName = null; 
+		//확장자 명
+		String originalFileExtenstion =null;
+		//바뀐 이름으로 파일 들어감
+		String replacedname = null; 
+		originalFileName = multipartFile.getOriginalFilename();
+//		확장자
+		originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
+		//						확장자 앞까지 명
+//		변경되서 들어가는 파일명 localTime에 나노초? 까지 해서 숫자 난수 생성
+		int str = originalFileName.indexOf(".");
+		String fileName = originalFileName.substring(0,str);
+		LocalTime now = LocalTime.now();
+	    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
+		originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+		replacedname = fileName + time + originalFileExtenstion;
+		
+		File deleteFile = new File(filePath+replacedname);
+		
+		if(deleteFile.exists()) {
+				deleteFile.delete();
 			}
-		}
-	}	
+			}	
 }
 
