@@ -47,9 +47,10 @@ public interface ProductMapper {
 	List<ProductReservation> salesbyDate(int storeNo);
 //	통계 날짜 검색
 	List<ProductReservation> searchDateInStatistics(Statistics vo);
+
 //	Hong
 	// 상품예약목록 
-	public List<ProductReservation> proReSelectAll();
+	public List<ProductReservation> proReSelectAll(MemberVO user);
 
 //  페이징
 	int totalCnt(ProductPagingCriteria cri);
