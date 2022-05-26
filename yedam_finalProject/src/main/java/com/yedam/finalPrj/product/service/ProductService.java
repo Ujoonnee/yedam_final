@@ -28,16 +28,16 @@ public interface ProductService {
 //	상품명검색
 	public List<Product> searchProduct(ProductPagingCriteria cri);
 //  매장의 상품개수
-	public int productCnt(String prodNo);
+	public int productCnt(int store_no);
 	public int searchProductCnt(ProductPagingCriteria cri);
 	public int searchPriceCnt(ProductPagingCriteria cri);
 	 
 //	내 상품 관리
-	public List<Product> myStoreProductManegement(ProductPagingCriteria cri); //cri.storeNo사용
+	public List<Product> myStoreProductManegement(ProductPagingCriteria cri,HttpServletRequest request); //cri.storeNo사용
 	void myStoreProductInsert(String file);
 	void myStoreProductUpdate(List<HashMap<String, String>> vo);
 	void myStoreProductDelete(List<HashMap<String, String>> vo);
-	int myStoreProductCnt(ProductPagingCriteria cri);
+	int myStoreProductCnt(ProductPagingCriteria cri, HttpServletRequest request);
 	int oneProductInsert(Product product);
 //	파일업로드
 	
@@ -53,7 +53,7 @@ public interface ProductService {
 //	Hong
 
 //	상품예약목록 
-	public List<ProductReservation> proReSelectAll();
+	public List<ProductReservation> proReSelectAll(HttpServletRequest request);
  
 //  페이징
 	int totalCnt(ProductPagingCriteria cri);

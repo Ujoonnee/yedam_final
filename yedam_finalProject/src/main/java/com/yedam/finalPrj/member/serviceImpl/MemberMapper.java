@@ -11,5 +11,5 @@ public interface MemberMapper {
 	
 	boolean idCheck(String str); // id중복체크
 	
-	public String loginCheck(MemberVO vo);
+	public MemberVO loginCheck(MemberVO vo);
 }
