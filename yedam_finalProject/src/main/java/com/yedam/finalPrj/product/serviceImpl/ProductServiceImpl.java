@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,8 +96,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> myStoreProductManegement(ProductPagingCriteria cri,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		MemberVO user = (MemberVO) request.getAttribute("user");
-		System.out.println("myStoreProductManagement 에서 user세션값"+user);
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		System.out.println("myStoreProductManagement 에서 user세션값"+user.getMemNo());
 		int memNo = map.getStoreNo(user);
 		System.out.println("getStoreNo : "+memNo);
 		cri.setStoreNo(memNo);
@@ -105,15 +107,22 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int myStoreProductCnt(ProductPagingCriteria cri,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		MemberVO user = (MemberVO) request.getAttribute("user");
-		
-		int memNo = map.getStoreNo(user);
-		System.out.println("getStoreNo : "+memNo);
-		cri.setStoreNo(memNo);
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+	
+		int storeNo = map.getStoreNo(user);
+		System.out.println("getStoreNo : "+storeNo);
+		cri.setStoreNo(storeNo);
 		return map.myStoreProductCnt(cri);
 	}
 	@Override
-	public int oneProductInsert(Product product) {
+	public int oneProductInsert(Product product,HttpServletRequest request) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+	
+		int storeNo = map.getStoreNo(user);
+		System.out.println("단일상품등록의 매장번호"+storeNo);
+		product.setStoreNo(storeNo);
 		// TODO Auto-generated method stub
 		return map.oneProductInsert(product);
 	}
@@ -172,7 +181,11 @@ public class ProductServiceImpl implements ProductService {
 	        return fileName;
 	    }
 	@Override
-	public void myStoreProductInsert(String file) {
+	public void myStoreProductInsert(String file,HttpServletRequest request) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+	
+		int storeNo = map.getStoreNo(user);
 		file = file.replace("제품명","prodName");
 		file = file.replace("상품상태","status");
 		file = file.replace("가격","price");
@@ -183,6 +196,7 @@ public class ProductServiceImpl implements ProductService {
 		Gson gson = new Gson();
 		List<Product> list = gson.fromJson(file, new TypeToken<List<Product>>() {}.getType());
 		for (Product product : list) {
+			product.setStoreNo(storeNo);
 			System.out.println("for시작");
 			System.out.println(product.getProdName());
 			System.out.println(product.getProdCat());

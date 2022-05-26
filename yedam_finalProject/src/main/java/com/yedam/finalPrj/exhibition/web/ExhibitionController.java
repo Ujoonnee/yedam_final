@@ -3,6 +3,7 @@ package com.yedam.finalPrj.exhibition.web;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -191,6 +192,9 @@ public class ExhibitionController {
 //	전시 목록 검색
 	@RequestMapping(value = "searchExhibition", method = { RequestMethod.GET })
 	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
+		System.out.println(cri.getExVO().getAddress());
+		System.out.println(cri.getExVO().getStartDate());
+		System.out.println(cri.getExVO().getEndDate());
 		model.addAttribute("exhibitionList", service.searchEx(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
 		return "main/exhibition/exhibitionList";
@@ -201,10 +205,9 @@ public class ExhibitionController {
 	@RequestMapping(value = "detailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
 //		이건 추후에 삭제할거임 
-		request.getAttribute("");
-		MemberVO mem = new MemberVO();
-		mem.setName("길동");
-		mem.setTel("010-555-5555");
+		System.out.println(vo.getExNo());
+		HttpSession session =  request.getSession();
+		MemberVO mem = (MemberVO) session.getAttribute("user");
 		model.addAttribute("member", mem);
 		model.addAttribute("exhibitionView", service.findExVO(vo));
 		return "main/exhibition/exhibitionView";

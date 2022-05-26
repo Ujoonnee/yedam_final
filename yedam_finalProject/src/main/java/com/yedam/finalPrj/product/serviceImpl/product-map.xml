@@ -96,7 +96,7 @@
 	<select id = "getStoreNo" resultType= "int">
 		select store_no 
 		from store
-		where mem_no = #{memNo};
+		where mem_no = #{memNo}
 	</select>
 	<select id = "myStoreProductManegement" resultType="com.yedam.finalPrj.product.vo.park.Product">
 	    select * 
@@ -120,7 +120,7 @@
 			       END
 			from product
 		</selectKey>
-		insert into product values(#{prodNo},4,#{prodName},#{stock},#{price},'',#{prodCat},'00601')	
+		insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},#{price},'',#{prodCat},'00601')	
 	</insert>
 	<insert id = "myStoreProductInsert" parameterType="com.yedam.finalPrj.product.vo.park.Product">
 		<selectKey keyProperty="prodNo" resultType="long"
@@ -130,7 +130,7 @@
 			       END
 			from product
 		</selectKey>
-			insert into product values(#{prodNo},4,#{prodName},#{stock},#{status},#{price},'',#{prodCat})	
+			insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},#{status},#{price},'',#{prodCat})	
 		
 	</insert>
 	

@@ -1,5 +1,6 @@
 package com.yedam.finalPrj.exhibition.serviceImpl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -177,6 +178,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 //	전시 목록에서의 검색처리
 	@Override
 	public List<ParkExhibitionVO> searchEx(ParkExhibitionPagingCriteria cri) {
+			
 		// TODO Auto-generated method stub
 		return map.searchEx(cri);
 	}

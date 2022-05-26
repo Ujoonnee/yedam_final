@@ -66,7 +66,7 @@ public class ProductController {
 	public String productInsert(String file,ProductPagingCriteria cri,HttpServletRequest request,Model model)  {
 	
 		System.out.println("===========================================================file:"+file);
-		dao.myStoreProductInsert(file);
+		dao.myStoreProductInsert(file, request);
 		
 		model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
@@ -100,7 +100,7 @@ public class ProductController {
 //	단일상품등록
 	@RequestMapping("singleProductRegist")
 	public String SingleProductRegist(HttpServletRequest request, ProductPagingCriteria cri,Product vo, Model model) {
-		dao.oneProductInsert(vo);
+		dao.oneProductInsert(vo, request);
 		model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
 		return "provider/store/myProductManagement";

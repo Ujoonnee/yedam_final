@@ -202,9 +202,11 @@
 		        (select *
 		        from exhibition 
 		            where address like ('%'||#{exVO.address}||'%')
-		            <if test ="exVO">
-		            and start_date <![CDATA[>]]> #{exVO.startDate}
-		            and end_date <![CDATA[<]]>#{exVO.endDate}
+		            <if test ="exVO.startDate != null">
+		            and trunc(start_date) <![CDATA[>=]]> #{exVO.startDate}
+		            </if>
+		            <if test ="exVO.endDate != null">
+		            and trunc(end_date) <![CDATA[<=]]>#{exVO.endDate}
 		            </if>
 		            and name like ('%'||#{keyword}||'%') ) a
 		        where 

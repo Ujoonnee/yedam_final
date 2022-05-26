@@ -1,10 +1,8 @@
 package com.yedam.finalPrj.product.vo.park;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ProductPagingCriteria {
 	//페이징
 	private int pageNum=1;	//페이지 번호
