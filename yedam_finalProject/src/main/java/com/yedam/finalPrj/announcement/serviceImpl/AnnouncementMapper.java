@@ -6,14 +6,14 @@ import java.util.Map;
 
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
-import com.yedam.finalPrj.common.FileVO;
 
 public interface AnnouncementMapper {
 	
 	List<AnnouncementVO> adminFindAll(AnnouncementPagingCriteria paging);
 	List<AnnouncementVO> userFindAll(AnnouncementPagingCriteria paging);
 	List<AnnouncementVO> getTopList();
-//	다중쿼리를 위해서 만들어둔 service
+
+	//	다중쿼리를 위해서 만들어둔 service
 	List<AnnouncementVO> annFindAll(Map<String, Object>map);
 	AnnouncementVO findOne(AnnouncementVO announcement);
 	
@@ -25,17 +25,12 @@ public interface AnnouncementMapper {
 	int statusUpdates(Map<String, Object> maps);
 	int statusDelete(Map<String, Object> maps);
 	int topStatus(Map<String, Object>maps);
+
 	//파일 업로드 용
 	void annInsertFile(Map<String, Object> map); 
 	Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
 	public void fileUpdate(Map<String, Object>maps);
-	
-	//	Announcement annInsert(Announcement announcement);
-	
-
-	
-	
 	
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);

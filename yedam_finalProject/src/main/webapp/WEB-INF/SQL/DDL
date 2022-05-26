@@ -173,8 +173,8 @@ CREATE TABLE ATTACHED_FILE
 (
 file_no number(10) primary key,
 ann_no number(5),
-original_name varchar2(50) NOT NULL,
-replaced_name varchar2(50) NOT NULL,
+original_name varchar2(1000) NOT NULL,
+replaced_name varchar2(1000) NOT NULL,
 file_size number(10) NOT NULL
 );
 

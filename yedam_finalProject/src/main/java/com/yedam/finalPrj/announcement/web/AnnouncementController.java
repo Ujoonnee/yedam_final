@@ -67,8 +67,6 @@ public class AnnouncementController {
 			// 페이징
 			model.addAttribute("paging", new AnnouncementPageMaker(cri, total));
 			//파일업로드
-			
-			
 			List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
 			
 			model.addAttribute("file", fileList);
@@ -119,14 +117,17 @@ public class AnnouncementController {
 			@RequestParam(value="fileNameDel[]") String[] fileNames,
 			MultipartHttpServletRequest fileRequest,
 			@ModelAttribute AnnouncementPagingCriteria cri, FileVO file) throws Exception {
+		System.out.println("------------------------------------------------"+files.toString().indexOf(0));
+		System.out.println("-----------------------------------------------"+fileNames.toString().indexOf(0));
 		
 		service.annUpdate(announcement, files, fileNames, fileRequest);
 		
+		System.out.println();
 		return "redirect:announcement";
 	}
 	// 공지사항 다중 수정
 	@RequestMapping("admin/statusUpdates")
-	public String annUpdates(String[] lists, String status) throws Exception {
+	public String statusUpdates(String[] lists, String status) throws Exception {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
@@ -152,6 +153,15 @@ public class AnnouncementController {
 		
 		return "redirect:announcement";
 	}
+	@RequestMapping("admin/fileUpdate")
+	public void fileUpdate(FileVO file,HttpServletRequest fileRequest) {
+		
+		
+		
+		service.fileUpdate(file,fileRequest);
+		
+	}
+	
 //	상단삭제
 	@RequestMapping("admin/statusDelete")
 	public String statusDelete(String[] lists, String status) throws Exception {
@@ -168,7 +178,7 @@ public class AnnouncementController {
 	
 	// 공지사항 수정페이지이동
 	@RequestMapping("admin/annDetail")
-	public String updatePage(AnnouncementVO announcement, Model model) throws Exception {
+	public String annDetail(AnnouncementVO announcement, Model model) throws Exception {
 
 		model.addAttribute("announcement", service.findOne(announcement));		
 
@@ -179,7 +189,6 @@ public class AnnouncementController {
 		
 		return "admin/announcement/annDetail";
 	}
-	
 	
 	// 파일 다운로드
 	@RequestMapping("main/fileDown")

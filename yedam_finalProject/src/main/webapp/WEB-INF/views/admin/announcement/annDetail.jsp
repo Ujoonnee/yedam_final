@@ -18,25 +18,22 @@
 		
 		$(document).on("click", "#fileDel", function(){
 			$(this).parent().remove();
+			
 		})
 		fn_addFile();
-	})
-	// 취소 버튼 누를 시 해당 공지사항 뷰페이지로 이동
-	$(".cancel_btn").on("click", function(){
-				event.preventDefault();
-				location.href = "/findOne?annNo=${announcement.annNo}"
-	})	
+	
 	
 	//  업데이트 폼 아래 경고 문구가 뜰 시 수정이 안되게 만들어둠.
+	// required 쓸지
 	$(".update_btn").on("click", function(){
 		if(fn_valiChk()){
 			return false;
-		}
+		} 
 		formObj.attr("action", "annUpdate")
 		formObj.attr("method", "post");
 		formObj.submit();
+		})
 	})
-	
 	
 	
 	// 제목에 아무값이 없을시 경고 문구 알럴트로 띄워줌 경고 문구
@@ -53,14 +50,14 @@
 	function fn_addFile(){
 		var fileIndex = 1;
 		$(".fileAdd_btn").on("click", function(){
-			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>")
+		$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		})
 		// 삭제 버튼 누를 시 상태가 Y N값으로 변경되는 건데 이건 아예 삭제되게 만들어야함
 		// 
-		$(document).on("click","#fileDelBtn", function(){
+		 $(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();
 		})
-	}
+	} 
 		// 파일삭제 
 		var fileNoArry = new Array();
 		var fileNameArry = new Array();
@@ -78,9 +75,8 @@
 	<h1>공지사항 수정</h1>
 	<hr>
 	<section>
-		<form name="updateForm" role="form" method="post" action="annUpdate" enctype="multipart/form-data">
+		<form name="updateForm" action="admin/annUpdate" role="form" method="post" enctype="multipart/form-data">
 			<input name="annNo" type="hidden" value="${announcement.annNo }" />
-		    <input type="hidden" id="FILE_NO" name="fileNo" value="">
 			<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
 			<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
 				
@@ -120,18 +116,19 @@
 				<div>파일 목록</div>
 				<div id="fileIndex">
 					<c:forEach var="file" items="${file}" varStatus="var">
+						<div>
 							<input type="hidden" id="FILE_NO" name="fileNo_${var.index }" value="${file.FILE_NO}" >
 							<input type="hidden" id="FILE_NAME" name="fileName" value="FILE_NO_${var.index}">
 							<a href="#" id="fileName" onclick="return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
 							<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
+						</div>
 					</c:forEach>
 				</div>
 			</div>
 				
 			
-			<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
-			<button type="submit" class="update_btn">수정</button>
-			<button type="button" class="cancel_btn">취소</button>
+			<button type="button" id="list" onclick="location.href='announcement'">취소</button>
+			<button type="button" class="update_btn">수정</button>
 			<button type="button" class="fileAdd_btn">파일추가</button>
 		</form>
 </section>

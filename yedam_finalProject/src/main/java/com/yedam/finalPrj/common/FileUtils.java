@@ -186,36 +186,29 @@ public class FileUtils {
 						originalFileName = multipartFile.getOriginalFilename();
 //						확장자
 						originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
-						//						확장자 앞까지 명
 //						변경되서 들어가는 파일명 localTime에 나노초? 까지 해서 숫자 난수 생성
+						//						확장자 앞까지 명
 						int str = originalFileName.indexOf(".");
 						String fileName = originalFileName.substring(0,str);
 						LocalTime now = LocalTime.now();
 					    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
 						originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
-						multipartFile.transferTo(new File(filePath + replacedname));
-						
-						//최종 변경된 파일명
 						replacedname = fileName + time + originalFileExtenstion;
 						
-						/*
-						 * File deleteFile = new File(filePath+replacedname);
-						 * 
-						 * if(deleteFile.exists()) { deleteFile.delete(); }
-						 */
-
-								
+						multipartFile.transferTo(new File(filePath + replacedname));
+						//최종 변경된 파일명
+						int size = Integer.parseInt(String.valueOf(multipartFile.getSize()));
 						listMap = new HashMap<String, Object>();
 						listMap.put("IS_NEW", "Y"); 
 						listMap.put("annNo", annNo);
 						listMap.put("originalName", originalFileName);
 						listMap.put("replacedName", replacedname);
-						listMap.put("fileSize", multipartFile.getSize());
+						listMap.put("fileSize", size);
 						list.add(listMap);
 					}
 					
 				}
-				
+						
 				if(files !=null && fileNames != null) {
 					for(int i = 0; i<fileNames.length; i++) {
 						listMap = new HashMap<String, Object>();
@@ -224,7 +217,12 @@ public class FileUtils {
 						list.add(listMap);
 					}
 				}
+						
 				
+				
+						
+						
 		return list;
 	}
+	
 }
