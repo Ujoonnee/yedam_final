@@ -3,6 +3,7 @@ package com.yedam.finalPrj.store.serviceImpl;
 
 import java.util.List;
 
+import com.yedam.finalPrj.review.service.ReviewVO;
 import com.yedam.finalPrj.store.vo.jo.ProductReservationVO;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
 import com.yedam.finalPrj.store.vo.park.Store;
@@ -39,7 +40,7 @@ public interface StoreMapper {
 //		Jo
 	 
 //예약 상품 목록 들어갈 시 리스트 출력
-	 public List<ProductReservationVO> resProdList(ResProdListPagingCriteria cri);		
+	 public List<ProductReservationVO> resProdList(ResProdListPagingCriteria cri);
 //상품 예약 검색(매장이름, 상품명)		 
 	 public List<ProductReservationVO> selectResProdListByStoreName(ResProdListPagingCriteria cri);
 	 public List<ProductReservationVO> selectResProdListByProdName(ResProdListPagingCriteria cri);
@@ -48,14 +49,16 @@ public interface StoreMapper {
 //상품예약번호로 상품명 찾아오기	 
 	 public String findProdNameByProdResNo(int prodResNo);
 //예약상품 상세내역 
-	 public List<ProductReservationVO> resProdDetail(long prodResNo); 
+	 public ProductReservationVO resProdDetail(long prodResNo); 
 //예약상품 상세내역(상품목록)
 	 public List<ProductReservationVO> resProdDetailList(long prodResNo);
 	 
 //페이징을 위한 전체 개수
-	public int resTotalCnt(); //총 예약 건수
+	public int resTotalCnt(int memNO); //총 예약 건수
 	public int storeCnt(ResProdListPagingCriteria cri); // 매장 이름 검색시 총 매장 개수
 	public int prodNameCnt(ResProdListPagingCriteria cri);  // 상품명이 포함된 총 예약건 수 
+//리뷰페이지 상세에 같이 출력
+	 public List<ReviewVO> reviewLoad(long selectedResNo);	
 	
 	
 //		Yoon

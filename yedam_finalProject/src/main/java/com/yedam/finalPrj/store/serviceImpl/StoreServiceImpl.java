@@ -2,10 +2,15 @@ package com.yedam.finalPrj.store.serviceImpl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.yedam.finalPrj.member.service.MemberVO;
+import com.yedam.finalPrj.review.service.ReviewVO;
 import com.yedam.finalPrj.store.service.StoreService;
 import com.yedam.finalPrj.store.vo.jo.ProductReservationVO;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
@@ -114,17 +119,23 @@ public class StoreServiceImpl implements StoreService{
 //예약상품목록 출력
 	@Override
 	public List<ProductReservationVO> resProdList(ResProdListPagingCriteria cri) {
+	
+		
 		return map.resProdList(cri);
 	}
 //총 예약건수 출력
 	@Override
-	public int resTotalCnt() {
-		return map.resTotalCnt();
+	public int resTotalCnt(ResProdListPagingCriteria cri) {
+
+		return map.resTotalCnt(cri.getMemNo());
 	}
 //예약 건 출력(매장이름/상품명 검색시)
 	@Override
 	public void search(ResProdListPagingCriteria cri, Model model) {
-
+		
+		
+		
+		
 		if(cri.getType().equals("name")) {
 			
 			model.addAttribute("resProdList", selectResProdListByStoreName(cri));
@@ -137,7 +148,7 @@ public class StoreServiceImpl implements StoreService{
 			
 		}else {
 			model.addAttribute("resProdList", resProdList(cri));
-			model.addAttribute("paging",new ResProdListPageMaker(cri, resTotalCnt()));
+			model.addAttribute("paging",new ResProdListPageMaker(cri, resTotalCnt(cri)));
 		}		
 	}
 //예약상품 리스트 출력(매장이름 검색)	
@@ -167,13 +178,18 @@ public class StoreServiceImpl implements StoreService{
 	
 //예약상품 상세내역 
 	@Override
-	public List<ProductReservationVO> resProdDetail(long prodResNo) {
+	public ProductReservationVO resProdDetail(long prodResNo) {
 		return map.resProdDetail(prodResNo);
 	}
 //예약상품 상세내역(상품목록)
 	@Override
 	public List<ProductReservationVO> resProdDetailList(long prodResNo) {
 		return map.resProdDetailList(prodResNo);
+	}
+//리뷰페이지 상세에 같이 출력
+	@Override
+	public List<ReviewVO> reviewLoad(long selectedResNo) {
+		return map.reviewLoad(selectedResNo);
 	}
 
 	
