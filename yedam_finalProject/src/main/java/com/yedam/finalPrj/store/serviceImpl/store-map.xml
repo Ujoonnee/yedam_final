@@ -134,53 +134,6 @@
 
 <!-- Jo -->
 <!-- 예약 상품 목록 출력 -->
-
-<!-- <sql id="ResProdListPagingCriteria">
-		상태사항이 Y일 경우.
-		<choose>
-			매장이름검색
-			<when test="type == 'name'">
-				AND <![CDATA["store.name"]]> LIKE ('%'||#{keyword}||'%')
-			</when>
-			상품명 검색
-			<when test="type == 'prodName'">
-				AND prod_name LIKE ('%'||#{keyword}||'%')
-			</when>
-		</choose>
-	</sql>
-
-<select id = "resProdList"  resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
-
-                SELECT * FROM
-					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status , r.pickup_time, r.pickup_date, r.prod_res_no,
-						RANK()OVER(PARTITION BY r.prod_res_no ORDER BY p.prod_name) AS RANK
-								FROM store s, product_reservation r, product p
-							WHERE s.mem_no = r.mem_no
-						AND s.store_no = p.store_no 
-					ORDER BY RANK)
-				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM reserved_product)
-              <include refid="ResProdListPagingCriteria"/>
-	     <![CDATA[
-            		 AND  rownum <= #{pageNum} * #{amount})
-			WHERE rn > (#{pageNum}-1) * #{amount}
-			ORDER BY ann_date DESC
-		]]>
-</select> -->
-<!-- 
-	공지사항 목록	
-	<select id="findAll" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
-			SELECT ann_no, title, ann_content, ann_date, ann_view, status
-			FROM	(SELECT rownum rn, ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
-				     FROM ANNOUNCEMENT
-				     WHERE status IN ('00501','00502')
-		<include refid="AnnouncementPagingCriteria"/>
-	     <![CDATA[
-            		 AND  rownum <= #{pageNum} * #{amount})
-			WHERE rn > (#{pageNum}-1) * #{amount}
-			ORDER BY ann_date DESC
-		]]>
-	</select> -->
-<!-- 예약 상품 목록 출력 -->	
 <select id = "resProdList"  resultType = "com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
    SELECT *
    FROM
@@ -244,7 +197,7 @@
 
 
 <!-- 예약상품 상세내역 -->
-<select id="resProdDetail" parameterType="long" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
+<select id="resProdDetail" parameterType="int" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
 	SELECT r.payment_amt, r.order_date, r.category, prod_res_no, m.name AS "member.name", r.order_date, s.name AS "store.name", r.pickup_time, r.pickup_date, m.tel AS "member.tel" 
 		FROM store s, member m, product_reservation r
 			WHERE m.mem_no=r.mem_no
@@ -252,7 +205,7 @@
 	AND r.prod_res_no = #{keyword}
 </select>
 <!-- 예약상품 상세내역(상품목록) -->
-<select id="resProdDetailList" parameterType="long" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
+<select id="resProdDetailList" parameterType="int" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
 	SELECT r.prod_res_no, p.prod_name AS "product.prodName",
             r.count AS "reservedProduct.count",
             p.price AS "product.price"

@@ -49,16 +49,16 @@ public interface StoreMapper {
 //상품예약번호로 상품명 찾아오기	 
 	 public String findProdNameByProdResNo(int prodResNo);
 //예약상품 상세내역 
-	 public ProductReservationVO resProdDetail(long prodResNo); 
+	 public ProductReservationVO resProdDetail(int prodResNo); 
 //예약상품 상세내역(상품목록)
-	 public List<ProductReservationVO> resProdDetailList(long prodResNo);
+	 public List<ProductReservationVO> resProdDetailList(int prodResNo);
 	 
 //페이징을 위한 전체 개수
 	public int resTotalCnt(int memNO); //총 예약 건수
 	public int storeCnt(ResProdListPagingCriteria cri); // 매장 이름 검색시 총 매장 개수
 	public int prodNameCnt(ResProdListPagingCriteria cri);  // 상품명이 포함된 총 예약건 수 
 //리뷰페이지 상세에 같이 출력
-	 public List<ReviewVO> reviewLoad(long selectedResNo);	
+	 public List<ReviewVO> reviewLoad(int selectedResNo);	
 	
 	
 //		Yoon

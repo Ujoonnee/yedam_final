@@ -13,9 +13,8 @@
 	<ul>
 		
 		<c:forEach items="${reviewList }" var="list">
-			<input type="hidden" name="facResNo" value="${list.facResNo }">
+			<input type="hidden" name="resNo" value="${list.resNo }">
 		
-
 			<li>${list.serviceName }</li>
 			<li>평점</li>
 			<li>${list.score }</li>
