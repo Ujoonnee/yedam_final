@@ -69,7 +69,6 @@
 </table>
 
 <table>
-
 	<tr>
 		<td>매장이름</td>
 		<td>${detail.store.name}</td>
@@ -83,37 +82,33 @@
 		<td>${detail.member.tel}</td>
 	</tr>
 </table> 
-<input type="hidden" value="${detail.category}" id="category">
 
 <!-- 	모달 -->
 <div>
-<button type="button" class="btn btn-block btn-gray-800 mb-3"   id="btnModal" >리뷰작성</button>
+<button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
 <button id="cancelRes" class="btn btn-block btn-gray-800 mb-3">예약취소</button>
 </div>
 <div id="reviewModal"></div>
 
-<!-- <div id="reviewLoad"></div> -->
-<%-- ${review.score} --%>
-
-
-
 <script type="text/javascript">
 
  btnModal.addEventListener("click", function(){
- 	$("#reviewModal").load("${pageContext.request.contextPath}/member/rev_insert", function(){
+ 
+	 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_insert", function(){
  		const myModal = new bootstrap.Modal('#modal-default');
+ 		
  		myModal.show();
+ 		
+ 		//모달뜨고 나서 모달 안에 폼태그에 값 입력.
+ 		$("#category").val("${detail.category}");
+ 		$("#resNo").val("${detail.prodResNo}");
+ 		$("#serviceName").val("${detail.store.name}");
+ 		$("#pickupDate").html("${detail.pickupDate} ${detail.pickupTime}");
+ 		$("#serviceNameDiv").html("${detail.store.name}");
+ 		
  	})
  }) 
-/*  
- function reviewLoad(){
-	 $("#reviewLoad").html(${review.content})
- } */
-	 
-/* 
- function submitContents(){
-    		oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD",[]);
-    	}; */
+
 
 </script>
 

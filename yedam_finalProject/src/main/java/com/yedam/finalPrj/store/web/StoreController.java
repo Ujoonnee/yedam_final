@@ -74,6 +74,7 @@ public class StoreController {
 		System.out.println(session);
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		cri.setMemNo(user.getMemNo());
+		
 		if(cri.getType().isEmpty()) {
 			model.addAttribute("resProdList", dao.resProdList(cri));
 			model.addAttribute("paging",new ResProdListPageMaker(cri,dao.resTotalCnt(cri)));
@@ -86,7 +87,7 @@ public class StoreController {
 	
 // 	(예약번호 받아서)예약내역 상세페이지로 이동
 	@GetMapping("resProdListByProdName/{selectedResNo}")
-	public String reservedProductsDetail(@PathVariable("selectedResNo") long selectedResNo, Model model) {
+	public String reservedProductsDetail(@PathVariable("selectedResNo") int selectedResNo, Model model) {
 			
 		model.addAttribute("detail", dao.resProdDetail(selectedResNo));
 		model.addAttribute("prodList", dao.resProdDetailList(selectedResNo));

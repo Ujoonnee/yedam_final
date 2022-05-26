@@ -126,7 +126,6 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public List<ProductReservationVO> resProdList(ResProdListPagingCriteria cri) {
 	
-		
 		return map.resProdList(cri);
 	}
 //총 예약건수 출력
@@ -138,9 +137,6 @@ public class StoreServiceImpl implements StoreService{
 //예약 건 출력(매장이름/상품명 검색시)
 	@Override
 	public void search(ResProdListPagingCriteria cri, Model model) {
-		
-		
-		
 		
 		if(cri.getType().equals("name")) {
 			
@@ -184,17 +180,17 @@ public class StoreServiceImpl implements StoreService{
 	
 //예약상품 상세내역 
 	@Override
-	public ProductReservationVO resProdDetail(long prodResNo) {
+	public ProductReservationVO resProdDetail(int prodResNo) {
 		return map.resProdDetail(prodResNo);
 	}
 //예약상품 상세내역(상품목록)
 	@Override
-	public List<ProductReservationVO> resProdDetailList(long prodResNo) {
+	public List<ProductReservationVO> resProdDetailList(int prodResNo) {
 		return map.resProdDetailList(prodResNo);
 	}
 //리뷰페이지 상세에 같이 출력
 	@Override
-	public List<ReviewVO> reviewLoad(long selectedResNo) {
+	public List<ReviewVO> reviewLoad(int selectedResNo) {
 		return map.reviewLoad(selectedResNo);
 	}
 

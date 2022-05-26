@@ -25,6 +25,7 @@ public class ReviewController {
 //	리뷰 목록 조회
 	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
 	public String reviewList(Model model,HttpServletRequest request) {
+		
 		model.addAttribute("reviewList", service.reviewSelectAll(request));
 		return "review/reviewList";
 	}
