@@ -214,13 +214,21 @@
 		    )b
 		where rn > (#{pageNum}-1) * #{amount}
 	</select>
+<!-- 	전시목록 검색X 일때 count -->
+	<select id = "listTotalCnt" resultType = "int">
+		select count(*)
+		from exhibition
+	
+	</select>
 <!-- 	페이징 위한 전시 개수  -->
 	<select id="totalExCnt" resultType="int">
 		select count(*)
 		from exhibition
 		where address like ('%'||#{exVO.address}||'%')
-				<if test ="exVO">
+				  <if test ="exVO.startDate != null">
 				and start_date <![CDATA[>]]> #{exVO.startDate}
+				</if>
+				<if test ="exVO.endDate != null">
 				and end_date <![CDATA[<]]> #{exVO.endDate}
 				</if>
 		and name like ('%'||#{exVO.name}||'%')

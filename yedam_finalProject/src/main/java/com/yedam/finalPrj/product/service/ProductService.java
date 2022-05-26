@@ -39,7 +39,7 @@ public interface ProductService {
 	int oneProductInsert(Product product,HttpServletRequest request);
 //	파일업로드
 	
-	void myStoreProductUpdate(MultipartFile multi, Model model, Product vo);
+	String productThumbnailUpdate(MultipartFile multi, HttpServletRequest request,Model model, Product vo);
 	
 //	통계조회
 	List<ProductReservation> salesbyDate(int storeNo);

@@ -1,6 +1,5 @@
 package com.yedam.finalPrj.exhibition.serviceImpl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -162,6 +161,12 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		// TODO Auto-generated method stub
 		return map.findExVO(vo);
 	}
+//	전리리스트 첫 페이지 count
+	@Override
+	public int listTotalCnt(ParkExhibitionPagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.listTotalCnt(cri);
+	}
 //	예약 정보 등록
 	@Override
 	public int insertExhibitionReservation(ParkExhibitionVO vo) {
@@ -195,4 +200,6 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		return user;
 	}
+
+	
 }

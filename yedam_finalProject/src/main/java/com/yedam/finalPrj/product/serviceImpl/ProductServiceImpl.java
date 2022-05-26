@@ -128,41 +128,54 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public void myStoreProductUpdate(MultipartFile multi, Model model, Product vo) {
+	public String productThumbnailUpdate(MultipartFile multi, HttpServletRequest request,Model model, Product vo) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+	
+		int storeNo = map.getStoreNo(user);
+		System.out.println("impl파트");
 		// TODO Auto-generated method stub
 		String path="C:\\image\\";
-		
 		String url = null;
 		
-		String uploadpath = path;
-        String originFilename = multi.getOriginalFilename();
-        String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
-        long size = multi.getSize();
-        String saveFileName = genSaveFileName(extName);
-        
-        System.out.println("uploadpath : " + uploadpath);
-        
-        System.out.println("originFilename : " + originFilename);
-        System.out.println("extensionName : " + extName);
-        System.out.println("size : " + size);
-        System.out.println("saveFileName : " + saveFileName);
-        
-        if(!multi.isEmpty())
-        {
-            File file = new File(uploadpath, multi.getOriginalFilename());
-            try {
+		 String uploadpath = path;
+         String originFilename = multi.getOriginalFilename();
+         String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
+         long size = multi.getSize();
+         String saveFileName = genSaveFileName(extName);
+         
+         System.out.println("uploadpath : " + uploadpath);
+         
+         System.out.println("originFilename : " + originFilename);
+         System.out.println("extensionName : " + extName);
+         System.out.println("size : " + size);
+         System.out.println("saveFileName : " + saveFileName);
+         vo.setProdThumbnail(saveFileName);
+         vo.setStoreNo(storeNo);
+         if(!multi.isEmpty())
+         {
+             File file = new File(uploadpath, multi.getOriginalFilename());
+             try {
 				multi.transferTo(file);
-			} catch (IllegalStateException | IOException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            
-            model.addAttribute("filename", multi.getOriginalFilename());
-            model.addAttribute("uploadPath", file.getAbsolutePath());
-            
-//            return "filelist";
-        }
-        return ;
+             
+             model.addAttribute("filename", multi.getOriginalFilename());
+             model.addAttribute("uploadPath", file.getAbsolutePath());
+             try {
+				map.thumbnailUpdate(vo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+             return "filelist";
+         }
+         System.out.println("test종료");
+         
+         System.out.println("management GO!!");
+         return "redirect:management";
 	}
 	// 현재 시간을 기준으로 파일 이름 생성
 	 private String genSaveFileName(String extName) {

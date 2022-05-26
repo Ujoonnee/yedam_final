@@ -184,7 +184,7 @@ public class ExhibitionController {
 	public String list(ParkExhibitionPagingCriteria cri, Model model) {
 
 		model.addAttribute("exhibitionList", service.exhibition(cri));
-		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
+		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.listTotalCnt(cri)));
 
 		return "main/exhibition/exhibitionList";
 	}
