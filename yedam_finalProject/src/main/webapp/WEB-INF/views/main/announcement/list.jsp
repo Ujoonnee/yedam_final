@@ -10,7 +10,7 @@
 </head>
 <h1>공지사항</h1>
 <div>	
-	<form action="announcement" method="post" name="searchForm" autocomplete="off">
+	<form action="list" method="post" name="searchForm" autocomplete="off">
 			<select name="type">
 				<option value="" selected>선택</option>
 				<option value="title" <c:out value="${paging.cri.type eq 'title'?'selected':'' }" />>제목</option>
@@ -59,7 +59,7 @@
 		</c:forEach>
 	</tbody>
 </table>
-<form id="pagingFrm" name="pagingForm" action="announcement" method="post">
+<form id="pagingFrm" name="pagingForm" action="list" method="post">
 	<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
 	<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
 	<input type="hidden" id="type" name="type" value="${paging.cri.type }">

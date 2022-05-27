@@ -18,10 +18,38 @@ function fn_valiChk(){
 		}
 	}
 }
+
+	
+ 	
+$(document).ready(function() { 
+	$(".chk").change(function(){
+		if($(".chk").is(":checked")){
+			document.getElementById("changeStatus").style.display = "inline";
+			document.getElementById("delete").style.display = "inline";
+			document.getElementById("selectStatus").style.display = "inline";  
+		 }else{
+			$("#changeStatus").hide("fast");
+			$("#delete").hide("fast");
+			$("#selectStatus").hide("fast"); 
+		}
+	})
+})
+		/* $(document).ready(function(){
+		$(".chk").change(function(){
+			document.getElementById("show").hide();	
+			if($(".chk").is(":checked")){
+				document.getElementById("show").toggle();		
+		}else{
+			document.getElementById("show").toggle();	
+		}
+			
+	
+	})
+})   */
 </script>
 <h1>공지사항</h1>
 <div>	
-	<form action="announcement" method="post" name="searchForm" autocomplete="off">
+	<form action="list" method="post" name="searchForm" autocomplete="off">
 			<select name="type">
 				<option value="" selected>선택</option>
 				<option value="title" <c:out value="${paging.cri.type eq 'title'?'selected':'' }" />>제목</option>
@@ -80,21 +108,23 @@ function fn_valiChk(){
 	</tbody>
 </table>
 <!-- 	상태변경 -->
+<div>
 
-	<select name="status">
+	<select id="selectStatus" name="status" style="display:none;">
 		<option value="00501" selected>선택</option>
 		<option value="00501">공개</option>
 		<option value="00502">상단고정</option>
 		<option value="00503">비공개</option>
 	</select>
-	<input type="submit" id="changeStatus" value="상태변경" >
-	<input type="submit" id="delete" formaction="statusDelete" name="status" value="삭제" >
+	<input type="submit" id="changeStatus" value="상태변경" style="display:none;">
+	<input type="submit" id="delete" formaction="statusDelete" name="status" value="삭제" style="display:none;">
+</div>
 	<button type="button" onclick="location.href='insertPage'">글작성</button>		
 </form>
 
 
 
-<form id="pagingFrm" name="pagingForm" action="announcement" method="post">
+<form id="pagingFrm" name="pagingForm" action="list" method="post">
 	<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
 	<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
 	<input type="hidden" id="type" name="type" value="${paging.cri.type }">

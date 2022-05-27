@@ -66,11 +66,9 @@
 					</c:forEach>
 				</div>
 	</div>
-		<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
+		<button type="button" id="list" onclick="location.href='list'">글 목록</button>
 	<!-- session에서 가져온 값으로 할거임 -->
-	<c:if test="${memType eq '00101' }">
-		<button type="button" id="" onclick="location.href='updatePage'">수정페이지</button>
-	</c:if>
+	
 	
 </body>
 <script type="text/javascript">

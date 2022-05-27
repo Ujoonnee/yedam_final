@@ -33,7 +33,7 @@ public class AnnouncementController {
 	
 	
 	// 공지사항 목록
-	@RequestMapping("admin/announcement")
+	@RequestMapping("admin/list")
 	public String adminFindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) throws Exception {
 
 		int total = service.totalCnt(cri);
@@ -55,7 +55,7 @@ public class AnnouncementController {
 	}
 	
 	// 공지사항 목록
-		@RequestMapping("main/announcement")
+		@RequestMapping("main/list")
 		public String userFindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) throws Exception {
 
 			int total = service.totalCnt(cri);
@@ -81,7 +81,7 @@ public class AnnouncementController {
 		  System.out.println(fileRequest.getSession().getServletContext().getRealPath("/resources/announcement"));
 		  service.annInsert(announcement,fileRequest);
 		  
-		  return "redirect:announcement";
+		  return "redirect:list";
 	  }
 	 
 	
@@ -119,7 +119,7 @@ public class AnnouncementController {
 			@ModelAttribute AnnouncementPagingCriteria cri, FileVO file) throws Exception {
 		service.annUpdate(announcement, files, fileNames,  fileRequest);
 		
-		return "redirect:announcement";
+		return "redirect:list";
 	}
 	// 공지사항 다중 수정
 	@RequestMapping("admin/statusUpdates")
@@ -131,9 +131,16 @@ public class AnnouncementController {
 		paramMap.put("list", lists);
 		System.out.println("list------------------------------------------"+lists.length);
 		System.out.println("status------------------------------------------"+status);
-		service.statusUpdates(paramMap);
 		
-		return "redirect:announcement";
+		
+			
+		
+			service.statusUpdates(paramMap);
+		
+		
+		
+		
+		return "redirect:list";
 	}
 //	상단고정 해제	
 	@RequestMapping("admin/topStatus")
@@ -145,7 +152,7 @@ public class AnnouncementController {
 		paramMap.put("list", lists);
 		service.statusUpdates(paramMap);
 		
-		return "redirect:announcement";
+		return "redirect:list";
 	}
 	@RequestMapping("admin/fileUpdate")
 	public void fileUpdate(FileVO file,HttpServletRequest fileRequest) {
@@ -167,7 +174,7 @@ public class AnnouncementController {
 		
 		service.statusUpdates(paramMap);
 		
-		return "redirect:announcement";
+		return "redirect:list";
 	}
 	
 	// 공지사항 수정페이지이동
