@@ -101,16 +101,6 @@ public class StoreController {
 		return "general/store/resProdDetail";
 
 	}
-	/*
-	 * @PostMapping("resProdListByProdName/{resNo}")
-	 * 
-	 * @ResponseBody public ReviewVO returnReview(@PathVariable("resNo") int resNo,
-	 * int revNo, Model model) {
-	 * 
-	 * 
-	 * return dao.reviewLoad(revNo); }
-	 */
-	
 
 	
 //	Yoon

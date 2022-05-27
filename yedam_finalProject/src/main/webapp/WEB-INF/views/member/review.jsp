@@ -125,16 +125,11 @@
 					method: "POST",
 					data: 	$("#frm").serialize(),		
 					success: function (re) {
-						console.log(re);
-						console.log(re);
-
+						
 						console.log(re.revNo); $("#btnModal").hide();
 						 alert("성공")
-						/* $.ajax({
-							url:"/finalPrj/store/resProdListByProdName/"+resNo,
-							method: "post",
-							data: {revNo : data.revNo}
-						}) */
+						 location.href=resNo;
+						
 					},
 					error: function () {
 						alert("에러")

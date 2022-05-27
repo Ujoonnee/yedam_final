@@ -14,6 +14,9 @@
   #star a.on{
    color: yellow;
   } 
+  #vscore {
+   color: red;
+  } 
 	
 </style>
 </head>
@@ -84,31 +87,47 @@
 </table> 
 <div>
 <h3>내 리뷰</h3>
-	<ul>
+	
 		
-			<li>${reviewList.serviceName }</li>
-			<li>평점</li>
-			<li>${reviewList.score }</li>
-			<li>${reviewList.content }</li>
+			<div>${reviewList.serviceName }</div>
 			<hr>
-			<li>답변</li>
-			<li>${reviewList.replyContent }</li>
+			<span>평점(${reviewList.score })</span><span id="vscore">${reviewList.score }</span>
+			<div>${reviewList.content }</div>
 			<hr>
+			<div>답변</div>
+			<div>${reviewList.replyContent }</div>
 			<hr>
+			
 		
-	</ul>
+	
 
 </div>
 
 <!-- 	모달 -->
 <div>
+<c:if test="${empty reviewList}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
+</c:if>
 <button id="cancelRes" class="btn btn-block btn-gray-800 mb-3">예약취소</button>
+
+<!--수정버튼은 상의가 필요...  -->
+<c:if test="${not empty reviewList}" >
+<button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" >리뷰수정</button>
+</c:if>
 </div>
 <div id="reviewModal"></div>
 
 <script type="text/javascript">
-
+var score = $("#vscore").html();
+console.log(score);
+	var space ="";
+for(var i=0; i<score; i++){
+	
+	space = space + "★";
+	
+} 
+	 console.log(space);
+	 $("#vscore").html(space)
  btnModal.addEventListener("click", function(){
  
 	 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_insert", function(){
