@@ -117,8 +117,7 @@ public class AnnouncementController {
 			@RequestParam(value="fileNameDel[]") String[] fileNames,
 			MultipartHttpServletRequest fileRequest,
 			@ModelAttribute AnnouncementPagingCriteria cri, FileVO file) throws Exception {
-
-		service.annUpdate(announcement, files, fileNames, fileRequest);
+		service.annUpdate(announcement, files, fileNames,  fileRequest);
 		
 		return "redirect:announcement";
 	}

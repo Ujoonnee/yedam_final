@@ -21,7 +21,7 @@ public interface AnnouncementService {
 	List<AnnouncementVO> annFindAll(Map<String, Object>map);
 	
 	AnnouncementVO findOne(AnnouncementVO announcement);
-	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames, MultipartHttpServletRequest filerequest) throws Exception;
+	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames,MultipartHttpServletRequest filerequest) throws Exception;
 
 //	다중업데이트
 	int statusUpdates(Map<String, Object>maps);

@@ -162,11 +162,11 @@ public class FileUtils {
 		}
 		return map;
 	}
-	public static List<Map<String, Object>> parseUpdateFileInfo(AnnouncementVO announcement, String[] files, String[] fileNames, MultipartHttpServletRequest filerequest) throws Exception{
+	public static List<Map<String, Object>> parseUpdateFileInfo(AnnouncementVO announcement, String[] files, String[] fileNames,MultipartHttpServletRequest filerequest) throws Exception{
 		
 				String filePath = "C:\\image\\";
 		
-		//선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
+			//	선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
 				Iterator<String> iterator = filerequest.getFileNames();
 //				인터페이스는 업로드 한 파일 및 파일 데이터를 표현하기 위한 용도
 				MultipartFile multipartFile = null;

@@ -61,7 +61,8 @@
 		// 파일삭제 
 		var fileNoArry = new Array();
 		var fileNameArry = new Array();
-		function fn_del(value, name){
+		var replaceNameArry = new Array();
+		function fn_del(value, name, replacename){
 			
 			fileNoArry.push(value);
 			fileNameArry.push(name);
@@ -79,7 +80,6 @@
 			<input name="annNo" type="hidden" value="${announcement.annNo }" />
 			<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
 			<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
-				
 				<table border="1">
 					<tr>
 						<td bgcolor="" width="70">제목</td>
@@ -119,8 +119,9 @@
 						<div>
 							<input type="hidden" id="FILE_NO" name="fileNo_${var.index }" value="${file.FILE_NO}" >
 							<input type="hidden" id="FILE_NAME" name="fileName" value="FILE_NO_${var.index}">
+							<input type="hidden" name="fileReName" value="${file.replaced_Name }">
 							<a href="#" id="fileName" onclick="return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
-							<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
+							<button id="fileDel"  onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
 						</div>
 					</c:forEach>
 				</div>
