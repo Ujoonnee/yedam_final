@@ -51,12 +51,19 @@
 			<td>${list.payment }</td>
 		</tr>
 		<c:set var="total" value="${total + list.payment }"/>
+		
+		</c:forEach>
 		<tr>
 			<td>총 금액</td>
 			<td><c:out value="${total }"/></td>
 		</tr>
-		</c:forEach>
 	</table>
+	<button type="button" id="list_btn">목 록</button>
 	<button align="center">주문취소</button>
 </body>
+<script>
+	$("#list_btn").click(function(){
+		self.location = "/provider/proReSelectAll?"
+	})
+</script>
 </html>

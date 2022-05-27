@@ -54,9 +54,9 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	
 	@Override
-	public List<ExhibitionReservationVO> searchExhibition() {
+	public List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
 		// TODO Auto-generated method stub
-		return map.searchExhibition();
+		return map.searchExhibitionByNo(exResNo);
 	}
 
 	

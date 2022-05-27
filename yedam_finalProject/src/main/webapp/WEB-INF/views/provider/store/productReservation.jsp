@@ -59,9 +59,9 @@
 		<input type="hidden" id="type" name="type" value="${paging.cri.type }">
 		<input type="hidden" id="keyword" name="keyword" value="${paging.cri.keyword }">
 	</form>
-	<c:if test="${user.memType eq '00103' }">
+<%-- 	<c:if test="${user.memType eq '00103' }">
 		<button>sadfsadfasf</button>
-	</c:if>
+	</c:if> --%>
 	<div id="pagingDiv">
 		<!-- 이전페이지 -->
 		<c:if test="${paging.prev }">

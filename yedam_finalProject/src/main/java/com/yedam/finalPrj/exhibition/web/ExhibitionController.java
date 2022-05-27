@@ -58,6 +58,14 @@ public class ExhibitionController {
 		return "general/exhibition/exhibitionReservationDetail";
 	}
 
+	
+	// 예약번호로 검색
+	@GetMapping("searchExhibitionByNo")
+	@ResponseBody
+	public List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
+		return service.searchExhibitionByNo(exResNo);
+	}
+	
 	// 준우
 	// 모든 등록신청목록조회.
 	@GetMapping("exRegAppList")

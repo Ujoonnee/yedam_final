@@ -72,7 +72,7 @@
 	<tr>
 		<td>매장이름</td>
 		<td>${detail.store.name}</td>
-	</tr>
+	</tr> 
 	<tr>
 		<td>예약 일시</td>
 		<td>${detail.pickupTime} ${detail.pickupDate}</td>
