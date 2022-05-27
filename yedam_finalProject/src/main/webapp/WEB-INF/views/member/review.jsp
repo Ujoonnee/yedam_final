@@ -118,13 +118,23 @@
 			
 			var score = $('#star a.on').last().attr("value");
 			$("#score").val(score);
-
+			var resNo = $("#resNo").val();
+			
 				$.ajax({
 					url: "/finalPrj/review/rev_insert.do",
 					method: "POST",
 					data: 	$("#frm").serialize(),		
-					success: function (data) {
-						alert("성공")
+					success: function (re) {
+						console.log(re);
+						console.log(re);
+
+						console.log(re.revNo); $("#btnModal").hide();
+						 alert("성공")
+						/* $.ajax({
+							url:"/finalPrj/store/resProdListByProdName/"+resNo,
+							method: "post",
+							data: {revNo : data.revNo}
+						}) */
 					},
 					error: function () {
 						alert("에러")

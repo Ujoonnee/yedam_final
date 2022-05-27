@@ -82,6 +82,23 @@
 		<td>${detail.member.tel}</td>
 	</tr>
 </table> 
+<div>
+<h3>내 리뷰</h3>
+	<ul>
+		
+			<li>${reviewList.serviceName }</li>
+			<li>평점</li>
+			<li>${reviewList.score }</li>
+			<li>${reviewList.content }</li>
+			<hr>
+			<li>답변</li>
+			<li>${reviewList.replyContent }</li>
+			<hr>
+			<hr>
+		
+	</ul>
+
+</div>
 
 <!-- 	모달 -->
 <div>
