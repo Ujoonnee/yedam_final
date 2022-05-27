@@ -1,7 +1,5 @@
 package com.yedam.finalPrj.product.web;
 
-import java.io.File;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -118,40 +116,12 @@ public class ProductController {
 		return "provider/store/myProductManagement";
 	}
 //	사진등록
-	@RequestMapping(value = "ThumbnailUpdate", method = RequestMethod.POST)
-	public String ThumbnailUpdate(@RequestParam("prodThumbnail") MultipartFile multi, HttpServletRequest request,ProductPagingCriteria cri,HttpServletResponse response, Model model) throws Exception {
-//		String path="C:\\image\\";
-//		String url = null;
-//		
-//		 String uploadpath = path;
-//         String originFilename = multi.getOriginalFilename();
-//         String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
-//         long size = multi.getSize();
-//         String saveFileName = genSaveFileName(extName);
-//         saveFileName.substring(2,7);
-//         
-//         System.out.println("uploadpath : " + uploadpath);
-//         
-//         System.out.println("originFilename : " + originFilename);
-//         System.out.println("extensionName : " + extName);
-//         System.out.println("size : " + size);
-//         System.out.println("saveFileName : " + saveFileName);
-//         
-//         if(!multi.isEmpty())
-//         {
-//             File file = new File(uploadpath, multi.getOriginalFilename());
-//             multi.transferTo(file);
-//             
-//             model.addAttribute("filename", multi.getOriginalFilename());
-//             model.addAttribute("uploadPath", file.getAbsolutePath());
-//             
-//             return "provider/store/myProductManagement";
-//         }
-		
-//		System.out.println("test종료");
+	@RequestMapping(value = "thumbnailUpdate", method = RequestMethod.POST)
+	public String ThumbnailUpdate(@RequestParam("prodThumbnail") MultipartFile multi, @RequestParam("prodNo") long prodNo ,HttpServletRequest request,ProductPagingCriteria cri,HttpServletResponse response, Model model) throws Exception {
+		System.out.println("prodNo : "+prodNo);
 		
 		Product productVO = new Product();
-		
+		productVO.setProdNo(prodNo);
 		
 		dao.productThumbnailUpdate(multi,request,model,productVO);
 		
@@ -159,24 +129,23 @@ public class ProductController {
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
 		return "provider/store/myProductManagement";
 	}
-	
-	
-//	private String genSaveFileName(String extName) {
-//        String fileName = "";
-//        
-//        Calendar calendar = Calendar.getInstance();
-//        fileName += calendar.get(Calendar.YEAR);
-//        fileName += calendar.get(Calendar.MONTH);
-//        fileName += calendar.get(Calendar.DATE);
-//        fileName += calendar.get(Calendar.HOUR);
-//        fileName += calendar.get(Calendar.MINUTE);
-//        fileName += calendar.get(Calendar.SECOND);
-//        fileName += calendar.get(Calendar.MILLISECOND);
-//        fileName += extName;
-//        
-//        return fileName;
-//    }
-//	Hong
+//  등록된 사진 제거
+	@RequestMapping(value = "thumbnailDelete", method = RequestMethod.POST)
+	public String ThumbnailDelete(@RequestParam("prodThumbnail") String thumbnail,@RequestParam("prodNo") long prodNo ,HttpServletRequest request,ProductPagingCriteria cri, Model model) {
+		Product vo = new Product();
+		System.err.println("============No,Thumbnail 값 확인==========");
+		System.out.println(thumbnail);
+		System.out.println(prodNo);
+		
+		vo.setProdThumbnail(thumbnail);
+		vo.setProdNo(prodNo);
+		
+		dao.productThumbnailDelete(request, model, vo);
+		
+		model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
+		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
+		return "provider/store/myProductManagement";
+	}
 	
 //	상품 예약 목록
 	@RequestMapping(value = "/proReSelectAll", method = RequestMethod.GET)

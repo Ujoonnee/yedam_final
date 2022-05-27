@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.store.serviceImpl.StoreServiceImpl;
@@ -35,10 +37,21 @@ public class StoreController {
 	}
 //	매장신청 양식 전송
 	@RequestMapping("regist")
-	public String regist(Store vo,Model model,HttpServletRequest request) {
+	public String regist(Store vo,Model model,HttpServletRequest request,@RequestParam("fileUpload") MultipartFile multi) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		if(user == null) {
+			return "main/unusalApproach";
+		}
+		if(!user.getMemType().equals("00103")) {
+			return "main/unusalApproach";
+		}else {
+			
 //		매장등록 번호 입력.
-		dao.regist(vo, request);
-		return "home/home";
+			dao.regist(vo, request,multi,model);
+			return "home/home";
+		}
+		
 	}
 	
 //	매장 리스트 출력
