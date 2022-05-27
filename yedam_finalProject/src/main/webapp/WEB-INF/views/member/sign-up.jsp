@@ -38,6 +38,9 @@
 <!-- Volt CSS -->
 <link type="text/css" href="${pageContext.request.contextPath}/resources/css/volt.css" rel="stylesheet">
 
+<!-- material icon -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
 
@@ -77,7 +80,7 @@
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h3" style="font-family: 'Jeju Gothic', sans-serif;">회원가입</h1>
+                                <h1 id="title" class="mb-0 h3" style="font-family: 'Jeju Gothic', sans-serif;">일반회원 가입</h1>
                             </div>
                             
                             
@@ -125,7 +128,7 @@
 					                                        <option value="nate.com">&nbsp;&nbsp;nate.com</option>
 					                                    </select>
 					                                </div>
-					                                <div id="emailValidation" class="validationResult mb-4" style="font-size: small; color: red;">&nbsp;</div>
+					                                <div id="emailValidation" class="validationResult mb-1" style="font-size: small; color: red;">&nbsp;</div>
 					                            </div>
 					                            
 					                            <div class="form-group mb-3">
@@ -146,7 +149,7 @@
 			                                            </span>
 			                                            <input type="password" class="form-control" id="password2" required value="test">
 			                                        </div>
-			                                        <div id="passwordValidation" class="validationResult mt-2 mb-3" style="font-size: small; color: red;">&nbsp;</div>
+			                                        <div id="passwordValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
 			                                    </div>
 					                            
 					                        </form>
@@ -163,7 +166,24 @@
 				                                        <input class="form-control" id="name" type="text" required>
 				                                    </div>
 					                            </div>
-					                            <div id="nameValidation" class="validationResult mt-2 mb-3" style="font-size: small; color: red;">&nbsp;</div>
+					                            <div id="nameValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
+					                            
+				                                <div class="mb-2">
+				                                    <div>
+				                                        <label for="">연락처</label>
+				                                        <div id="tel" class="input-group">
+					                                        <select class="form-select w-30" id="tel1">
+						                                        <option value="010" selected>010</option>
+						                                        <option value="011">011</option>
+						                                        <option value="017">017</option>
+						                                        <option value="018">018</option>
+						                                    </select>
+					                                        <input class="form-control w-30" id="tel2" type="text" maxlength="4" required>
+					                                        <input class="form-control w-30" id="tel3" type="text" maxlength="4" required>
+				                                        </div>
+				                                    </div>
+					                            </div>
+		                                        <div id="telValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
 					                            
 				                                <div class="row mb-1">
 				                                    <div class="col-7">
@@ -184,37 +204,57 @@
 				                                        <input class="form-control" id="address2" type="text" required>
 				                                    </div>
 					                            </div>
-					                            <div id="addressValidation" class="validationResult mt-2 mb-3" style="font-size: small; color: red;">&nbsp;</div>
+					                            <div id="addressValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
 					                            
-				                                <div class="mb-2">
-				                                    <div>
-				                                        <label for="">연락처</label>
-				                                        <div id="tel" class="input-group">
-					                                        <select class="form-select w-30" id="tel1" name="state" aria-label="State select example">
-						                                        <option value="010" selected>010</option>
-						                                        <option value="011">011</option>
-						                                        <option value="017">017</option>
-						                                        <option value="018">018</option>
-						                                    </select>
-					                                        <input class="form-control w-30" id="tel2" type="text" maxlength="4" required>
-					                                        <input class="form-control w-30" id="tel3" type="text" maxlength="4" required>
-				                                        </div>
-				                                    </div>
-					                            </div>
-		                                        <div id="telValidation" class="validationResult mt-2 mb-3" style="font-size: small; color: red;">&nbsp;</div>
 					                            
-					                            <div class="mb-2" id="buisnessNumDiv">
-				                                    <div>
-				                                        <label for="">사업자등록번호</label>
-				                                        <div class="input-group">
-					                                        <input class="form-control" id="buisnessNum" type="text" required>
-					                                        <button class="btn btn-outline-gray-700" id="buisnessNumCheckBtn">확인</button>
-				                                        </div>
-				                                    </div>
-					                            </div>
-					                            <div id="buisnessNumValidation" class="validationResult mt-2 mb-3" style="font-size: small; color: red;">&nbsp;</div>
 					                            
-					                            <input type="button" class="btn btn-gray-800 mb-5" value="이전" onclick="$('#previous')[0].click()" style="width: 100%;">
+					                            
+					                            
+					                            
+					                            
+					                            
+					                            <div id="buisnessDiv" class="row" style="display: none;">
+					                                <div class="col-sm-4 mb-2">
+				                                        <label data-bs-toggle="tooltip" data-bs-placement="top" title="대표자명은 이전 페이지에서 입력한 이름으로 검사합니다.">
+				                                        	사업자등록번호 
+				                                        </label>
+				                                        <input class="form-control" id="buisnessNum" placeholder="'-' 제외" required value="5048600471">
+					                                </div>
+					                                <div class="col-sm-4 mb-2">
+				                                        <label for="">개업일</label>
+				                                        <input class="form-control" id="buisnessStartDate" placeholder="yyyyMMdd" required value="20120709">
+					                                </div>
+					                                <div class="col-sm-4 mb-2">
+				                                        <label for="">사업유형</label>
+				                                        <select class="form-select w-30" id="buisnessType">
+					                                        <option value="00202" selected>전시</option>
+					                                        <option value="00204">매장</option>
+					                                    </select>
+					                                </div>
+						                            <div id="buisnessNumValidation" class="validationResult mb-1" style="font-size: small; color: red;">&nbsp;</div>
+				                                </div>
+					                            
+					                            
+					                            <div id="buisnessNumDiv" class="row" style="display: none;">
+					                                <div class="col-sm-6 mb-2">
+					                                    <div class="form-group">
+					                                        <label for="">
+					                                        	사업자등록번호 
+					                                        	<a class="material-symbols-outlined align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="대표자명은 이전 페이지에서 입력한 이름으로 검사합니다.">info</a>
+					                                        </label>
+					                                        <input class="form-control" id="buisnessNum" placeholder="'-' 제외" required value="5048600471">
+					                                    </div>
+					                                </div>
+					                                <div class="col-sm-6 mb-2">
+					                                    <div class="form-group">
+					                                        <label for="">개업일</label>
+					                                        <input class="form-control" id="buisnessStartDate" placeholder="'-' 제외" required value="20120709">
+					                                    </div>
+					                                </div>
+						                            <div id="buisnessNumValidation" class="validationResult mb-1" style="font-size: small; color: red;">&nbsp;</div>
+				                                </div>
+					                            
+					                            <input type="button" class="btn btn-gray-800 mb-4" value="이전" onclick="$('#previous')[0].click()" style="width: 100%;">
 					                            
 					                            <div class="form-group">
 				                                    <div class="mb-1">
@@ -226,7 +266,7 @@
 				                                            </label>
 				                                        </div>
 				                                    </div>
-				                                    <div id="termValidation" class="validationResult mt-2 mb-3" style="font-size: small; color: red;">&nbsp;</div>
+				                                    <div id="termValidation" class="validationResult mb-2" style="font-size: small; color: red;">&nbsp;</div>
 				                                </div>
 				                            </form>
 				                            
@@ -282,6 +322,7 @@
 			
 			// validation 초기화
 			$('input').removeClass('is-invalid');
+			$('input').removeClass('is-valid');
 			$('#termCheckbox').removeAttr('style');
 			$('.validationResult').html('&nbsp;');
 		}
@@ -290,14 +331,14 @@
 		// 사업자회원 선택시 사업자등록번호 폼 출력
 		$('#tabs-text-1-tab').on('click', () => {
 			resetForm();
-			$('#buisnessNumDiv').attr('style','display: none;');
-			$('#buisnessNumValidation').attr('style','display: none;');
+			$('#title').html('일반회원 가입')
+			$('#buisnessDiv').attr('style','display: none;');
 		});
 		
 		$('#tabs-text-3-tab').on('click', () => {
 			resetForm();
-			$('#buisnessNumDiv').removeAttr('style');
-			$('#buisnessNumValidation').removeAttr('style');
+			$('#title').html('사업자회원 가입')
+			$('#buisnessDiv').removeAttr('style');
 		});
 		
 		
@@ -305,6 +346,9 @@
 		
 		// 메일 주소 선택
 		$('#site').on('change', function() {
+			// 주소 변경 시 validation 초기화
+			$('#email2').removeClass('is-invalid');
+			$('#email2').removeClass('is-valid');
 			$('#email2').val(this.value);
 			
 			// 직접입력을 선택하면 입력칸 활성화
@@ -324,6 +368,8 @@
 				$('#email1').addClass('is-invalid');
 				$('#emailValidation').html('이메일을 확인하세요.');
 				isValid = false;
+			} else {
+				$('#email1').addClass('is-valid');
 			}
 
 			// 이메일 주소 미입력 시
@@ -331,6 +377,8 @@
 				$('#email2').addClass('is-invalid');
 				$('#emailValidation').html('이메일을 확인하세요.');
 				isValid = false;
+			} else {
+				$('#email2').addClass('is-valid');
 			}
 			
 			// 비밀번호 미입력 시
@@ -353,14 +401,38 @@
 				$('#password2').addClass('is-invalid');
 				$('#passwordValidation').html('비밀번호가 일치하지 않습니다.');
 				isValid = false;
+			} else {
+				$('#password1').addClass('is-valid');
+				$('#password2').addClass('is-valid');
 			}
 			
 			// 이메일 중복체크 TODO
+			if (isValid) {
+				const email = $('#email1').val() + '@' + $('#email2').val();
+				
+				$.ajax('emailCheck?email='+email)
+				.done ( isValidEmail => {
+					
+					if (!isValidEmail) {
+						// 이메일 중복
+						$('#email1').addClass('is-invalid');
+						$('#email2').addClass('is-invalid');
+						$('#emailValidation').html('이미 사용중인 이메일입니다.');
+					} else {
+						// validation 통과
+						$('#email1').removeClass('is-invalid');
+						$('#email2').removeClass('is-invalid');
+						$('#email1').addClass('is-valid');
+						$('#email2').addClass('is-valid');
+						$('#tabs-text-2-tab')[0].click();
+					}
+				})
+			}
 			
-			if (isValid) $('#tabs-text-2-tab')[0].click()
+			 
 		});
 		
-		// 입력값 수정 시 validation 초기화
+		// form1 입력값 수정 시 validation 초기화
 		$('#form1 input').on('change', event => {
 			const id = event.target.id;
 			
@@ -395,7 +467,31 @@
 		$('#name').on('keydown', event => { if (isFinite(event.key)) event.preventDefault(); } );
 		
 		// 연락처에 문자 입력 방지
-		$('#tel').on('keydown', event => { if (!isFinite(event.key)) event.preventDefault(); } );
+		$('#tel').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
+		
+		// 사업자등록번호에 문자 입력 방지
+		$('#buisnessNum').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
+
+		// 개업일에 문자 입력 방지
+		$('#buisnessStartDate').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
+		
+		// 주소 검색 기능
+		$('#addressSearchBtn').on('click', event => {
+			event.preventDefault();
+			
+			// kakao 주소검색 api
+			new daum.Postcode({
+				oncomplete : function(data) {
+					// 주소 validation 결과 초기화
+					$('#zipcode').removeClass('is-invalid');
+					$('#address1').removeClass('is-invalid');
+					$('#addressValidation').html('&nbsp;');
+					
+					$('#zipcode').val(data.zonecode);
+					$('#address1').val(data.roadAddress);
+				}
+			}).open();
+		});
 		
 		// 회원가입 버튼 클릭 시 form2 체크
 		$('#registerBtn').on('click', () => {
@@ -407,6 +503,25 @@
 				$('#name').addClass('is-invalid');
 				$('#nameValidation').html('이름을 입력하세요.');
 				isValid = false;
+			} else {
+				$('#name').addClass('is-valid');
+			}
+			
+			// 연락처 미입력 시
+			if ($('#tel2').val() == '') {
+				$('#tel2').addClass('is-invalid');
+				$('#telValidation').html('연락처를 입력하세요.');
+				isValid = false;
+			} else {
+				$('#tel2').addClass('is-valid');
+			}
+
+			if ($('#tel3').val() == '') {
+				$('#tel3').addClass('is-invalid');
+				$('#telValidation').html('연락처를 입력하세요.');
+				isValid = false;
+			} else {
+				$('#tel3').addClass('is-valid');
 			}
 			
 			// 주소(address1) 미입력 시
@@ -415,29 +530,85 @@
 				$('#address1').addClass('is-invalid');
 				$('#addressValidation').html('주소를 입력하세요.');
 				isValid = false;
-			}
-			
-			// 연락처 미입력 시
-			if ($('#tel2').val() == '') {
-				$('#tel2').addClass('is-invalid');
-				$('#telValidation').html('연락처를 입력하세요.');
-				isValid = false;
-			}
-
-			if ($('#tel3').val() == '') {
-				$('#tel3').addClass('is-invalid');
-				$('#telValidation').html('연락처를 입력하세요.');
-				isValid = false;
+			} else {
+				$('#zipcode').addClass('is-valid');
+				$('#address1').addClass('is-valid');
 			}
 			
 			// 사업자등록번호 미입력 시
-			if ($('#buisnessNum').val() != $('#password2').val()) {
+			if ($('#buisnessNum').val() == '') {
 				$('#buisnessNum').addClass('is-invalid');
-				$('#buisnessNumValidation').html('사업자등록번호를 입력하세요.');
+				$('#buisnessNumValidation').html('사업자등록번호, 개업일을 확인하세요.');
+				isValid = false;
+			}
+
+			if ($('#buisnessStartDate').val() == '') {
+				$('#buisnessStartDate').addClass('is-invalid');
+				$('#buisnessNumValidation').html('사업자등록번호, 개업일을 확인하세요.');
 				isValid = false;
 			}
 			
-			// 사업자등록번호 미확인 시
+			// 사업자등록번호 검증
+			const data = {
+					  		"businesses": [
+				    			{
+							      "b_no": $('#buisnessNum').val(),
+							      "start_dt": $('#buisnessStartDate').val(),
+							      "p_nm": "서강중",// $('#name').val(), TODO
+							      "p_nm2": "",
+							      "b_nm": "",
+							      "corp_no": "",
+							      "b_sector": "",
+							      "b_type": ""
+						    	}
+						  	]
+						};
+			
+			$.ajax({
+			  url: "https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=0EXleDG3eHrYpbOj1Y9g6imFIIuMOJOpIOvaXrzGBflr8L7qSfTUMAU7MskTa5cKVWJtzQ5IQmA09P2fliKdnw%3D%3D",
+			  type: "POST",
+			  data: JSON.stringify(data),
+			  dataType: "JSON",
+			  contentType: "application/json",
+			  accept: "application/json",
+			  success: function(result) {
+			      const isValidBuisness = (result.data[0].valid == '01')? true : false;
+				  const buisnessStatus = isValidBuisness? result.data[0].status.b_stt_cd : '';
+			      
+				  // 사업자등록번호 확인 불가
+			      if (!isValidBuisness) {
+			    	  $('#buisnessNum').addClass('is-invalid');
+			    	  $('#buisnessStartDate').addClass('is-invalid');
+			    	  $('#buisnessNumValidation').html('사업자등록번호를 ' + result.data[0].valid_msg);
+			    	  isValid = false;
+			      }
+
+				  // 사업상태가 계속사업자가 아님
+			      if (buisnessStatus == '02' || buisnessStatus == '03') {
+			    	  buisnessStatus = result.data[0].status.b_stt.substring(0,2);
+			    	  $('#buisnessNum').addClass('is-invalid');
+			    	  $('#buisnessStartDate').addClass('is-invalid');
+			    	  $('#buisnessNumValidation').html(buisnessStatus + '상태의 사업자등록번호입니다.');
+			    	  isValid = false;
+			      }
+			      
+				  // validation 통과
+				  if (isValidBuisness) {
+			    	  $('#buisnessNum').removeClass('is-invalid');
+			    	  $('#buisnessStartDate').removeClass('is-invalid');
+			    	  $('#buisnessNumValidation').html('&nbsp;');
+			    	  
+			    	  $('#buisnessNum').addClass('is-valid');
+			    	  $('#buisnessStartDate').addClass('is-valid');
+				  }
+			      
+			      
+			  },
+			  error: function(result) {
+				  alert('오류가 발생했습니다.');
+			      console.log(result.responseText); //responseText의 에러메세지 확인
+			  }
+			});
 			
 			
 			// 약관 미동의 시
@@ -446,11 +617,68 @@
 				$('#termValidation').html('이용약관에 동의해야 합니다.');
 				isValid = false;
 			}
+			
+			// 회원가입 성공
+			if (isValid) {
+				alert ('회원가입 성공');
+				const member = {
+								"email": $('#email1').val() + '@' + $('#email2').val(),
+								"password": $('#password1').val(),
+								"name": $('#name').val(),
+								"tel": $('#tel1').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val(),
+								"buisnessNum": $('#buisnessNum').val(),
+								"address": $('#address1').val(),
+								"addressDetail": $('#address2').val(),
+								"buisnessType": $('#buisnessType').val(0),
+								};
+				
+				console.log(member);
+				
+				$.ajax({
+					url: 'sign-up',
+					method: 'post',
+					data: member
+				}).done( response => {
+					alert(response);
+				}).fail(response => {
+					console.log(response);
+				})
+			}
+		});
+		
+		// form2 입력값 수정 시 validation 초기화
+		// 주소 validation은 주소검색 완료에서 초기화
+		$('#form2 input').on('change', event => {
+			const id = event.target.id;
+			
+			if (id == 'name') {
+				$('#name').removeClass('is-invalid');
+				$('#nameValidation').html('&nbsp;');
+			}
+			
+			if (id.startsWith('tel')) {
+				$('#tel input').removeClass('is-invalid');
+				$('#telValidation').html('&nbsp;');
+			}
+			
+			if (id.startsWith('buisness')) {
+				$('#buisnessDiv input').removeClass('is-invalid');
+				$('#telValidation').html('&nbsp;');
+			}
+			
+
+			if (id == 'termCheckbox') {
+				$('#termCheckbox').removeClass('is-invalid');
+				$('#termValidation').html('&nbsp;');
+			}
 		});
 		
 		
 	</script>
 
+	<!-- kakao 주소 검색 api -->
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	
     <!-- Core -->
 	<script src="${pageContext.request.contextPath}/resources/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>

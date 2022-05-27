@@ -25,18 +25,14 @@
 	</select>
 
 <!-- 	이홍제 -->
-	<insert id="insert" parameterType="MemberVO">
-		<selectKey keyProperty="memNo" resultType="int"
-			order="BEFORE">
-
+	<insert id="insertMember" parameterType="MemberVO">
+		<selectKey keyProperty="memNo" resultType="int" order="BEFORE">
 			SELECT CASE WHEN MAX(mem_no) IS NULL THEN 1
-			ELSE MAX(mem_no) + 1 END AS memNo
+				   ELSE MAX(mem_no) + 1 END AS memNo
 			FROM member
 		</selectKey>
-		INSERT INTO member<!-- (NVL2(#{member_serial}, MAX(#{member_serial}) + 
-			1 ,1) ,member_id,member_pw,member_name,member_birth,member_address,member_tel,member_email,member_account) -->
-		VALUES
-		(#{memNo},#{email},#{name},#{password},#{address},#{addressDetail},#{tel},#{memType},#{buisnessNum},#{buisnessType},#{status})
+		INSERT INTO member
+		VALUES(#{memNo},#{email},#{name},#{password},#{address},#{addressDetail},#{tel},#{memType},#{buisnessNum},#{buisnessType},'00302')
 	</insert>
 	
 	
@@ -47,4 +43,22 @@
 		where email=#{email} and password=#{password}
 	</select>
 
+<!-- 	이우준 -->
+	<select id="isValidEmail" resultType="int">
+		SELECT COUNT(email) FROM member WHERE email=#{email}
+	</select>
+	
+	<select id="signup" parameterType="map" resultType="map" statementType="CALLABLE" >
+		{call SIGNUP_PROC(#{email}, mode=IN, jdbcType=VARCHAR2 , javaType=string},
+						  #{name}, mode=IN, jdbcType=VARCHAR2 , javaType=string},
+						  #{password}, mode=IN, jdbcType=VARCHAR2 , javaType=string},
+						  #{address}, mode=IN, jdbcType=VARCHAR2 , javaType=string},
+						  #{addressDetail}, mode=IN, jdbcType=VARCHAR2 , javaType=string},
+						  #{tel}, mode=IN, jdbcType=VARCHAR2 , javaType=string},
+						  #{memType}, mode=IN, jdbcType=VARCHAR2 , javaType=string},
+						  #{buisnessNum}, mode=IN, jdbcType=VARCHAR2 , javaType=string},
+						  #{buisnessType}, mode=IN, jdbcType=VARCHAR2 , javaType=string},
+						  #{applicationNo}, mode=OUT, jdbcType=NUMBER , javaType=integer})
+	  	}
+	</select>
 </mapper>

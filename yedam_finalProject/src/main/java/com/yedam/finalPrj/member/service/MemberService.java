@@ -17,6 +17,7 @@ public interface MemberService {
 	public MemberVO loginCheck(MemberVO vo, HttpSession session);
 	public void logout(HttpSession session);
 	
-	
-	 MemberVO getCurrentUser(HttpServletRequest request);
+	MemberVO getCurrentUser(HttpServletRequest request);
+	boolean isValidEmail(MemberVO vo);
+	int signUp(MemberVO member);
 }
