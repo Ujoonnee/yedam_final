@@ -10,7 +10,12 @@
 	}
 	
 	$file = new stdClass; 
-	$file->name = rawurldecode($headers['file_name']);	
+	//$file->name = rawurldecode($headers['file_name']);	
+	$filemane_ext_temp = explode('.',$filename);
+    $filename_ext = strtolower(array_pop($filemane_ext_temp));
+
+
+
 	$file->size = $headers['file_size'];
 	$file->content = file_get_contents("php://input"); 
 	

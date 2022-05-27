@@ -21,7 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public int insert(ReviewVO vo) {
-		return 0;
+		return map.insert(vo);
 	}
 
 
@@ -29,7 +29,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> reviewSelectAll(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		
+		System.out.println(user.getMemNo());
 //		Review vo = new Review();
 //		vo.setMemNo(user.getMemNo());
 		

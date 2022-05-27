@@ -25,20 +25,12 @@ public class ReviewController {
 //	리뷰 목록 조회
 	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
 	public String reviewList(Model model,HttpServletRequest request) {
+		
 		model.addAttribute("reviewList", service.reviewSelectAll(request));
 		return "review/reviewList";
 	}
 	
-//	리뷰 수정
-//	@ResponseBody
-//	@RequestMapping("/reviewUpdate")
-//	public String reviewUpdate( Model model, @ModelAttribute Review vo) {
-//		mapper.reviewUpdate(vo);
-//		Map<String,Object> map = new HashMap<>();
-//		map.put("isSuccess", true);
-//		model.addAttribute("reviewUpdate", vo.getContent());
-//		return "review/reviewList";
-//	}
+
 	
 	@GetMapping("rev_insert")
 	public String insert() {
@@ -50,5 +42,6 @@ public class ReviewController {
 	public void list(ReviewVO vo) {
 		service.insert(vo);
 	}
+
 	
 }

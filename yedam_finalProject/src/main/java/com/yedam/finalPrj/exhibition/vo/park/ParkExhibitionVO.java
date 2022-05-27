@@ -1,6 +1,8 @@
 package com.yedam.finalPrj.exhibition.vo.park;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -15,7 +17,9 @@ public class ParkExhibitionVO {
 	private String thumbnail;
 	private String tel;
 	private String address = "";
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date startDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
 	private String detail; 
 	private String category;
