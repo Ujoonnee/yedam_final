@@ -131,10 +131,7 @@ public class ProductServiceImpl implements ProductService {
 	public String productThumbnailUpdate(MultipartFile multi, HttpServletRequest request,Model model, Product vo) {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
-	
-		int storeNo = map.getStoreNo(user);
-		System.out.println("impl파트");
-		// TODO Auto-generated method stub
+		
 		String path="C:\\image\\";
 		String url = null;
 		
@@ -144,17 +141,26 @@ public class ProductServiceImpl implements ProductService {
          long size = multi.getSize();
          String saveFileName = genSaveFileName(extName);
          
-         System.out.println("uploadpath : " + uploadpath);
          
+         StringBuilder sb = new StringBuilder();
+         sb.append(user.getMemNo());
+         sb.append(vo.getProdNo());
+         sb.append(saveFileName.substring(7, 15));
+         
+         saveFileName= sb.toString();
+         System.out.println(saveFileName);
+         
+         System.out.println(multi.toString());
+         System.out.println("uploadpath : " + uploadpath);
          System.out.println("originFilename : " + originFilename);
          System.out.println("extensionName : " + extName);
          System.out.println("size : " + size);
          System.out.println("saveFileName : " + saveFileName);
          vo.setProdThumbnail(saveFileName);
-         vo.setStoreNo(storeNo);
+         vo.setProdNo(vo.getProdNo());
          if(!multi.isEmpty())
          {
-             File file = new File(uploadpath, multi.getOriginalFilename());
+             File file = new File(uploadpath, saveFileName);
              try {
 				multi.transferTo(file);
 			} catch (Exception e) {
@@ -162,7 +168,7 @@ public class ProductServiceImpl implements ProductService {
 				e.printStackTrace();
 			}
              
-             model.addAttribute("filename", multi.getOriginalFilename());
+             model.addAttribute("filename",saveFileName);
              model.addAttribute("uploadPath", file.getAbsolutePath());
              try {
 				map.thumbnailUpdate(vo);
@@ -193,6 +199,16 @@ public class ProductServiceImpl implements ProductService {
 	        
 	        return fileName;
 	    }
+	// 등록된 이미지 제거.
+	@Override
+	public int productThumbnailDelete(HttpServletRequest request, Model model, Product vo) {
+		System.out.println(vo.getProdThumbnail());
+		System.out.println(vo.getProdNo());
+		// TODO Auto-generated method stub
+		
+		return map.productThumbnailDelete( vo);
+	}
+//	엑셀로 받은 값들 db에 저장
 	@Override
 	public void myStoreProductInsert(String file,HttpServletRequest request) {
 		HttpSession session =  request.getSession();
@@ -222,6 +238,7 @@ public class ProductServiceImpl implements ProductService {
 
 		// TODO Auto-generated method stub
 	}
+//	내 상품 수정
 	@Override
 	public void myStoreProductUpdate(List<HashMap<String, String>> vo) {
 		System.out.println(vo);
@@ -277,6 +294,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductReservationVO> proReDetailList(ProductReservationVO vo) {
 		return map.proReDetailList(vo);
 	}
+
 
 	
 

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.review.service.ReviewVO;
 import com.yedam.finalPrj.store.vo.jo.ProductReservationVO;
@@ -15,7 +16,7 @@ import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 public interface StoreService {
 	
 //	Park
-	int regist(Store store, HttpServletRequest request);
+	String regist(Store store, HttpServletRequest request, MultipartFile multi, Model model); 
 //	매장 들어갈 시 리스트 출력
 	List<Store> storeList(StorePagingCriteria cri);
 //  매장 검색(매장명, 매장 카테고리, 상품명)
@@ -60,6 +61,7 @@ public interface StoreService {
 	 int storeCnt(ResProdListPagingCriteria cri); // 매장 이름 검색시 총 매장 개수
 	 int prodNameCnt(ResProdListPagingCriteria cri);  // 상품명이 포함된 총 예약건 수
 //리뷰페이지 상세에 같이 출력
+	 public List<ReviewVO> reviewLoad(int selectedResNo);
 	 public ReviewVO reviewLoad(int revNo); 
 	 
 	 

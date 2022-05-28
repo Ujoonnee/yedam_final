@@ -42,6 +42,7 @@ public interface ProductMapper {
 	
 //	파일업로드
 	String thumbnailUpdate(Product product) throws Exception;
+	int productThumbnailDelete(Product vo);
 
 //	통계조회
 	List<ProductReservationVO> salesbyDate(int storeNo);

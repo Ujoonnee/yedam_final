@@ -45,7 +45,7 @@
 				<c:if test="${not empty storeList }">
 					<c:forEach items="${storeList }" var = "list">
 						<tr height="150px" onclick ="storeView(${list.storeNo})" >
-							<td align = "center">${list.thumbnail }</td>
+							<td align = "center"><img src="/store/${list.thumbnail } " class="selected_img"  height="150px" width="150px"></td>
 							<td align = "center">${list.name }</td>
 							<td align = "center">${list.address }</td>
 						</tr>
