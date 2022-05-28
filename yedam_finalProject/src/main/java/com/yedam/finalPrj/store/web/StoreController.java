@@ -8,10 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.finalPrj.member.service.MemberVO;
+import com.yedam.finalPrj.review.service.ReviewVO;
 import com.yedam.finalPrj.store.serviceImpl.StoreServiceImpl;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
@@ -87,13 +90,18 @@ public class StoreController {
 	
 // 	(예약번호 받아서)예약내역 상세페이지로 이동
 	@GetMapping("resProdListByProdName/{selectedResNo}")
-	public String reservedProductsDetail(@PathVariable("selectedResNo") int selectedResNo, Model model) {
+	public String reservedProductsDetail(@PathVariable("selectedResNo") int selectedResNo,Model model) {
 			
+		
+	
 		model.addAttribute("detail", dao.resProdDetail(selectedResNo));
 		model.addAttribute("prodList", dao.resProdDetailList(selectedResNo));
-			
+		model.addAttribute("reviewList", dao.reviewLoad(selectedResNo));
+		
 		return "general/store/resProdDetail";
+
 	}
+
 	
 //	Yoon
 	

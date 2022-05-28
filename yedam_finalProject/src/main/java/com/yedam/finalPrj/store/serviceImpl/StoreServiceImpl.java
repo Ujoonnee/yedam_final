@@ -112,7 +112,7 @@ public class StoreServiceImpl implements StoreService{
 		// TODO Auto-generated method stub
 		return map.totalProdCnt(cri);
 	}
-	
+
 
 
 //	Hong
@@ -190,8 +190,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 //리뷰페이지 상세에 같이 출력
 	@Override
-	public List<ReviewVO> reviewLoad(int selectedResNo) {
-		return map.reviewLoad(selectedResNo);
+	public ReviewVO reviewLoad(int revNo) {
+		return map.reviewLoad(revNo);
 	}
 
 	
