@@ -3,8 +3,8 @@
 <mapper namespace="com.yedam.finalPrj.review.serviceImpl.ReviewMapper">
 
 	<insert id="insert" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
-		INSERT INTO REVIEW(REV_NO, RES_NO, CATEGORY, SCORE, CONTENT, REV_TIME, REPLY_TIME, MEM_NO, SERVICE_NAME) 
-		VALUES(SEQ_REVIEW.NEXTVAL, #{resNo}, #{category}, #{score}, #{content}, default, default, #{memNo}, #{serviceName})
+		INSERT INTO REVIEW(REV_NO, RES_NO, CATEGORY, SCORE, CONTENT, REV_TIME, MEM_NO, SERVICE_NAME) 
+		VALUES(SEQ_REVIEW.NEXTVAL, #{resNo}, #{category}, #{score}, #{content}, default, #{memNo}, #{serviceName})
 
 	</insert>
 	
