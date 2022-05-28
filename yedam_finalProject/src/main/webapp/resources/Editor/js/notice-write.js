@@ -1,7 +1,12 @@
-var oEditors = []; nhn.husky.EZCreator.createInIFrame({
+var oEditors = [];
+
+setTimeout(editorLoad, 500);
+
+function editorLoad(){
+ nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors, 
 	elPlaceHolder: "smartEditor",
-	sSkinURI: "Editor/SmartEditor2Skin.html",
+	sSkinURI: "/finalPrj/resources/Editor/SmartEditor2Skin.html",
 	fCreator: "createSEditor2", 
 	htParams: {
 		bUseToolbar: true,
@@ -9,6 +14,8 @@ var oEditors = []; nhn.husky.EZCreator.createInIFrame({
 		bUseModeChanger: false
 	}
 });
+}
+
 $(function() {
 	$("#savebutton").click(function() {
 		oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);

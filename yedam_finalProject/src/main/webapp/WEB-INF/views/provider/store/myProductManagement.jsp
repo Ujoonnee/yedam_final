@@ -56,8 +56,8 @@
 	    top: 50%;
 	    left: 50%;
 	
-	    width: 400px;
-	    height: 600px;
+	    width: 600px;
+	    height: 800px;
 	
 	    padding: 40px;
 	
@@ -106,7 +106,11 @@
 			<td align="center"> ${list.prodThumbnail }</td></c:if>
 			<c:if test ="${list.prodThumbnail == null }">
 				<td align = "center">
-					<input type="file" class = "thumbnail_file_upload" name="fileUpload" value ="사진등록">
+					 <div class="img_wrap"> <img id="img" /> </div>
+					 <div class = "imageValue">
+						<input type="file" class = "thumbnail_file_upload" name="fileUpload" value ="사진등록">
+						<input type="hidden" class="prodNo"value = "${list.prodNo }">
+					</div>
 				</td>
 			</c:if>
 			<td align="center">${list.prodName }</td>		
@@ -129,7 +133,7 @@
 		<div class="modal_body">
 <!-- 		<form method = "post" action = "updateStock" id = "frm"> -->
 			<div id="management">
-				<table>
+				<table style ="margin: auto;">
 					<thead>
 						<tr>
 							<th>사진</th>
@@ -172,8 +176,88 @@
 		<tr><th>prodName</th><th>prodCat</th><th>price</th><th>stock</th><th>카테고리 종류 : 스낵류, 유제품, 커피 , 라면</th></tr>
 	</table>   
 
-
 <script>
+
+
+		$('.thumbnail_file_upload').on('change', event => {
+			if(!confirm("사진을 등록하시겠습니까?")){
+				alert("취소되었습니다.")
+				
+			}else{
+				var form = new FormData();
+				var parentTarget = event.target.parentElement.children[1].value;
+				
+				console.log(parentTarget);
+// 				console.log(parentTarget.children('.prodNo'));
+				
+				
+				  form.append( "prodThumbnail", event.target.files[0] );
+					console.log(form);
+					return;
+				  jQuery.ajax({
+		             url : "ThumbnailUpdate"
+		           , type : "POST"
+		           , processData : false
+		           , contentType : false
+		           , data : form
+		           , success:function(response) {
+		               alert("성공하였습니다.");
+		               console.log(response);
+		           }
+		           ,error: function (jqXHR) { 
+		               alert(jqXHR.responseText); 
+		           }
+			
+				});
+			}
+			
+		})
+
+// 		이미지 미리보기
+// 		var sel_file;
+		
+// 		$(document).ready(function() {
+// 		    $(".thumbnail_file_upload").on("change", handleImgFileSelect);
+// 		});
+		
+// 		function handleImgFileSelect(e) {
+// 		    var files = e.target.files;
+// 		    var filesArr = Array.prototype.slice.call(files);
+		
+// 		    var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+		
+// 		    filesArr.forEach(function(f) {
+// 		        if (!f.type.match(reg)) {
+// 		            alert("확장자는 이미지 확장자만 가능합니다.");
+// 		            return;
+// 		        }
+		
+// 		        sel_file = f;
+		
+// 		        var reader = new FileReader();
+// 		        reader.onload = function(e) {
+// 		            $("#img").attr("src", e.target.result);
+// 		        }
+// 		        reader.readAsDataURL(f);
+// 		    });
+// 		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 		$(document).ready(function(){
 // 			var formObj = $("form[name='fileUploadForm']");
@@ -187,30 +271,9 @@
 // 			});
 // 		})
 
-// 		$('.thumbnail_file_upload').addEventListener('change', () => {
-// 			if(!confirm("사진을 등록하시겠습니까?")){
-// 				alert("취소되었습니다.")
-// 			}else{
-// 				var form = new FormData();
-// 				  form.append( "prodThumbnail", $(".file1").files[0] );
-			        
-// 			         jQuery.ajax({
-// 			             url : "ThumbnailUpdate"
-// 			           , type : "POST"
-// 			           , processData : false
-// 			           , contentType : false
-// 			           , data : form
-// 			           , success:function(response) {
-// 			               alert("성공하였습니다.");
-// 			               console.log(response);
-// 			           }
-// 			           ,error: function (jqXHR) 
-// 			           { 
-// 			               alert(jqXHR.responseText); 
-// 			           }
-// 			}
+	
 					
-// 		});
+
 // 		function fn_valiChk(){
 // 			var regForm = $("form[name='fileUploadForm'] .chk").length;
 // 			for(var i = 0; i<regForm; i++){

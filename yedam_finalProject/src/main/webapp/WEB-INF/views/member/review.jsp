@@ -53,18 +53,19 @@
 	<title>Insert title here</title>
 </head>
 
-
-
-
-
-
 <!-- 모달 팝업 -->
 
 	<div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5>리뷰</h5><br>
+					<h6>리뷰작성</h6><br>
+					
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<div id="serviceNameDiv"></div>
+					<div id="pickupDate"></div><br>
 					<h2 class="h6 modal-title">평점</h2>
 					<div>
 						<p id="star">
@@ -76,16 +77,15 @@
 							<a href="#" value="5">★</a>
 							<p>
 					</div>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					
 				    <form id="frm" name="smartEditorText" method="POST" action="/finalPrj/member/rev_insert.do"> 
 						<div class="jsx-2303464893 editor"> 
 							<div class="fr-box fr-basic fr-top" role="application"> 
 							<div class="fr-wrapper show-placeholder" dir="auto" style="overflow: scroll;"> 
 									<input type="text" name="content" id="smartEditor" style="width: 100%; height: 412px;"> 
 									<input type="hidden" name="score" id="score" value="">
+									<input type="hidden" value="" name="resNo" id="resNo">
+									<input type="hidden" value="" name="category" id="category">
+									<input type="hidden" value="" name="serviceName" id="serviceName">
 									<input type="hidden" name="memNo" value="${user.memNo }">
 								</div> 
  							</div> 
@@ -101,36 +101,35 @@
 		</div>
 	</div>
 
-
-
-
 <script>
-//로그인한 회원의 회원번호와 카테고리 받아오기!!!(사이드바 완성되면.)
-
+		//리뷰평점 별색깔 변경
 		$('#star a').click(function () {
+			
 			$(this).parent().children("a").removeClass("on");
 			$(this).addClass("on").prevAll("a").addClass("on");
 			console.log($(this).attr("value"));
 		});
 
+
 		$("#saveBtn").on("click", function(){
+			
 			//id가 smarteditor인 textarea에 에디터에서 대입       
-			 oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);                 
-			// 이부분에 에디터 validation 검증                
-			 //폼 submit       
-			/*  $("#frm").submit(); */
-				var score = $('#star a.on').last().attr("value");
-				$("#score").val(score);
-				/* var content = $("#smartEditor").val(); */
-				/* var memNo = $("#memNo").val(); */
-				/* console.log(content); */
-				
+			oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);                 
+			
+			var score = $('#star a.on').last().attr("value");
+			$("#score").val(score);
+			var resNo = $("#resNo").val();
+			
 				$.ajax({
-					url: "/finalPrj/member/rev_insert.do",
+					url: "/finalPrj/review/rev_insert.do",
 					method: "POST",
-					data: 	$("#frm").serialize(),				
-					success: function (data) {
-						alert("성공")
+					data: 	$("#frm").serialize(),		
+					success: function (re) {
+						
+						console.log(re.revNo); $("#btnModal").hide();
+						 alert("성공")
+						 location.href=resNo;
+						
 					},
 					error: function () {
 						alert("에러")
@@ -138,14 +137,6 @@
 				})
 			});
 
-
-		//function submitContents() {
-		//	oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
-		//}
-
-		/* $("#saveBtn").on("click", function(){
-			$("#smartEditor").html()
-		}) */
 	</script>
 <!-- 	 SmartEditor2  -->
 <script type="text/javascript" src = "${pageContext.request.contextPath}/resources/Editor/js/notice-write.js"></script>

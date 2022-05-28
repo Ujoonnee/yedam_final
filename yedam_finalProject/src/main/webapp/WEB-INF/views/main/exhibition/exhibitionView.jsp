@@ -7,11 +7,15 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <!-- 날짜 구하는 함수 -->
  <c:set var="today" value="<%=new java.util.Date()%>" />
- <fmt:parseDate var="startDate" value="${exhibitionView.startDate}" pattern="yyyy-MM-dd"/>
- <fmt:parseDate var="endDate" value="${exhibitionView.endDate}" pattern="yyyy-MM-dd"/>
+ 
+<%--  <fmt:parseDate var="startDate" value="${exhibitionView.startDate}"  pattern="E MMM dd HH:mm:ss z yyyy"/> --%>
+<%--  <fmt:parseDate var="endDate" value="${exhibitionView.endDate}" pattern="E MMM dd HH:mm:ss z yyyy "/> --%>
+<%--  <fmt:formatDate value="${startDate }" pattern="yyyy-mm-dd"/> --%>
+<%--  <fmt:formatDate value="${endDate }" pattern="yyyy-mm-dd"/> --%>
  <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>
- <c:set var="sta"><fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd" /></c:set>
- <c:set var="end"><fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd" /></c:set>
+ <c:set var="sta"><fmt:formatDate value="${exhibitionView.startDate}" pattern="yyyy-MM-dd " /></c:set>
+ <c:set var="end"><fmt:formatDate value="${exhibitionView.endDate}" pattern="yyyy-MM-dd" /></c:set>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,7 +100,7 @@ View페이징
 멤버번호;${exhibitionView.memNo },
 이름;${exhibitionView.name },
 쇼룸;${exhibitionView.showRoom },
-날짜;${exhibitionView.startDate } ~ ${exhibitionView.endDate },
+날짜;${sta } ~ ${end },
 카테고리;${exhibitionView.category }
 </pre>
 </div>

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,13 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.yedam.finalPrj.common.FileUtils;
 import com.yedam.finalPrj.member.service.MemberService;
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.product.service.ProductService;
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
-import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 
 
 
@@ -35,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
 //	Park
 //	매장의 상품 개수
 	@Override
-	public int productCnt(String prodNo) {
+	public int productCnt(int prodNo) {
 		// TODO Auto-generated method stub
 		return map.productCnt(prodNo);
 	}
@@ -70,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void search(ProductPagingCriteria cri, Model model,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		String store_no =  (String) (request.getParameter("store_no"));
+		int store_no =   Integer.parseInt(request.getParameter("store_no"));
 		System.out.println("/상품페이지/ 매장번호 값 확인: "+store_no);	
 		
 //		option 값에 따른 sql 구문 출력.
@@ -92,60 +94,88 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 	@Override
-	public List<Product> myStoreProductManegement(ProductPagingCriteria cri) {
+	public List<Product> myStoreProductManegement(ProductPagingCriteria cri,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		cri.setStoreNo("4");
-		System.out.println(cri.getStoreNo());
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		System.out.println("myStoreProductManagement 에서 user세션값"+user.getMemNo());
+		int memNo = map.getStoreNo(user);
+		System.out.println("getStoreNo : "+memNo);
+		cri.setStoreNo(memNo);
 		return map.myStoreProductManegement(cri);
 	}
 	@Override
-	public int myStoreProductCnt(ProductPagingCriteria cri) {
+	public int myStoreProductCnt(ProductPagingCriteria cri,HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		cri.setStoreNo("4");
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+	
+		int storeNo = map.getStoreNo(user);
+		System.out.println("getStoreNo : "+storeNo);
+		cri.setStoreNo(storeNo);
 		return map.myStoreProductCnt(cri);
 	}
 	@Override
-	public int oneProductInsert(Product product) {
+	public int oneProductInsert(Product product,HttpServletRequest request) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+	
+		int storeNo = map.getStoreNo(user);
+		System.out.println("단일상품등록의 매장번호"+storeNo);
+		product.setStoreNo(storeNo);
 		// TODO Auto-generated method stub
 		return map.oneProductInsert(product);
 	}
 	
 	@Override
-	public void myStoreProductUpdate(MultipartFile multi, Model model, Product vo) {
+	public String productThumbnailUpdate(MultipartFile multi, HttpServletRequest request,Model model, Product vo) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+	
+		int storeNo = map.getStoreNo(user);
+		System.out.println("impl파트");
 		// TODO Auto-generated method stub
 		String path="C:\\image\\";
-		
 		String url = null;
 		
-		String uploadpath = path;
-        String originFilename = multi.getOriginalFilename();
-        String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
-        long size = multi.getSize();
-        String saveFileName = genSaveFileName(extName);
-        
-        System.out.println("uploadpath : " + uploadpath);
-        
-        System.out.println("originFilename : " + originFilename);
-        System.out.println("extensionName : " + extName);
-        System.out.println("size : " + size);
-        System.out.println("saveFileName : " + saveFileName);
-        
-        if(!multi.isEmpty())
-        {
-            File file = new File(uploadpath, multi.getOriginalFilename());
-            try {
+		 String uploadpath = path;
+         String originFilename = multi.getOriginalFilename();
+         String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
+         long size = multi.getSize();
+         String saveFileName = genSaveFileName(extName);
+         
+         System.out.println("uploadpath : " + uploadpath);
+         
+         System.out.println("originFilename : " + originFilename);
+         System.out.println("extensionName : " + extName);
+         System.out.println("size : " + size);
+         System.out.println("saveFileName : " + saveFileName);
+         vo.setProdThumbnail(saveFileName);
+         vo.setStoreNo(storeNo);
+         if(!multi.isEmpty())
+         {
+             File file = new File(uploadpath, multi.getOriginalFilename());
+             try {
 				multi.transferTo(file);
-			} catch (IllegalStateException | IOException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            
-            model.addAttribute("filename", multi.getOriginalFilename());
-            model.addAttribute("uploadPath", file.getAbsolutePath());
-            
-//            return "filelist";
-        }
-        return ;
+             
+             model.addAttribute("filename", multi.getOriginalFilename());
+             model.addAttribute("uploadPath", file.getAbsolutePath());
+             try {
+				map.thumbnailUpdate(vo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+             return "filelist";
+         }
+         System.out.println("test종료");
+         
+         System.out.println("management GO!!");
+         return "redirect:management";
 	}
 	// 현재 시간을 기준으로 파일 이름 생성
 	 private String genSaveFileName(String extName) {
@@ -164,7 +194,11 @@ public class ProductServiceImpl implements ProductService {
 	        return fileName;
 	    }
 	@Override
-	public void myStoreProductInsert(String file) {
+	public void myStoreProductInsert(String file,HttpServletRequest request) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+	
+		int storeNo = map.getStoreNo(user);
 		file = file.replace("제품명","prodName");
 		file = file.replace("상품상태","status");
 		file = file.replace("가격","price");
@@ -175,6 +209,7 @@ public class ProductServiceImpl implements ProductService {
 		Gson gson = new Gson();
 		List<Product> list = gson.fromJson(file, new TypeToken<List<Product>>() {}.getType());
 		for (Product product : list) {
+			product.setStoreNo(storeNo);
 			System.out.println("for시작");
 			System.out.println(product.getProdName());
 			System.out.println(product.getProdCat());
@@ -203,12 +238,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductReservation> salesbyDate(int storeNo) {
+	public List<ProductReservationVO> salesbyDate(int storeNo) {
 		// TODO Auto-generated method stub
 		return map.salesbyDate(storeNo);
 	}
 	@Override
-	public List<ProductReservation> searchDateInStatistics(Statistics vo) {
+	public List<ProductReservationVO> searchDateInStatistics(Statistics vo) {
 		// TODO Auto-generated method stub
 		return map.searchDateInStatistics(vo);
 	}
@@ -217,25 +252,30 @@ public class ProductServiceImpl implements ProductService {
 //	Hong
 
 
-	@Override
-	public List<ProductReservation> proReSelectAll() {
-		// TODO Auto-generated method stub
-		return map.proReSelectAll();
-	}
+
 	@Override
 	public int totalCnt(ProductPagingCriteria cri) {
 		// TODO Auto-generated method stub
 		return map.totalCnt(cri);
 	}
 	@Override
-	public ProductReservation proReDetail(ProductReservation vo) {
+	public ProductReservationVO proReDetail(ProductReservationVO vo) {
 		// TODO Auto-generated method stub
 		return map.proReDetail(vo);
 	}
+	
+//	전제 예약조회
 	@Override
-	public List<ProductReservation> proReDetailList() {
-		// TODO Auto-generated method stub
-		return map.proReDetailList();
+	public List<ProductReservationVO> proReSelectAll(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		String memType = user.getMemType();
+		System.out.println("======serviceImpl"+user);
+		return map.proReSelectAll(user);
+	}
+	@Override
+	public List<ProductReservationVO> proReDetailList(ProductReservationVO vo) {
+		return map.proReDetailList(vo);
 	}
 
 	

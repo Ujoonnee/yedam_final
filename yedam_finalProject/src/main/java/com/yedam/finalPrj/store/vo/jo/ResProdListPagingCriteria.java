@@ -21,4 +21,6 @@ public class ResProdListPagingCriteria {
 		@Autowired ProductVO product;
 		private String storeName;
 		private String prodName;
+		
+		private int memNo;
 }
