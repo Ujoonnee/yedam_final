@@ -118,13 +118,18 @@
 			
 			var score = $('#star a.on').last().attr("value");
 			$("#score").val(score);
-
+			var resNo = $("#resNo").val();
+			
 				$.ajax({
 					url: "/finalPrj/review/rev_insert.do",
 					method: "POST",
 					data: 	$("#frm").serialize(),		
-					success: function (data) {
-						alert("성공")
+					success: function (re) {
+						
+						console.log(re.revNo); $("#btnModal").hide();
+						 alert("성공")
+						 location.href=resNo;
+						
 					},
 					error: function () {
 						alert("에러")
