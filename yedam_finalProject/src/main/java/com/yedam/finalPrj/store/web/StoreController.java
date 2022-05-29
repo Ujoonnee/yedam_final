@@ -113,8 +113,9 @@ public class StoreController {
 	@GetMapping("resProdListByProdName/cancel/{prodResNo}")
 	public String resProductsList(@PathVariable int prodResNo, ResProdListPagingCriteria cri,Model model,HttpServletRequest request) {
 		
-		dao.CancelRes(prodResNo);
-		dao.CancelRes2(prodResNo);
+		dao.CancelRes(prodResNo); // 상품예약테이블에서 삭제(예약번호)
+		dao.CancelRes2(prodResNo); // 예약된상품 테이블에서 삭제(예약번호)
+		//예약취소시 product 테이블에서 상품재고 반영?
 		
 		return "redirect:/store/resProdList";
 	}

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +50,19 @@ public class ReviewController {
 	@ResponseBody
 	public void list(ReviewVO vo, Model model) {
 		service.insert(vo);
-		
+	}
+	
+	@GetMapping("rev_update/{revNo}")
+	public String update(@PathVariable("revNo") int revNo, Model model) {
+		service.reviewSelectOne(revNo);
+		model.addAttribute("review", service.reviewSelectOne(revNo));
+		return "member/reviewUpdate";
+	}
+	
+	@PostMapping("rev_update.do")
+	@ResponseBody
+	public void updatedlist(ReviewVO vo, Model model) {
+		service.reviewUpdate(vo);
 	}
 
 	

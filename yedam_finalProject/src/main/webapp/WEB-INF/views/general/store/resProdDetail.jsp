@@ -57,7 +57,7 @@
                 없음
             </h2> 
     </c:if> <td> --%>
-		<td><%-- ${list.prodThumbnail} --%></td>
+		<td>${list.product.prodThumbnail}</td>
 		<td>${list.product.prodName}</td>
 		<td>${list.product.price}</td>
 		<td>${list.reservedProduct.count}개</td>
@@ -109,7 +109,7 @@
 
 <!-- 픽업상태 'N'이면 예약취소 버튼 show -->
 <c:if test="${detail.pickupStatus eq 'N'}"> 
-<button id="cancelRes" class="btn btn-block btn-gray-800 mb-3">예약취소</button>
+<button type="button" class="btn btn-block btn-gray-800 mb-3" id="resCancel">예약취소</button>
 </c:if>
 
 <!--수정버튼은 상의 필요...  -->
@@ -124,11 +124,32 @@
 
 	//평점 ★로 출력하기
 	var score = $("#vscore").html();
-		var space ="";
+	var space ="";
+	
 	for(var i=0; i<score; i++){
 		space = space + "★";
 	} 
+	
 	$("#vscore").html(space)
+	
+	//예약취소(비밀번호입력)
+	 $("#resCancel").on("click", function(){
+
+		 if(confirm("예약을 취소하시겠습니까?")){
+			var text = prompt("비밀번호를 입력하세요.");
+			
+			if(text==${user.password}){
+				
+			location.href="cancel/"+${detail.prodResNo};
+			
+			}else{
+				return alert("비밀번호가 틀립니다.");
+			}
+			
+		}else{
+			return alert("취소되었습니다.");
+		} 
+	 }); 
 
 	//리뷰모달 띄우기
 	 btnModal.addEventListener("click", function(){
@@ -147,24 +168,27 @@
 	 		
 	 	})
 	 }) 
-	 
-	//예약취소(비밀번호입력)
-	  $("#cancelRes").on("click", function(){
-		if(confirm("예약을 취소하시겠습니까?")){
-			var text = prompt("비밀번호를 입력하세요.");
-			
-			if(text==${user.password}){
-				
-			location.href="cancel/"+${detail.prodResNo};
-			
-			}else{
-				return alert("비밀번호가 틀립니다.");
-			}
-			
-		}else{
-			return alert("취소되었습니다.");
-		}
-	 })
+	 //리뷰수정 버튼 클릭시 모달띄우기
+	 /* $("#btnModalUpd").on("click", function(){
+		 if(${reviewList.revNo}!=null){
+		 
+		var revNo = ${reviewList.revNo};
+		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_update/"+revNo, function(){
+		 		const myModal = new bootstrap.Modal('#modal-default');
+		 		
+		 		myModal.show();
+		 		
+		 		//모달뜨고 나서 모달 안에 폼태그에 값 입력.
+		 		$("#category").val("${detail.category}");
+		 		$("#resNo").val("${detail.prodResNo}");
+		 		$("#serviceName").val("${detail.store.name}");
+		 		$("#pickupDate").html("${detail.pickupDate} ${detail.pickupTime}");
+		 		$("#serviceNameDiv").html("${detail.store.name}");
+		 		
+		 	})
+		 }
+	 }) */
+	
 
 </script>
 
