@@ -11,7 +11,7 @@ public interface ReviewMapper {
 //	리뷰 전체목록 조회
 	List <Review> reviewSelectAll(int memNo);
 //	리뷰 단건조회
-	Review reviewSelectOne(ReviewVO vo);
+	ReviewVO reviewSelectOne(int revNo);
 //	리뷰 수정
 	public int reviewUpdate(ReviewVO vo);
 //	리뷰 삭제
