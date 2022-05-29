@@ -58,9 +58,10 @@ public interface StoreMapper {
 	public int storeCnt(ResProdListPagingCriteria cri); // 매장 이름 검색시 총 매장 개수
 	public int prodNameCnt(ResProdListPagingCriteria cri);  // 상품명이 포함된 총 예약건 수 
 //리뷰페이지 상세에 같이 출력
-	 public List<ReviewVO> reviewLoad(int selectedResNo);	
-	
-	
+	 public ReviewVO reviewLoad(int revNo);	
+//예약 취소
+	public int CancelRes(int prodResNo);	
+	public int CancelRes2(int prodResNo);
 //		Yoon
 		
 		
