@@ -150,8 +150,7 @@ title VARCHAR2(90) NOT NULL,
 ann_content CLOB,
 ann_date DATE,
 ann_view NUMBER(10) default 0,
-status varchar2(10) default '00501',
-ann_cnt number 
+status varchar2(10) default '00501'
 );
 
 --공지사항 pk 인덱스명 지정

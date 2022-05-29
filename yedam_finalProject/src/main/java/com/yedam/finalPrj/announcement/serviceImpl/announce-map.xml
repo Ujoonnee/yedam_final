@@ -16,19 +16,37 @@
 			</when>
 		</choose>
 	</sql>
+	
+	<!-- 상단고정 -->
+	<select id="getTopList" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
+		SELECT ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
+		FROM announcement
+		WHERE status='00502'
+	</select>
+	
 	<!-- 관리자 공지사항 목록 -->	
 	<select id="adminFindAll" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
-			SELECT ann_no, title, ann_content, ann_date, ann_view, status
-			FROM	(SELECT rownum rn, ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
-				     FROM ANNOUNCEMENT
-				     WHERE status IN ('00501','00502')
-		<include refid="AnnouncementPagingCriteria"/>
-	     <![CDATA[
-            		 AND  rownum <= #{pageNum} * #{amount})
-			WHERE rn > (#{pageNum}-1) * #{amount}
+		<![CDATA[
+		
+			SELECT ann_no, title, ann_content, ann_date, ann_view,  status
+			FROM	(SELECT /*+INDEX_DESC(ANNOUNCEMENT pk_ann_no) */
+					     	rownum rn, ann_no,  title,  ann_content,  ann_date,  ann_view, get_code_name(status) status 
+				      from ANNOUNCEMENT
+				      where status IN('00501', '00502')
+									
+					
+			          
+			]]>		
+		<include refid="AnnouncementPagingCriteria"></include>
+		<![CDATA[
+			            and  rownum <= #{pageNum} * #{amount}
+					)
+			where rn > (#{pageNum}-1) * #{amount}
+			order by ann_no	DESC
+		
 		]]>
 	</select>
-	<!-- 일반 유저 공지사항 목록 -->
+		<!-- 일반 유저 공지사항 목록 -->
 	<select id="userFindAll" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 			SELECT ann_no, title, ann_content, ann_date, ann_view, status
 			FROM	(SELECT rownum rn, ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
@@ -38,6 +56,7 @@
 	     <![CDATA[
             		 AND  rownum <= #{pageNum} * #{amount})
 			WHERE rn > (#{pageNum}-1) * #{amount}
+			ORDER BY ANN_NO DESC
 		]]>
 	</select>
 	<!-- 다중 쿼리를 위해서 따로 만든 값만 가지고오는 map -->
@@ -45,12 +64,7 @@
 		SELECT * FROM ANNOUNCEMENT LIMIT #{start}, #{limit}
 	</select>
 	
-	<!-- 상단고정 -->
-	<select id="getTopList" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
-		SELECT ann_no, title, ann_content, ann_date, ann_view, get_code_name(status) status
-		FROM announcement
-		WHERE status='00502'
-	</select>
+
 	<!-- 상세페이지 -->
 	<select id="findOne" resultType="com.yedam.finalPrj.announcement.service.AnnouncementVO">
 		SELECT * FROM ANNOUNCEMENT WHERE ANN_NO = #{annNo}
@@ -131,6 +145,7 @@
 		WHERE status in('00501','00502')
 		<include refid="AnnouncementPagingCriteria"/>
 		AND ANN_NO>0
+		ORDER BY ANN_NO DESC
 	</select>
 	
 </mapper>
