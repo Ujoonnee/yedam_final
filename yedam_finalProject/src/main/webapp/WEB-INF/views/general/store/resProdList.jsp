@@ -29,7 +29,7 @@
 		<c:forEach var="list" items="${resProdList}">
 			<tr class="list">
 				<td>${list.store.name }<input type="hidden" value="${list.prodResNo}"></td>
-				<td>${list.product.prodName }</td>
+				<td>${list.product.prodName } 등</td>
 				<td>${list.paymentAmt}</td>
 				<td>
 				<c:set var="YN" value="${list.pickupStatus}"/>

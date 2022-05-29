@@ -59,8 +59,9 @@ public interface StoreMapper {
 	public int prodNameCnt(ResProdListPagingCriteria cri);  // 상품명이 포함된 총 예약건 수 
 //리뷰페이지 상세에 같이 출력
 	 public ReviewVO reviewLoad(int revNo);	
-	
-	
+//예약 취소
+	public int CancelRes(int prodResNo);	
+	public int CancelRes2(int prodResNo);
 //		Yoon
 		
 		

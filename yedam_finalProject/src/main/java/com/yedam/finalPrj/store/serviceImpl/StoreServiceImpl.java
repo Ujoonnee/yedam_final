@@ -258,7 +258,15 @@ public class StoreServiceImpl implements StoreService{
 	public ReviewVO reviewLoad(int revNo) {
 		return map.reviewLoad(revNo);
 	}
-
+//예약 취소	
+	@Override
+	public int CancelRes(int prodResNo) {
+		return map.CancelRes(prodResNo);
+	}
+	@Override
+	public int CancelRes2(int prodResNo) {
+		return map.CancelRes2(prodResNo);
+	}
 	
 //	Yoon
 	
