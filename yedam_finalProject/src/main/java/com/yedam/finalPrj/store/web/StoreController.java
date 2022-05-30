@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.store.serviceImpl.StoreServiceImpl;
@@ -35,10 +37,21 @@ public class StoreController {
 	}
 //	매장신청 양식 전송
 	@RequestMapping("regist")
-	public String regist(Store vo,Model model,HttpServletRequest request) {
+	public String regist(Store vo,Model model,HttpServletRequest request,@RequestParam("fileUpload") MultipartFile multi) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		if(user == null) {
+			return "main/unusalApproach";
+		}
+		if(!user.getMemType().equals("00103")) {
+			return "main/unusalApproach";
+		}else {
+			
 //		매장등록 번호 입력.
-		dao.regist(vo, request);
-		return "home/home";
+			dao.regist(vo, request,multi,model);
+			return "home/home";
+		}
+		
 	}
 	
 //	매장 리스트 출력
@@ -87,12 +100,24 @@ public class StoreController {
 	
 // 	(예약번호 받아서)예약내역 상세페이지로 이동
 	@GetMapping("resProdListByProdName/{selectedResNo}")
-	public String reservedProductsDetail(@PathVariable("selectedResNo") int selectedResNo, Model model) {
+	public String reservedProductsDetail(@PathVariable("selectedResNo") int selectedResNo,Model model) {
 			
 		model.addAttribute("detail", dao.resProdDetail(selectedResNo));
 		model.addAttribute("prodList", dao.resProdDetailList(selectedResNo));
-			
+		model.addAttribute("reviewList", dao.reviewLoad(selectedResNo));
+		
 		return "general/store/resProdDetail";
+
+	}
+//	예약한 상품 리스트 출력(예약취소후)
+	@GetMapping("resProdListByProdName/cancel/{prodResNo}")
+	public String resProductsList(@PathVariable int prodResNo, ResProdListPagingCriteria cri,Model model,HttpServletRequest request) {
+		
+		dao.CancelRes(prodResNo); // 상품예약테이블에서 삭제(예약번호)
+		dao.CancelRes2(prodResNo); // 예약된상품 테이블에서 삭제(예약번호)
+		//예약취소시 product 테이블에서 상품재고 반영?
+		
+		return "redirect:/store/resProdList";
 	}
 	
 //	Yoon

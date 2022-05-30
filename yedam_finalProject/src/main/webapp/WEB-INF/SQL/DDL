@@ -136,9 +136,11 @@ category VARCHAR2(10) NOT NULL,
 score VARCHAR2(10) NULL,
 content VARCHAR2(1000) NULL,
 reply_content VARCHAR2(1000) NULL,
-rev_time VARCHAR2(50) default SYSDATE NOT NULL,
-reply_time VARCHAR2(50),
-mem_no NUMBER(10) NOT NULL);
+rev_time DATE default SYSDATE NOT NULL,
+reply_time DATE,
+mem_no NUMBER(10) NOT NULL,
+service_name VARCHAR2(50) NOT NULL
+);
 
 -- 윤성환
 --공지사항

@@ -37,9 +37,10 @@ public interface ProductService {
 	void myStoreProductDelete(List<HashMap<String, String>> vo);
 	int myStoreProductCnt(ProductPagingCriteria cri, HttpServletRequest request);
 	int oneProductInsert(Product product,HttpServletRequest request);
-//	파일업로드
 	
+//	파일업로드
 	String productThumbnailUpdate(MultipartFile multi, HttpServletRequest request,Model model, Product vo);
+	int productThumbnailDelete(HttpServletRequest request,Model model, Product vo);
 	
 //	통계조회
 	List<ProductReservationVO> salesbyDate(int storeNo);
