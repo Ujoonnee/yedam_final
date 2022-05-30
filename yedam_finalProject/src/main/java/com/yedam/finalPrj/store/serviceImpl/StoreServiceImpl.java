@@ -261,10 +261,8 @@ public class StoreServiceImpl implements StoreService{
 //예약 취소	
 	@Override
 	public int CancelRes(int prodResNo) {
-		return map.CancelRes(prodResNo);
-	}
-	@Override
-	public int CancelRes2(int prodResNo) {
+		
+			   map.CancelRes(prodResNo);
 		return map.CancelRes2(prodResNo);
 	}
 	
