@@ -8,8 +8,8 @@
 --공개/비공개
 BEGIN
 FOR i IN 1..50 LOOP
-insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status, ann_cnt)  values (ann_seq.nextval, '제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 00501, DEFAULT, 0);
-insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status, ann_cnt)  values (ann_seq.nextval, '제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 00503, DEFAULT, 0);
+insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status)  values (ann_seq.nextval, '제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 0,'00501');
+insert into ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status)  values (ann_seq.nextval, '제목'||ann_seq.nextval, '내용'||ann_seq.nextval, sysdate, 0,'00503');
 END LOOP;
 END;
 

@@ -23,7 +23,9 @@ import com.yedam.finalPrj.announcement.service.AnnouncementPageMaker;
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementService;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
+import com.yedam.finalPrj.common.FileVO;
 
+// 윤성환
 @Controller
 public class AnnouncementController {
 
@@ -31,8 +33,8 @@ public class AnnouncementController {
 	private AnnouncementService service;
 	
 	
-	// 공지사항 목록
-	@RequestMapping("admin/announcement")
+	// 공지사항 목록(관리자)
+	@RequestMapping("admin/list")
 	public String adminFindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) throws Exception {
 
 		int total = service.totalCnt(cri);
@@ -43,18 +45,16 @@ public class AnnouncementController {
 		model.addAttribute("topList", service.getTopList());
 		// 페이징
 		model.addAttribute("paging", new AnnouncementPageMaker(cri, total));
-		//파일업로드
+		//파일업로드 
+//		List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
 		
-		
-		List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
-		
-		model.addAttribute("file", fileList);
+//		model.addAttribute("file", fileList);
 		 
 		return "admin/announcement/list";
 	}
 	
-	// 공지사항 목록
-		@RequestMapping("main/announcement")
+	// 공지사항 목록(이용자)
+		@RequestMapping("main/list")
 		public String userFindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) throws Exception {
 
 			int total = service.totalCnt(cri);
@@ -66,11 +66,9 @@ public class AnnouncementController {
 			// 페이징
 			model.addAttribute("paging", new AnnouncementPageMaker(cri, total));
 			//파일업로드
+//			List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
 			
-			
-			List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
-			
-			model.addAttribute("file", fileList);
+//			model.addAttribute("file", fileList);
 			 
 			return "main/announcement/list";
 		}
@@ -78,9 +76,11 @@ public class AnnouncementController {
 	// 공지사항 등록
 	
 	  @RequestMapping(value = "admin/annInsert", method = RequestMethod.POST) 
-	  public void anninsert(AnnouncementVO announcement, MultipartHttpServletRequest fileRequest) throws IOException {
+	  public String anninsert(AnnouncementVO announcement, MultipartHttpServletRequest fileRequest) throws IOException {
 		  System.out.println(fileRequest.getSession().getServletContext().getRealPath("/resources/announcement"));
 		  service.annInsert(announcement,fileRequest);
+		  
+		  return "redirect:list";
 	  }
 	 
 	
@@ -96,11 +96,11 @@ public class AnnouncementController {
 	@RequestMapping("main/annDetail")
 	public String findOne(AnnouncementVO announcement, Model model,
 			@ModelAttribute("cri") AnnouncementPagingCriteria cri) throws Exception {
-
-		service.updateView(announcement);
-		System.out.println("NUMBER : " + announcement.getAnnNo());
-
-		model.addAttribute("announcement", service.findOne(announcement));
+		
+		AnnouncementVO rannouncement = service.findOne(announcement);
+		String con =rannouncement.getAnnContent().replace("\r\n","<br>");
+		rannouncement.setAnnContent(con);
+		model.addAttribute("announcement", rannouncement);
 		
 		List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
 			
@@ -117,16 +117,14 @@ public class AnnouncementController {
 			@RequestParam(value="fileNoDel[]") String[] files,
 			@RequestParam(value="fileNameDel[]") String[] fileNames,
 			MultipartHttpServletRequest fileRequest,
-			@ModelAttribute AnnouncementPagingCriteria cri) throws Exception {
+			@ModelAttribute AnnouncementPagingCriteria cri, FileVO file) throws Exception {
+		service.annUpdate(announcement, files, fileNames,  fileRequest);
 		
-		service.annUpdate(announcement, files, fileNames, fileRequest);
-		
-		
-		return "redirect:announcement";
+		return "redirect:list?pageNum="+cri.getPageNum();
 	}
 	// 공지사항 다중 수정
 	@RequestMapping("admin/statusUpdates")
-	public String annUpdates(String[] lists, String status) throws Exception {
+	public String statusUpdates(String[] lists, String status) throws Exception {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
@@ -134,9 +132,8 @@ public class AnnouncementController {
 		paramMap.put("list", lists);
 		System.out.println("list------------------------------------------"+lists.length);
 		System.out.println("status------------------------------------------"+status);
-		service.statusUpdates(paramMap);
-		
-		return "redirect:announcement";
+			service.statusUpdates(paramMap);
+		return "redirect:list";
 	}
 //	상단고정 해제	
 	@RequestMapping("admin/topStatus")
@@ -146,12 +143,17 @@ public class AnnouncementController {
 
 		paramMap.put("status", "00501");
 		paramMap.put("list", lists);
-		System.out.println("list------------------------------------------"+lists.length);
-		System.out.println("status------------------------------------------"+status);
 		service.statusUpdates(paramMap);
 		
-		return "redirect:announcement";
+		return "redirect:list";
 	}
+//  파일 업데이트
+	@RequestMapping("admin/fileUpdate")
+	public void fileUpdate(FileVO file,HttpServletRequest fileRequest) {
+		
+		service.fileUpdate(file,fileRequest);
+	}
+	
 //	상단삭제
 	@RequestMapping("admin/statusDelete")
 	public String statusDelete(String[] lists, String status) throws Exception {
@@ -163,12 +165,12 @@ public class AnnouncementController {
 		
 		service.statusUpdates(paramMap);
 		
-		return "redirect:announcement";
+		return "redirect:list";
 	}
 	
 	// 공지사항 수정페이지이동
 	@RequestMapping("admin/annDetail")
-	public String updatePage(AnnouncementVO announcement, Model model) throws Exception {
+	public String annDetail(AnnouncementVO announcement, Model model) throws Exception {
 
 		model.addAttribute("announcement", service.findOne(announcement));		
 
@@ -179,7 +181,6 @@ public class AnnouncementController {
 		
 		return "admin/announcement/annDetail";
 	}
-	
 	
 	// 파일 다운로드
 	@RequestMapping("main/fileDown")

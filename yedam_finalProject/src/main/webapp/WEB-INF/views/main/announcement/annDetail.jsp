@@ -34,18 +34,19 @@
 	</section>
 		
 		<table border="1">
-			<tr>
-				<td bgcolor="" width="70">제목</td>
-				<td align="left"><input id="title" name="title" type="text"
-					value="${announcement.title}" disabled/></td>
+		<tbody>
+			<tr class="mb-4" border="1">
+				<th bgcolor="" width="70">제목</th>
+				<td align="left">${announcement.title}</td>
 			</tr>
 			<tr>
-				<td bgcolor="">작성자</td>
+				<th>작성자</th>
 				<td align="left">관리자</td>
 			</tr>
+			<tr class="my-4"><td>&nbsp;</td></tr>
 			<tr>
-				<td bgcolor="">내용</td>
-				<td><textarea style="width: 538px; height: 200px;"disabled><c:out value="${announcement.annContent }"/></textarea></td> 
+				<th bgcolor="">내용</th>
+				<td><c:out value="${announcement.annContent }" escapeXml="false"/></td> 
 			</tr>
 			<tr>
 				<td bgcolor="">등록일</td>
@@ -55,9 +56,10 @@
 				<td bgcolor="">조회수</td>
 				<td align="left">${announcement.annView }</td>
 			</tr>
-			
+		</tbody>
 			
 		</table>
+		<hr>
 	<div>
 				<div>파일 목록</div>
 				<div>
@@ -66,16 +68,15 @@
 					</c:forEach>
 				</div>
 	</div>
-		<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
-	<!-- session에서 가져온 값으로 할거임 -->
-	<c:if test="${memType eq '00101' }">
-		<button type="button" id="" onclick="location.href='updatePage'">수정페이지</button>
-	</c:if>
+	
+		<hr>
+		<button type="button" id="list" onclick="location.href='list'">글 목록</button>
+
 	
 </body>
 <script type="text/javascript">
  		//글 목록
-		$('#list').click(function(e){
+		/* $('#list').click(function(e){
 			e.preventDefault();
 			var $form = $('<form></form>');
 			$form.attr('action','findAll');
@@ -83,7 +84,7 @@
 			$form.appendTo('body');
 			
 			$form.submit();
-		});
-	});  
+		}); */
+ 
 </script>
 </html>
