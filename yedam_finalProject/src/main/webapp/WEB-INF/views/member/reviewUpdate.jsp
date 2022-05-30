@@ -86,6 +86,7 @@
 									<input type="hidden" value="" name="resNo" id="resNo">
 									<input type="hidden" value="" name="category" id="category">
 									<input type="hidden" value="" name="serviceName" id="serviceName">
+									<input type="hidden" value="${review.revNo}" name="revNo" id="revNo">
 									<input type="hidden" name="memNo" value="${user.memNo }">
 								</div> 
  							</div> 
@@ -100,10 +101,12 @@
 			</div>
 		</div>
 	</div>
-
+<div style="display:none" id="reviwContent">${review.content}</div>
 <script>
 		//등록했던 내용 읽어오기.
-		$("#smartEditor").html(${review.content});
+		var content = $("#reviwContent").html();
+		console.log(content);
+		$("#smartEditor").val($("#reviwContent").html());
 		
 		//리뷰평점 별색깔 변경
 		$('#star a').click(function () {
@@ -112,6 +115,7 @@
 			$(this).addClass("on").prevAll("a").addClass("on");
 			console.log($(this).attr("value"));
 		});
+		
 
 
 		$("#saveBtn").on("click", function(){
@@ -124,7 +128,7 @@
 			var resNo = $("#resNo").val();
 			
 				$.ajax({
-					url: "/finalPrj/review/rev_update.do",
+					url: "/finalPrj/review/rev_update",
 					method: "POST",
 					data: 	$("#frm").serialize(),		
 					success: function (re) {

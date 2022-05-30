@@ -106,9 +106,9 @@ insert into store values(1,'00204','gs25동호점','편의점','대구동구 중
 insert into store values(2,'00204','cu중앙점','편의점','대구광역시 중구 국채보상로 595 13번길 22-3','35.871016751585955','128.59584111244425', '010-3423-1234','사진2',11);
 insert into store values(3,'00204','약국중앙점','약국','대구광역시 수성구 희망로 229','35.84647935706374','128.6240268157072','010-6456-5435','사진3',21);
 
-insert into product_reservation values(1,1,2,'2022-05-07','2022-05-07',10000,'결제완료',sysdate,'N','00204');
-insert into product_reservation values(2,2,2,'2022-05-03','2022-05-03',13000,'결제완료',sysdate,'N','00204');
-insert into product_reservation values(3,3,2,'2022-05-05','2022-05-05',50000,'결제대기',sysdate,'N','00204');
+insert into product_reservation values(1,1,2,'2022-05-07','2022-05-07',10000,'Y',sysdate,'N','00204');
+insert into product_reservation values(2,2,2,'15:30:00','2022-05-03',13000,'Y',sysdate,'N','00204');
+insert into product_reservation values(3,3,2,'2022-05-05','2022-05-05',50000,'N',sysdate,'N','00204');
 
 insert into product values(1,1,'초코에몽',30,'00601', 1500,'사진1','유제품');
 insert into product values(2,1,'바나나에몽',30, '00601', 1200,'사진11','유제품');
