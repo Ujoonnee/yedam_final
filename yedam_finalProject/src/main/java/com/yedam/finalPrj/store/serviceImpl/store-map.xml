@@ -145,7 +145,7 @@
 					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status, r.pickup_time, r.pickup_date, r.prod_res_no,
 						RANK()OVER(PARTITION BY r.prod_res_no ORDER BY p.prod_name) AS RANK
 					FROM store s, product_reservation r, product p
-					WHERE s.store_no = r.store_no
+					WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
 					AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
 					ORDER BY RANK)
 				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM reserved_product)
@@ -166,7 +166,7 @@
 					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status , r.pickup_time, r.pickup_date, r.prod_res_no,
 						rank()over(partition by r.prod_res_no order by p.prod_name) as rank
 							FROM store s, product_reservation r, product p
-								WHERE s.store_no = r.store_no 
+								WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
 							AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
 						order by rank)
 					where ROWNUM <![CDATA[<=]]> (select count(*) from reserved_product)
@@ -185,7 +185,7 @@
 					FROM(
 						SELECT p.prod_name AS "product.prodName", s.name AS "store.name", r.payment_amt, r.pickup_status, r.pickup_time, r.prod_res_no, rank()over(partition by r.prod_res_no order by p.prod_name) as rank
 							FROM store s, product_reservation r, product p
-								WHERE s.store_no = r.store_no
+								WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
 							AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
 						AND prod_name like '%'||#{keyword}||'%' 
 					ORDER BY rank)
@@ -199,7 +199,7 @@
 
 <!-- 예약상품 상세내역 -->
 <select id="resProdDetail" parameterType="int" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
-	SELECT r.pickup_status, r.payment_amt, r.order_date, r.category, prod_res_no, m.name AS "member.name", r.order_date, s.name AS "store.name", r.pickup_time, r.pickup_date, m.tel AS "member.tel" 
+	SELECT s.store_no AS "store.storeNo", r.pickup_status, r.payment_amt, r.order_date, r.category, prod_res_no, m.name AS "member.name", r.order_date, s.name AS "store.name", r.pickup_time, r.pickup_date, m.tel AS "member.tel" 
 		FROM store s, member m, product_reservation r
 			WHERE m.mem_no=r.mem_no
 		AND r.store_no = s.store_no 
@@ -207,7 +207,7 @@
 </select>
 <!-- 예약상품 상세내역(상품목록) -->
 <select id="resProdDetailList" parameterType="int" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
-	SELECT r.prod_res_no, p.prod_thumbnail AS "product.prodThumbnail", p.prod_name AS "product.prodName",
+	SELECT r.prod_res_no, p.prod_no AS "product.prodNo", p.prod_thumbnail AS "product.prodThumbnail", p.prod_name AS "product.prodName",
             r.count AS "reservedProduct.count",
             p.price AS "product.price"
 	FROM product p, reserved_product r
@@ -219,7 +219,7 @@
 <select id="resTotalCnt" parameterType="int" resultType="int">
 	SELECT count(*)
 	FROM product_reservation
-	WHERE mem_no = #{memNo}
+	WHERE mem_no = #{memNo} AND payment_status = 'Y'
 </select>
 <!-- 매장이름으로 검색시 나오는 예약 건수 -->
 <select id="storeCnt" resultType="int">
@@ -227,7 +227,7 @@
 		FROM(
 			SELECT p.prod_name AS "product.prodName", s.name AS "store.name", r.payment_amt, r.pickup_status, r.pickup_time, r.prod_res_no,rank()over(partition by r.prod_res_no order by p.prod_name) as rank
 				FROM store s, product_reservation r, product p
-					WHERE s.store_no = r.store_no
+					WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
 				AND s.store_no = p.store_no AND r.mem_no = #{memNo}
 			AND s.name like '%'||#{keyword}||'%'
 		ORDER BY rank)
@@ -242,6 +242,7 @@ SELECT count(*)
 				WHERE t.prod_res_no = r.prod_res_no 
 				AND r.store_no = p.store_no 
 				AND t.mem_no = #{memNo}
+				AND t.payment_status = 'Y'
 				AND p.prod_name like '%'||#{keyword}||'%'
 		GROUP BY r.prod_res_no)
 </select>
@@ -251,18 +252,19 @@ SELECT count(*)
 	WHERE r.res_no = pr.prod_res_no
 	AND pr.prod_res_no = #{resNo}
 </select>
-<!-- 상품예약테이블에서 삭제(예약번호) -->
-<delete id="CancelRes" parameterType="int">
-	DELETE FROM 
-	product_reservation 
+<!-- product_reservation 테이블에서 결제상태 'N'으로 수정(상품예약번호) --> 
+<update id="CancelRes" parameterType="int">
+	UPDATE product_reservation 
+	SET payment_status = 'N' 
 	WHERE prod_res_no = #{prodResNo}
-</delete>
-<!-- 예약된상품 테이블에서 삭제(예약번호) -->
-<delete id="CancelRes2" parameterType="int">
-	DELETE FROM
-	reserved_product
-	WHERE prod_res_no = #{prodResNo}
-</delete>
+</update>
+
+<!-- reserved_product테이블에서 취소된만큼 product테이블에서 재고수량 증가  -->
+<update id="CancelRes2" parameterType="int">
+    UPDATE product p SET p.stock = (select NVL( MAX(p.stock) , 0) FROM product) + (SELECT rp.count FROM reserved_product rp
+	WHERE rp.store_no= #{storeNo} AND rp.prod_no = #{prodNo})    
+	WHERE p.store_no= #{storeNo} AND p.prod_no = #{prodNo}
+</update>
 <!-- 	Yoon -->
 	
 	
