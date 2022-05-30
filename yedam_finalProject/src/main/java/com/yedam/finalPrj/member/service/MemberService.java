@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.member.service;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,5 +20,9 @@ public interface MemberService {
 	public void logout(HttpSession session);
 	
 	
-	 MemberVO getCurrentUser(HttpServletRequest request);
+	MemberVO getCurrentUser(HttpServletRequest request);
+	boolean isValidEmail(MemberVO vo);
+	String signUp(Map<String,String> member);
+	void sendConfirmationMail(Map<String,String> member);
+	String confirm(String applicationNo);
 }
