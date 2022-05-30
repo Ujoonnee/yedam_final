@@ -109,8 +109,8 @@
 		where mem_no = #{memNo}
 	</select>
 	<select id = "myStoreProductManegement" resultType="com.yedam.finalPrj.product.vo.park.Product">
-	    select * 
-	    from product
+	    select p.*,GET_CODE_NAME(status) status_name  
+	    from product p
 	    where store_no = #{storeNo}
 	    and status = '00601' or status = '00602'
 	    	 

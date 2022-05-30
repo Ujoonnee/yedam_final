@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.store.vo.park;
 
+import java.sql.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +19,8 @@ public class Store {
 	private String thumbnail;
 	private int storeCnt;
 	private int memNo;
+	private Date applicationDate;
+	private String approvalStatus;
+	
+	private String memName;
 }
