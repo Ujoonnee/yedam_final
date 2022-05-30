@@ -201,14 +201,8 @@ public class ExhibitionController {
 	}
 
 //	전시 상세보기
-
 	@RequestMapping(value = "detailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
-//		이건 추후에 삭제할거임 
-		System.out.println(vo.getExNo());
-		HttpSession session =  request.getSession();
-		MemberVO mem = (MemberVO) session.getAttribute("user");
-		model.addAttribute("member", mem);
 		model.addAttribute("exhibitionView", service.findExVO(vo));
 		return "main/exhibition/exhibitionView";
 	}

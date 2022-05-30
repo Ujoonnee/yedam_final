@@ -16,15 +16,27 @@ import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 public interface StoreService {
 	
 //	Park
+	//매장등록신청
 	String regist(Store store, HttpServletRequest request, MultipartFile multi, Model model); 
+	
+	void searchApprovalList(StorePagingCriteria cri, Model model,HttpServletRequest request);
+	List<Store> selectStoreRegList(StorePagingCriteria cri,HttpServletRequest request); //매장등록신청 목록조회
+	List<Store> searchStoreName(StorePagingCriteria cri,HttpServletRequest request);
+	List<Store> searchPname(StorePagingCriteria cri,HttpServletRequest request);
+	List<Store> searchBlank(StorePagingCriteria cri,HttpServletRequest request);
+	int totalApprovalStoreNameCnt(StorePagingCriteria cri);
+	int totalApprovalNameCnt(StorePagingCriteria cri);
+	int totalBlankCnt(StorePagingCriteria cri);
+	
 //	매장 들어갈 시 리스트 출력
 	List<Store> storeList(StorePagingCriteria cri);
+
 //  매장 검색(매장명, 매장 카테고리, 상품명)
 	void search(StorePagingCriteria cri, Model model);
-	
 	 List<Store> searchName(StorePagingCriteria cri);
 	 List<Store> searchProduct(StorePagingCriteria cri);
 	 List<Store> searchaddress(StorePagingCriteria cri);
+	 
 //	페이징을 위한 전체 개수
 	 int totalCnt();
 	 int totalNameCnt(StorePagingCriteria cri);

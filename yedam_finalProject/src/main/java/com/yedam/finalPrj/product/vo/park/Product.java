@@ -14,5 +14,6 @@ public class Product {
 	private String price;
 	private String prodThumbnail;
 	private String prodCat;
+	private String statusName;
 }
 
