@@ -8,8 +8,8 @@ $(function() {
 	fCreator: "createSEditor2", 
 	htParams: {
 		bUseToolbar: true,
-		bUseVerticalResizer: false, 
-		bUseModeChanger: false
+		bUseVerticalResizer: true, 
+		bUseModeChanger: true
 	}
     });
 

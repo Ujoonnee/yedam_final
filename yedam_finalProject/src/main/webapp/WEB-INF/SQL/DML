@@ -110,18 +110,18 @@ insert into product_reservation values(1,1,2,'2022-05-07','2022-05-07',10000,'�
 insert into product_reservation values(2,2,2,'2022-05-03','2022-05-03',13000,'결제완료',sysdate,'N','00204');
 insert into product_reservation values(3,3,2,'2022-05-05','2022-05-05',50000,'결제대기',sysdate,'N','00204');
 
-insert into product values(1,1,'초코에몽',30,1500,'사진1','유제품','00601');
-insert into product values(2,1,'바나나에몽',30,1200,'사진11','유제품','00601');
-insert into product values(3,1,'메론',30,1200,'사진12','과일','00602');
-insert into product values(4,1,'파인애플',30,1200,'사진13','과일','00603');
-insert into product values(5,2,'딸기에몽',20,1500,'사진2','유제품','00601');
-insert into product values(6,2,'딸기',20,1500,'사진21','과일','00601');
-insert into product values(7,2,'사과',20,1500,'사진22','과일','00602');
-insert into product values(8,2,'모나미볼펜',20,1500,'사진23','문구류','00603');
-insert into product values(9,3,'붕대',30,2500,'사진3','의약품','00601');
-insert into product values(10,3,'후시딘',30,2500,'사진31','의약품','00601');
-insert into product values(11,3,'감자',30,2500,'사진32','채소류','00602');
-insert into product values(12,3,'삼각김밥',30,2500,'사진33','김밥류','00603');
+insert into product values(1,1,'초코에몽',30,'00601', 1500,'사진1','유제품');
+insert into product values(2,1,'바나나에몽',30, '00601', 1200,'사진11','유제품');
+insert into product values(3,1,'메론',0, '00602', 1200,'사진12','과일');
+insert into product values(4,1,'파인애플',30, '00603', 1200,'사진13','과일');
+insert into product values(5,2,'딸기에몽',20, '00601', 1500,'사진2','유제품');
+insert into product values(6,2,'딸기',20,'00601', 1500,  '사진21','과일');
+insert into product values(7,2,'사과',0, '00602', 1500, '사진22','과일');
+insert into product values(8,2,'모나미볼펜',20,'00603', 1500,  '사진23','문구류');
+insert into product values(9,3,'붕대',30, '00601', 2500,'사진3','의약품');
+insert into product values(10,3,'후시딘',30, '00601', 2500,'사진31','의약품');
+insert into product values(11,3,'감자',0, '00602', 2500,'사진32','채소류');
+insert into product values(12,3,'삼각김밥',30, '00603', 2500,'사진33','김밥류');
 
 insert into reserved_product values(1,1,1,3);
 insert into reserved_product values(1,1,2,5);

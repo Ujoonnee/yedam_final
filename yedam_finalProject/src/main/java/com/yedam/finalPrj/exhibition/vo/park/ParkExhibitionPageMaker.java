@@ -2,9 +2,11 @@ package com.yedam.finalPrj.exhibition.vo.park;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
+@ToString
 public class ParkExhibitionPageMaker {
 	private int startPage;
 	private int endPage;

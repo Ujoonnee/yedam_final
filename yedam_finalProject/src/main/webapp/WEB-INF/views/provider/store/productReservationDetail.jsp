@@ -42,7 +42,7 @@
 			<th>금액</th>
 		</tr>
 		<c:set var="total" value="0"/>
-		<c:forEach items="${detailList }" var="list" varStatus="status">
+		<c:forEach items="${proReDetail }" var="list" varStatus="status">
 		<tr>
 			<td>${list.prodThumbnail }</td>
 			<td>${list.prodName }</td>

@@ -1,10 +1,11 @@
 package com.yedam.finalPrj.product.web;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,15 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.member.serviceImpl.MemberServiceImpl;
 import com.yedam.finalPrj.product.service.ProductService;
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
-import com.yedam.finalPrj.product.vo.park.hong.ProductReservation;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 
 
 
@@ -53,10 +54,19 @@ public class ProductController {
 //	판매자 : 내 상품 페이지
 	@RequestMapping("management")
 	public String myProductManegement(ProductPagingCriteria cri,HttpServletRequest request ,Model model) {
-		
-		model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
-		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
-		return"provider/store/myProductManagement";
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		if(user == null) {
+			return "main/unusalApproach";
+		}
+		System.out.println(user.getMemType());
+		if(!user.getMemType().equals("00103")) {
+			return "main/unusalApproach";
+		}else {
+			model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
+			model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
+			return"provider/store/myProductManagement";
+		}
 	}
 	
 	
@@ -66,7 +76,7 @@ public class ProductController {
 	public String productInsert(String file,ProductPagingCriteria cri,HttpServletRequest request,Model model)  {
 	
 		System.out.println("===========================================================file:"+file);
-		dao.myStoreProductInsert(file);
+		dao.myStoreProductInsert(file, request);
 		
 		model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
@@ -100,21 +110,42 @@ public class ProductController {
 //	단일상품등록
 	@RequestMapping("singleProductRegist")
 	public String SingleProductRegist(HttpServletRequest request, ProductPagingCriteria cri,Product vo, Model model) {
-		dao.oneProductInsert(vo);
+		dao.oneProductInsert(vo, request);
 		model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
 		return "provider/store/myProductManagement";
 	}
 //	사진등록
-	@RequestMapping(value = "ThumbnailUpdate", method = RequestMethod.POST)
-	public String ThumbnailUpdate(@RequestParam("prodThumbnail") MultipartFile multi, HttpServletRequest request,ProductPagingCriteria cri,Product vo, Model model) throws Exception {
-		dao.myStoreProductUpdate(multi,model,vo);
+	@RequestMapping(value = "thumbnailUpdate", method = RequestMethod.POST)
+	public String ThumbnailUpdate(@RequestParam("prodThumbnail") MultipartFile multi, @RequestParam("prodNo") long prodNo ,HttpServletRequest request,ProductPagingCriteria cri,HttpServletResponse response, Model model) throws Exception {
+		System.out.println("prodNo : "+prodNo);
+		
+		Product productVO = new Product();
+		productVO.setProdNo(prodNo);
+		
+		dao.productThumbnailUpdate(multi,request,model,productVO);
 		
 		model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
 		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
 		return "provider/store/myProductManagement";
 	}
-//	Hong
+//  등록된 사진 제거
+	@RequestMapping(value = "thumbnailDelete", method = RequestMethod.POST)
+	public String ThumbnailDelete(@RequestParam("prodThumbnail") String thumbnail,@RequestParam("prodNo") long prodNo ,HttpServletRequest request,ProductPagingCriteria cri, Model model) {
+		Product vo = new Product();
+		System.err.println("============No,Thumbnail 값 확인==========");
+		System.out.println(thumbnail);
+		System.out.println(prodNo);
+		
+		vo.setProdThumbnail(thumbnail);
+		vo.setProdNo(prodNo);
+		
+		dao.productThumbnailDelete(request, model, vo);
+		
+		model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
+		model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
+		return "provider/store/myProductManagement";
+	}
 	
 //	상품 예약 목록
 	@RequestMapping(value = "/proReSelectAll", method = RequestMethod.GET)
@@ -126,10 +157,11 @@ public class ProductController {
 
 //  상품예약목록 상세페이지
 	@RequestMapping(value = "/proReDetail" , method = RequestMethod.GET)
-	public String proReDetail(Model model, ProductReservation vo, HttpServletRequest request) {
+	public String proReDetail(Model model, ProductReservationVO vo) {
+		
 		model.addAttribute("proRe", dao.proReDetail(vo));
 //	   TODO  세션 가져오기 
-//		model.addAttribute("detailList", dao.proReDetailList(user));
+		model.addAttribute("proReDetail", dao.proReDetailList(vo));
 		
 		return "provider/store/productReservationDetail";
 	}

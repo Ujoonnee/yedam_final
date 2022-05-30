@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class ProductReservation {
+public class ProductReservationVO {
 	
 //  상품 예약
 	private long prodResNo;

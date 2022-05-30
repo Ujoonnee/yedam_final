@@ -1,10 +1,8 @@
 package com.yedam.finalPrj.product.vo.park;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ProductPageMaker {
 	private int startPage;
 	private int endPage;

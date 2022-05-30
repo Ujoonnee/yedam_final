@@ -1,12 +1,16 @@
 package com.yedam.finalPrj.store.serviceImpl;
 
+import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.member.service.MemberService;
 import com.yedam.finalPrj.member.service.MemberVO;
@@ -28,15 +32,76 @@ public class StoreServiceImpl implements StoreService{
 //	Park
 //	매장등록
 	@Override
-	public int regist(Store store, HttpServletRequest request) {
+	public String regist(Store store, HttpServletRequest request, MultipartFile multi, Model model) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		
-		// TODO Auto-generated method stub
-		service.getCurrentUser(request);
-		MemberVO user = (MemberVO) request.getAttribute("user");
-		System.out.println(user.getMemNo());
-		store.setMemNo(user.getMemNo());
-		return map.regist(store);
+		String path="C:\\Store\\";
+		String url = null;
+		
+		 String uploadpath = path;
+         String originFilename = multi.getOriginalFilename();
+         String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
+         long size = multi.getSize();
+         String saveFileName = genSaveFileName(extName);
+         System.out.println(saveFileName);
+         System.out.println(multi.toString());
+         System.out.println("uploadpath : " + uploadpath);
+         System.out.println("originFilename : " + originFilename);
+         System.out.println("extensionName : " + extName);
+         System.out.println("size : " + size);
+         System.out.println("saveFileName : " + saveFileName);
+         store.setMemNo(user.getMemNo());
+         store.setThumbnail(saveFileName);
+         if(!multi.isEmpty())
+         {
+             File file = new File(uploadpath, saveFileName);
+             try {
+				multi.transferTo(file);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+             
+             model.addAttribute("filename",saveFileName);
+             model.addAttribute("uploadPath", file.getAbsolutePath());
+             try {
+            	System.out.println(store.getAddress());
+            	System.out.println(store.getCategory());
+            	System.out.println(store.getLatitude());
+            	System.out.println(store.getLongitude());
+            	System.out.println(store.getMemNo());
+            	System.out.println(store.getName());
+            	System.out.println(store.getStoreCat());
+            	System.out.println(store.getStoreNo());
+            	System.out.println(store.getTel());
+            	System.out.println(store.getThumbnail());
+				map.regist(store);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+             return "filelist";
+         }
+         
+		return "redirect:list";
 	}
+	// 현재 시간을 기준으로 파일 이름 생성
+		 private String genSaveFileName(String extName) {
+		        String fileName = "";
+		        
+		        Calendar calendar = Calendar.getInstance();
+		        fileName += calendar.get(Calendar.YEAR);
+		        fileName += calendar.get(Calendar.MONTH);
+		        fileName += calendar.get(Calendar.DATE);
+		        fileName += calendar.get(Calendar.HOUR);
+		        fileName += calendar.get(Calendar.MINUTE);
+		        fileName += calendar.get(Calendar.SECOND);
+		        fileName += calendar.get(Calendar.MILLISECOND);
+		        fileName += extName;
+		        
+		        return fileName;
+		    }
 //	매장출력
 	@Override
 	public List<Store> storeList(StorePagingCriteria cri) {
@@ -112,7 +177,7 @@ public class StoreServiceImpl implements StoreService{
 		// TODO Auto-generated method stub
 		return map.totalProdCnt(cri);
 	}
-	
+
 
 
 //	Hong
@@ -126,7 +191,6 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public List<ProductReservationVO> resProdList(ResProdListPagingCriteria cri) {
 	
-		
 		return map.resProdList(cri);
 	}
 //총 예약건수 출력
@@ -138,9 +202,6 @@ public class StoreServiceImpl implements StoreService{
 //예약 건 출력(매장이름/상품명 검색시)
 	@Override
 	public void search(ResProdListPagingCriteria cri, Model model) {
-		
-		
-		
 		
 		if(cri.getType().equals("name")) {
 			
@@ -184,20 +245,28 @@ public class StoreServiceImpl implements StoreService{
 	
 //예약상품 상세내역 
 	@Override
-	public ProductReservationVO resProdDetail(long prodResNo) {
+	public ProductReservationVO resProdDetail(int prodResNo) {
 		return map.resProdDetail(prodResNo);
 	}
 //예약상품 상세내역(상품목록)
 	@Override
-	public List<ProductReservationVO> resProdDetailList(long prodResNo) {
+	public List<ProductReservationVO> resProdDetailList(int prodResNo) {
 		return map.resProdDetailList(prodResNo);
 	}
 //리뷰페이지 상세에 같이 출력
 	@Override
-	public List<ReviewVO> reviewLoad(long selectedResNo) {
-		return map.reviewLoad(selectedResNo);
+	public ReviewVO reviewLoad(int revNo) {
+		return map.reviewLoad(revNo);
 	}
-
+//예약 취소	
+	@Override
+	public int CancelRes(int prodResNo) {
+		return map.CancelRes(prodResNo);
+	}
+	@Override
+	public int CancelRes2(int prodResNo) {
+		return map.CancelRes2(prodResNo);
+	}
 	
 //	Yoon
 	

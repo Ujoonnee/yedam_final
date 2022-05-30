@@ -45,6 +45,7 @@ public interface ExhibitionMapper {
 	public List<ParkExhibitionVO> exhibition(ParkExhibitionPagingCriteria cri); //	전시 목록
 	public List<ParkExhibitionVO> searchEx(ParkExhibitionPagingCriteria cri); //	전시 목록에서의 검색처리
 	int totalExCnt(ParkExhibitionPagingCriteria cri); //페이징 위한 전시 개수 
+	int listTotalCnt(ParkExhibitionPagingCriteria cri); //전시 리스트 첫회면 페이징 
 	ParkExhibitionVO findExVO(ParkExhibitionVO vo); //	전시 상세 페이지
 	int insertExhibitionReservation(ParkExhibitionVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인

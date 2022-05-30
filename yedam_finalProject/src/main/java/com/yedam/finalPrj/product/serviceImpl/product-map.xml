@@ -22,7 +22,7 @@
 		FROM
 			 (SELECT a.*, ROWNUM rn
 			 FROM(
-			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.status,p.price
+			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.status,p.price,p.prod_thumbnail
 				from product p, store s 
 				where s.store_no = p.store_no
 				and s.store_no like #{storeNo} 
@@ -31,7 +31,17 @@
 				) b
 			where rn > (#{pageNum}-1) * #{amount}
 	</select>
-	
+<!-- 	썸네일 등록 -->
+	<update id="thumbnailUpdate" parameterType="com.yedam.finalPrj.product.vo.park.Product" >
+		UPDATE PRODUCT 
+		SET PROD_THUMBNAIL =#{prodThumbnail} 
+		WHERE PROD_NO =#{prodNo}
+	</update>
+<!-- 	상품 썸네일 삭제 -->
+	<update id = "productThumbnailDelete"  parameterType="com.yedam.finalPrj.product.vo.park.Product" >
+		UPDATE PRODUCT SET PROD_THUMBNAIL = ''
+		WHERE PROD_NO = #{prodNo}
+	</update>
 <!-- 	상품 리스트 출력 (가격 검색) -->
 	<select id = "searchPrice" resultType="com.yedam.finalPrj.product.vo.park.Product">
 		SELECT * 
@@ -96,7 +106,7 @@
 	<select id = "getStoreNo" resultType= "int">
 		select store_no 
 		from store
-		where mem_no = #{memNo};
+		where mem_no = #{memNo}
 	</select>
 	<select id = "myStoreProductManegement" resultType="com.yedam.finalPrj.product.vo.park.Product">
 	    select * 
@@ -120,7 +130,7 @@
 			       END
 			from product
 		</selectKey>
-		insert into product values(#{prodNo},4,#{prodName},#{stock},#{price},'',#{prodCat},'00601')	
+		insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},#{price},'',#{prodCat},'00601')	
 	</insert>
 	<insert id = "myStoreProductInsert" parameterType="com.yedam.finalPrj.product.vo.park.Product">
 		<selectKey keyProperty="prodNo" resultType="long"
@@ -130,8 +140,7 @@
 			       END
 			from product
 		</selectKey>
-			insert into product values(#{prodNo},4,#{prodName},#{stock},#{status},#{price},'',#{prodCat})	
-		
+			insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},#{status},#{price},'',#{prodCat})	
 	</insert>
 	
 	
@@ -167,21 +176,21 @@
 <!-- 		Hong -->
 
 	<!-- 상품 예약 목록 -->
-	<select id="proReSelectAll" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservation">
+	<select id="proReSelectAll" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO">
 		SELECT r.prod_res_no, m.name, r.pickup_time, r.payment_status, m.mem_type
 		FROM member m , product_reservation r
 		WHERE m.mem_no = r.mem_no
 	</select>
 
 	<!-- 상품예약상세 -->
-	<select id="proReDetail" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservation">
+	<select id="proReDetail" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO">
 		SELECT r.prod_res_no , m.name, m.tel, r.pickup_time
 		FROM member m, product_reservation r
 		WHERE m.mem_no = r.mem_no
 		AND r.prod_res_no = #{prodResNo}
 	</select>
 	
-	<select id="proReDetailList" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservation">
+	<select id="proReDetailList" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO">
 		SELECT p.prod_thumbnail, p.prod_name, p.price, rd.count, (p.price * rd.count) AS payment
 		FROM product p , reserved_product rd
 		WHERE rd.prod_no = p.prod_no

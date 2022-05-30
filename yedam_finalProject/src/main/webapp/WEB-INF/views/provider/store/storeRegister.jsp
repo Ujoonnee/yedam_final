@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form id="frm" name="frm" action="regist" method="post">
+<form id="frm" name="frm" action="regist" method="post" enctype="multipart/form-data">
 		<div>
 		<h2> 매장등록신청양식</h2>
 		<div id = "st_Table">
@@ -37,7 +37,7 @@
 				</tr>
 				<tr>
 					<th>매장 이미지 </th>
-					<td id="store_thumbnail"><input type="file" id= "st_thumbnail" name="thumbnail" style="height : 30px">
+					<td id="store_thumbnail"><input type="file" id= "st_thumbnail" name="fileUpload" style="height : 30px">
 				</tr>
 				<tr>
 					<th>매장 전화번호  </th>

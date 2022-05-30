@@ -161,6 +161,12 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		// TODO Auto-generated method stub
 		return map.findExVO(vo);
 	}
+//	전리리스트 첫 페이지 count
+	@Override
+	public int listTotalCnt(ParkExhibitionPagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.listTotalCnt(cri);
+	}
 //	예약 정보 등록
 	@Override
 	public int insertExhibitionReservation(ParkExhibitionVO vo) {
@@ -177,6 +183,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 //	전시 목록에서의 검색처리
 	@Override
 	public List<ParkExhibitionVO> searchEx(ParkExhibitionPagingCriteria cri) {
+			
 		// TODO Auto-generated method stub
 		return map.searchEx(cri);
 	}
@@ -193,4 +200,6 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		return user;
 	}
+
+	
 }
