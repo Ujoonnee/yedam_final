@@ -2,20 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.finalPrj.review.serviceImpl.ReviewMapper">
 
-	<insert id="insert" parameterType="com.yedam.finalPrj.review.service.ReviewVO" >
-		INSERT INTO REVIEW(REV_NO, RES_NO, CATEGORY, SCORE, CONTENT, REV_TIME, REPLY_TIME, MEM_NO, SERVICE_NAME) 
-		VALUES(SEQ_REVIEW.NEXTVAL, #{resNo}, '시설', #{score}, #{content}, default, default, #{memNo}, #{serviceName})
+	<insert id="insert" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
+		INSERT INTO REVIEW(REV_NO, RES_NO, CATEGORY, SCORE, CONTENT, REV_TIME, MEM_NO, SERVICE_NAME) 
+		VALUES(SEQ_REVIEW.NEXTVAL, #{resNo}, #{category}, #{score}, #{content}, default, #{memNo}, #{serviceName})
+
 	</insert>
 	
 	<select id="reviewSelectAll" resultType="com.yedam.finalPrj.review.service.ReviewVO">
-		SELECT service_name, score, content, reply_content, res_no
-		FROM review 
+		SELECT service_name, score, content, reply_content, res_no, rev_no
+		FROM ReviewVO 
 		WHERE mem_no = #{memNo}
 	</select>
 	
 	<update id="reviewUpdate" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
-		UPDATE review SET content = #{content}
+		UPDATE review SET content = #{content} AND score = #{score}
 		WHERE rev_no = #{revNo}
 	</update>
+	
+	<select id="reviewSelectOne" parameterType="int">
+		SELECT * 
+		FROM ReviewVO
+		WHERE rev_no = #{revNo}
+	</select>
+	
 	
 </mapper>

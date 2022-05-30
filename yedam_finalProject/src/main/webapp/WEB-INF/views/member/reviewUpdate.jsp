@@ -102,6 +102,9 @@
 	</div>
 
 <script>
+		//등록했던 내용 읽어오기.
+		$("#smartEditor").html(${review.content});
+		
 		//리뷰평점 별색깔 변경
 		$('#star a').click(function () {
 			
@@ -121,12 +124,12 @@
 			var resNo = $("#resNo").val();
 			
 				$.ajax({
-					url: "/finalPrj/review/rev_insert.do",
+					url: "/finalPrj/review/rev_update.do",
 					method: "POST",
 					data: 	$("#frm").serialize(),		
 					success: function (re) {
 						
-						console.log(re.revNo); $("#btnModal").hide();
+						console.log(re.revNo); /* $("#btnModal").hide(); */
 						 alert("성공")
 						 location.href=resNo;
 						

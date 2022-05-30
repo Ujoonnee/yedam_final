@@ -20,15 +20,16 @@
 <!-- 서비스 등록 -->
 	<insert id="regist"
 		parameterType="com.yedam.finalPrj.store.vo.park.Store">
-		<selectKey keyProperty="store_no" resultType="long"
+		<selectKey keyProperty="storeNo" resultType="long"
 			order="BEFORE">
 			Select CASE when max(store_no) is null then 1
 			ELSE MAX(store_no)
-			+1 END from store
+			+1 END storeNo 
+			from store
 		</selectKey>
 		insert into store values(
-		#{store_no},'00204',#{name},#{store_cat},#{address},
-		#{latitude},#{longitude},#{tel},#{thumbnail},#{mem_no})
+		#{storeNo},'00204',#{name},#{storeCat},#{address},
+		#{latitude},#{longitude},#{tel},#{thumbnail},#{memNo})
 	</insert>
 <!-- 매장 리스트 출력-->
 	<select id="storeList" 
@@ -145,7 +146,7 @@
 						RANK()OVER(PARTITION BY r.prod_res_no ORDER BY p.prod_name) AS RANK
 					FROM store s, product_reservation r, product p
 					WHERE s.store_no = r.store_no
-					AND s.store_no = p.store_no AND r.mem_no = #{memNo}
+					AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
 					ORDER BY RANK)
 				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM reserved_product)
                ) a
@@ -165,8 +166,8 @@
 					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status , r.pickup_time, r.pickup_date, r.prod_res_no,
 						rank()over(partition by r.prod_res_no order by p.prod_name) as rank
 							FROM store s, product_reservation r, product p
-								WHERE s.store_no = r.store_no
-							AND s.store_no = p.store_no AND r.mem_no = #{memNo}
+								WHERE s.store_no = r.store_no 
+							AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
 						order by rank)
 					where ROWNUM <![CDATA[<=]]> (select count(*) from reserved_product)
                ) where <![CDATA["store.name"]]> like '%'||#{keyword}||'%') a
@@ -185,7 +186,7 @@
 						SELECT p.prod_name AS "product.prodName", s.name AS "store.name", r.payment_amt, r.pickup_status, r.pickup_time, r.prod_res_no, rank()over(partition by r.prod_res_no order by p.prod_name) as rank
 							FROM store s, product_reservation r, product p
 								WHERE s.store_no = r.store_no
-							AND s.store_no = p.store_no AND r.mem_no = #{memNo}
+							AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
 						AND prod_name like '%'||#{keyword}||'%' 
 					ORDER BY rank)
 				where rank = 1) a
@@ -198,7 +199,7 @@
 
 <!-- 예약상품 상세내역 -->
 <select id="resProdDetail" parameterType="int" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
-	SELECT r.payment_amt, r.order_date, r.category, prod_res_no, m.name AS "member.name", r.order_date, s.name AS "store.name", r.pickup_time, r.pickup_date, m.tel AS "member.tel" 
+	SELECT r.pickup_status, r.payment_amt, r.order_date, r.category, prod_res_no, m.name AS "member.name", r.order_date, s.name AS "store.name", r.pickup_time, r.pickup_date, m.tel AS "member.tel" 
 		FROM store s, member m, product_reservation r
 			WHERE m.mem_no=r.mem_no
 		AND r.store_no = s.store_no 
@@ -206,7 +207,7 @@
 </select>
 <!-- 예약상품 상세내역(상품목록) -->
 <select id="resProdDetailList" parameterType="int" resultType="com.yedam.finalPrj.store.vo.jo.ProductReservationVO">
-	SELECT r.prod_res_no, p.prod_name AS "product.prodName",
+	SELECT r.prod_res_no, p.prod_thumbnail AS "product.prodThumbnail", p.prod_name AS "product.prodName",
             r.count AS "reservedProduct.count",
             p.price AS "product.price"
 	FROM product p, reserved_product r
@@ -244,13 +245,24 @@ SELECT count(*)
 				AND p.prod_name like '%'||#{keyword}||'%'
 		GROUP BY r.prod_res_no)
 </select>
-<select id="reviewLoad" resultType="com.yedam.finalPrj.review.service.ReviewVO">
-SELECT * 
-FROM review
-WHERE res_no = #{selectedResNo}
+<!-- 예약상세페이지에서 리뷰출력 -->
+<select id="reviewLoad" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO" >
+	SELECT * FROM REVIEW r, PRODUCT_RESERVATION pr
+	WHERE r.res_no = pr.prod_res_no
+	AND pr.prod_res_no = #{resNo}
 </select>
-
-	
+<!-- 상품예약테이블에서 삭제(예약번호) -->
+<delete id="CancelRes" parameterType="int">
+	DELETE FROM 
+	product_reservation 
+	WHERE prod_res_no = #{prodResNo}
+</delete>
+<!-- 예약된상품 테이블에서 삭제(예약번호) -->
+<delete id="CancelRes2" parameterType="int">
+	DELETE FROM
+	reserved_product
+	WHERE prod_res_no = #{prodResNo}
+</delete>
 <!-- 	Yoon -->
 	
 	

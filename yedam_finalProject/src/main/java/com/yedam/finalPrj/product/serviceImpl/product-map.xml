@@ -22,7 +22,7 @@
 		FROM
 			 (SELECT a.*, ROWNUM rn
 			 FROM(
-			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.status,p.price
+			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.status,p.price,p.prod_thumbnail
 				from product p, store s 
 				where s.store_no = p.store_no
 				and s.store_no like #{storeNo} 
@@ -35,7 +35,12 @@
 	<update id="thumbnailUpdate" parameterType="com.yedam.finalPrj.product.vo.park.Product" >
 		UPDATE PRODUCT 
 		SET PROD_THUMBNAIL =#{prodThumbnail} 
-		WHERE STORE_NO =#{storeNo}
+		WHERE PROD_NO =#{prodNo}
+	</update>
+<!-- 	상품 썸네일 삭제 -->
+	<update id = "productThumbnailDelete"  parameterType="com.yedam.finalPrj.product.vo.park.Product" >
+		UPDATE PRODUCT SET PROD_THUMBNAIL = ''
+		WHERE PROD_NO = #{prodNo}
 	</update>
 <!-- 	상품 리스트 출력 (가격 검색) -->
 	<select id = "searchPrice" resultType="com.yedam.finalPrj.product.vo.park.Product">
@@ -136,7 +141,6 @@
 			from product
 		</selectKey>
 			insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},#{status},#{price},'',#{prodCat})	
-		
 	</insert>
 	
 	

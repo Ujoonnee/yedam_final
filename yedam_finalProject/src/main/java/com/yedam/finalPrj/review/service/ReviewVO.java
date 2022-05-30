@@ -8,7 +8,7 @@ import lombok.Data;
 public class ReviewVO {
 
 	private int revNo;
-	private int ResNo;
+	private int resNo;
 	private String category;
 	private String score;
 	private String content;
