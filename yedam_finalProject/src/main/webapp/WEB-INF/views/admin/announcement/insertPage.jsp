@@ -51,13 +51,14 @@
 		enctype="multipart/form-data">
 		<label>제목</label>
 		<div>
-			<input type="text" name="title" required>
+			<input type="text" class="form-control" style="width:400px" name="title" required>
 		</div>
 		<br> <label>내용</label>
 		<div>
 			<textarea name="annContent" class="form-control" style="width: 538px; height: 200px;" required></textarea>
 		</div>
 		<br>
+		<label>상태사항</label>
 		<div style="width:300px">
 			<select name="status" class="form-control" required>
 				<option value="" disabled="disabled" selected>공개여부</option>
@@ -67,12 +68,16 @@
 				<option value="00504">삭제</option>
 			</select>
 		</div>
-		<div class="mb-4">첨부파일 <button class="fileAdd_btn" type="button">파일추가</button></div>
+		<div class="mb-5 my-3">&nbsp;</div>
+		<div class="mb-5 my-3">첨부파일 <button class="fileAdd_btn" type="button">파일추가</button></div>
+		<hr>
 		<div id="fileIndex"></div>
+		<div>&nbsp;</div>
+		<hr>
 		<br>
-		<div>
-			<input class=".write_btn" type="submit" value="작성"> 
-			<input type="button" onclick="announcement" value="취소">
+		<div align="right">
+			<input class=".write_btn btn btn-tertiary" type="submit" value="작성"> 
+			<input type="button" class="btn btn-gray-200" onclick="announcement" value="취소">
 		</div>
 	</form>
 	

@@ -59,7 +59,7 @@
 
 					<!-- 	<tr><td colspan="7">&nbsp;</td></tr> -->
 
-					<tr id="space" height="1px"><td colspan="7" style="height:1px;"></td></tr>
+					<tr id="space" height="1px" style="background-color:gainsboro"><td colspan="7" style="height:1px;"></td></tr>
 						<c:forEach items="${list }" var="announcement">
 								<tr>
 									<td>${announcement.annNo }</td>
