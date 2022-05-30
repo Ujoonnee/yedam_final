@@ -83,7 +83,7 @@ BEGIN
     INTO v_application_no
 	FROM signup_application;
     
-    applicationNo := v_application_no;
+    applicationNo := TO_CHAR(v_application_no);
     
     INSERT INTO signup_application
     VALUES(v_application_no,v_mem_no,SYSDATE);
