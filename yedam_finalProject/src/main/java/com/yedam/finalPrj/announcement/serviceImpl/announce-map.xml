@@ -83,9 +83,9 @@
 		<selectKey keyProperty="annNo" resultType="int" order="BEFORE">
 			select ann_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO ANNOUNCEMENT
+		INSERT INTO ANNOUNCEMENT(ann_no, title, ann_content, ann_date, ann_view, status)
 		VALUES (#{annNo}, #{title}, #{annContent},
-		#{annDate}, #{annView}, #{status})
+		sysdate, #{annView}, #{status})
 	</insert>
 		<!-- 파일업로드 -->
 	<insert id="annInsertFile" parameterType="com.yedam.finalPrj.common.FileVO">

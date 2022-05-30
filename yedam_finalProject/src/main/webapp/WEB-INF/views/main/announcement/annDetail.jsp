@@ -36,8 +36,7 @@
 		<table border="1">
 			<tr>
 				<td bgcolor="" width="70">제목</td>
-				<td align="left"><input id="title" name="title" type="text"
-					value="${announcement.title}" disabled/></td>
+				<td align="left">${announcement.title}</td>
 			</tr>
 			<tr>
 				<td bgcolor="">작성자</td>
@@ -45,7 +44,7 @@
 			</tr>
 			<tr>
 				<td bgcolor="">내용</td>
-				<td><textarea style="width: 538px; height: 200px;"disabled><c:out value="${announcement.annContent }"/></textarea></td> 
+				<td><c:out value="${announcement.annContent }" escapeXml="false"/></td> 
 			</tr>
 			<tr>
 				<td bgcolor="">등록일</td>

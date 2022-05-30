@@ -36,7 +36,7 @@
 	function fn_addFile(){
 		var fileIndex = 1;
 		$(".fileAdd_btn").on("click", function(){
-			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+			$("#fileIndex").append("<div style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		});
 		$(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();
@@ -55,15 +55,11 @@
 		</div>
 		<br> <label>내용</label>
 		<div>
-			<textarea name="annContent" required></textarea>
+			<textarea name="annContent" class="form-control" style="width: 538px; height: 200px;" required></textarea>
 		</div>
 		<br>
-		<div>
-			날짜<input type="date" name="annDate" required>
-		</div>
-		<br>
-		<div>
-			<select name="status" required>
+		<div style="width:300px">
+			<select name="status" class="form-control" required>
 				<option value="" disabled="disabled" selected>공개여부</option>
 				<option value="00501">공개</option>
 				<option value="00502">우선순위</option>
@@ -71,11 +67,7 @@
 				<option value="00504">삭제</option>
 			</select>
 		</div>
-		<div>첨부파일</div>
-		
-		<div>
-			<button class="fileAdd_btn" type="button">파일추가</button>
-		</div>
+		<div class="mb-4">첨부파일 <button class="fileAdd_btn" type="button">파일추가</button></div>
 		<div id="fileIndex"></div>
 		<br>
 		<div>

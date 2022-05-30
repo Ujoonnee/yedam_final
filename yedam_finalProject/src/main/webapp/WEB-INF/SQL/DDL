@@ -148,7 +148,7 @@ service_name VARCHAR2(50) NOT NULL
 --테이블 생성
 CREATE TABLE ANNOUNCEMENT
 (ANN_NO NUMBER(5), 
-title VARCHAR2(90) NOT NULL,
+title VARCHAR2(200) NOT NULL,
 ann_content CLOB,
 ann_date DATE,
 ann_view NUMBER(10) default 0,

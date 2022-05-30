@@ -102,20 +102,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames,
 			MultipartHttpServletRequest filerequest) throws Exception {
 		String filePath = "C:\\image\\";
-		
-		
-		
-		
-		
- 
-		
-		
-		
-		 
-		
 //		System.out.println("-----------------"+replacedName.toString());
-		
-		
 		
 		map.annUpdate(announcement);
 		
