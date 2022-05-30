@@ -43,11 +43,6 @@
 
 <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
-
-
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <style>
 	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
@@ -206,23 +201,16 @@
 					                            </div>
 					                            <div id="addressValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
 					                            
-					                            
-					                            
-					                            
-					                            
-					                            
-					                            
-					                            
 					                            <div id="buisnessDiv" class="row" style="display: none;">
 					                                <div class="col-sm-4 mb-2">
 				                                        <label data-bs-toggle="tooltip" data-bs-placement="top" title="대표자명은 이전 페이지에서 입력한 이름으로 검사합니다.">
 				                                        	사업자등록번호 
 				                                        </label>
-				                                        <input class="form-control" id="buisnessNum" placeholder="'-' 제외" required value="5048600471">
+				                                        <input class="form-control" id="buisnessNum" placeholder="'-' 제외" required>
 					                                </div>
 					                                <div class="col-sm-4 mb-2">
 				                                        <label for="">개업일</label>
-				                                        <input class="form-control" id="buisnessStartDate" placeholder="yyyyMMdd" required value="20120709">
+				                                        <input class="form-control" id="buisnessStartDate" placeholder="yyyyMMdd" required>
 					                                </div>
 					                                <div class="col-sm-4 mb-2">
 				                                        <label for="">사업유형</label>
@@ -234,25 +222,6 @@
 						                            <div id="buisnessNumValidation" class="validationResult mb-1" style="font-size: small; color: red;">&nbsp;</div>
 				                                </div>
 					                            
-					                            
-					                            <div id="buisnessNumDiv" class="row" style="display: none;">
-					                                <div class="col-sm-6 mb-2">
-					                                    <div class="form-group">
-					                                        <label for="">
-					                                        	사업자등록번호 
-					                                        	<a class="material-symbols-outlined align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="대표자명은 이전 페이지에서 입력한 이름으로 검사합니다.">info</a>
-					                                        </label>
-					                                        <input class="form-control" id="buisnessNum" placeholder="'-' 제외" required value="5048600471">
-					                                    </div>
-					                                </div>
-					                                <div class="col-sm-6 mb-2">
-					                                    <div class="form-group">
-					                                        <label for="">개업일</label>
-					                                        <input class="form-control" id="buisnessStartDate" placeholder="'-' 제외" required value="20120709">
-					                                    </div>
-					                                </div>
-						                            <div id="buisnessNumValidation" class="validationResult mb-1" style="font-size: small; color: red;">&nbsp;</div>
-				                                </div>
 					                            
 					                            <input type="button" class="btn btn-gray-800 mb-4" value="이전" onclick="$('#previous')[0].click()" style="width: 100%;">
 					                            
@@ -311,8 +280,61 @@
 	<!-- End of Modal Content -->
 
 
+	<!-- kakao 주소 검색 api -->
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	
+    <!-- Core -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	
+	<!-- Vendor JS -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+	
+	<!-- Slider -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/nouislider/distribute/nouislider.min.js"></script>
+	
+	<!-- Smooth scroll -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+	
+	<!-- Charts -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/chartist/dist/chartist.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+	
+	<!-- Datepicker -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+	
+	<!-- Sweet Alerts 2 -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	
+	<!-- Moment JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+	
+	<!-- Vanilla JS Datepicker -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+	
+	<!-- Notyf -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/notyf/notyf.min.js"></script>
+	
+	<!-- Simplebar -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/simplebar/dist/simplebar.min.js"></script>
+	
+	<!-- Github buttons -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+	<!-- Volt JS -->
+	<script src="${pageContext.request.contextPath}/resources/assets/js/volt.js"></script>
+
 	<!-- script -->
 	<script>
+		// 회원가입 결과 알림창
+		const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-gray'
+	        },
+	        buttonsStyling: false
+	    });
+		
 
 		// 폼 초기화
 		function resetForm() {
@@ -332,13 +354,19 @@
 		$('#tabs-text-1-tab').on('click', () => {
 			resetForm();
 			$('#title').html('일반회원 가입')
+			$('#buisnessDiv').removeClass('active');
 			$('#buisnessDiv').attr('style','display: none;');
 		});
 		
 		$('#tabs-text-3-tab').on('click', () => {
 			resetForm();
 			$('#title').html('사업자회원 가입')
+			$('#buisnessDiv').addClass('active');
 			$('#buisnessDiv').removeAttr('style');
+			
+			// 테스트용 사업자번호 입력 TODO
+			$('#buisnessNum').val("5048600471");
+			$('#buisnessStartDate').val("20120709");
 		});
 		
 		
@@ -469,6 +497,10 @@
 		// 연락처에 문자 입력 방지
 		$('#tel').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
 		
+		// 연락처 커서 이동
+		$('#tel2').on('keyup', event => { if (event.target.value.length == 4) $('#tel3').focus(); } );
+		
+		
 		// 사업자등록번호에 문자 입력 방지
 		$('#buisnessNum').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
 
@@ -535,81 +567,82 @@
 				$('#address1').addClass('is-valid');
 			}
 			
-			// 사업자등록번호 미입력 시
-			if ($('#buisnessNum').val() == '') {
-				$('#buisnessNum').addClass('is-invalid');
-				$('#buisnessNumValidation').html('사업자등록번호, 개업일을 확인하세요.');
-				isValid = false;
-			}
-
-			if ($('#buisnessStartDate').val() == '') {
-				$('#buisnessStartDate').addClass('is-invalid');
-				$('#buisnessNumValidation').html('사업자등록번호, 개업일을 확인하세요.');
-				isValid = false;
-			}
-			
 			// 사업자등록번호 검증
-			const data = {
-					  		"businesses": [
-				    			{
-							      "b_no": $('#buisnessNum').val(),
-							      "start_dt": $('#buisnessStartDate').val(),
-							      "p_nm": "서강중",// $('#name').val(), TODO
-							      "p_nm2": "",
-							      "b_nm": "",
-							      "corp_no": "",
-							      "b_sector": "",
-							      "b_type": ""
-						    	}
-						  	]
-						};
+			if ($('#buisnessDiv').attr('class') == 'row active') {
+				// 사업자등록번호 미입력 시
+				if ($('#buisnessNum').val() == '') {
+					$('#buisnessNum').addClass('is-invalid');
+					$('#buisnessNumValidation').html('사업자등록번호, 개업일을 확인하세요.');
+					isValid = false;
+				}
+	
+				if ($('#buisnessStartDate').val() == '') {
+					$('#buisnessStartDate').addClass('is-invalid');
+					$('#buisnessNumValidation').html('사업자등록번호, 개업일을 확인하세요.');
+					isValid = false;
+				}
 			
-			$.ajax({
-			  url: "https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=0EXleDG3eHrYpbOj1Y9g6imFIIuMOJOpIOvaXrzGBflr8L7qSfTUMAU7MskTa5cKVWJtzQ5IQmA09P2fliKdnw%3D%3D",
-			  type: "POST",
-			  data: JSON.stringify(data),
-			  dataType: "JSON",
-			  contentType: "application/json",
-			  accept: "application/json",
-			  success: function(result) {
-			      const isValidBuisness = (result.data[0].valid == '01')? true : false;
-				  const buisnessStatus = isValidBuisness? result.data[0].status.b_stt_cd : '';
-			      
-				  // 사업자등록번호 확인 불가
-			      if (!isValidBuisness) {
-			    	  $('#buisnessNum').addClass('is-invalid');
-			    	  $('#buisnessStartDate').addClass('is-invalid');
-			    	  $('#buisnessNumValidation').html('사업자등록번호를 ' + result.data[0].valid_msg);
-			    	  isValid = false;
-			      }
-
-				  // 사업상태가 계속사업자가 아님
-			      if (buisnessStatus == '02' || buisnessStatus == '03') {
-			    	  buisnessStatus = result.data[0].status.b_stt.substring(0,2);
-			    	  $('#buisnessNum').addClass('is-invalid');
-			    	  $('#buisnessStartDate').addClass('is-invalid');
-			    	  $('#buisnessNumValidation').html(buisnessStatus + '상태의 사업자등록번호입니다.');
-			    	  isValid = false;
-			      }
-			      
-				  // validation 통과
-				  if (isValidBuisness) {
-			    	  $('#buisnessNum').removeClass('is-invalid');
-			    	  $('#buisnessStartDate').removeClass('is-invalid');
-			    	  $('#buisnessNumValidation').html('&nbsp;');
-			    	  
-			    	  $('#buisnessNum').addClass('is-valid');
-			    	  $('#buisnessStartDate').addClass('is-valid');
+				const data = {
+						  		"businesses": [
+					    			{
+								      "b_no": $('#buisnessNum').val(),
+								      "start_dt": $('#buisnessStartDate').val(),
+								      "p_nm": "서강중",// $('#name').val(), TODO
+								      "p_nm2": "",
+								      "b_nm": "",
+								      "corp_no": "",
+								      "b_sector": "",
+								      "b_type": ""
+							    	}
+							  	]
+							};
+				
+				$.ajax({
+				  url: "https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=0EXleDG3eHrYpbOj1Y9g6imFIIuMOJOpIOvaXrzGBflr8L7qSfTUMAU7MskTa5cKVWJtzQ5IQmA09P2fliKdnw%3D%3D",
+				  type: "POST",
+				  data: JSON.stringify(data),
+				  dataType: "JSON",
+				  contentType: "application/json",
+				  accept: "application/json",
+				  success: function(result) {
+				      const isValidBuisness = (result.data[0].valid == '01')? true : false;
+					  const buisnessStatus = isValidBuisness? result.data[0].status.b_stt_cd : '';
+				      
+					  // 사업자등록번호 확인 불가
+				      if (!isValidBuisness) {
+				    	  $('#buisnessNum').addClass('is-invalid');
+				    	  $('#buisnessStartDate').addClass('is-invalid');
+				    	  $('#buisnessNumValidation').html('사업자등록번호를 ' + result.data[0].valid_msg);
+				    	  isValid = false;
+				      }
+	
+					  // 사업상태가 계속사업자가 아님
+				      if (buisnessStatus == '02' || buisnessStatus == '03') {
+				    	  buisnessStatus = result.data[0].status.b_stt.substring(0,2);
+				    	  $('#buisnessNum').addClass('is-invalid');
+				    	  $('#buisnessStartDate').addClass('is-invalid');
+				    	  $('#buisnessNumValidation').html(buisnessStatus + '상태의 사업자등록번호입니다.');
+				    	  isValid = false;
+				      }
+				      
+					  // validation 통과
+					  if (isValidBuisness) {
+				    	  $('#buisnessNum').removeClass('is-invalid');
+				    	  $('#buisnessStartDate').removeClass('is-invalid');
+				    	  $('#buisnessNumValidation').html('&nbsp;');
+				    	  
+				    	  $('#buisnessNum').addClass('is-valid');
+				    	  $('#buisnessStartDate').addClass('is-valid');
+					  }
+				      
+				      
+				  },
+				  error: function(result) {
+					  alert('오류가 발생했습니다.');
+				      console.log(result.responseText); //responseText의 에러메세지 확인
 				  }
-			      
-			      
-			  },
-			  error: function(result) {
-				  alert('오류가 발생했습니다.');
-			      console.log(result.responseText); //responseText의 에러메세지 확인
-			  }
-			});
-			
+				});
+			}
 			
 			// 약관 미동의 시
 			if (!termCheckbox.checked) {
@@ -618,9 +651,9 @@
 				isValid = false;
 			}
 			
+			
 			// 회원가입 성공
 			if (isValid) {
-				alert ('회원가입 성공');
 				const member = {
 								"email": $('#email1').val() + '@' + $('#email2').val(),
 								"password": $('#password1').val(),
@@ -629,7 +662,7 @@
 								"buisnessNum": $('#buisnessNum').val(),
 								"address": $('#address1').val(),
 								"addressDetail": $('#address2').val(),
-								"buisnessType": $('#buisnessType').val(0),
+								"buisnessType": $('#buisnessType').val(),
 								};
 				
 				console.log(member);
@@ -637,9 +670,26 @@
 				$.ajax({
 					url: 'sign-up',
 					method: 'post',
-					data: member
+					data: JSON.stringify(member),
+					contentType: 'application/json; charset=UTF-8'
 				}).done( response => {
-					alert(response);
+					
+					if (response != 'fail') {
+						swalWithBootstrapButtons.fire({
+				            icon: 'warning',
+				            title: '이메일이 발송되었습니다.',
+				            text: '이메일 인증 완료 후 정상 이용이 가능합니다.',
+				            showConfirmButton: true,
+				        });
+						setTimeout(() => { location.href = "<c:out value='${pageContext.request.contextPath}'/>"; }, 2000);
+						
+					} else {
+						swalWithBootstrapButtons.fire({
+			                icon: 'error',
+			                title: '오류가 발생했습니다.',
+			                text: '잠시 후 다시 시도해 주세요.'
+			            });
+					}
 				}).fail(response => {
 					console.log(response);
 				})
@@ -676,51 +726,6 @@
 		
 	</script>
 
-	<!-- kakao 주소 검색 api -->
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	
-    <!-- Core -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-	
-	<!-- Vendor JS -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/onscreen/dist/on-screen.umd.min.js"></script>
-	
-	<!-- Slider -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/nouislider/distribute/nouislider.min.js"></script>
-	
-	<!-- Smooth scroll -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-	
-	<!-- Charts -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/chartist/dist/chartist.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-	
-	<!-- Datepicker -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
-	
-	<!-- Sweet Alerts 2 -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
-	
-	<!-- Moment JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-	
-	<!-- Vanilla JS Datepicker -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
-	
-	<!-- Notyf -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/notyf/notyf.min.js"></script>
-	
-	<!-- Simplebar -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/simplebar/dist/simplebar.min.js"></script>
-	
-	<!-- Github buttons -->
-	<script async defer src="https://buttons.github.io/buttons.js"></script>
-	
-	<!-- Volt JS -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/volt.js"></script>
-
-    
 </body>
 
 </html>

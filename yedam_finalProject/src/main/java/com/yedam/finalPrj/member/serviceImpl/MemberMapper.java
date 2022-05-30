@@ -17,5 +17,5 @@ public interface MemberMapper {
 	
 	int isValidEmail(MemberVO vo);
 	
-	int signup (Map<String, String> member);
+	String signup (Map<String, String> member);
 }

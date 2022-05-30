@@ -1,6 +1,5 @@
 package com.yedam.finalPrj.member.serviceImpl;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,14 +8,23 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.finalPrj.common.EmailSender;
 import com.yedam.finalPrj.member.service.MemberService;
 import com.yedam.finalPrj.member.service.MemberVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 
-	@Autowired
-	MemberMapper map;
+	@Autowired MemberMapper map;
+	@Autowired EmailSender emailSender;
+	
+	public MemberVO getCurrentUser(HttpServletRequest request) {
+		// 현재 로그인한 유저 정보
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		
+		return user;
+	}
 
 	@Override
 	public MemberVO findOne(MemberVO vo) {
@@ -79,12 +87,8 @@ public class MemberServiceImpl implements MemberService {
 		session.invalidate(); // 세션 초기화.
 	}
 	
-	public MemberVO getCurrentUser(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		
-		return user;
-	}
+	
+	
 
 	@Override
 	public boolean isValidEmail(MemberVO vo) {
@@ -92,30 +96,40 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public int signUp(MemberVO member) {
+	public String signUp(Map<String,String> member) {
 		
-		Map<String, String> memberMap = new HashMap<>();
+		// 최종 회원가입 전 이메일 체크
+		MemberVO vo = new MemberVO();
+		vo.setEmail(member.get("email"));
+		if (!isValidEmail(vo)) return "fail";
+			
+		// 프로시저 out 변수
+		member.put("applicationNo", "");
 		
-		memberMap.put("email", member.getEmail());
-		memberMap.put("name", member.getName());
-		memberMap.put("password", member.getPassword());
-		memberMap.put("address", member.getAddress());
-		memberMap.put("addressDetail", member.getAddressDetail());
-		memberMap.put("tel", member.getTel());
-		memberMap.put("buisnessNum", member.getBuisnessNum());
-		memberMap.put("buisnessType", member.getBuisnessType());
-		memberMap.put("applicationNo", "");
-		
-		System.out.println("buisnessNum : " + memberMap.get("buisnessNum"));
-		if (memberMap.get("buisnessNum") == null) {
+		if (member.get("buisnessNum") == null) {
 			// 일반회원
-			memberMap.put("memType", "00102");
+			member.put("memType", "00102");
 		} else {
 			// 사업자회원
-			memberMap.put("memType", "00103");
+			member.put("memType", "00103");
 		}
 		
-		return map.signup(memberMap);
+		map.signup(member);
+		
+		return "success";
+	}
+	
+	@Override
+	public void sendConfirmationMail(Map<String,String> member) {
+		emailSender.authenticationSend(member.get("email"), member);
+	}
+	
+	@Override
+	public String confirm(String applicationNo) {
+		
+		map.confirm(applicationNo);
+		
+		return "";
 	}
 
 }
