@@ -10,7 +10,7 @@
 	
 	<select id="reviewSelectAll" resultType="com.yedam.finalPrj.review.service.ReviewVO">
 		SELECT service_name, score, content, reply_content, res_no, rev_no
-		FROM ReviewVO 
+		FROM Review 
 		WHERE mem_no = #{memNo}
 	</select>
 	
@@ -21,7 +21,7 @@
 	
 	<select id="reviewSelectOne" parameterType="int">
 		SELECT * 
-		FROM ReviewVO
+		FROM Review
 		WHERE rev_no = #{revNo}
 	</select>
 	

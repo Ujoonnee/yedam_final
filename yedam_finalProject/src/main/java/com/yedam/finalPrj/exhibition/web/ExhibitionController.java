@@ -51,7 +51,6 @@ public class ExhibitionController {
 	// 예약목록 상세페이지
 	@RequestMapping(value = "exhibitionReservationDetail", method = RequestMethod.GET)
 	public String exhibitionReservationDetail(Model model, ExhibitionReservationVO vo) {
-		System.out.println("값확인" + model.getAttribute("exResNo"));
 		System.out.println(vo.getExResNo());
 		ExhibitionReservationVO detail = service.exDetail(vo);
 		model.addAttribute("exRes", detail);

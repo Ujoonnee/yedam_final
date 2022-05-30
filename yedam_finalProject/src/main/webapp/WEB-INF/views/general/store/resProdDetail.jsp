@@ -100,6 +100,9 @@
 </c:if>
 <!-- 	모달 -->
 <div>
+
+<input class="btn btn-block btn-outline-gray-800 mb-3" type="button" value="목록" onclick="history.go(-1)">
+
 <!-- 리뷰 작성안했다면 작성버튼 show. -->
 <c:if test="${detail.pickupStatus eq 'Y'}"> 
 <c:if test="${empty reviewList}" >
@@ -115,7 +118,19 @@
 <!--수정버튼은 상의 필요...  -->
 <c:if test="${not empty reviewList}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" >리뷰수정</button>
+
+<button type="submit"  class="btn btn-block btn-gray-800 mb-3 delBtn" value="${reviewList.revNo }">삭 제</button>
+
 </c:if>
+
+
+<!-- hong -->
+<%-- <c:if test="${user.memNo == memNo}"> --%>
+	
+<%-- </c:if> --%>
+
+
+
 </div>
 
 <div id="reviewModal"></div>
@@ -152,7 +167,7 @@
 	 }); 
 
 	//리뷰모달 띄우기
-	 btnModal.addEventListener("click", function(){
+	<%-- btnModal.addEventListener("click", function(){
 	 
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_insert", function(){
 	 		const myModal = new bootstrap.Modal('#modal-default');
@@ -167,7 +182,7 @@
 	 		$("#serviceNameDiv").html("${detail.store.name}");
 	 		
 	 	})
-	 }) 
+	 }) --%>
 	 //리뷰수정 버튼 클릭시 모달띄우기
 	 /* $("#btnModalUpd").on("click", function(){
 		 if(${reviewList.revNo}!=null){
@@ -188,6 +203,25 @@
 		 	})
 		 }
 	 }) */
+	
+	 
+	$(document).on('click', '.delBtn', function(e){
+		e.preventDefault();
+		let replyId = $(this).attr("href");
+		
+		$.ajax({
+			data : {
+				replyId : replyId,
+				revNo : '${reviewList.revNo}'
+			},
+			url : '/delete',
+			type : 'POST',
+			success : function(result){
+					alert('삭제가 되었습니다.')
+			}
+		});
+	});
+
 	
 
 </script>

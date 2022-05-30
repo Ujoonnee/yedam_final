@@ -182,7 +182,12 @@ public class StoreServiceImpl implements StoreService{
 
 //	Hong
 
-	 
+
+	@Override
+	public int deleteReply(ProductReservationVO vo) {
+		int result = map.deleteReply(vo.getRevNo());
+		return result;
+	}
 
 	
 //	Jo

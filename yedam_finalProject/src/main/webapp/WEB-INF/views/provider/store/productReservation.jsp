@@ -15,7 +15,7 @@
 	
 	<h3>상품 예약 목록</h3>
 	
-	<table>
+	<table class="table">
 		<thead>
 			<tr align="center">
 				<td>예약번호</td>
@@ -30,7 +30,7 @@
 					<td><a href="proReDetail?prodResNo=${proRe.prodResNo }">${proRe.prodResNo }</a>
 					
 					</td>
-					<td>${proRe.name }</td>
+					<td><a href="proReDetail?prodResNo=${proRe.prodResNo }">${proRe.name }</a></td>
 					<td><fmt:formatDate value="${proRe.pickupTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 					<td>
 					 
