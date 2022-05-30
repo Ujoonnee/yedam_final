@@ -49,6 +49,48 @@ BEGIN
 
 	RETURN NAME;
 END GET_CODE_NAME;
+
+-- 회원가입처리 프로시저
+CREATE OR REPLACE PROCEDURE SIGNUP_PROC
+(
+   email            IN VARCHAR2,
+   name             IN VARCHAR2,
+   password         IN VARCHAR2,
+   address          IN VARCHAR2,
+   addressDetail    IN VARCHAR2,
+   tel              IN VARCHAR2,
+   memType          IN VARCHAR2,
+   buisnessNum      IN VARCHAR2,
+   buisnessType     IN VARCHAR2,
+   applicationNo    OUT VARCHAR2
+)
+IS
+    v_mem_no           NUMBER;
+    v_application_no   VARCHAR2;
+BEGIN
+
+    SELECT CASE WHEN MAX(mem_no) IS NULL THEN 1
+                ELSE MAX(mem_no) + 1 END
+    INTO v_mem_no
+	FROM member;
+    
+    INSERT INTO member
+    VALUES(v_mem_no,email,name,password,address,addressDetail,tel,memType,buisnessNum,buisnessType,'00302');
+    
+    
+    SELECT CASE WHEN MAX(application_no) IS NULL THEN 1
+                ELSE MAX(application_no) + 1 END
+    INTO v_application_no
+	FROM signup_application;
+    
+    applicationNo := v_application_no;
+    
+    INSERT INTO signup_application
+    VALUES(v_application_no,v_mem_no,SYSDATE);
+
+    COMMIT;
+
+END SIGNUP_PROC;
 /
 -- 박성준
 

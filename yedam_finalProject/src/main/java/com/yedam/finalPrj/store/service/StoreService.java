@@ -64,7 +64,7 @@ public interface StoreService {
 	 public ReviewVO reviewLoad(int revNo); 
 //예약 취소
 	 int CancelRes(int prodResNo);
-	 int CancelRes2(int prodResNo);
+	 
 //		Yoon
 		
 		

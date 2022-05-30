@@ -17,7 +17,9 @@
   #vscore {
    color: red;
   } 
-	
+	#thumbNail {
+	width:150px;
+	height:150px;}
 </style>
 </head>
 <body>
@@ -57,7 +59,7 @@
                 없음
             </h2> 
     </c:if> <td> --%>
-		<td>${list.product.prodThumbnail}</td>
+		<td id="thumbNail" >${list.product.prodThumbnail}</td>
 		<td>${list.product.prodName}</td>
 		<td>${list.product.price}</td>
 		<td>${list.reservedProduct.count}개</td>
@@ -100,7 +102,7 @@
 </c:if>
 <!-- 	모달 -->
 <div>
-<!-- 리뷰 작성안했다면 작성버튼 show. -->
+<!-- 픽업상태 'Y'이면 & 리뷰 작성안했다면 작성버튼 show. -->
 <c:if test="${detail.pickupStatus eq 'Y'}"> 
 <c:if test="${empty reviewList}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
@@ -114,12 +116,12 @@
 
 <!--수정버튼은 상의 필요...  -->
 <c:if test="${not empty reviewList}" >
-<button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" >리뷰수정</button>
+<button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" onclick="reviewUpd()" >리뷰수정</button>
 </c:if>
 </div>
 
 <div id="reviewModal"></div>
-
+<div></div>
 <script type="text/javascript">
 
 	//평점 ★로 출력하기
@@ -150,9 +152,13 @@
 			return alert("취소되었습니다.");
 		} 
 	 }); 
-
+	//섬네일 클릭시 확대
+	$("#thumbNail").on("click", function(){
+		
+		});
 	//리뷰모달 띄우기
-	 btnModal.addEventListener("click", function(){
+	 $("#btnModal").on("click", function(){
+	/*  btnModal.addEventListener("click", function(){ */
 	 
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_insert", function(){
 	 		const myModal = new bootstrap.Modal('#modal-default');
@@ -167,12 +173,15 @@
 	 		$("#serviceNameDiv").html("${detail.store.name}");
 	 		
 	 	})
-	 }) 
+	 });
+	
+	
 	 //리뷰수정 버튼 클릭시 모달띄우기
-	 /* $("#btnModalUpd").on("click", function(){
-		 if(${reviewList.revNo}!=null){
+	/*  if(${reviewList.revNo}!=null){
+	 $("#btnModalUpd").on("click", function(){ */
+		function reviewUpd(){
 		 
-		var revNo = ${reviewList.revNo};
+		var revNo = ${reviewList.revNo}
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_update/"+revNo, function(){
 		 		const myModal = new bootstrap.Modal('#modal-default');
 		 		
@@ -186,9 +195,11 @@
 		 		$("#serviceNameDiv").html("${detail.store.name}");
 		 		
 		 	})
-		 }
-	 }) */
+		 
+	 	};
+
 	
+	 
 
 </script>
 

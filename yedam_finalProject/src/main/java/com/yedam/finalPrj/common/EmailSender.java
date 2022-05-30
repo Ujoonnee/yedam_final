@@ -1,5 +1,6 @@
-package com.yedam.finalPrj.email.service;
+package com.yedam.finalPrj.common;
 
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -12,11 +13,9 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CongratulationMailSender {
+public class EmailSender {
 
-	
 	@Autowired JavaMailSender mailSender;
-
 	
 	//랜덤 값 생성을 위한 Random
 	Random random = new Random();
@@ -33,7 +32,7 @@ public class CongratulationMailSender {
 		mailSender.send(message);
 	}
 
-	public void authenticationSend(final String email) {
+	public void authenticationSend(final String email, Map<String,String> map) {
 		MimeMessagePreparator mimeMessagePreparator = new MimeMessagePreparator() {
 
 			@Override
@@ -41,24 +40,13 @@ public class CongratulationMailSender {
 				MimeMessageHelper message = new MimeMessageHelper(paramMimeMessage, true, "UTF-8");
 
 				message.setTo(email);
-				message.setFrom("Daeakin");
+				message.setFrom("Yedam4TeamFinal");
 				message.setSubject("회원가입 인증 메일입니다.");
 
-				String content = "<!doctype html> " + "<html lang='ko'> " + " <head>" + "<title>이메일 인증</title>"
-						+ "<meta charset=\"utf-8\">\n"
-						+ "\n"
-						+ "				  </head>\n" + "				  <body>\n"
-						+ "				    <div class=\"jumbotron jumbotron-fluid\">\n"
-						+ "				  <div align=\"center\" class=\"container\">\n"
-						+ "				    <h1 class=\"display-3\">홍제형님</h1><br>\n"
-						+ "				    <p class=\"lead\">안녕하세요. <font size=\"5\" color=\"red\"><b>OOOO</b></font> 입니다.\n"
-						+ "				        <br>\n" + "				        인증번호는 다음과 같습니다.<br><font size=\"7\"> [ "
-						+ random.nextInt(100000) +
-						" ] </font>\n" + "				      </p>\n"
-						+ "				         <p class=\"lead\">\n"
-						+ "				    <a class=\"btn btn-success btn-lg\" href=\"\" role=\"button\">홈페이지 바로가기</a>\n"
-						+ "				  </p>\n" + "				  </div>\n" + "				</div>\n" + "\n"
-						+ "				  </body>\n" + "				</html>";
+				String content = "<h1><strong>"+ map.get("name") +"</strong> 님 안녕하세요!</h1>\r\n"
+						+ "<h3>아래 링크를 클릭해 회원가입을 완료하세요.</h3>\r\n"
+						+ "<p>&nbsp;</p>\r\n"
+						+ "<p><a href=\"http://localhost:80/finalPrj/member/confirm?applicationNo="+ map.get("applicationNo") +"\">회원가입 완료</a></p>";
 
 				//true로 해줘야 HTML을 사용한다고 알림! 
 				message.setText(content, true);
