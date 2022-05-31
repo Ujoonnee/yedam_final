@@ -185,7 +185,7 @@
 		
 		});
 	//리뷰모달 띄우기
-	<%-- btnModal.addEventListener("click", function(){
+	$('#btnModal').on("click", function(){
 	 
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_insert", function(){
 	 		const myModal = new bootstrap.Modal('#modal-default');
@@ -200,7 +200,9 @@
 	 		$("#serviceNameDiv").html("${detail.store.name}");
 	 		
 	 	})
-	 }) --%>
+	 });
+	 
+	
 	 //리뷰수정 버튼 클릭시 모달띄우기
 		function reviewUpd(){
 		 
