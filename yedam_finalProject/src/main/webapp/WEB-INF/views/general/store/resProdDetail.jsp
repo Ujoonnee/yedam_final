@@ -176,6 +176,7 @@
 					},
 					success: function(){
 						alert("성공");
+						location.href="${pageContext.request.contextPath}/store/resProdList"
 					}
 				})
 				
