@@ -54,21 +54,39 @@
 
 <body>
 
-<main>
+	<main>
         <section class="vh-100 d-flex align-items-center justify-content-center">
             <div class="container">
                 <div class="row align-items-center ">
-                     <div class="col-lg-5 order-2 order-lg-1 text-center text-lg-left">
-		                <h1 class="mt-5">환영합니다!</h1>
-		                <p class="lead my-4">회원가입이 정상적으로 완료되었습니다.</p>
-		                <a href="../dashboard/dashboard.html" class="btn btn-gray-800 d-inline-flex align-items-center justify-content-center mb-4">
-		                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
-		                    홈 화면으로 가기
-		                </a>
-		            </div>
-                    <div class="col-12 col-lg-7 order-1 order-lg-2 text-center d-flex align-items-center justify-content-center">
-                        <img class="img-fluid w-75" src="${pageContext.request.contextPath}/resources/assets/img/illustrations/confetti.svg" alt="500 Server Error">
-                    </div>
+                	<!-- 청상 처리 -->
+	            	<c:if test="${not isExpired }">
+	                     <div class="col-lg-5 order-2 order-lg-1 text-center text-lg-left">
+			                <h1 class="mt-5">환영합니다!</h1>
+			                <p class="lead my-4">회원가입이 정상적으로 완료되었습니다.</p>
+			                <a href="${pageContext.request.contextPath}" class="btn btn-gray-800 d-inline-flex align-items-center justify-content-center mb-4">
+			                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+			                    홈 화면으로 가기
+			                </a>
+			            </div>
+	                    <div class="col-12 col-lg-7 order-1 order-lg-2 text-center d-flex align-items-center justify-content-center">
+	                        <img class="img-fluid w-75" src="${pageContext.request.contextPath}/resources/assets/img/illustrations/confetti.svg" alt="500 Server Error">
+	                    </div>
+            		</c:if>
+            		
+            		<!-- 이메일 인증 링크 만료 -->
+					<c:if test="${isExpired }">
+	                    <div class="col-lg-5 order-2 order-lg-1 text-center text-lg-left">
+			                <h1 class="mt-5">링크가 만료되었습니다.</h1>
+			                <p class="lead my-4">다시 가입해 주세요.</p>
+			                <a href="${pageContext.request.contextPath}" class="btn btn-gray-800 d-inline-flex align-items-center justify-content-center mb-4">
+			                    <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+			                    홈 화면으로 가기
+			                </a>
+			            </div>
+	                    <div class="col-12 col-lg-7 order-1 order-lg-2 text-center d-flex align-items-center justify-content-center">
+	                        <img class="img-fluid w-75" src="${pageContext.request.contextPath}/resources/assets/img/illustrations/signup-late.svg" alt="500 Server Error">
+	                    </div>
+	                </c:if>
                 </div>
             </div>
         </section>

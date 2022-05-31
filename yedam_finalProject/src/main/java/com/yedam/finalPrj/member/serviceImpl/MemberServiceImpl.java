@@ -1,5 +1,6 @@
 package com.yedam.finalPrj.member.serviceImpl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -125,11 +126,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public String confirm(String applicationNo) {
+	public boolean confirm(String applicationNo) {
 		
-		map.confirm(applicationNo);
+		Map<String,Integer> m = new HashMap<>();
+		m.put("applicationNo", Integer.parseInt(applicationNo));
+		m.put("isExpired", null);
 		
-		return "";
+		map.confirm(m);
+		
+		return (m.get("isExpired") == 1)? true: false; 
 	}
 
 }

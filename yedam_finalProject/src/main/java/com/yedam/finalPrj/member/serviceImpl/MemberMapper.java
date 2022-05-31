@@ -15,7 +15,8 @@ public interface MemberMapper {
 	
 	public MemberVO loginCheck(MemberVO vo);
 	
-	int isValidEmail(MemberVO vo);
 	
+	int isValidEmail(MemberVO vo);
 	String signup (Map<String, String> member);
+	String confirm(Map<String,Integer> map);
 }

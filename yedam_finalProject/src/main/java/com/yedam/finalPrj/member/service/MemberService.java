@@ -24,5 +24,5 @@ public interface MemberService {
 	boolean isValidEmail(MemberVO vo);
 	String signUp(Map<String,String> member);
 	void sendConfirmationMail(Map<String,String> member);
-	String confirm(String applicationNo);
+	boolean confirm(String applicationNo);
 }

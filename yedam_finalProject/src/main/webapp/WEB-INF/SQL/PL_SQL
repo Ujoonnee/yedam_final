@@ -92,6 +92,27 @@ BEGIN
 
 END SIGNUP_PROC;
 /
+
+-- 이메일 인증 링크 클릭 시 만료여부 검증하는 프로시저
+CREATE OR REPLACE PROCEDURE CONFIRM_PROC
+(
+   applicationNo    IN NUMBER,
+   isExpired        OUT VARCHAR2
+)
+IS
+    v_is_expired    VARCHAR2(5);
+BEGIN
+    
+    SELECT CASE WHEN SYSDATE - application_time >= 1 THEN 'true'
+                ELSE 'false'
+           END
+    INTO v_is_expired
+    FROM signup_application;
+    
+    isExpired := v_is_expired;
+
+END CONFIRM_PROC;
+ 
 -- 박성준
 
 -- 각도를 라디안으로 변환해주는 함수

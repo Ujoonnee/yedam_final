@@ -70,9 +70,9 @@ public class MemberController {
 	
 	// 회원가입 확인
 	@GetMapping("confirm")
-	public String confirm(String applicationNo) {
+	public String confirm(String applicationNo, Model model) {
 		// 회원상태 변경 후 홈 화면으로 이동 
-		
+		model.addAttribute("isExpired", mservice.confirm(applicationNo));
 		return "member/confirm";
 	}
 	
