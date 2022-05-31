@@ -18,24 +18,6 @@ public class HomeServiceImpl implements HomeService {
 	@Autowired HomeMapper map;
 	
 	@Override
-	public String login(MemberVO member, HttpServletRequest request) {
-
-		String pw = member.getPassword();
-		
-		member = map.selectMember(member);
-		
-		String result = (member == null)? "id" 
-						: (!member.getPassword().equals(pw))? "pw" : "success";
-		
-		if (result.equals("success")) {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", member);
-		}
-		
-		return result;
-	}
-	
-	@Override
 	public Map<String, Object> getRecommendation() {
 		Map<String, Object> result = new HashMap<>();
 		

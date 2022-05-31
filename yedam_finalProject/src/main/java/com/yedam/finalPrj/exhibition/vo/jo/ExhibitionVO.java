@@ -23,7 +23,7 @@ public class ExhibitionVO {
 	private String detail;
 	private String category;
 	private String approvalStatus;
-	private Date ApplicationDate;
+	private Date applicationDate;
 	
 	private MemberVO member;
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 import com.yedam.finalPrj.store.serviceImpl.StoreServiceImpl;
+import com.yedam.finalPrj.store.vo.jo.ProductVO;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
 import com.yedam.finalPrj.store.vo.park.Store;
@@ -31,7 +33,7 @@ import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 @RequestMapping("/store/*")
 public class StoreController {
 	
-	@Autowired StoreServiceImpl dao;
+	@Autowired StoreServiceImpl service;
 
 	
 //	Park
@@ -56,7 +58,7 @@ public class StoreController {
 		}else {
 			
 //		매장등록 번호 입력.
-			dao.regist(vo, request,multi,model);
+			service.regist(vo, request,multi,model);
 			return "home/home";
 		}
 		
@@ -69,8 +71,8 @@ public class StoreController {
 			return "main/unusalApproach";
 		}
 		if(user.getMemType().equals("00101")) {
-			model.addAttribute("regList", dao.selectStoreRegList(cri,request));
-			model.addAttribute("paging", new StorePageMaker(cri, dao.totalCnt()));
+			model.addAttribute("regList", service.selectStoreRegList(cri,request));
+			model.addAttribute("paging", new StorePageMaker(cri, service.totalCnt()));
 			return "admin/store/storeWaitingApprovalList";
 		}
 		
@@ -79,7 +81,7 @@ public class StoreController {
 	}
 	@RequestMapping(value ="searchApprovalList", method= {RequestMethod.POST})
 	public String serachApprovalList(StorePagingCriteria cri,Model model, HttpServletRequest request) {
-		dao.searchApprovalList(cri, model,request);
+		service.searchApprovalList(cri, model,request);
 		return "admin/store/storeWaitingApprovalList";
 	}
 	
@@ -87,8 +89,8 @@ public class StoreController {
 	@GetMapping("list")
 	public String list(StorePagingCriteria cri,Model model) {
 //		storeList출력
-		model.addAttribute("storeList", dao.storeList(cri));
-		model.addAttribute("paging",new StorePageMaker(cri, dao.totalCnt()));
+		model.addAttribute("storeList", service.storeList(cri));
+		model.addAttribute("paging",new StorePageMaker(cri, service.totalCnt()));
 		return "main/store/storeList";
 	}
 	
@@ -96,7 +98,7 @@ public class StoreController {
 //	매장에서의 검색처리
 	@RequestMapping(value ="searchList", method= {RequestMethod.POST})
 	public String search(StorePagingCriteria cri,Model model, HttpServletRequest request ) {
-		dao.search(cri, model);
+		service.search(cri, model);
 		return "main/store/storeList";
 	}
 	
@@ -108,7 +110,7 @@ public class StoreController {
 	@ResponseBody
 	@PostMapping("delete")
 	public void replyDeletePOST(com.yedam.finalPrj.store.vo.jo.ProductReservationVO vo) {
-		dao.deleteReply(vo);
+		service.deleteReply(vo);
 	}
 
 	
@@ -124,11 +126,11 @@ public class StoreController {
 		cri.setMemNo(user.getMemNo());
 		
 		if(cri.getType().isEmpty()) {
-			model.addAttribute("resProdList", dao.resProdList(cri));
-			model.addAttribute("paging",new ResProdListPageMaker(cri,dao.resTotalCnt(cri)));
+			model.addAttribute("resProdList", service.resProdList(cri));
+			model.addAttribute("paging",new ResProdListPageMaker(cri,service.resTotalCnt(cri)));
 		}else {
 			//
-			dao.search(cri, model);
+			service.search(cri, model);
 		}
 		
 		return "general/store/resProdList";
@@ -138,19 +140,20 @@ public class StoreController {
 	@GetMapping("resProdListByProdName/{selectedResNo}")
 	public String reservedProductsDetail(@PathVariable("selectedResNo") int selectedResNo,Model model) {
 			
-		model.addAttribute("detail", dao.resProdDetail(selectedResNo));
-		model.addAttribute("prodList", dao.resProdDetailList(selectedResNo));
-		model.addAttribute("reviewList", dao.reviewLoad(selectedResNo));
+		model.addAttribute("detail", service.resProdDetail(selectedResNo));
+		model.addAttribute("prodList", service.resProdDetailList(selectedResNo));
+		model.addAttribute("reviewList", service.reviewLoad(selectedResNo));
 		
 		return "general/store/resProdDetail";
 
 	}
 //	예약한 상품 리스트 출력(예약취소후)
 	@GetMapping("resProdListByProdName/cancel/{prodResNo}")
-	public String resProductsList(@PathVariable int prodResNo, ResProdListPagingCriteria cri,Model model,HttpServletRequest request) {
+	public String resProductsList(@PathVariable int prodResNo, ResProdListPagingCriteria cri,
+			Model model,HttpServletRequest request,@RequestParam("storeNo") int storeNo, @RequestParam(value="prodNo[]") List<String> prodNo) {
 		
-		dao.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
-
+		service.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
+		service.CancelRes2(storeNo, prodNo);
 		return "redirect:/store/resProdList";
 	}
 	

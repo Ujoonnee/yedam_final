@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -79,5 +80,27 @@
 	<c:if test="${exRes.paymentStatus eq 'Y' }">
 	<button>예약취소</button><button>리뷰작성</button>
 	</c:if>
+	<button>예약취소</button><button id="btnModal">리뷰작성</button>
+	<div id="reviewModal"></div>
+<script type="text/javascript">
+	//리뷰모달 띄우기
+	$('#btnModal').on("click", function(){
+	 
+		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_insert", function(){
+	 		const myModal = new bootstrap.Modal('#modal-default');
+	 		
+	 		myModal.show();
+	 		
+	 		//모달뜨고 나서 모달 안에 폼태그에 값 입력.
+	 		$("#category").val("${exRes.category}");
+	 		$("#resNo").val("${exRes.exResNo}");
+	 		$("#serviceName").val("${exRes.name}");
+	 		//$("#pickupDate").html("${detail.pickupDate} ${detail.pickupTime}");
+	 		$("#serviceNameDiv").html("${exRes.name}");
+	 		
+	 	})
+	 });
+	
+</script>
 </body>
 </html>

@@ -95,7 +95,7 @@
 		where m.name like '%'||#{memName}||'%'
 	</select>
 <!-- 전시번호에 따라 상세내용 출력 -->
-    <select id="selectOneByExNo" parameterType="int" resultType="com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO">
+    <select id="selectOneByExNo" parameterType="int" resultType="com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO">
     	select *
 		 from exhibition
 		where ex_no = #{exNo}
