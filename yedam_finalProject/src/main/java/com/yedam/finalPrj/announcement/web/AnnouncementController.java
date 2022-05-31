@@ -102,6 +102,7 @@ public class AnnouncementController {
 		rannouncement.setAnnContent(con);
 		model.addAttribute("announcement", rannouncement);
 		
+		service.updateView(rannouncement);
 		List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
 			
 		model.addAttribute("file", fileList);
@@ -110,6 +111,20 @@ public class AnnouncementController {
 
 	}
 
+	// 공지사항 수정페이지이동
+	@RequestMapping("admin/annDetail")
+	public String annDetail(AnnouncementVO announcement, Model model) throws Exception {
+
+		model.addAttribute("announcement", service.findOne(announcement));
+
+		service.updateView(announcement);
+		
+		List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
+		model.addAttribute("file",fileList);
+		
+		
+		return "admin/announcement/annDetail";
+	}
 
 	// 공지사항 수정
 	@RequestMapping("admin/annUpdate")
@@ -122,6 +137,7 @@ public class AnnouncementController {
 		
 		return "redirect:list?pageNum="+cri.getPageNum();
 	}
+	
 	// 공지사항 다중 수정
 	@RequestMapping("admin/statusUpdates")
 	public String statusUpdates(String[] lists, String status) throws Exception {
@@ -168,19 +184,7 @@ public class AnnouncementController {
 		return "redirect:list";
 	}
 	
-	// 공지사항 수정페이지이동
-	@RequestMapping("admin/annDetail")
-	public String annDetail(AnnouncementVO announcement, Model model) throws Exception {
 
-		model.addAttribute("announcement", service.findOne(announcement));		
-
-		
-		List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
-		model.addAttribute("file",fileList);
-		
-		
-		return "admin/announcement/annDetail";
-	}
 	
 	// 파일 다운로드
 	@RequestMapping("main/fileDown")

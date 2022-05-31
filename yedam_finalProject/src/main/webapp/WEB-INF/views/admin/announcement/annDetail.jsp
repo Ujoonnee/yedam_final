@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>공지사항 상세</title>
+	<title>공지사항 상세(admin)</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <script>
@@ -49,7 +49,7 @@
 	function fn_addFile(){
 		var fileIndex = 1;
 		$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
+		$("#fileIndex").append("<div class='input-group mb-3' style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		})
 		// 삭제 버튼 누를 시 상태가 Y N값으로 변경되는 건데 이건 아예 삭제되게 만들어야함
 		// 
@@ -73,8 +73,11 @@
 </script>
 <body>
 
+
 	<h1>공지사항 수정</h1>
 	<hr>
+<div class="row justify-content-center">
+	<div class="col-10">
 	<section>
 		<form name="updateForm" action="admin/annUpdate" role="form" method="post" enctype="multipart/form-data">
 			<input name="annNo" type="hidden" value="${announcement.annNo }" />
@@ -89,63 +92,73 @@
 							value="${announcement.title}" /></td>
 					</tr>
 					<tr>
-						<th>내용</th>
+						<td>&nbsp;</td>
 					</tr>
 					<tr>
-						<td id="substr"><textarea class="form-control" style="width: 538px; height: 200px;" name="annContent"><c:out value="${announcement.annContent }"/></textarea></td> 
+						<th>내용</th>
+					</tr>
+					<tr class="mb-4">
+						<td id="substr"><textarea class="form-control" style="width: 800px; height: 300px;" name="annContent"><c:out value="${announcement.annContent }"/></textarea></td> 
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
 					</tr>
 					<tr>
 						<th>상태사항</th>
 					</tr>
+					
 					<tr>
-							<td>
-								<select name="status" class="form-control">
-									<option value="00501" selected>공개여부</option>
-									<option value="00501">공개</option>
-									<option value="00502">우선순위</option>
-									<option value="00503">비공개</option>
-									<option value="00504">삭제</option>	
-								</select>
-							</td>
+						<td>
+							<select name="status" class="form-control" style="width: 200px">
+								<option value="00501" selected>공개여부</option>
+								<option value="00501">공개</option>
+								<option value="00502">우선순위</option>
+								<option value="00503">비공개</option>
+								<option value="00504">삭제</option>	
+							</select>
+						</td>
 					</tr>			
 					
 				</table>
 			<hr>
 			<div>
-				<div class="mb-4">파일 목록  <button type="button" class="fileAdd_btn btn btn-sm btn-primary">파일추가</button></div>
-				<div id="fileIndex">
+				<div class="mb-4">파일 목록</div>
 					<c:forEach var="file" items="${file}" varStatus="var">
-						<div>
-							<input type="hidden" id="FILE_NO" name="fileNo_${var.index }" value="${file.FILE_NO}" >
-							<input type="hidden" id="FILE_NAME" name="fileName" value="FILE_NO_${var.index}">
-							<input type="hidden" name="fileReName" value="${file.replaced_Name }">
-							<a href="#" id="fileName" onclick="return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
-							<button id="fileDel"  onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
+						<div style="width:500px" class="input-group mb-3">	
+								<input type="hidden" id="FILE_NO" name="fileNo_${var.index }" value="${file.FILE_NO}" >
+								<input type="hidden" id="FILE_NAME" name="fileName" value="FILE_NO_${var.index}">
+								<input type="hidden" name="fileReName" value="${file.replaced_Name }">
+								<a class="form-control" href="#" id="fileName" onclick="return false;">${file.ORIGINAL_NAME}(${file.FILE_SIZE}kb)</a>
+								<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button" class="btn btn-sm btn-primary">삭제</button>
 						</div>
 					</c:forEach>
-				</div>
+				<hr>
+				<div id="fileIndex">첨부파일 추가 &nbsp;<button type="button" class="fileAdd_btn btn btn-sm btn-primary">파일추가</button></div>
 			</div>
 			<input type="hidden" name="pageNum" value="${param.pageNum}">
 			
 			<div>&nbsp;</div>
 			<hr>
 			<div align="right">
-				<button type="button" class="btn btn-tertiary" class="update_btn">수정</button>
+				<button type="button" class="update_btn btn btn-tertiary">수정</button>
 				&nbsp;&nbsp;
-				<button type="button" class="btn btn-gray-200" id="list" onclick="location.href='announcement'">취소</button>
+				<button type="button" class="btn btn-gray-200" id="list" onclick="location.href='list'">취소</button>
 			</div>
 		</form>
 </section>
-	
+</div>
+</div>
+
 	<!-- TODO 업데이트 스크립트 짤것. 파일업로드 삭제 버튼 수정좀 할것 -->
 	<!--  -->
 </body>
+
 <script type="text/javascript">
  		//글 목록
 	$('#list').click(function(e){
 			e.preventDefault();
 			var $form = $('<form></form>');
-			$form.attr('action','announcement');
+			$form.attr('action','list');
 			$form.attr('method','get');
 			$form.appendTo('body');
 			

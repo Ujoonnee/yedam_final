@@ -17,13 +17,13 @@ public interface AnnouncementService {
 	List<AnnouncementVO> adminFindAll(AnnouncementPagingCriteria paging);
 	List<AnnouncementVO> userFindAll(AnnouncementPagingCriteria paging);
 	List<AnnouncementVO> getTopList();
-//	다중쿼리를 위해서 만들어둔 service
+	//다중쿼리를 위해서 만들어둔 service
 	List<AnnouncementVO> annFindAll(Map<String, Object>map);
 	
 	AnnouncementVO findOne(AnnouncementVO announcement);
 	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames,MultipartHttpServletRequest filerequest) throws Exception;
 
-//	다중업데이트
+	//다중업데이트
 	int statusUpdates(Map<String, Object>maps);
 	int statusDelete(Map<String, Object>maps);
 	int topStatus(Map<String, Object>maps);
@@ -39,6 +39,7 @@ public interface AnnouncementService {
 
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);
+	//조회수
 	int updateView(AnnouncementVO ann);
 	
 }
