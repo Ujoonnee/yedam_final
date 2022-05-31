@@ -150,28 +150,37 @@
 	
 	$("#vscore").html(space)
 	
-	//상품번호 매장번호 리스트만 들어서 넘기기.
-	<c:forEach items="${prodList}" var="list">
-					var obj = []
-					var obj = ${list[i].product.prodNo}
-					
-					console.log(obj)
-					
-					/* var objToSend = {}
-					objToSend.push(${detail.store.storeNo}, ) */
-				</c:forEach>
+	//상품번호 배열에 담아서 넘기기.
+		var prodNo = []
+		<c:forEach items="${prodList}" var="list">
+		
+			prodNo.push(${list.product.prodNo})
+			
+		</c:forEach>
+					console.log(prodNo)
 	
 	//예약취소(비밀번호입력)
+	console.log(${detail.store.storeNo});
 	 $("#resCancel").on("click", function(){
-
+		
 		 if(confirm("예약을 취소하시겠습니까?")){
 			var text = prompt("비밀번호를 입력하세요.");
 			if(text==${user.password}){
 				console.log("매장번호 : " +${detail.store.storeNo})
+				$.ajax({
+					url:"cancel/"+${detail.prodResNo},
+					method:"GET",
+					data:{
+						storeNo : ${detail.store.storeNo},
+						prodNo : prodNo
+					},
+					success: function(){
+						alert("성공");
+					}
+				})
 				
 				
-				
-			location.href="cancel/"+${detail.prodResNo};
+			/* location.href="cancel/"+${detail.prodResNo}; */
 			}else{
 				return alert("비밀번호가 틀립니다.");
 			}
