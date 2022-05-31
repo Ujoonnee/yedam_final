@@ -154,6 +154,7 @@ public class ExhibitionController {
 	// 전시 등록 신청 상세
 	@GetMapping("registration/{exNo}")
 	public String getRegistration(@PathVariable("exNo") int exNo, Model model) {
+		
 		model.addAttribute("exhibition", service.getRegistration(exNo));
 
 		return "provider/exhibition/registration";
@@ -210,6 +211,8 @@ public class ExhibitionController {
 //	전시 상세보기
 	@RequestMapping(value = "detailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
+		System.out.println("===========vo"+vo.getExNo());
+		
 		model.addAttribute("exhibitionView", service.findExVO(vo));
 		return "main/exhibition/exhibitionView";
 	}

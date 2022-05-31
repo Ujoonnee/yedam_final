@@ -195,11 +195,19 @@
 		insert into exhibition_reservation values (#{ex_res_no},#{exNo},#{memNo},#{exDate},#{Amount},#{paymentAmt},#{category},#{paymentStatus})
 	</insert>
 <!-- 	예약정보확인 -->
-	<select id = "findExReVO" resultType ="ExhibitionVO">
-		select *
-		from exhibition_reservation
-		where mem_no = #{memNo}
+	<select id = "findExReVO" resultType ="HashMap">
+		select r.rev_no, r.score, r.content, r.reply_content, m.name, e.name, e.ex_no, m.mem_no
+		from review r , member m, exhibition e
+		where r.mem_no = m.mem_no
+		and m.mem_no = e.mem_no
+		and ex_no = #{exNo}
+		and m.mem_no = #{memNo}
 	</select>
+<!-- 		<select id = "findExReVO" resultType ="ExhibitionVO"> -->
+<!-- 		select * -->
+<!-- 		from exhibition_reservation -->
+<!-- 		where mem_no = #{memNo} -->
+<!-- 	</select> -->
 	
 	<select id ="searchEx" resultType = "ExhibitionVO">
 		select * 

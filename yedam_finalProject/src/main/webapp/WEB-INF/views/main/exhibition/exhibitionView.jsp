@@ -134,7 +134,6 @@ View페이징
 			<p>결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></p>
 			<button onclick = "payment()" >결제하기</button>
 			
-	
 			
 			
 			

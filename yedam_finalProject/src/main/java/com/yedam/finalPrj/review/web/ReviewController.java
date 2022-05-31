@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.review.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.finalPrj.member.service.MemberVO;
+import com.yedam.finalPrj.review.service.Review;
 import com.yedam.finalPrj.review.service.ReviewService;
 import com.yedam.finalPrj.review.service.ReviewVO;
 
@@ -36,21 +39,19 @@ public class ReviewController {
 		int memNo = user.getMemNo();
 		
 		model.addAttribute("reviewList", service.reviewSelectAll(memNo));
-		return "review/reviewList";
+		return "general/review/reviewList";
+	}
+	
+	@ResponseBody
+	@RequestMapping("reviewListAjax")
+	public List<Review> reviewListAjax(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		int memNo = user.getMemNo();
+		return service.reviewSelectAll(memNo);
 	}
 	
 	
-//	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
-//	public String reviewList(Model model, HttpServletRequest request) {
-//		
-//		HttpSession session = request.getSession();
-//		System.out.println(session);
-//		MemberVO user = (MemberVO) session.getAttribute("user");
-//		int memNo = user.getMemNo();
-//		
-//		model.addAttribute("reviewList", service.reviewSelectAll(memNo));
-//		return "review/reviewList";
-//	}
 
 	
 	@GetMapping("rev_insert")
