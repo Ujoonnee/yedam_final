@@ -83,7 +83,7 @@ BEGIN
     INTO v_application_no
 	FROM signup_application;
     
-    applicationNo := v_application_no;
+    applicationNo := TO_CHAR(v_application_no);
     
     INSERT INTO signup_application
     VALUES(v_application_no,v_mem_no,SYSDATE);
@@ -92,6 +92,43 @@ BEGIN
 
 END SIGNUP_PROC;
 /
+
+-- 이메일 인증 링크 클릭 시 만료여부 검증, 처리하는 프로시저
+CREATE OR REPLACE PROCEDURE CONFIRM_PROC
+(
+   applicationNo    IN NUMBER,
+   isExpired        OUT NUMBER
+)
+IS
+    v_is_expired    NUMBER(1);
+    v_mem_no        member.mem_no%TYPE;
+BEGIN
+    
+    SELECT CASE WHEN SYSDATE - application_time >= 1 THEN 1
+                ELSE 0
+           END, mem_no
+    INTO v_is_expired, v_mem_no
+    FROM signup_application
+    WHERE application_no = applicationNo;
+    
+    isExpired := v_is_expired;
+    
+    -- 만료여부에 따른 처리
+    IF v_is_expired = 1 THEN
+        -- 기한 만료
+        DELETE FROM signup_application
+        WHERE application_no = applicationNo;
+        
+        DELETE FROM member
+        WHERE mem_no = v_mem_no;
+    ELSE
+        -- 정상 처리
+        UPDATE member SET status = '00301'
+        WHERE mem_no = v_mem_no;
+    END IF;
+
+END CONFIRM_PROC;
+ 
 -- 박성준
 
 -- 각도를 라디안으로 변환해주는 함수
