@@ -27,45 +27,6 @@ public class MemberServiceImpl implements MemberService {
 		return user;
 	}
 
-	@Override
-	public MemberVO findOne(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return map.findOne(vo);
-	}
-
-	@Override
-	public MemberVO findAll(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return map.findAll(vo);
-	}
-
-	@Override
-	public int insert(MemberVO vo) {
-		// TODO Auto-generated method stub
-		System.out.println("check"+vo.getName());
-//		return map.insert(vo);
-		return 0;
-	}
-
-	@Override
-	public int update(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return map.update(vo);
-	}
-
-	@Override
-	public int delete(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return map.delete(vo);
-	}
-
-	@Override
-	public boolean idCheck(String str) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
 	
 	// 조준우
 	// 로그인 체크
@@ -82,15 +43,32 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return vo;
 	}
+	
+	@Override
+	public String signIn(MemberVO member, HttpServletRequest request) {
+
+		String pw = member.getPassword();
+		
+		member = map.findByEmail(member);
+		
+		String result = (member == null)? "email" 
+						: (!member.getPassword().equals(pw))? "pw" : "success";
+		
+		if (result.equals("success")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", member);
+		}
+		
+		return result;
+	}
 
 	@Override
 	public void logout(HttpSession session) {
 		session.invalidate(); // 세션 초기화.
 	}
 	
+	// 회원가입
 	
-	
-
 	@Override
 	public boolean isValidEmail(MemberVO vo) {
 		return (map.isValidEmail(vo) == 0)? true : false;
