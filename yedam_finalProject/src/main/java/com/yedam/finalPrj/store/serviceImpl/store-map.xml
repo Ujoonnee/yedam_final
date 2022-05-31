@@ -16,6 +16,8 @@
 		<result property="longitude" column="longitude" />
 		<result property="tel" column="tel" />
 		<result property="thumbnail" column="thumbnail" />
+		<result property="approvalStatus" column="approval_status" />
+		<result property="applicationDate" column="application_date" />
 	</resultMap>
 <!-- 서비스 등록 -->
 	<insert id="regist"
@@ -29,8 +31,93 @@
 		</selectKey>
 		insert into store values(
 		#{storeNo},'00204',#{name},#{storeCat},#{address},
-		#{latitude},#{longitude},#{tel},#{thumbnail},#{memNo})
+		#{latitude},#{longitude},#{tel},#{thumbnail},#{memNo},'','')
 	</insert>
+<!-- 	매장등록신청 전 목록 조회 -->
+ 	<select id="selectStoreRegList" resultType="com.yedam.finalPrj.store.vo.park.Store" >
+ 		SELECT * 
+		FROM (SELECT a.*,ROWNUM rn
+			FROM
+				(select s.* , GET_CODE_NAME(s.approval_status)as approvalStatus
+				from store s
+				order by approval_status desc, application_date desc
+				)a
+		     WHERE ROWNUM<![CDATA[ <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn >]]> (#{pageNum}-1) * #{amount}
+ 	</select>
+ 	
+<!--  	매장명 검색 리스트 -->
+ 	<select id = "searchStoreName" resultType="com.yedam.finalPrj.store.vo.park.Store">
+ 		SELECT * FROM
+			(SELECT a.*, ROWNUM rn from(
+	 		SELECT s.* , GET_CODE_NAME(s.approval_status)as approvalStatus
+				FROM STORE S
+				WHERE NAME LIKE ('%'||#{keyword}||'%')
+				<if test="approvalType.equals('')" >
+					and APPROVAL_STATUS LIKE ('%'||''||'%')
+				</if>
+				<if test='approvalType.equals("00401")'>
+					and APPROVAL_STATUS LIKE '00401'</if>
+				<if test='approvalType.equals("00402")'>
+					and APPROVAL_STATUS LIKE '00402'</if>
+				<if test='approvalType.equals("00403")'>
+					and APPROVAL_STATUS LIKE '00403'</if>
+				order by  APPROVAL_STATUS DESC 
+				 <if test='applicationDate.equals("1")'>
+				, application_date desc </if>
+				 <if test='applicationDate.equals("2")'>
+				, application_date asc </if>
+				)a
+		     WHERE ROWNUM<![CDATA[ <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn>]]> (#{pageNum}-1) * #{amount}
+ 	</select>
+<!--  	매장명 검색 시 전체 개수 -->
+ 	<select id ="totalApprovalStoreNameCnt" resultType="int">
+ 		select count(*)
+		from store 
+		where name LIKE ('%'||#{keyword}||'%')
+ 	</select>
+<!--  	사업자명 검색 리스트 -->
+ 	<select id = "searchPname" resultType="com.yedam.finalPrj.store.vo.park.Store">
+	 	SELECT * FROM
+			(SELECT a.*, ROWNUM rn from(
+		 		SELECT S.*,GET_CODE_NAME(S.APPROVAL_STATUS)AS APPROVALSTATUS
+				FROM (
+				SELECT S.STORE_NO, S.CATEGORY, S.NAME, S.STORE_CAT, S.ADDRESS,S.TEL,S.THUMBNAIL,S.APPROVAL_STATUS,S.APPLICATION_DATE,
+				M.MEM_NO ,M.EMAIL, M.NAME AS MEMNAME , M.BUISNESS_TYPE,M.STATUS,MEM_TYPE 
+				FROM STORE S, MEMBER M 
+				WHERE S.MEM_NO= M.MEM_NO
+				<if test="approvalType.equals('')" >
+					and APPROVAL_STATUS LIKE ('%'||''||'%')
+				</if>
+				<if test='approvalType.equals("00401")'>
+					and APPROVAL_STATUS LIKE '00401'</if>
+				<if test='approvalType.equals("00402")'>
+					and APPROVAL_STATUS LIKE '00402'</if>
+				<if test='approvalType.equals("00403")'>
+					and APPROVAL_STATUS LIKE '00403'</if>
+				order by  APPROVAL_STATUS DESC 
+				 <if test='applicationDate.equals("1")'>
+				, application_date desc </if>
+				 <if test='applicationDate.equals("2")'>
+				, application_date asc </if>
+				) s
+				where memName like  ('%'||#{keyword}||'%')
+				)a
+		     WHERE ROWNUM<![CDATA[ <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn>]]> (#{pageNum}-1) * #{amount}
+ 	</select>
+<!--  	사업자명 검색 시의 전체 개수 -->
+ 	<select id ="totalApprovalNameCnt" resultType="int">
+ 		SELECT COUNT(*)
+		FROM STORE S, MEMBER M
+		WHERE S.MEM_NO = M.MEM_NO 
+        AND M.NAME LIKE ('%'||#{keyword}||'%')
+ 	</select>
+ 	
 <!-- 매장 리스트 출력-->
 	<select id="storeList" 
 		resultType="com.yedam.finalPrj.store.vo.park.Store">
@@ -97,6 +184,37 @@
 				    <![CDATA[ ) b
 				WHERE rn >]]> (#{pageNum}-1) * #{amount}
 	</select>
+	<select id ="searchBlank" resultType = "com.yedam.finalPrj.store.vo.park.Store">
+		
+		SELECT * FROM
+			(SELECT a.*, ROWNUM rn from(
+	 		SELECT s.* , GET_CODE_NAME(s.approval_status)as approvalStatus
+				FROM STORE S
+				 
+				<if test="approvalType.equals('')" >
+					WHERE APPROVAL_STATUS LIKE ('%'||''||'%')
+				</if>
+				<if test='approvalType.equals("00401")'>
+					WHERE APPROVAL_STATUS LIKE '00401'</if>
+				<if test='approvalType.equals("00402")'>
+					WHERE APPROVAL_STATUS LIKE '00402'</if>
+				<if test='approvalType.equals("00403")'>
+					WHERE APPROVAL_STATUS LIKE '00403'</if>
+				order by  APPROVAL_STATUS DESC 
+				 <if test='applicationDate.equals("1")'>
+				, application_date desc </if>
+				 <if test='applicationDate.equals("2")'>
+				, application_date asc </if>
+				)a
+		     WHERE ROWNUM<![CDATA[ <= ]]>#{pageNum} * #{amount}
+		    <![CDATA[) b
+		WHERE rn>]]> (#{pageNum}-1) * #{amount}
+	</select>
+	<select id ="totalBlankCnt" resultType = "int">
+		select count(*)
+		from store 
+	</select>
+	
 <!-- 매장 개수 처리  -->
 	<select id="totalCnt" resultType="int">
 		<![CDATA[
@@ -132,6 +250,12 @@
 	
 		
 <!-- 	Hong -->
+
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" >
+		DELETE FROM review WHERE rev_no = #{revNo}
+	</delete>
+
 
 <!-- Jo -->
 <!-- 예약 상품 목록 출력 -->

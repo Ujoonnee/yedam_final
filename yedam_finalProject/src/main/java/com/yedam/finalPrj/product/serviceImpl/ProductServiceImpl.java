@@ -294,6 +294,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductReservationVO> proReDetailList(ProductReservationVO vo) {
 		return map.proReDetailList(vo);
 	}
+	
+	
 
 
 	

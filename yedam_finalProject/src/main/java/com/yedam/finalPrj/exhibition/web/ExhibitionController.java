@@ -51,13 +51,20 @@ public class ExhibitionController {
 	// 예약목록 상세페이지
 	@RequestMapping(value = "exhibitionReservationDetail", method = RequestMethod.GET)
 	public String exhibitionReservationDetail(Model model, ExhibitionReservationVO vo) {
-		System.out.println("값확인" + model.getAttribute("exResNo"));
 		System.out.println(vo.getExResNo());
 		ExhibitionReservationVO detail = service.exDetail(vo);
 		model.addAttribute("exRes", detail);
 		return "general/exhibition/exhibitionReservationDetail";
 	}
 
+	
+	// 예약번호로 검색
+	@GetMapping("searchExhibitionByNo")
+	@ResponseBody
+	public List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
+		return service.searchExhibitionByNo(exResNo);
+	}
+	
 	// 준우
 	// 모든 등록신청목록조회.
 	@GetMapping("exRegAppList")
@@ -201,14 +208,8 @@ public class ExhibitionController {
 	}
 
 //	전시 상세보기
-
 	@RequestMapping(value = "detailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
-//		이건 추후에 삭제할거임 
-		System.out.println(vo.getExNo());
-		HttpSession session =  request.getSession();
-		MemberVO mem = (MemberVO) session.getAttribute("user");
-		model.addAttribute("member", mem);
 		model.addAttribute("exhibitionView", service.findExVO(vo));
 		return "main/exhibition/exhibitionView";
 	}

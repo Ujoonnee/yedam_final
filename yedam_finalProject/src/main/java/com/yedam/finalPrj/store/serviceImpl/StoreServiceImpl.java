@@ -86,6 +86,26 @@ public class StoreServiceImpl implements StoreService{
          
 		return "redirect:list";
 	}
+	
+	@Override
+	public List<Store> selectStoreRegList(StorePagingCriteria cri, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return map.selectStoreRegList(cri);
+	}
+	
+
+	@Override
+	public int totalApprovalStoreNameCnt(StorePagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.totalApprovalStoreNameCnt(cri);
+	}
+
+	@Override
+	public int totalApprovalNameCnt(StorePagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.totalApprovalNameCnt(cri);
+	}
+
 	// 현재 시간을 기준으로 파일 이름 생성
 		 private String genSaveFileName(String extName) {
 		        String fileName = "";
@@ -119,7 +139,47 @@ public class StoreServiceImpl implements StoreService{
 		// TODO Auto-generated method stub
 		return map.totalCnt();
 	}
-//	매장출력(상품명검색)
+	public void searchApprovalList(StorePagingCriteria cri, Model model,HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		if(cri.getType().equals("storeName")) {//매장명으로 검색
+			model.addAttribute("regList",searchStoreName(cri,request) );
+			model.addAttribute("paging", new StorePageMaker(cri, totalApprovalStoreNameCnt(cri)));
+		} else if (cri.getType().equals("pname")) { //사업자명으로 검색
+			model.addAttribute("regList",searchPname(cri,request) );
+			model.addAttribute("paging", new StorePageMaker(cri, totalApprovalNameCnt(cri)));
+		} 
+		else if(cri.getType().equals("")) {
+			model.addAttribute("regList", searchBlank(cri,request));
+			model.addAttribute("paging", new StorePageMaker(cri, totalCnt()));
+		}
+		else{
+			model.addAttribute("regList", selectStoreRegList(cri,request));
+			model.addAttribute("paging", new StorePageMaker(cri, totalCnt()));
+		}
+	}
+	@Override
+	public List<Store> searchBlank(StorePagingCriteria cri,HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return map.searchBlank(cri);
+	}
+
+	@Override
+	public int totalBlankCnt(StorePagingCriteria cri) {
+		// TODO Auto-generated method stub
+		return map.totalBlankCnt(cri);
+	}
+	@Override
+	public List<Store> searchStoreName(StorePagingCriteria cri, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return map.searchStoreName(cri);
+	}
+
+	@Override
+	public List<Store> searchPname(StorePagingCriteria cri,HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return map.searchPname(cri);
+	}
+	//	매장출력(상품명검색)
 	@Override
 	public void search(StorePagingCriteria cri, Model model) {
 
@@ -145,6 +205,7 @@ public class StoreServiceImpl implements StoreService{
 			
 		}
 	}
+
 	@Override
 	public List<Store> searchProduct(StorePagingCriteria cri) {
 		// TODO Auto-generated method stub
@@ -182,7 +243,12 @@ public class StoreServiceImpl implements StoreService{
 
 //	Hong
 
-	 
+
+	@Override
+	public int deleteReply(ProductReservationVO vo) {
+		int result = map.deleteReply(vo.getRevNo());
+		return result;
+	}
 
 	
 //	Jo
@@ -265,6 +331,16 @@ public class StoreServiceImpl implements StoreService{
 			   map.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로 업뎃) 
 		return map.CancelRes2(prodResNo); //reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
 	}
+
+
+
+
+
+
+
+
+
+
 	
 //	Yoon
 	
