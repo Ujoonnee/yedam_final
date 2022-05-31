@@ -17,5 +17,10 @@ public class StorePagingCriteria {
 		private String latitude;
 		private String longitude;
 		
+		private String approvalType; 
+		private String applicationDate; 
+		private String approvalStatus; 
+		
+		
 		
 }

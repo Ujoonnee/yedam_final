@@ -38,7 +38,7 @@
 	
 	
 	<!-- 검색 -->
-	<select id="searchExhibition" resultType="com.yedam.finalPrj.exhibition.vo.hong.PagingVO">
+	<!-- <select id="searchExhibition" resultType="com.yedam.finalPrj.exhibition.vo.hong.PagingVO">
 		<trim prefixOverrides="OR" suffix=") AND " prefix="(">
 			<foreach collection="typeArr" item="type">
 				<trim prefix="OR">
@@ -49,6 +49,13 @@
 				</trim>
 			</foreach>
 		</trim>
+	</select> -->
+	<!-- 예약번호로 검색 -->
+	<select id="searchExhibition" resultType="com.yedam.finalPrj.exhibition.vo.hong.PagingVO">
+		SELECT r.ex_res_no, e.name, r.ex_date, r.payment_status, r.payment_amt
+		FROM exhibition e, exhibition_reservation r
+		WHERE e.ex_no = r.ex_no
+		AND r.ex_res_no '%'||#{exResNo}||'%'
 	</select>
 	
 <!-- 	준우 -->

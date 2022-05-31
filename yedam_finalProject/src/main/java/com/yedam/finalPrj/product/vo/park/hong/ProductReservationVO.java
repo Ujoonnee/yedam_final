@@ -38,4 +38,7 @@ public class ProductReservationVO {
 	
 //	상품주문금액 받을 VO
 	private int payment;
+	
+//  리뷰 순번
+	private int revNo;
 }

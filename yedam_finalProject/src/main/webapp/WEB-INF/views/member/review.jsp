@@ -121,7 +121,7 @@
 			var resNo = $("#resNo").val();
 			
 				$.ajax({
-					url: "/finalPrj/review/rev_insert.do",
+					url: "/finalPrj/review/rev_insert",
 					method: "POST",
 					data: 	$("#frm").serialize(),		
 					success: function (re) {

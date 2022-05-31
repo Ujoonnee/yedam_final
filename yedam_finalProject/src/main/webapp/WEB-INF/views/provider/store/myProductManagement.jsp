@@ -81,7 +81,7 @@
 </c:if>
 
 <c:if test="${not empty ProductList }">
-	<table id="tableData" >
+	<table id="tableData" class="table">
 	<thead>
 		<tr>
 		<th>제품번호</th>
@@ -93,9 +93,9 @@
 		<th>상태</th>
 		</tr>
 	</thead>
-	<c:forEach items="${ProductList }" var = "list">
 	<tbody>
-	<c:if test="${list.status ne '00603' }">
+	<c:forEach items="${ProductList }" var = "list">
+		<c:if test="${list.status ne '00603' }">
 			<tr>
 			<td align="center"><input type ="checkbox" id = "checkf" name="checkf" value="${list }"
 				 data-prodName="${list.prodName }" data-price="${list.price }" data-stock="${list.stock }" data-prodNo ="${list.prodNo }"
@@ -120,10 +120,7 @@
 			<td align="center">${list.prodCat }</td>		
 			<td align="center">${list.price }</td>		
 			<td align="center"> ${list.stock }</td>		
-			<td align="center">
-			<c:if test="${list.status eq '00601' }">판매중</c:if>
-			<c:if test="${list.status eq '00602' }">품절</c:if>
-			<c:if test="${list.status eq '00603' }">삭제</c:if></td>		
+			<td align="center"> ${list.statusName }</td>		
 			</tr>
 		</c:if>
 	</c:forEach>

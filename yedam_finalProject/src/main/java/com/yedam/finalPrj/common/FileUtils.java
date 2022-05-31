@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.common;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
@@ -160,11 +162,11 @@ public class FileUtils {
 		}
 		return map;
 	}
-	public static List<Map<String, Object>> parseUpdateFileInfo(AnnouncementVO announcement, String[] files, String[] fileNames, MultipartHttpServletRequest filerequest) throws Exception{
+	public static List<Map<String, Object>> parseUpdateFileInfo(AnnouncementVO announcement, String[] files, String[] fileNames,MultipartHttpServletRequest filerequest) throws Exception{
 		
-		filePath = filerequest.getServletContext().getRealPath("/resources/announcement");
+				String filePath = "C:\\image\\";
 		
-		//선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
+			//	선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
 				Iterator<String> iterator = filerequest.getFileNames();
 //				인터페이스는 업로드 한 파일 및 파일 데이터를 표현하기 위한 용도
 				MultipartFile multipartFile = null;
@@ -186,70 +188,44 @@ public class FileUtils {
 						originalFileName = multipartFile.getOriginalFilename();
 //						확장자
 						originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
-						//						확장자 앞까지 명
 //						변경되서 들어가는 파일명 localTime에 나노초? 까지 해서 숫자 난수 생성
+						//						확장자 앞까지 명
 						int str = originalFileName.indexOf(".");
 						String fileName = originalFileName.substring(0,str);
 						LocalTime now = LocalTime.now();
 					    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
 						originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
-						multipartFile.transferTo(new File(filePath + replacedname));
-						
-						//최종 변경된 파일명
 						replacedname = fileName + time + originalFileExtenstion;
-				
-								
+						
+						multipartFile.transferTo(new File(filePath + replacedname));
+						//최종 변경된 파일명
+						int size = Integer.parseInt(String.valueOf(multipartFile.getSize()));
 						listMap = new HashMap<String, Object>();
 						listMap.put("IS_NEW", "Y"); 
 						listMap.put("annNo", annNo);
 						listMap.put("originalName", originalFileName);
 						listMap.put("replacedName", replacedname);
-						listMap.put("fileSize", multipartFile.getSize());
+						listMap.put("fileSize", size);
 						list.add(listMap);
 					}
 					
 				}
-				
+						
 				if(files !=null && fileNames != null) {
+				
 					for(int i = 0; i<fileNames.length; i++) {
 						listMap = new HashMap<String, Object>();
 						listMap.put("IS_NEW", "N");
 						listMap.put("fileNo", files[i]);
 						list.add(listMap);
 					}
+					
 				}
+						
 				
+						
+						
 		return list;
 	}
-
-//	파일 삭제 메서드
-	public static void fileDelete(FileVO vo, String[] files, String[] fileNames){
-		String filePath = "C:\\image\\";
-		MultipartFile multipartFile = null;
-		//원본 파일명
-		String originalFileName = null; 
-		//확장자 명
-		String originalFileExtenstion =null;
-		//바뀐 이름으로 파일 들어감
-		String replacedname = null; 
-		originalFileName = multipartFile.getOriginalFilename();
-//		확장자
-		originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
-		//						확장자 앞까지 명
-//		변경되서 들어가는 파일명 localTime에 나노초? 까지 해서 숫자 난수 생성
-		int str = originalFileName.indexOf(".");
-		String fileName = originalFileName.substring(0,str);
-		LocalTime now = LocalTime.now();
-	    String time = now.format(DateTimeFormatter.ofPattern("mmssSSS"));
-		originalFileExtenstion = originalFileName.substring(originalFileName.lastIndexOf("."));
-
-		replacedname = fileName + time + originalFileExtenstion;
-		
-		File deleteFile = new File(filePath+replacedname);
-		
-		if(deleteFile.exists()) {
-				deleteFile.delete();
-			}
-			}	
+	
 }
-

@@ -22,6 +22,7 @@ public class ProductReservationVO {
 	private String paymentStatus;
 	private Date orderDate;
 	private String category;
+	private int revNo;
 	/*
 	 * private ReservedProduct reservedProduct; private Store store; private Product
 	 * product;
@@ -32,4 +33,5 @@ public class ProductReservationVO {
 	
 	private MemberVO member;
 	private ProductVO product;
+	
 }

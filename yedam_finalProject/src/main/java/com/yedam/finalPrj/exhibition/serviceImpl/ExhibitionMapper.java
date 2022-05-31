@@ -15,7 +15,7 @@ public interface ExhibitionMapper {
 
 	// 홍제
 	List<ExhibitionReservationVO> selectAllExhibitionReservattion();
-	List<ExhibitionReservationVO> searchExhibition(); // 검색
+	List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo); // 예약번호로검색
 	ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO);
 	ExhibitionReservationVO exDetail(ExhibitionReservationVO vo);
 	

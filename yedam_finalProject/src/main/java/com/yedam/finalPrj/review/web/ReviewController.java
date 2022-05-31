@@ -39,6 +39,18 @@ public class ReviewController {
 		return "review/reviewList";
 	}
 	
+	
+//	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
+//	public String reviewList(Model model, HttpServletRequest request) {
+//		
+//		HttpSession session = request.getSession();
+//		System.out.println(session);
+//		MemberVO user = (MemberVO) session.getAttribute("user");
+//		int memNo = user.getMemNo();
+//		
+//		model.addAttribute("reviewList", service.reviewSelectAll(memNo));
+//		return "review/reviewList";
+//	}
 
 	
 	@GetMapping("rev_insert")
@@ -46,7 +58,7 @@ public class ReviewController {
 		return "member/review";
 	}
 	
-	@PostMapping("rev_insert.do")
+	@PostMapping("rev_insert")
 	@ResponseBody
 	public void list(ReviewVO vo, Model model) {
 		service.insert(vo);
@@ -59,7 +71,7 @@ public class ReviewController {
 		return "member/reviewUpdate";
 	}
 	
-	@PostMapping("rev_update.do")
+	@PostMapping("rev_update")
 	@ResponseBody
 	public void updatedlist(ReviewVO vo, Model model) {
 		service.reviewUpdate(vo);

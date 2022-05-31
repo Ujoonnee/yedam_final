@@ -38,12 +38,20 @@ public class ProductController {
 	// park
 //	매장 상세정보(선택한 매장페이지)
 	@RequestMapping(value = "/productView", method = RequestMethod.GET)
-	public String Storeview(ProductPagingCriteria cri,Model model,int store_no) {
+	public String Storeview(ProductPagingCriteria cri,Model model,int store_no,HttpServletRequest request) {
 		cri.setStoreNo(store_no);
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		System.out.println(user.getName());
+		model.addAttribute("name",user.getName());
+		model.addAttribute("email",user.getEmail());
+		model.addAttribute("tel",user.getTel());
+		model.addAttribute("address",user.getAddress());
 		model.addAttribute("products" ,dao.selectOne(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(store_no)));
 		return "main/store/storeView";
 	}
+	
 //  상품 검색
 	@RequestMapping(value = "searchProduct",method = {RequestMethod.POST})
 	public String searchProduct(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
@@ -147,6 +155,8 @@ public class ProductController {
 		return "provider/store/myProductManagement";
 	}
 	
+	
+//	hong
 //	상품 예약 목록
 	@RequestMapping(value = "/proReSelectAll", method = RequestMethod.GET)
 	public String proReSelectAll(Model model, ProductPagingCriteria cri, HttpServletRequest request) {
@@ -165,6 +175,8 @@ public class ProductController {
 		
 		return "provider/store/productReservationDetail";
 	}
+	
+
 	
 	
 //	Jo

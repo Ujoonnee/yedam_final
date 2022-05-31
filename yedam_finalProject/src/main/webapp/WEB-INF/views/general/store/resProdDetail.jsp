@@ -17,7 +17,9 @@
   #vscore {
    color: red;
   } 
-	
+	#thumbNail {
+	width:150px;
+	height:150px;}
 </style>
 </head>
 <body>
@@ -57,11 +59,12 @@
                 없음
             </h2> 
     </c:if> <td> --%>
-		<td>${list.product.prodThumbnail}</td>
+		<td id="thumbNail" >${list.product.prodThumbnail}</td>
 		<td>${list.product.prodName}</td>
 		<td>${list.product.price}</td>
 		<td>${list.reservedProduct.count}개</td>
 		<td>금액 : ${list.product.price * list.reservedProduct.count}</td>
+		<td>${list.product.prodNo}</td>
 	</tr>
 	</c:forEach>
 	</tbody>
@@ -75,7 +78,7 @@
 	<tr>
 		<td>매장이름</td>
 		<td>${detail.store.name}</td>
-	</tr>
+	</tr> 
 	<tr>
 		<td>예약 일시</td>
 		<td>${detail.pickupTime} ${detail.pickupDate}</td>
@@ -100,6 +103,9 @@
 </c:if>
 <!-- 	모달 -->
 <div>
+
+<input class="btn btn-block btn-outline-gray-800 mb-3" type="button" value="목록" onclick="history.go(-1)">
+
 <!-- 리뷰 작성안했다면 작성버튼 show. -->
 <c:if test="${detail.pickupStatus eq 'Y'}"> 
 <c:if test="${empty reviewList}" >
@@ -115,11 +121,23 @@
 <!--수정버튼은 상의 필요...  -->
 <c:if test="${not empty reviewList}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" >리뷰수정</button>
+
+<button type="submit"  class="btn btn-block btn-gray-800 mb-3 delBtn" value="${reviewList.revNo }">삭 제</button>
+
 </c:if>
+
+
+<!-- hong -->
+<%-- <c:if test="${user.memNo == memNo}"> --%>
+	
+<%-- </c:if> --%>
+
+
+
 </div>
 
 <div id="reviewModal"></div>
-
+<div></div>
 <script type="text/javascript">
 
 	//평점 ★로 출력하기
@@ -137,22 +155,28 @@
 
 		 if(confirm("예약을 취소하시겠습니까?")){
 			var text = prompt("비밀번호를 입력하세요.");
-			
 			if(text==${user.password}){
+				console.log("매장번호 : " +${detail.store.storeNo})
+				var data = ${list.product.prodNo}
+				for(d in data){
+					console.log(d+" : "+ data[d])
+				}
 				
 			location.href="cancel/"+${detail.prodResNo};
-			
 			}else{
 				return alert("비밀번호가 틀립니다.");
 			}
-			
 		}else{
 			return alert("취소되었습니다.");
 		} 
 	 }); 
-
+	
+	//섬네일 클릭시 확대? 시간되면...
+	$("#thumbNail").on("click", function(){
+		
+		});
 	//리뷰모달 띄우기
-	 btnModal.addEventListener("click", function(){
+	<%-- btnModal.addEventListener("click", function(){
 	 
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_insert", function(){
 	 		const myModal = new bootstrap.Modal('#modal-default');
@@ -167,12 +191,11 @@
 	 		$("#serviceNameDiv").html("${detail.store.name}");
 	 		
 	 	})
-	 }) 
+	 }) --%>
 	 //리뷰수정 버튼 클릭시 모달띄우기
-	 /* $("#btnModalUpd").on("click", function(){
-		 if(${reviewList.revNo}!=null){
+		function reviewUpd(){
 		 
-		var revNo = ${reviewList.revNo};
+		var revNo = ${reviewList.revNo}
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_update/"+revNo, function(){
 		 		const myModal = new bootstrap.Modal('#modal-default');
 		 		
@@ -186,8 +209,28 @@
 		 		$("#serviceNameDiv").html("${detail.store.name}");
 		 		
 		 	})
-		 }
-	 }) */
+		 
+	 	};
+
+	
+	 
+	$(document).on('click', '.delBtn', function(e){
+		e.preventDefault();
+		let replyId = $(this).attr("href");
+		
+		$.ajax({
+			data : {
+				replyId : replyId,
+				revNo : '${reviewList.revNo}'
+			},
+			url : '/delete',
+			type : 'POST',
+			success : function(result){
+					alert('삭제가 되었습니다.')
+			}
+		});
+	});
+
 	
 
 </script>
