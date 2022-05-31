@@ -41,6 +41,10 @@
     <put-attribute name="title" value="My Web" />
   </definition>
   
+  <definition name="main/error/*" extends="none">
+  	<put-attribute name="body" value="/WEB-INF/views/main/error/{1}.jsp"/>
+  </definition>
+  
   <definition name="member/*" extends="none">
   	<put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp"/>
   </definition>

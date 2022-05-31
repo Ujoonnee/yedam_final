@@ -1,5 +1,8 @@
 package com.yedam.finalPrj.store.web;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -43,9 +46,11 @@ public class StoreController {
 	public String regist(Store vo,Model model,HttpServletRequest request,@RequestParam("fileUpload") MultipartFile multi) {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
+//		세션없을시 메시지 출력 후 홈으로 이동.
 		if(user == null) {
 			return "main/unusalApproach";
 		}
+//		관리자, 일반회원일시 메시지 출력 후 홈으로 이동 
 		if(!user.getMemType().equals("00103")) {
 			return "main/unusalApproach";
 		}else {
@@ -55,6 +60,27 @@ public class StoreController {
 			return "home/home";
 		}
 		
+	}
+	@RequestMapping("approvalList")
+	public String approvalList(StorePagingCriteria cri,Model model, HttpServletRequest request ) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		if(user == null) {
+			return "main/unusalApproach";
+		}
+		if(user.getMemType().equals("00101")) {
+			model.addAttribute("regList", dao.selectStoreRegList(cri,request));
+			model.addAttribute("paging", new StorePageMaker(cri, dao.totalCnt()));
+			return "admin/store/storeWaitingApprovalList";
+		}
+		
+		return "main/unusalApproach";
+		
+	}
+	@RequestMapping(value ="searchApprovalList", method= {RequestMethod.POST})
+	public String serachApprovalList(StorePagingCriteria cri,Model model, HttpServletRequest request) {
+		dao.searchApprovalList(cri, model,request);
+		return "admin/store/storeWaitingApprovalList";
 	}
 	
 //	매장 리스트 출력
@@ -101,6 +127,7 @@ public class StoreController {
 			model.addAttribute("resProdList", dao.resProdList(cri));
 			model.addAttribute("paging",new ResProdListPageMaker(cri,dao.resTotalCnt(cri)));
 		}else {
+			//
 			dao.search(cri, model);
 		}
 		
@@ -122,10 +149,8 @@ public class StoreController {
 	@GetMapping("resProdListByProdName/cancel/{prodResNo}")
 	public String resProductsList(@PathVariable int prodResNo, ResProdListPagingCriteria cri,Model model,HttpServletRequest request) {
 		
-		dao.CancelRes(prodResNo); // 상품예약테이블에서 삭제(예약번호)
-		dao.CancelRes2(prodResNo); // 예약된상품 테이블에서 삭제(예약번호)
-		//예약취소시 product 테이블에서 상품재고 반영?
-		
+		dao.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
+
 		return "redirect:/store/resProdList";
 	}
 	

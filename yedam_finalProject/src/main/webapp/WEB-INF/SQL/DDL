@@ -16,10 +16,11 @@ CREATE TABLE member (
     );
 
 -- 회원가입신청
-CREATE TABLE registration (
-    regis_serial    NUMBER(10)   PRIMARY KEY,
-    mem_no          NUMBER(10)   NOT NULL
-    );
+CREATE TABLE signup_application (
+    application_no      NUMBER(10)  PRIMARY KEY,
+    mem_no              NUMBER(10)  NOT NULL,
+    application_time    DATE        NOT NULL
+);
 
 -- 회원번호 시퀀스 생성
 CREATE SEQUENCE mem_seq
@@ -148,12 +149,11 @@ service_name VARCHAR2(50) NOT NULL
 --테이블 생성
 CREATE TABLE ANNOUNCEMENT
 (ANN_NO NUMBER(5), 
-title VARCHAR2(90) NOT NULL,
+title VARCHAR2(200) NOT NULL,
 ann_content CLOB,
 ann_date DATE,
 ann_view NUMBER(10) default 0,
-status varchar2(10) default '00501',
-ann_cnt number 
+status varchar2(10) default '00501'
 );
 
 --공지사항 pk 인덱스명 지정
@@ -175,8 +175,8 @@ CREATE TABLE ATTACHED_FILE
 (
 file_no number(10) primary key,
 ann_no number(5),
-original_name varchar2(50) NOT NULL,
-replaced_name varchar2(50) NOT NULL,
+original_name varchar2(1000) NOT NULL,
+replaced_name varchar2(1000) NOT NULL,
 file_size number(10) NOT NULL
 );
 
@@ -244,6 +244,7 @@ CREATE TABLE CODES (
 	code	        CHAR(2)	    NOT NULL,
 	code_name	    VARCHAR(30)	NOT NULL
 );
+
 /
 
 -- 박성준

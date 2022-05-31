@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%
+    String name = (String)request.getAttribute("name");
+    String email = (String)request.getAttribute("email");
+    String phone = (String)request.getAttribute("tel");
+    String address = (String)request.getAttribute("address");
+%>
 <style> 
 	.modal { 
 		position: absolute; 
@@ -48,6 +54,7 @@
      	 border-left: 0px;
       }
 </style>
+ 
 </head>
 <body>
 <div align = "center" id = "container">
@@ -110,7 +117,7 @@
 			</div>
 			<div id = 'priceCheck'>
 				<p align="right">총가격 : <input type = "text" id="totalPrice" name = "totalPrice" disabled="disabled"></p>
-				<button class ="payment">결제하기</button>
+				<button class ="payment" onclick="requestPay()">결제하기</button>
 			</div>
 		</div>
 	</div> 
@@ -141,7 +148,45 @@
 		</c:if>
 	</div>
 </div>
+ <!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<script type="text/javascript">
+	var IMP = window.IMP;
+	IMP.init('imp73462839');
+	 function requestPay() {
+	var totalPrice = $('#totalPrice').val();
+		console.log(totalPrice);
+	      // IMP.request_pay(param, callback) 결제창 호출
+	      IMP.request_pay({ // param
+	          pg: "html5_inicis",
+	          pay_method: "card",
+	          merchant_uid: 'merchant_' + new Date().getTime(),
+	          name: "예담통합플랫폼 결제",
+	          amount: '1', //amout에 넣으면됨 parseInt(totalPrice)
+	          buyer_email : '<%=email%>',
+              buyer_name : '<%=name%>',
+              buyer_tel : '<%=phone%>',
+              buyer_addr : '<%=address%>'
+	      }, function (rsp) { // callback
+	          if (rsp.success) {
+	        	  alert(rsp.success);
+	        	  console.log(rsp.success);
+	        	  console.log(rsp);
+	              // 결제 성공 시 로직,
+	        	 alert('성공')
+	          } else {
+	        	 alert('실패')
+	              // 결제 실패 시 로직,
+	          }
+	      });
+	    }
+</script>
+  
 <script>
+
+	
+
+	
 	$(document).on("change",".productStock1",function(){
 		var selectprice = document.querySelectorAll('.productPrice'); 
 		var selectStock = document.querySelectorAll('.productStock1');
@@ -170,26 +215,26 @@
 		
 	})
 	
-	$(document).on("click",".payment",function(){
-// 		결제 클릭시 넘겨줘야 할 값 : 매장번호, 주문 일시, 결제 총 금액
-		var dataSetVal = document.getElementById('checkf');
-		var prodNo =prodNo.dataset.prodNo
-		console.log(prodNo);
-		let today = new Date();   
-		let year = today.getFullYear(); // 년도
-		let month = today.getMonth() + 1;  // 월
-		let date = today.getDate();  // 날짜
-		console.log(year)
-		console.log(month)
-		console.log(date)
-		let yyyyMMdd = year + '-'+ month + '-'+ date
-		console.log(yyyyMMdd);
-		var pickupTime = yyyyMMdd +' '+  document.getElementById("pickupTime").value;
-		console.log(pickupTime);
+// 	$(document).on("click",".payment",function(){
+// // 		결제 클릭시 넘겨줘야 할 값 : 매장번호, 주문 일시, 결제 총 금액
+// 		var dataSetVal = document.getElementById('checkf');
+// 		var prodNo =prodNo.dataset.prodNo
+// 		console.log(prodNo);
+// 		let today = new Date();   
+// 		let year = today.getFullYear(); // 년도
+// 		let month = today.getMonth() + 1;  // 월
+// 		let date = today.getDate();  // 날짜
+// 		console.log(year)
+// 		console.log(month)
+// 		console.log(date)
+// 		let yyyyMMdd = year + '-'+ month + '-'+ date
+// 		console.log(yyyyMMdd);
+// 		var pickupTime = yyyyMMdd +' '+  document.getElementById("pickupTime").value;
+// 		console.log(pickupTime);
 		
-		alert("결제클릭")
-	}
-	)
+// 		alert("결제클릭")
+// 	}
+// 	)
 	$(document).ready(function(){
 		/* 페이지 번호 이동 id> pageNum > attr로 속성 href줌 */
 		$('#pagingDiv a').click(function(e){

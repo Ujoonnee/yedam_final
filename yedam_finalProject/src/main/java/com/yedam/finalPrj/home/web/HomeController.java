@@ -13,14 +13,23 @@ import com.yedam.finalPrj.home.service.HomeService;
 import com.yedam.finalPrj.member.service.MemberVO;
 
 @Controller
-@RequestMapping("/*")
 public class HomeController {
 	
 	@Autowired HomeService service;
 	
-	@RequestMapping("")
+	@RequestMapping("/")
 	public String home(Model model) {
 		return "main/home";
+	}
+	
+	@RequestMapping("/error404")
+	public String error404() {
+		return "main/error/404";
+	}
+
+	@RequestMapping("/error500")
+	public String error500() {
+		return "main/error/500";
 	}
 	
 	

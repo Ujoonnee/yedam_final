@@ -1,12 +1,12 @@
 package com.yedam.finalPrj.announcement.serviceImpl;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +26,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	
 	@Autowired
 	FileUtils file;
+
+	private Object replacedName;
 	
 	@Override
 	public List<AnnouncementVO> adminFindAll(AnnouncementPagingCriteria paging) {
@@ -92,47 +94,44 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 
 	@Override
-	public void fileUpdate(Map<String, Object> maps) {
+	public void fileUpdate(FileVO file, HttpServletRequest fileRequest) {
+		}
 
-	}
-//
-//	@Override
-//	public void annUpdate(AnnouncementVO announcement) {
-//		map.annUpdate(announcement);
-//	}
 
 	@Override
 	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames,
 			MultipartHttpServletRequest filerequest) throws Exception {
-
+		String filePath = "C:\\image\\";
+//		System.out.println("-----------------"+replacedName.toString());
+		
 		map.annUpdate(announcement);
 		
-		List<Map<String, Object>> list = FileUtils.parseUpdateFileInfo(announcement, files, fileNames, filerequest);
+		List<Map<String, Object>> lists = FileUtils.parseUpdateFileInfo(announcement, files, fileNames, filerequest);
 		Map<String, Object> tempMap = null;
-		int size = list.size();
-
+		int size = lists.size();
 		for (int i = 0; i < size; i++) {
-			tempMap = list.get(i);
+			tempMap = lists.get(i);
 //			새로운 파일이면 insert 
 //			N이면 update하는 문장
+		
 			if (tempMap.get("IS_NEW").equals("Y")) {
 				map.annInsertFile(tempMap);
-			} else if(tempMap.get("IS_NEW").equals("N")){
+			} else {
+				 
+				replacedName = map.selectFileInfo(tempMap).get("REPLACED_NAME");
+				 
+				System.out.println("---------------------------------file");
+				File file = new File(filePath + replacedName);
+			
+				if(file.exists()) {
+					file.delete();
+				}
 				map.fileUpdate(tempMap);
+				
 			}
 		}
-	
 	}
 
-	@Override
-	public String fileDelete(FileVO file) {
-		
-		
-		
-		
-		return map.fileDelete(file);
-	}
-	
 	
 	@Override
 	public int statusUpdates(Map<String, Object> maps) {

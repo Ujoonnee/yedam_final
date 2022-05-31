@@ -32,20 +32,11 @@
 			}
 		}
 	}
-/* 	function fn_addFile(){
-		var fileIndex = 1;
-		$(".fileAdd_btn").on("click", function(){
-			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>")
-		});
-		$(document).on("click", "#fileDelBtn", function(){
-			$(this).parent().remove();
-		});
-	} */
+
 	function fn_addFile(){
 		var fileIndex = 1;
-		//$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"<button type='button' style='float:right;' id='fileAddBtn'>"+"추가"+"</button></div>");
 		$(".fileAdd_btn").on("click", function(){
-			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+			$("#fileIndex").append("<div style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		});
 		$(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();
@@ -60,19 +51,16 @@
 		enctype="multipart/form-data">
 		<label>제목</label>
 		<div>
-			<input type="text" name="title" required>
+			<input type="text" class="form-control" style="width:400px" name="title" required>
 		</div>
 		<br> <label>내용</label>
 		<div>
-			<textarea name="annContent" required></textarea>
+			<textarea name="annContent" class="form-control" style="width: 538px; height: 200px;" required></textarea>
 		</div>
 		<br>
-		<div>
-			날짜<input type="date" name="annDate" required>
-		</div>
-		<br>
-		<div>
-			<select name="status" required>
+		<label>상태사항</label>
+		<div style="width:300px">
+			<select name="status" class="form-control" required>
 				<option value="" disabled="disabled" selected>공개여부</option>
 				<option value="00501">공개</option>
 				<option value="00502">우선순위</option>
@@ -80,16 +68,16 @@
 				<option value="00504">삭제</option>
 			</select>
 		</div>
-		<div>첨부파일</div>
-		
-		<div>
-			<button class="fileAdd_btn" type="button">파일추가</button>
-		</div>
+		<div class="mb-5 my-3">&nbsp;</div>
+		<div class="mb-5 my-3">첨부파일 <button class="fileAdd_btn" type="button">파일추가</button></div>
+		<hr>
 		<div id="fileIndex"></div>
+		<div>&nbsp;</div>
+		<hr>
 		<br>
-		<div>
-			<input class=".write_btn" type="submit" value="작성"> 
-			<input type="button" onclick="announcement" value="취소">
+		<div align="right">
+			<input class=".write_btn btn btn-tertiary" type="submit" value="작성"> 
+			<input type="button" class="btn btn-gray-200" onclick="announcement" value="취소">
 		</div>
 	</form>
 	

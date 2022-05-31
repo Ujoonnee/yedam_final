@@ -66,6 +66,12 @@
 
 <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<style>
+	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+	body {font-family: 'Jeju Gothic', sans-serif;}
+</style>
+
 </head>
 
 <body>
@@ -82,7 +88,7 @@
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h3">로그인</h1>
+                                <h1 class="mb-0 h3" style="font-family: 'Jeju Gothic', sans-serif;">로그인</h1>
                             </div>
                             <form action="login" class="mt-4" method="post">
                                 <!-- Form -->

@@ -9,7 +9,6 @@
 	<meta charset="UTF-8">
 	<title>공지사항 상세</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	
 </head>
 <script>
 //클릭시 addFile부분 실행되서 파일 추가버튼이 추가됨. 삭제버튼도 추가됨.
@@ -18,25 +17,22 @@
 		
 		$(document).on("click", "#fileDel", function(){
 			$(this).parent().remove();
+			
 		})
 		fn_addFile();
-	})
-	// 취소 버튼 누를 시 해당 공지사항 뷰페이지로 이동
-	$(".cancel_btn").on("click", function(){
-				event.preventDefault();
-				location.href = "/findOne?annNo=${announcement.annNo}"
-	})	
+	
 	
 	//  업데이트 폼 아래 경고 문구가 뜰 시 수정이 안되게 만들어둠.
+	// required 쓸지
 	$(".update_btn").on("click", function(){
 		if(fn_valiChk()){
 			return false;
-		}
+		} 
 		formObj.attr("action", "annUpdate")
 		formObj.attr("method", "post");
 		formObj.submit();
+		})
 	})
-	
 	
 	
 	// 제목에 아무값이 없을시 경고 문구 알럴트로 띄워줌 경고 문구
@@ -53,24 +49,26 @@
 	function fn_addFile(){
 		var fileIndex = 1;
 		$(".fileAdd_btn").on("click", function(){
-			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>")
+		$("#fileIndex").append("<div style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		})
 		// 삭제 버튼 누를 시 상태가 Y N값으로 변경되는 건데 이건 아예 삭제되게 만들어야함
 		// 
-		$(document).on("click","#fileDelBtn", function(){
+		 $(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();
 		})
+	} 
+	
+	// 파일삭제 
+	var fileNoArry = new Array();
+	var fileNameArry = new Array();
+	
+	function fn_del(value, name, replacename){
+		
+		fileNoArry.push(value);
+		fileNameArry.push(name);
+		$("#fileNoDel").attr("value", fileNoArry);
+		$("#fileNameDel").attr("value", fileNameArry);
 	}
-		// 파일삭제 
-		var fileNoArry = new Array();
-		var fileNameArry = new Array();
-		function fn_del(value, name){
-			
-			fileNoArry.push(value);
-			fileNameArry.push(name);
-			$("#fileNoDel").attr("value", fileNoArry);
-			$("#fileNameDel").attr("value", fileNameArry);
-		}
 	
 </script>
 <body>
@@ -78,61 +76,64 @@
 	<h1>공지사항 수정</h1>
 	<hr>
 	<section>
-		<form name="updateForm" role="form" method="post" action="annUpdate" enctype="multipart/form-data">
+		<form name="updateForm" action="admin/annUpdate" role="form" method="post" enctype="multipart/form-data">
 			<input name="annNo" type="hidden" value="${announcement.annNo }" />
-		    <input type="hidden" id="FILE_NO" name="fileNo" value="">
 			<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
 			<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
-				
-				<table border="1">
+				<table>
 					<tr>
-						<td bgcolor="" width="70">제목</td>
-						<td align="left"><input id="title" name="title" type="text"
+						<th>제목</th>
+					</tr>
+					<tr style="width:300px">
+						<td><input class="form-control" id="title" name="title" type="text"
 							value="${announcement.title}" /></td>
 					</tr>
 					<tr>
-						<td>작성자</td>
-						<td align="left">관리자</td>
+						<th>내용</th>
 					</tr>
 					<tr>
-						<td bgcolor="">내용</td>
-						<td><textarea style="width: 538px; height: 200px;" name="annContent"><c:out value="${announcement.annContent }"/></textarea></td> 
+						<td id="substr"><textarea class="form-control" style="width: 538px; height: 200px;" name="annContent"><c:out value="${announcement.annContent }"/></textarea></td> 
 					</tr>
 					<tr>
-						<td bgcolor="">등록일</td>
-						<td align="left"><fmt:formatDate value="${announcement.annDate }" pattern="yyyy-MM-dd"/></td>
+						<th>상태사항</th>
 					</tr>
-				
 					<tr>
-						<td>
-							<select name="status">
-								<option value="00501" selected>공개여부</option>
-								<option value="00501">공개</option>
-								<option value="00502">우선순위</option>
-								<option value="00503">비공개</option>
-								<option value="00504">삭제</option>	
-							</select>
-						</td>
+							<td>
+								<select name="status" class="form-control">
+									<option value="00501" selected>공개여부</option>
+									<option value="00501">공개</option>
+									<option value="00502">우선순위</option>
+									<option value="00503">비공개</option>
+									<option value="00504">삭제</option>	
+								</select>
+							</td>
 					</tr>			
 					
 				</table>
+			<hr>
 			<div>
-				<div>파일 목록</div>
+				<div class="mb-4">파일 목록  <button type="button" class="fileAdd_btn btn btn-sm btn-primary">파일추가</button></div>
 				<div id="fileIndex">
 					<c:forEach var="file" items="${file}" varStatus="var">
+						<div>
 							<input type="hidden" id="FILE_NO" name="fileNo_${var.index }" value="${file.FILE_NO}" >
 							<input type="hidden" id="FILE_NAME" name="fileName" value="FILE_NO_${var.index}">
+							<input type="hidden" name="fileReName" value="${file.replaced_Name }">
 							<a href="#" id="fileName" onclick="return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
-							<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
+							<button id="fileDel"  onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index }');" type="button">삭제</button>
+						</div>
 					</c:forEach>
 				</div>
 			</div>
-				
+			<input type="hidden" name="pageNum" value="${param.pageNum}">
 			
-			<button type="button" id="list" onclick="location.href='announcement'">글 목록</button>
-			<button type="submit" class="update_btn">수정</button>
-			<button type="button" class="cancel_btn">취소</button>
-			<button type="button" class="fileAdd_btn">파일추가</button>
+			<div>&nbsp;</div>
+			<hr>
+			<div align="right">
+				<button type="button" class="btn btn-tertiary" class="update_btn">수정</button>
+				&nbsp;&nbsp;
+				<button type="button" class="btn btn-gray-200" id="list" onclick="location.href='announcement'">취소</button>
+			</div>
 		</form>
 </section>
 	

@@ -15,11 +15,11 @@
 	</select>
 	
 	<update id="reviewUpdate" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
-		UPDATE review SET content = #{content} AND score = #{score}
+		UPDATE review SET content = #{content}, score = #{score}
 		WHERE rev_no = #{revNo}
 	</update>
 	
-	<select id="reviewSelectOne" parameterType="int">
+	<select id="reviewSelectOne" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO">
 		SELECT * 
 		FROM Review
 		WHERE rev_no = #{revNo}

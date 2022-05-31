@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -22,7 +21,7 @@ public interface AnnouncementService {
 	List<AnnouncementVO> annFindAll(Map<String, Object>map);
 	
 	AnnouncementVO findOne(AnnouncementVO announcement);
-	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames, MultipartHttpServletRequest filerequest) throws Exception;
+	public void annUpdate(AnnouncementVO announcement, String[] files, String[] fileNames,MultipartHttpServletRequest filerequest) throws Exception;
 
 //	다중업데이트
 	int statusUpdates(Map<String, Object>maps);
@@ -36,8 +35,7 @@ public interface AnnouncementService {
 	void annInsertFile(Map<String, Object> map);
 	public Map<String, Object> selectFileInfo(Map<String, Object> maps) throws Exception;
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
-	public void fileUpdate(Map<String, Object>maps);
-	public String fileDelete(FileVO file);
+	public void fileUpdate(FileVO file, HttpServletRequest fileRequest);
 
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);
