@@ -59,8 +59,12 @@ public interface ProductService {
 	
 //	상세페이지 이동
 	ProductReservationVO proReDetail(ProductReservationVO vo);
+
 //  상세페이지 상품목록
 	public List<ProductReservationVO> proReDetailList(ProductReservationVO vo);
+	
+
+	
 	
 //	Jo
 	

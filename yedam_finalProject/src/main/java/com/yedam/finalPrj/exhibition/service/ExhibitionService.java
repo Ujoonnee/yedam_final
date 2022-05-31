@@ -16,7 +16,7 @@ public interface ExhibitionService {
 
 	// 홍제
 	List<ExhibitionReservationVO> selectAllExhibitionReservattion(); // 전체조회
-	List<ExhibitionReservationVO> searchExhibition(); // 검색
+	List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo); // 예약번호로검색
 	ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO);
 	ExhibitionReservationVO exDetail(ExhibitionReservationVO vo);
 	

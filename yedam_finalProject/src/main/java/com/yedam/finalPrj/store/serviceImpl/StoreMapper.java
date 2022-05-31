@@ -49,6 +49,9 @@ public interface StoreMapper {
 		
 //		Hong
 
+//		댓글 삭제
+		public int deleteReply(int revNo);
+		
 	 
 
 		

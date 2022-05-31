@@ -51,13 +51,20 @@ public class ExhibitionController {
 	// 예약목록 상세페이지
 	@RequestMapping(value = "exhibitionReservationDetail", method = RequestMethod.GET)
 	public String exhibitionReservationDetail(Model model, ExhibitionReservationVO vo) {
-		System.out.println("값확인" + model.getAttribute("exResNo"));
 		System.out.println(vo.getExResNo());
 		ExhibitionReservationVO detail = service.exDetail(vo);
 		model.addAttribute("exRes", detail);
 		return "general/exhibition/exhibitionReservationDetail";
 	}
 
+	
+	// 예약번호로 검색
+	@GetMapping("searchExhibitionByNo")
+	@ResponseBody
+	public List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
+		return service.searchExhibitionByNo(exResNo);
+	}
+	
 	// 준우
 	// 모든 등록신청목록조회.
 	@GetMapping("exRegAppList")

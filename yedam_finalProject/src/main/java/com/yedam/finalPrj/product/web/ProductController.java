@@ -155,6 +155,8 @@ public class ProductController {
 		return "provider/store/myProductManagement";
 	}
 	
+	
+//	hong
 //	상품 예약 목록
 	@RequestMapping(value = "/proReSelectAll", method = RequestMethod.GET)
 	public String proReSelectAll(Model model, ProductPagingCriteria cri, HttpServletRequest request) {
@@ -173,6 +175,8 @@ public class ProductController {
 		
 		return "provider/store/productReservationDetail";
 	}
+	
+
 	
 	
 //	Jo

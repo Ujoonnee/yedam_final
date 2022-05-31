@@ -47,7 +47,9 @@ public interface StoreService {
 		
 //		Hong
 
-
+//		댓글 삭제
+		public int deleteReply(ProductReservationVO vo);
+	 
 
 //		Jo
 //	예약상품 목록조회 들어갈 시 리스트 출력

@@ -11,12 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.member.service.MemberVO;
+import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 import com.yedam.finalPrj.store.serviceImpl.StoreServiceImpl;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
@@ -101,6 +104,12 @@ public class StoreController {
 	
 //	Hong
 
+//	댓글 삭제
+	@ResponseBody
+	@PostMapping("delete")
+	public void replyDeletePOST(com.yedam.finalPrj.store.vo.jo.ProductReservationVO vo) {
+		dao.deleteReply(vo);
+	}
 
 	
 //	Jo

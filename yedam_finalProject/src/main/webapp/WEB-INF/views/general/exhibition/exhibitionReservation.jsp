@@ -16,7 +16,7 @@
 			<label class="hidden"></label>
 				<select id="searchCondition" name="searchCondition">
 					<option value="none">전체</option>
-					<option value="show_no">전시등록번호</option>
+					<option value="exNo">전시등록번호</option>
 					<option value="name">전시명</option>
 				</select>
 			<label></label>	
