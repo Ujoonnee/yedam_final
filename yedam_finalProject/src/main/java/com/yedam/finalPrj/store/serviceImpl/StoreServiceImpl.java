@@ -245,11 +245,14 @@ public class StoreServiceImpl implements StoreService{
 
 
 	@Override
-	public int deleteReply(ProductReservationVO vo) {
-		int result = map.deleteReply(vo.getRevNo());
+	public int deleteReply(int revNo) {
+		int result = map.deleteReply(revNo);
 		return result;
 	}
 
+
+	
+	
 	
 //	Jo
 	
@@ -331,6 +334,10 @@ public class StoreServiceImpl implements StoreService{
 			   map.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로 업뎃) 
 		return map.CancelRes2(prodResNo); //reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
 	}
+
+
+	
+
 
 
 

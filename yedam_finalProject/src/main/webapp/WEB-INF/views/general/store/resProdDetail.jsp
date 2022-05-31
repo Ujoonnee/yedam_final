@@ -158,10 +158,6 @@
 			if(text==${user.password}){
 				console.log("매장번호 : " +${detail.store.storeNo})
 				var data = ${list.product.prodNo}
-				for(d in data){
-					console.log(d+" : "+ data[d])
-				}
-				
 			location.href="cancel/"+${detail.prodResNo};
 			}else{
 				return alert("비밀번호가 틀립니다.");
@@ -176,7 +172,7 @@
 		
 		});
 	//리뷰모달 띄우기
-	<%-- btnModal.addEventListener("click", function(){
+	btnModal.addEventListener("click", function(){
 	 
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_insert", function(){
 	 		const myModal = new bootstrap.Modal('#modal-default');
@@ -191,7 +187,7 @@
 	 		$("#serviceNameDiv").html("${detail.store.name}");
 	 		
 	 	})
-	 }) --%>
+	 })
 	 //리뷰수정 버튼 클릭시 모달띄우기
 		function reviewUpd(){
 		 
@@ -219,15 +215,12 @@
 		let replyId = $(this).attr("href");
 		
 		$.ajax({
+			url : '${pageContext.request.contextPath}/store/delete',
+			method : 'POST',
 			data : {
-				replyId : replyId,
 				revNo : '${reviewList.revNo}'
 			},
-			url : '/delete',
-			type : 'POST',
-			success : function(result){
-					alert('삭제가 되었습니다.')
-			}
+			success : () => location.reload()
 		});
 	});
 
