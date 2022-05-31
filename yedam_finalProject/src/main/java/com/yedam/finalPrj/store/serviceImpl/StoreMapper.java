@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.ui.Model;
 
 import com.yedam.finalPrj.review.service.ReviewVO;
@@ -79,8 +80,14 @@ public interface StoreMapper {
 	 public ReviewVO reviewLoad(int revNo);	
 //예약 취소
 	public int CancelRes(int prodResNo);	
-	public int CancelRes2(int prodResNo);
+	public void CancelRes2(@Param("storeNo") int storeNo, @Param("prodNo") String prodNo);
+	
+
+
 //		Yoon
+
+
+
 		
 		
 	 

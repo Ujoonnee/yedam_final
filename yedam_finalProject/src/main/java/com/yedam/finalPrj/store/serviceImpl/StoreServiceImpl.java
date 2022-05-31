@@ -327,9 +327,18 @@ public class StoreServiceImpl implements StoreService{
 //예약 취소	
 	@Override
 	public int CancelRes(int prodResNo) {
-		
-			   map.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로 업뎃) 
-		return map.CancelRes2(prodResNo); //reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
+		// update(product_reservation테이블에서 결제상태 'N'으로 업뎃) 
+		return map.CancelRes(prodResNo); 
+	}
+	@Override
+	public int CancelRes2(int storeNo, List<String> prodNo) {
+		//reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
+		System.out.println(prodNo.size());
+		System.out.println("---------------------------");
+		for(int i=0; i<prodNo.size(); i++) {
+			map.CancelRes2(storeNo, prodNo.get(i));
+		}
+		return 1;
 	}
 
 
