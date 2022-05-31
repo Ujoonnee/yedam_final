@@ -3,7 +3,6 @@ package com.yedam.finalPrj.exhibition.web;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,6 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPageMaker;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
-import com.yedam.finalPrj.member.serviceImpl.MemberServiceImpl;
 
 @Controller
 @RequestMapping("/exhibition/*")
@@ -98,7 +96,7 @@ public class ExhibitionController {
 	@GetMapping("exRegAppDetail/{exNo}")
 	public String selectOneByExNo(@PathVariable int exNo, Model model) {
 		model.addAttribute("detail", service.selectOneByExNo(exNo));
-		return "exhibition/exRegAppDetail";
+		return "admin/exhibition/exRegAppDetail";
 	}
 
 	// 전시등록 승인(00401로 update)

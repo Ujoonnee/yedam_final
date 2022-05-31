@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
 <h3>전시등록신청상세</h3>
@@ -46,7 +47,8 @@
 </table>
 
 <input type="hidden" id="exNo" value="${detail.exNo}">
-<button id="permit">승인</button>&nbsp;&nbsp;&nbsp;<button id="reject">반려</button>&nbsp;&nbsp;&nbsp;<button>목록</button>
+<button id="permit">승인</button>&nbsp;&nbsp;&nbsp;<button id="reject">반려</button>&nbsp;&nbsp;&nbsp;
+<button onclick="location.href='${pageContext.request.contextPath}/exhibition/exRegAppList'">목록</button>
 
 <script type="text/javascript">
 	$("#permit").on("click", function(){
@@ -57,14 +59,30 @@
 			dataType:'json',
 			data: {exNo: $("#exNo").val()},
 			success: function (data) {
-				
-	            alert(data);
+				alert("승인되었습니다.")
 	        },
 	        error:function(){
 	        	alert("실패");
 	        }
 		})
-	});
+	})
+	
+	$("#reject").on("click", function(){
+			
+			$.ajax({
+				url: "exhReject",
+				method: "POST",
+				dataType:'json',
+				data: {exNo: $("#exNo").val()},
+				success: function (data) {
+					alert("반려되었습니다.")
+		        },
+		        error:function(){
+		        	alert("실패");
+		        }
+			})
+		})
+	
 </script>
 </body>
 </html>
