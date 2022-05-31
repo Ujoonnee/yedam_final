@@ -33,29 +33,32 @@
 			</form>
 	</section>
 		
-		<table border="1">
+		<table>
 		<tbody>
-			<tr class="mb-4" border="1">
-				<th bgcolor="" width="70">제목</th>
+			<tr class="mb-4">
+				<th style="width:100px">제목</th>
 				<td align="left">${announcement.title}</td>
 			</tr>
+			
 			<tr>
 				<th>작성자</th>
-				<td align="left">관리자</td>
+				<td>관리자</td>
 			</tr>
+			<tr>
+				<th bgcolor="">등록일</th>
+				<td><fmt:formatDate value="${announcement.annDate }" pattern="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<th bgcolor="">조회수</th>
+				<td>${announcement.annView }</td>
+			</tr>
+			
 			<tr class="my-4"><td>&nbsp;</td></tr>
 			<tr>
-				<th bgcolor="">내용</th>
-				<td><c:out value="${announcement.annContent }" escapeXml="false"/></td> 
+				<th></th>
+				<td class="form-control" style="width:700px;"><c:out value="${announcement.annContent }" escapeXml="false"/></td> 
 			</tr>
-			<tr>
-				<td bgcolor="">등록일</td>
-				<td align="left"><fmt:formatDate value="${announcement.annDate }" pattern="yyyy-MM-dd"/></td>
-			</tr>
-			<tr>
-				<td bgcolor="">조회수</td>
-				<td align="left">${announcement.annView }</td>
-			</tr>
+		
 		</tbody>
 			
 		</table>
@@ -64,7 +67,7 @@
 				<div>파일 목록</div>
 				<div>
 					<c:forEach var="file" items="${file}">
-						<a href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME}</a>(${file.FILE_SIZE}kb)<br>
+						<a class="form-control" style="width:350px" href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME} (${file.FILE_SIZE}kb)</a><br>
 					</c:forEach>
 				</div>
 	</div>
