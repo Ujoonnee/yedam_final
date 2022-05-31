@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <%
     String name = (String)request.getAttribute("name");
     String email = (String)request.getAttribute("email");
@@ -64,17 +65,20 @@
 	 </div>
 	</section>
 <!-- 	상품검색 -->
-	<form action ="searchProduct" method="post" name="searchForm" autocomplete="off">
-			<select id="type" name="type"
-				onchange="allSelected()">
-					<option value="1">전체</option>
-					<option value="name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
-					<option value="prod_name"<c:out value="${paging.cri.type eq 'price'? 'selected': '' }" />>가격</option>
-			</select>
-			<input type="hidden" name = "store_no" value="${product.storeNo }">
-			<input type="text" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${keyword}" size="40">&nbsp;
-			<button id = "searchBtn" >버튼</button>&nbsp;
-		</form>
+	<form action ="searchProduct" method="get" name="searchForm" autocomplete="off">
+	<div id = "searchBox">
+		<p>상품명 : 
+		<input type = "text" id ="keyword" name = "keyword" value="${paging.cri.keyword }" placeholder="상품명 입력하세요." ></p>
+		<p>가격 :
+		<input type = "number" id ="lowPrice" name = "lowPrice" placeholder="최소가격." size="15"min = "0"  value="${paging.cri.lowPrice }"  > 
+		~ <input type = "number" id = "highPrice" name = "highPrice" placeholder="최대가격"size="15"min = "0"value="${paging.cri.highPrice }" ></p>
+		
+		<input type="hidden" name = "storeNo" value="${products[0].storeNo }"> 
+		
+		<button id = "searchBtn" >버튼</button>&nbsp;
+	</div>		
+	</form>
+		<button  onclick="resetValue()">초기화</button>
 	<!-- 상품 목록 -->
 	<table id = "productList">
 		<c:if test = "${empty products }">
@@ -125,28 +129,7 @@
 	<button class="btn-open-popup" onclick="getCheckboxValue()">장바구니</button>
 
 
-	
-	<form id="pagingFrm" name="pagingForm" action="storeView?store_no=${product.storeNo }" method="get">
-		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
-		<input type="hidden" id="type" name="type" value="${paging.cri.type }">
-		<input type="hidden" id="keyword" name="keyword" value="${paging.cri.keyword }">
-	</form>
-	
-	<div id="pagingDiv">
-		<!-- 이전페이지 -->
-		<c:if test="${paging.prev }">
-			<a href="${paging.startPage - 1}">이전</a>
-		</c:if>
-			<!-- 1 2 3 4   -->
-		<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-		&nbsp;<a href="${num }">${num }</a>&nbsp;
-		</c:forEach>
-			<!-- 다음페이지 -->	
-		<c:if test="${paging.next }">
-			<a id="next" href="${paging.endPage + 1 }">다음</a>
-		</c:if>
-	</div>
+
 </div>
  <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
@@ -184,6 +167,20 @@
   
 <script>
 
+	function resetValue(){
+		document.getElementById('keyword').value = '';
+		document.getElementById('lowPrice').value = 0;
+		document.getElementById('highPrice').value = 0;
+		
+	}
+	function selectChanged(e){
+		if(e.value == 'name'){
+			alert('name');
+		}
+		if(e.value == 'prod_name'){
+			alert('prodname')	
+		}
+	}
 	
 
 	
@@ -235,15 +232,6 @@
 // 		alert("결제클릭")
 // 	}
 // 	)
-	$(document).ready(function(){
-		/* 페이지 번호 이동 id> pageNum > attr로 속성 href줌 */
-		$('#pagingDiv a').click(function(e){
-			e.preventDefault();
-			$('#pageNum').val($(this).attr("href"));
-			pagingForm.submit();
-		})
-	});
-	
 	
 		
 
@@ -345,14 +333,6 @@
     		
      }
     	
-   // 검색 [전체] 선택 시 검색창 비우기
-  	function allSelected() {
-  		var selected = document.getElementById("type");
-  		if (selected.options[selected.selectedIndex].value == 1) {
-  			document.getElementById("keyword").value = '';
-  		}
-  	
-  	}
 </script>
 </body>
 </html>

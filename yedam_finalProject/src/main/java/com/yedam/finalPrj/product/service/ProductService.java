@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
@@ -30,6 +31,8 @@ public interface ProductService {
 	public int searchProductCnt(ProductPagingCriteria cri);
 	public int searchPriceCnt(ProductPagingCriteria cri);
 	 
+//	매장 상품 검색(가격, 상품명)
+	List <Product> searchPriceProdName(ProductPagingCriteria cri,Model model,HttpServletRequest reqeust);
 //	내 상품 관리
 	public List<Product> myStoreProductManegement(ProductPagingCriteria cri,HttpServletRequest request); //cri.storeNo사용
 	void myStoreProductInsert(String file,HttpServletRequest request);

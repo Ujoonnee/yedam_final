@@ -30,6 +30,7 @@ public interface ProductMapper {
 	public int searchProductCnt(ProductPagingCriteria cri);
 	public int searchPriceCnt(ProductPagingCriteria cri);
 	 
+	List <Product> searchPriceProdName(ProductPagingCriteria cri);
 //	내 상품 관리
 	public List<Product> myStoreProductManegement(ProductPagingCriteria cri); //cri.storeNo사용
 	public int myStoreProductInsert(Product product); //상품등록

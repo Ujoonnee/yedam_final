@@ -253,12 +253,14 @@ create table store (
     category      VARCHAR2(10) DEFAULT '00204' NOT NULL,
     name         VARCHAR2(30) NOT NULL,
     store_cat     VARCHAR2(20),
-    address      VARCHAR2(70) NOT NULL,
+    address      VARCHAR2(150) NOT NULL,
     latitude      DECIMAL(18,10),
     longitude      DECIMAL(18,10),
     tel          VARCHAR2(30) NOT NULL,
     thumbnail      VARCHAR2(70),
-    mem_no          NUMBER(10) NOT NULL
+    mem_no          NUMBER(10) NOT NULL,
+    approval_status VARCHAR2(10) DEFAULT '00403' NOT NULL,
+    application_date DATE DEFAULT SYSDATE NOT NULL,
 )
 
 create table product(
@@ -268,7 +270,7 @@ create table product(
     stock               NUMBER(10) ,
     status            VARCHAR2(5),
     price           VARCHAR2(30) NOT NULL,
-    prod_thumbnail  VARCHAR2(100),
+    prod_thumbnail  VARCHAR2(150),
     prod_cat        VARCHAR2(50),
     constraint product_pk primary key(prod_no,store_no)
 )
