@@ -53,7 +53,7 @@
 	</thead>
 	<tbody>
 	<c:forEach var="list" items="${prodList}">
-	<tr>
+	<tr class="product"  >
 	<%--<td> <c:if test="${list.prodThumbnail eq null }"> 
             <h2> 
                 없음
@@ -64,7 +64,7 @@
 		<td>${list.product.price}</td>
 		<td>${list.reservedProduct.count}개</td>
 		<td>금액 : ${list.product.price * list.reservedProduct.count}</td>
-		<td>${list.product.prodNo}</td>
+		<td >${list.product.prodNo}</td>
 	</tr>
 	</c:forEach>
 	</tbody>
@@ -150,6 +150,17 @@
 	
 	$("#vscore").html(space)
 	
+	//상품번호 매장번호 리스트만 들어서 넘기기.
+	<c:forEach items="${prodList}" var="list">
+					var obj = []
+					var obj = ${list[i].product.prodNo}
+					
+					console.log(obj)
+					
+					/* var objToSend = {}
+					objToSend.push(${detail.store.storeNo}, ) */
+				</c:forEach>
+	
 	//예약취소(비밀번호입력)
 	 $("#resCancel").on("click", function(){
 
@@ -157,7 +168,6 @@
 			var text = prompt("비밀번호를 입력하세요.");
 			if(text==${user.password}){
 				console.log("매장번호 : " +${detail.store.storeNo})
-				var data = ${list.product.prodNo}
 			location.href="cancel/"+${detail.prodResNo};
 			}else{
 				return alert("비밀번호가 틀립니다.");
