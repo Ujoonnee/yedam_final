@@ -96,32 +96,55 @@
 <body>
 <div class = "row justify-content-center">
 	<div class = "col-8">
-		<h3 class="display-3">View페이지</h3>
+		<h5 class="display-5"><a href = "http://localhost/finalPrj">메인화면</a> > <a href="list">전시</a> > <a href = "detailView?exNo=${exhibitionView.exNo }">전시상세페이지</a></h5>
 		<hr>
 	
-		
-		<div>
-		<pre>
-		매장번호;${exhibitionView.exNo },
-		멤버번호;${exhibitionView.memNo },
-		이름;${exhibitionView.name },
-		쇼룸;${exhibitionView.showRoom },
-		날짜;${sta } ~ ${end },
-		카테고리;${exhibitionView.category }
-		</pre>
+	
+<div class="card border-0 shadow mb-4">
+	<div class="row row-cols-1 row-cols-sm-2 g-2" style="padding :15px;">
+		<div class="col" style="width: 35%; padding: 15px">
+	          <div class="card shadow-sm">
+	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></svg>
+	            쇼룸 : ${exhibitionView.showRoom }
+	          </div>
+	    </div>
+		<div style="padding : 25px;">
+				<h4 class="display-4" style="padding-bottom: 10px;">${exhibitionView.name }</h4>
+	       	<small class="text-muted">
+				주소 :${exhibitionView.address }
+			</small>
+			<p></p>
+	       	<small class="text-muted">
+				날짜 : ${sta } ~ ${end }
+			</small>
+			<p></p>
+	       	<small class="text-muted">
+				가격 : ${exhibitionView.price }
+			</small>
+			<p></p>
+	       	<small class="text-muted">
+				전화번호 : ${exhibitionView.tel }
+			</small>
 		</div>
-		
-		
-		
-		
-		
+	</div>
+	<hr>
+	<div style = "padding-left : 30px; padding-right: 30px;">
+		<h4 class="display-4"> 상세정보</h4>
+		<p class = "text-muted">
+			${exhibitionView.detail }
+		</p>
+	</div>
+	
+</div>
+<div class="card border-0 shadow mb-4">
 		<div>
 		여기는댓글.
 		</div>
-	<button class="btn-open-popup" >예약하기</button>
+</div>
 
-
-
+<div align="center">
+	<button id = "btnReservation" class="btn btn-lg btn-primary" >예약하기</button>
+</div>
 
 
 	<!-- 	메인모달 -->
@@ -161,15 +184,17 @@
 			<input type ="hidden" id = "price" value ="${exhibitionView.price }">
 		</div>
 		</form>
-	</div>
+
 </div>
+</div>
+
 <script>
 
 // 모달처리
 
 	const body = document.querySelector('body');
 	const modal = document.querySelector('.modal'); 
-	const btnOpenPopup = document.querySelector('.btn-open-popup'); 
+	const btnOpenPopup = document.querySelector('#btnReservation'); 
 	
 	btnOpenPopup.addEventListener('click', () => {
 	      modal.classList.toggle('show');
