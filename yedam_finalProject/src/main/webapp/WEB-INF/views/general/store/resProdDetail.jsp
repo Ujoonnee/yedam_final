@@ -99,12 +99,6 @@
 			<div>답변</div>
 			<div>${reviewList.replyContent }</div>
 			<hr>
-			<!-- 관리자이면 답변저장 보이도록 -->
-			<%-- <c:if test="${admin.id eq admin@admin.com}">
-			</c:if> --%>
-			<button type="button" id="replyWrite">답변작성</button>
-			<jsp:include page="../../member/reply.jsp"/>
-			<!-- <div id="replyWriteDiv"></div> -->
 </div>
 </c:if>
 <!-- 	모달 -->
@@ -254,12 +248,7 @@
 			success : () => location.reload()
 		});
 	});
-//답변작성 버튼 클릭시 화면에 에디터 show.
-	$("#replyWrite").on("click", function(){
-		document.getElementById("smEditor").style.display="block";
-		//$("#frm").style.display="block";
-		//$("#replyWriteDiv").load("reply.jsp");
-	})
+
 	
 
 </script>

@@ -8,7 +8,7 @@ import lombok.Data;
 public class ProductReservationVO {
 	
 //  상품 예약
-	private long prodResNo;
+	private int prodResNo;
 	private int storeNo;
 	private int memNo;
 	private Date pickupTime;

@@ -27,6 +27,8 @@ import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
+import com.yedam.finalPrj.review.service.ReviewService;
+import com.yedam.finalPrj.store.service.StoreService;
 
 
 
@@ -36,6 +38,7 @@ public class ProductController {
 
 	@Autowired ProductService dao;
 	MemberServiceImpl impl;
+	@Autowired StoreService storeService;
 	// park
 //	매장 상세정보(선택한 매장페이지)
 	@RequestMapping(value = "/productView", method = RequestMethod.GET)
@@ -190,17 +193,20 @@ public class ProductController {
 	public String proReSelectAll(Model model, ProductPagingCriteria cri, HttpServletRequest request) {
 		model.addAttribute("proReSelectAll", dao.proReSelectAll(request));
 		model.addAttribute("paging", new ProductPageMaker(cri, dao.totalCnt(cri)));
+		
 		return "provider/store/productReservation";
 	}
 
 //  상품예약목록 상세페이지
 	@RequestMapping(value = "/proReDetail" , method = RequestMethod.GET)
-	public String proReDetail(Model model, ProductReservationVO vo) {
+	public String proReDetail( Model model, ProductReservationVO vo) {
 		
+		//	   TODO  세션 가져오기 
 		model.addAttribute("proRe", dao.proReDetail(vo));
-//	   TODO  세션 가져오기 
-		model.addAttribute("proReDetail", dao.proReDetailList(vo));
 		
+		int ResNo = dao.proReDetail(vo).getProdResNo();
+		model.addAttribute("proReDetail", dao.proReDetailList(vo));
+		model.addAttribute("reviewList", storeService.reviewLoad(ResNo)); //store 패키지에서 가져옴.
 		return "provider/store/productReservationDetail";
 	}
 	
