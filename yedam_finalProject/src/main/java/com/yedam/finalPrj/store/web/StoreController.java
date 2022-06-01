@@ -138,15 +138,15 @@ public class StoreController {
 //	Hong
 
 //	댓글 삭제
-	@PostMapping("delete")
-	@ResponseBody
-	public void replyDelete(String revNo) {
-		service.deleteReply(Integer.parseInt(revNo));
-
-	public void replyDeletePOST(com.yedam.finalPrj.store.vo.jo.ProductReservationVO vo) {
-		service.deleteReply(vo);
-
-	}
+//	@PostMapping("delete")
+//	@ResponseBody
+//	public void replyDelete(String revNo) {
+//		service.deleteReply(Integer.parseInt(revNo));
+//
+//	public void replyDeletePOST(com.yedam.finalPrj.store.vo.jo.ProductReservationVO vo) {
+//		service.deleteReply(vo);
+//
+//	}
 
 	
 //	Jo
