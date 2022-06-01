@@ -219,19 +219,21 @@ public class AnnouncementController {
 		@RequestMapping("main/zipFileDown")
 		public void zipFileDown(@RequestParam Map<String, Object> maps, HttpServletResponse response,HttpServletRequest request) throws Exception {
 			String path = "c:\\image";
-			/* Map<String, Object> resultMap = service.selectFileInfo(maps); */
-			/*
-			 * String replaceName = (String) resultMap.get("REPLACED_NAME"); String
-			 * originalFileName = (String) resultMap.get("ORIGINAL_NAME");
-			 */
+			
+			Map<String, Object> resultMap = service.selectFileInfo(maps);
+			  
+			System.out.println("---------------------------------------------------------"+resultMap.get("REPLACED_NAME"));
+			String replaceName = (String) resultMap.get("REPLACED_NAME"); 
+			String originalFileName = (String) resultMap.get("ORIGINAL_NAME");
+			 
 //			먼저 파라매터로 넘기고 그값 받아서 폴문 돌리면 바로 해결 될듯 넘기는걸 map? 배열선언해서?
-			File file = new File(path);
+			File file = new File(path+replaceName);
 			File[] listFiles = file.listFiles();
 			FileOutputStream fos = null;
 			ZipOutputStream zipOut = null;
 			FileInputStream fis = null;
 			/* System.out.println("-----------------------------------"+replaceName); */
-			fos = new FileOutputStream("D:\\asd.zip");
+			fos = new FileOutputStream("D:\\준우형님.zip");
 			zipOut = new ZipOutputStream(fos);
 			// 지금 리스트 파일로 담겨있는걸 파일 이름으로 체크박스에 체크한거 넘겨서 하면 될듯 배열로?
 			for(File fileToZip : listFiles) {

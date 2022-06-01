@@ -19,9 +19,8 @@
 		formObj.attr("action", "fileDown");
 		formObj.submit();
 	}
-	
 	function fn_zipFileDown(fileNo){
-		var formObj = $("form[name='readForm']");
+		var formObj = $("form[name='readsForm']");
 		$("#FILE_NO").attr("value", fileNo);
 		formObj.attr("action", "zipFileDown");
 		formObj.submit();
@@ -76,20 +75,20 @@
 							<div class="col-2"></div>
 					</div>
 				<hr>
+
 			<div>
-						<div class="mb-3  display-6">파일 목록</div>
+				<div class="mb-3  display-6">파일 목록</div>
+					<form action="zipFileDown">
 						<div>
 							<c:forEach var="file" items="${file}">
-								<td><input type="checkbox" name="" value="${file.FILE_NO}"><a class="form-control" style="width:350px" href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME} (${file.FILE_SIZE}kb)</a></td><br>
+								<td><input type="checkbox" name="fileNo" onclick="fn_zipFileDown('${file.FILE_NO}');"><a class="form-control" style="width:350px" href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME} (${file.FILE_SIZE}kb)</a></td><br>
 							</c:forEach>
-							<div>zip으로 다운 이벤트 걸꺼 들어올곳</div>
-							<form action="zipFileDown">
 								<input type="submit">
-							</form>
 						</div>
-			</div>
-			
+					</form>
+			</div>			
 				<hr>
+
 			<div align="right">
 				<button type="button" id="list" class="btn btn-tertiary" onclick="location.href='list'">글 목록</button>
 			</div>
