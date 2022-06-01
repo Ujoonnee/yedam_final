@@ -105,7 +105,7 @@
 	</select>
 	
 	<!-- 첨부파일 ZIP 변환 후 다운 어차피 파일 여러개 가져와서 zip으로 묶는건데 단건으로 3개 가져와도 되는거 아님? -->
-	<!-- <select id="selectZipFileInfo" parameterType="hashMap" resultType="hashMap">
+<!-- 	<select id="selectZipFileInfo" parameterType="hashMap" resultType="hashMap">
 		SELECT ORIGINAL_NAME, REPLACED_NAME FROM ATTACHED_FILE WHERE FILE_NO IN
 		<foreach collection="list" index="index" item="annNo" open="(" separator="," close=")">
 			#{fileNo} 

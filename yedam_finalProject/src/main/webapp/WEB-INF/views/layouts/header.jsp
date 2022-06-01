@@ -56,13 +56,13 @@
 	
 <div class="row mt-4 text-center justify-content-center align-middle" id="topbar">
 	<div class="col-2 px-3 h4 border-end">
-		<a href="#">공지사항</a>
+		<a href="${pageContext.request.contextPath}/announcement/mainList">공지사항</a>
 	</div>
 	<div class="col-2 px-3 h4 border-start border-end">
 		<a href="${pageContext.request.contextPath}/exhibition/list">전시</a>
 	</div>
 	<div class="col-2 px-3 h4 border-start">
-		<a href="#">매장</a>
+		<a href="${pageContext.request.contextPath}/store/list">매장</a>
 	</div>
 </div>
 
