@@ -77,6 +77,13 @@ public class ReviewController {
 	public void updatedlist(ReviewVO vo, Model model) {
 		service.reviewUpdate(vo);
 	}
+	//답변 등록.
+	@PostMapping("replyInsert")
+	public String replyInsert(int prodResNo, String replyContent) {
+		service.replyInsert(prodResNo, replyContent);
+		
+		return "redirect:/store/product/proReDetail?prodResNo="+prodResNo;
+	}
 
 	
 }

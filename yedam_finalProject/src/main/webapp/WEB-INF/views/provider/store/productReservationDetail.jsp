@@ -83,13 +83,21 @@
 			<div>답변</div>
 			<div>${reviewList.replyContent }</div>
 			<hr>
-
+			
+			<c:if test="${empty reviewList.replyContent  }">
 			<button type="button" id="replyWrite">답변작성</button>
-			<div id="replyWriteDiv" style="display:none"><jsp:include page="../../member/reply.jsp"><jsp:param value="ok" name="flag"/>
-			</jsp:include>
+
+			<div id="replyWriteDiv" style="display:none"><button onclick="replySend()">답변등록</button>
+				<form id="replyFrm" action="${pageContext.request.contextPath}/review/replyInsert" method="post">
+				<input type="hidden" name="prodResNo" value="${proRe.prodResNo }">
+				<textarea rows="10" style=width:100% id="replyContent" name="replyContent"></textarea>
+				</form>
+			</div>
+			</c:if>
+			
 </div>
 
-</div>
+
 </c:if>
 
 </body>
@@ -108,26 +116,23 @@
 		self.location = "/provider/proReSelectAll?"
 	})
 	
-	//답변작성 버튼 클릭시 화면에 에디터 show.
+	//답변작성 버튼 클릭시 에디터모달 show.
 	$("#replyWrite").on("click", function(){
-		$("#replyWriteDiv").removeAttr("style");
-		//$("#smartEditor").css("display", "block"); 안됨.
-		//$("#smartEditor").removeAttr("style");
-		//$("#smartEditor").css({'width': '100%', 'height': '412px'});
+		$("#replyWriteDiv").css("display", "block");
+	 		
+	 		//모달뜨고 나서 모달 안에 폼태그에 값 입력.
+	 		
+	 		//$("#resNoForReply").val("${proRe.prodResNo }");
+	 		
+	 	});
+	
+	//답변 전송 등록.
+	function replySend(){
 		
- 		//$("#resNoInReply").val("${proRe.prodResNo }");
-		/* $("#category").val("${detail.category}");
- 		$("#serviceName").val("${detail.store.name}");
- 		$("#pickupDate").html("${detail.pickupDate} ${detail.pickupTime}");
- 		$("#serviceNameDiv").html("${detail.store.name}"); */
+			replyFrm.submit();
 		
-		//$("#smartEditor").focus();
-		//$("#replyWriteDiv").load("reply.jsp");  안됨.
-	})
-	
-	
-	
-	
+		//$("#replyEnd").css("display", "none");
+	}
 	
 	
 </script>
