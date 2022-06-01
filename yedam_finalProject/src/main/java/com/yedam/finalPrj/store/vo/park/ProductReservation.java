@@ -16,4 +16,6 @@ public class ProductReservation {
 	private String paymentAmt;
 	private String paymentStatus;
 	private Date orderDate;
+	private String pickupStatus;
+	private String category;
 }

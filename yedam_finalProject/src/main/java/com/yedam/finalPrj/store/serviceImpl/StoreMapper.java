@@ -1,6 +1,7 @@
 package com.yedam.finalPrj.store.serviceImpl;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.ui.Model;
 
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.review.service.ReviewVO;
 import com.yedam.finalPrj.store.vo.jo.ProductReservationVO;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
@@ -17,7 +19,8 @@ import com.yedam.finalPrj.store.vo.park.StorePagingCriteria;
 public interface StoreMapper {
 	//매장등록신청
 	public int regist(Store store);
-	
+	String checkStoreNo(MemberVO mem);
+
 	void searchApprovalList(StorePagingCriteria cri, Model model,HttpServletRequest request);
 	List<Store> selectStoreRegList(StorePagingCriteria cri); //매장등록신청 목록조회
 	List<Store> searchStoreName(StorePagingCriteria cri);
@@ -26,6 +29,7 @@ public interface StoreMapper {
 	int totalApprovalStoreNameCnt(StorePagingCriteria cri);
 	int totalApprovalNameCnt(StorePagingCriteria cri);
 	int totalBlankCnt(StorePagingCriteria cri);
+	int updateStatus(HashMap<String, String> list); //관리자-> 매장 신청 승인 및 거절
 	
 //	매장 들어갈 시 리스트 출력
 	public List<Store> storeList(StorePagingCriteria cri);

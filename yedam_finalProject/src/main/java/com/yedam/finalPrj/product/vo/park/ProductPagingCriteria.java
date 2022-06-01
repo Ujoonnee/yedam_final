@@ -17,6 +17,6 @@ public class ProductPagingCriteria {
 	private int storeNo;
 	
 	//낮은가격 높은가격
-	private int lowPrice;
-	private int highPrice;
+	private String lowPrice;
+	private String highPrice;
 }

@@ -14,7 +14,7 @@
 
 	<form action ="searchExhibition" method="get" name="searchForm" autocomplete="off">
 		<div>지역</div>
-		<select id="address" name="exVO.address"
+		<select id="address" name="exVO.address" class="form-select" 
 			onchange="allSelected()">
 				<option value="">전체</option>
 				<option value="서울"<c:out value="${paging.cri.exVO.address eq '서울'? 'selected': '' }" />>서울특별시</option>
@@ -29,8 +29,8 @@
 		<div>
 			<div>기간</div>
 			<div>
-			<input type = "date"  id="startDate" name = "exVO.startDate" value='<fmt:formatDate value="${paging.cri.exVO.startDate }" pattern= "yyyy-MM-dd"/>'> ~
-			<input type = "date"  id ="endDate" name = "exVO.endDate" value='<fmt:formatDate value="${paging.cri.exVO.endDate }" pattern= "yyyy-MM-dd"/>' >
+			<input type = "date"  id="startDate" name = "exVO.startDate" class="form-control datepicker-input" value='<fmt:formatDate value="${paging.cri.exVO.startDate }" pattern= "yyyy-MM-dd"/>'> ~
+			<input type = "date"  id ="endDate" name = "exVO.endDate" class="form-control datepicker-input"  value='<fmt:formatDate value="${paging.cri.exVO.endDate }" pattern= "yyyy-MM-dd"/>' >
 			</div>
 		</div>
 		<div>전시명</div>
@@ -105,6 +105,7 @@
 		}
 	
 	}
+	
 	function exhibitionView(n){
 		frm.exNo.value= n;
 		frm.action = "detailView";

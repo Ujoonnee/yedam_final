@@ -17,7 +17,7 @@
 			<table style = "width : 100%;">
 				<tr>
 					<th>매장 구분  </th>
-					<td><select id="st_cat" name="store_cat" >
+					<td><select id="st_cat" name="storeCat" >
 						<option value="0">전체</option>
 						<option value="편의점">편의점</option>
 						<option value="약국">약국</option>

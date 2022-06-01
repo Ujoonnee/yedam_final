@@ -197,9 +197,6 @@ public class ExhibitionController {
 //	전시 목록 검색
 	@RequestMapping(value = "searchExhibition", method = { RequestMethod.GET })
 	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
-		System.out.println(cri.getExVO().getAddress());
-		System.out.println(cri.getExVO().getStartDate());
-		System.out.println(cri.getExVO().getEndDate());
 		model.addAttribute("exhibitionList", service.searchEx(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
 		return "main/exhibition/exhibitionList";

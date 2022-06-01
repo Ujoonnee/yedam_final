@@ -2,6 +2,7 @@ package com.yedam.finalPrj.store.serviceImpl;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ public class StoreServiceImpl implements StoreService{
 	public String regist(Store store, HttpServletRequest request, MultipartFile multi, Model model) {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
+		
 		
 		String path="C:\\Store\\";
 		String url = null;
@@ -86,7 +88,16 @@ public class StoreServiceImpl implements StoreService{
          
 		return "redirect:list";
 	}
+	@Override
+	public String checkStoreNo(MemberVO mem, HttpServletRequest request, Model model) {
+		
+			
+		
+			return map.checkStoreNo(mem);
 	
+		// TODO Auto-generated method stub
+	}
+
 	@Override
 	public List<Store> selectStoreRegList(StorePagingCriteria cri, HttpServletRequest request) {
 		// TODO Auto-generated method stub
@@ -105,6 +116,18 @@ public class StoreServiceImpl implements StoreService{
 		// TODO Auto-generated method stub
 		return map.totalApprovalNameCnt(cri);
 	}
+	
+	@Override
+	public void updateStatus(List<HashMap<String, String>> vo) {
+		// TODO Auto-generated method stub
+		System.out.println(vo);
+		for (HashMap<String, String> list : vo) {
+			map.updateStatus(list);
+		}
+		
+		
+	}
+
 
 	// 현재 시간을 기준으로 파일 이름 생성
 		 private String genSaveFileName(String extName) {
@@ -340,6 +363,7 @@ public class StoreServiceImpl implements StoreService{
 		}
 		return 1;
 	}
+
 
 
 
