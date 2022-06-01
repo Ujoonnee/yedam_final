@@ -2,6 +2,8 @@ package com.yedam.finalPrj.review.serviceImpl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yedam.finalPrj.review.service.Review;
 import com.yedam.finalPrj.review.service.ReviewVO;
 
@@ -15,5 +17,9 @@ public interface ReviewMapper {
 //	리뷰 수정
 	public int reviewUpdate(ReviewVO vo);
 //	리뷰 삭제
+
+	
+//답변 등록
+	void replyInsert(@Param("prodResNo") int prodResNo, @Param("replyContent") String replyContent);
 	
 }

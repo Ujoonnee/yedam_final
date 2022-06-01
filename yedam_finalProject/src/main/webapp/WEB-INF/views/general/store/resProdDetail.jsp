@@ -118,12 +118,13 @@
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="resCancel">예약취소</button>
 </c:if>
 
-<!--수정버튼은 상의 필요...  -->
+<!--리뷰작성하면 show, 답변아직 안달리면 리뷰수정가능-->
 <c:if test="${not empty reviewList}" >
+<c:if test="${empty reviewList.replyContent}">
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" onclick=reviewUpd() >리뷰수정</button>
 
 <button type="submit"  class="btn btn-block btn-gray-800 mb-3 delBtn" value="${reviewList.revNo }">삭 제</button>
-
+</c:if>
 </c:if>
 
 

@@ -14,5 +14,7 @@ public interface ReviewService {
 //	리뷰 수정
 	public int reviewUpdate(ReviewVO vo);
 //	리뷰 삭제
+
+	void replyInsert(int prodResNo, String replyContent);
 	
 }
