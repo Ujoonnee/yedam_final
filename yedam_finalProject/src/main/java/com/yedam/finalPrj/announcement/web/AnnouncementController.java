@@ -1,11 +1,15 @@
 package com.yedam.finalPrj.announcement.web;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -211,7 +215,70 @@ public class AnnouncementController {
 		response.getOutputStream().close();
 	}
 	
+	// 파일 ZIP 다운로드
+		@RequestMapping("main/zipFileDown")
+		public void zipFileDown(@RequestParam Map<String, Object> maps, HttpServletResponse response,HttpServletRequest request) throws Exception {
+			String path = "c:\\image";
+			/* Map<String, Object> resultMap = service.selectFileInfo(maps); */
+			/*
+			 * String replaceName = (String) resultMap.get("REPLACED_NAME"); String
+			 * originalFileName = (String) resultMap.get("ORIGINAL_NAME");
+			 */
+//			먼저 파라매터로 넘기고 그값 받아서 폴문 돌리면 바로 해결 될듯 넘기는걸 map? 배열선언해서?
+			File file = new File(path);
+			File[] listFiles = file.listFiles();
+			FileOutputStream fos = null;
+			ZipOutputStream zipOut = null;
+			FileInputStream fis = null;
+			/* System.out.println("-----------------------------------"+replaceName); */
+			fos = new FileOutputStream("D:\\asd.zip");
+			zipOut = new ZipOutputStream(fos);
+			// 지금 리스트 파일로 담겨있는걸 파일 이름으로 체크박스에 체크한거 넘겨서 하면 될듯 배열로?
+			for(File fileToZip : listFiles) {
+				fis = new FileInputStream(fileToZip);
+				ZipEntry zipEntry = new ZipEntry(fileToZip.getName());
+				zipOut.putNextEntry(zipEntry);
+				byte fileByte[] = new byte[1024];
+				int length;
+				while((length = fis.read(fileByte)) >=0) {
+					zipOut.write(fileByte, 0, length);
+				}
+				fis.close();
+				zipOut.closeEntry();
+				
+			}
+			
+			zipOut.close();
+			fos.close();
 
+		}
+		/*
+		 * @RequestMapping("/zipDown") public void zipDown(@RequestParam Map<String,
+		 * Object> maps, HttpServletResponse response,HttpServletRequest request) throws
+		 * Exception { String filePath = "C:\\image"; //대상 파일 경로 File fileDir = new
+		 * File(filePath); //파일 경로 객체 생성
+		 * 
+		 * String zipFileTmp = "C:"; // 고정경로 C:할지 아니면 다른거 할지 고민 먼저 임시생성 경로임 String
+		 * zipFileName = "test_zip.zip"; //되면 replacedName+확장자 할것 String zipFileFullName
+		 * = filePath + File.separator + zipFileName; File zipFile = new
+		 * File(zipFileFullName); ZipOutputStream zipOut = new ZipOutputStream(new
+		 * FileOutputStream(zipFileFullName));
+		 * 
+		 * 
+		 * for(String fileName : fileDir.list()) { zipOut.putNextEntry(new
+		 * ZipEntry(fileName));
+		 * 
+		 * File file = new File(filePath, fileName); FileInputStream fis = new
+		 * FileInputStream(file); byte[] buffer = new byte[1024]; int readLen = 0;
+		 * while((readLen = fis.read(buffer))> 0){ zipOut.write(buffer, 0, readLen); }
+		 * zipOut.closeEntry(); fis.close(); } zipOut.close();
+		 * 
+		 * InputStream is = new FileInputStream(zipFile); OutputStream os =
+		 * response.getOutputStream(); String downloadFileName =
+		 * URLEncoder.encode(zipFileName);
+		 * 
+		 * re }
+		 */
 
 		
 }	

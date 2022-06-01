@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.yedam.finalPrj.announcement.service.AnnouncementPagingCriteria;
 import com.yedam.finalPrj.announcement.service.AnnouncementVO;
+import com.yedam.finalPrj.common.FileVO;
 
 public interface AnnouncementMapper {
 	
@@ -31,7 +32,8 @@ public interface AnnouncementMapper {
 	Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
 	public void fileUpdate(Map<String, Object>maps);
-	
+
+	/* List<FileVO> selectZipFileInfo(Map<String, Object>map); */
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);
 	// 조회수 올리기
