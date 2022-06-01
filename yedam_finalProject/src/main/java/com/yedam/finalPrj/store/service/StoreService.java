@@ -80,8 +80,8 @@ public interface StoreService {
 //리뷰페이지 상세에 같이 출력
 	 public ReviewVO reviewLoad(int revNo); 
 //예약 취소
-	 int CancelRes(int prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
-	 
+	 int CancelRes(int prodResNo); // product_reservation테이블에서 결제상태 'N'으로, 
+	 int CancelRes2(int storeNo, List<String> prodNo); //reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가
 //		Yoon
 		
 		

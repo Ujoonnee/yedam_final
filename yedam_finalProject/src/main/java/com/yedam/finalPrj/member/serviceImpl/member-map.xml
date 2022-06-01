@@ -44,22 +44,24 @@
 	</select>
 
 <!-- 	이우준 -->
+	<select id="findByEmail" resultType="MemberVO">
+		SELECT * FROM member
+		WHERE email=#{email}
+	</select>
+
 	<select id="isValidEmail" resultType="int">
 		SELECT COUNT(email) FROM member WHERE email=#{email}
 	</select>
 	
 	<select id="signup" parameterType="map" resultType="map" statementType="CALLABLE" >
 		{call SIGNUP_PROC(#{email},#{name},#{password},#{address},#{addressDetail},#{tel},#{memType},#{buisnessNum},#{buisnessType},
-						  #{applicationNo, mode=OUT, jdbcType=VARCHAR , javaType=string})
-<!-- 						  #{name, mode=IN, jdbcType=VARCHAR2 , javaType=string}, -->
-<!-- 						  #{password, mode=IN, jdbcType=VARCHAR2 , javaType=string}, -->
-<!-- 						  #{address, mode=IN, jdbcType=VARCHAR2 , javaType=string}, -->
-<!-- 						  #{addressDetail, mode=IN, jdbcType=VARCHAR2 , javaType=string}, -->
-<!-- 						  #{tel, mode=IN, jdbcType=VARCHAR2 , javaType=string}, -->
-<!-- 						  #{memType, mode=IN, jdbcType=VARCHAR2 , javaType=string}, -->
-<!-- 						  #{buisnessNum, mode=IN, jdbcType=VARCHAR2 , javaType=string}, -->
-<!-- 						  #{buisnessType, mode=IN, jdbcType=VARCHAR2 , javaType=string}, -->
-<!-- 						  #{applicationNo, mode=OUT, jdbcType=NUMBER , javaType=integer}) -->
+						  #{applicationNo, mode=OUT, jdbcType=VARCHAR, javaType=string})
 	  	}
+	</select>
+	
+	<select id="confirm" parameterType="map" resultType="map" statementType="CALLABLE">
+		{call CONFIRM_PROC(#{applicationNo},
+						   #{isExpired, mode=OUT, jdbcType=NUMERIC, javaType=integer})
+		}
 	</select>
 </mapper>

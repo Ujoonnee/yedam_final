@@ -24,27 +24,8 @@
 <head> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- Primary Meta Tags -->
-<title>Volt Premium Bootstrap Dashboard - Sign in page</title>
+<title>로그인</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="title" content="Volt Premium Bootstrap Dashboard - Sign in page">
-<meta name="author" content="Themesberg">
-<meta name="description" content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
-<meta name="keywords" content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, themesberg, themesberg dashboard, themesberg admin dashboard" />
-<link rel="canonical" href="https://themesberg.com/product/admin-dashboard/volt-premium-bootstrap-5-dashboard">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://demo.themesberg.com/volt-pro">
-<meta property="og:title" content="Volt Premium Bootstrap Dashboard - Sign in page">
-<meta property="og:description" content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
-<meta property="og:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/volt-pro-bootstrap-5-dashboard/volt-pro-preview.jpg">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://demo.themesberg.com/volt-pro">
-<meta property="twitter:title" content="Volt Premium Bootstrap Dashboard - Sign in page">
-<meta property="twitter:description" content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
-<meta property="twitter:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/volt-pro-bootstrap-5-dashboard/volt-pro-preview.jpg">
 
 <!-- Favicon -->
 <link rel="apple-touch-icon" sizes="120x120" href="${pageContext.request.contextPath}/resources//assets/img/favicon/apple-touch-icon.png">
@@ -70,6 +51,7 @@
 <style>
 	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
 	body {font-family: 'Jeju Gothic', sans-serif;}
+	input[type="password"] {font-family: sans-serif;}
 </style>
 
 </head>
@@ -90,7 +72,7 @@
                             <div class="text-center text-md-center mb-4 mt-md-0">
                                 <h1 class="mb-0 h3" style="font-family: 'Jeju Gothic', sans-serif;">로그인</h1>
                             </div>
-                            <form action="login" class="mt-4" method="post">
+                            <form action="sign-in" class="mt-4" method="post">
                                 <!-- Form -->
                                 <div class="form-group mb-4">
                                     <label for="email">이메일</label>
@@ -142,7 +124,7 @@
                             <div class="d-flex justify-content-center align-items-center mt-4">
                                 <span class="fw-normal">
                                     회원이 아니신가요?　　
-                                    <a href="./sign-up.html" class="fw-bold">회원 가입하기</a>
+                                    <a id="signUp" class="fw-bold">회원 가입하기</a>
                                 </span>
                             </div>
                         </div>
@@ -152,35 +134,6 @@
         </section>
     </main>
     
-<script>
-	// 로그인 버튼 클릭 시
-	$('#submit').on('click', () => {
-		
-		// TODO 로그인 시도 전 체크 조건
-		
-		$.ajax({
-			url: 'login',
-			method: 'post',
-			data: $('form').serialize()
-		}).done(result => {
-			
-			alert(result);
-			
-			if(result == 'success') {
-				opener.parent.location.reload();
-				window.close();
-			}
-			
-		})
-		
-		
-		
-		
-		
-		
-	})
-</script>
-
 <!-- Core -->
 <script src="${pageContext.request.contextPath}/resources/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -221,6 +174,83 @@
 
 <!-- Volt JS -->
 <script src="${pageContext.request.contextPath}/resources/assets/js/volt.js"></script>
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<script>
+Kakao.init('cac63f0a1da1b6e5771c1fc5d58f4a0f'); //발급받은 키 중 javascript키를 사용해준다.
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+//카카오로그인
+function kakaoLogin() {
+    Kakao.Auth.login({
+      success: function (response) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (response) {
+              console.log(response)
+          },
+          fail: function (error) {
+            console.log(error)
+          },
+        })
+      },
+      fail: function (error) {
+        console.log(error)
+      },
+    })
+  }
+
+
+
+
+
+	// 알림창
+	const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-gray'
+	        },
+	        buttonsStyling: false
+	    });
+	
+	// 로그인 버튼 클릭 시
+	$('#submit').on('click', () => {
+		kakaoLogin();
+		// TODO 로그인 시도 전 체크 조건
+		
+// 		$.ajax({
+// 			url: 'sign-in',
+// 			method: 'post',
+// 			data: $('form').serialize()
+// 		}).done(result => {
+			
+// 			if (result == 'success') {
+// 				opener.parent.location.reload();
+// 				window.close();
+				
+// 			} else if(result == 'email') {
+// 				swalWithBootstrapButtons.fire({
+// 	                icon: 'error',
+// 	                title: '이메일을 확인해 주세요.',
+// 	                timer: 800
+// 	            });
+				
+// 			} else if(result == 'pw') {
+// 				swalWithBootstrapButtons.fire({
+// 	                icon: 'error',
+// 	                title: '비밀번호를 확인해 주세요.',
+//                 	timer: 800
+// 	            });
+// 			}
+// 		});
+	});
+	
+	// 회원가입으로 이동
+	$('#signUp').on('click', () => {
+		opener.parent.location.href = 'sign-up';
+		window.close();
+	})
+</script>
 
     
 </body>

@@ -3,6 +3,7 @@ package com.yedam.finalPrj.member.web;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yedam.finalPrj.home.service.HomeService;
 import com.yedam.finalPrj.member.service.MemberService;
 import com.yedam.finalPrj.member.service.MemberVO;
 
@@ -21,19 +21,30 @@ import com.yedam.finalPrj.member.service.MemberVO;
 @RequestMapping("/member/*")
 public class MemberController {
 
-	@Autowired HomeService service;
-	@Autowired MemberService mservice;
+	@Autowired MemberService service;
 
 	// 로그인
 	@GetMapping("sign-in")
-	public String login() {
+	public String signIn() {
 		return "member/sign-in";
 	}
 	
-	@PostMapping("login")
+	@PostMapping("sign-in")
 	@ResponseBody
-	public String login(MemberVO member, HttpServletRequest request) {
-		return service.login(member, request);
+	public String signIn(MemberVO member, HttpServletRequest request) {
+		return service.signIn(member, request);
+	}
+	
+	@GetMapping("tempLogin")
+	public String tempLogin(MemberVO member, HttpServletRequest request) {
+		service.signIn(member, request);
+		return "redirect:" + request.getHeader("Referer");
+	}
+	
+	@GetMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 
 	// 회원가입 화면
@@ -46,7 +57,7 @@ public class MemberController {
 	@GetMapping("emailCheck")
 	@ResponseBody
 	public boolean emailCheck(MemberVO member) {
-		return mservice.isValidEmail(member);
+		return service.isValidEmail(member);
 	}
 	
 	// 회원가입 처리 및 확인메일 발송
@@ -54,11 +65,11 @@ public class MemberController {
 	@ResponseBody
 	public String signUp(@RequestBody Map<String,String> member, Model model) {
 		
-		if (mservice.signUp(member).equals("success")) {
+		if (service.signUp(member).equals("success")) {
 			Thread thread = new Thread() {
 				@Override
 				public void run() {
-					mservice.sendConfirmationMail(member);
+					service.sendConfirmationMail(member);
 				}
 			};
 			thread.start();
@@ -70,9 +81,9 @@ public class MemberController {
 	
 	// 회원가입 확인
 	@GetMapping("confirm")
-	public String confirm(String applicationNo) {
+	public String confirm(String applicationNo, Model model) {
 		// 회원상태 변경 후 홈 화면으로 이동 
-		
+		model.addAttribute("isExpired", service.confirm(applicationNo));
 		return "member/confirm";
 	}
 	

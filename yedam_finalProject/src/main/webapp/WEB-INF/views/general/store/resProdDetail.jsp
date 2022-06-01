@@ -53,7 +53,7 @@
 	</thead>
 	<tbody>
 	<c:forEach var="list" items="${prodList}">
-	<tr>
+	<tr class="product"  >
 	<%--<td> <c:if test="${list.prodThumbnail eq null }"> 
             <h2> 
                 없음
@@ -64,7 +64,7 @@
 		<td>${list.product.price}</td>
 		<td>${list.reservedProduct.count}개</td>
 		<td>금액 : ${list.product.price * list.reservedProduct.count}</td>
-		<td>${list.product.prodNo}</td>
+		<td >${list.product.prodNo}</td>
 	</tr>
 	</c:forEach>
 	</tbody>
@@ -150,19 +150,38 @@
 	
 	$("#vscore").html(space)
 	
+	//상품번호 배열에 담아서 넘기기.
+		var prodNo = []
+		<c:forEach items="${prodList}" var="list">
+		
+			prodNo.push(${list.product.prodNo})
+			
+		</c:forEach>
+					console.log(prodNo)
+	
 	//예약취소(비밀번호입력)
+	console.log(${detail.store.storeNo});
 	 $("#resCancel").on("click", function(){
-
+		
 		 if(confirm("예약을 취소하시겠습니까?")){
 			var text = prompt("비밀번호를 입력하세요.");
 			if(text==${user.password}){
 				console.log("매장번호 : " +${detail.store.storeNo})
-				var data = ${list.product.prodNo}
-				for(d in data){
-					console.log(d+" : "+ data[d])
-				}
+				$.ajax({
+					url:"cancel/"+${detail.prodResNo},
+					method:"GET",
+					data:{
+						storeNo : ${detail.store.storeNo},
+						prodNo : prodNo
+					},
+					success: function(){
+						alert("성공");
+						location.href="${pageContext.request.contextPath}/store/resProdList"
+					}
+				})
 				
-			location.href="cancel/"+${detail.prodResNo};
+				
+			/* location.href="cancel/"+${detail.prodResNo}; */
 			}else{
 				return alert("비밀번호가 틀립니다.");
 			}
@@ -176,7 +195,7 @@
 		
 		});
 	//리뷰모달 띄우기
-	<%-- btnModal.addEventListener("click", function(){
+	$('#btnModal').on("click", function(){
 	 
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_insert", function(){
 	 		const myModal = new bootstrap.Modal('#modal-default');
@@ -191,7 +210,9 @@
 	 		$("#serviceNameDiv").html("${detail.store.name}");
 	 		
 	 	})
-	 }) --%>
+	 });
+	 
+	
 	 //리뷰수정 버튼 클릭시 모달띄우기
 		function reviewUpd(){
 		 
