@@ -52,7 +52,7 @@ public class StoreController {
 		if(!user.getMemType().equals("00103")) {
 			return "main/unusalApproach";
 		}else {
-			String vo = dao.checkStoreNo(user, request, model);
+			String vo = service.checkStoreNo(user, request, model);
 			System.out.println("resgister========================"+vo);
 			System.out.println(vo.length());
 			if(vo.length() > 0) {
@@ -107,10 +107,10 @@ public class StoreController {
 	@PostMapping("updateStatus")
 	public String updateStatus(@RequestBody List<HashMap<String,String>> vo,StorePagingCriteria cri,Model model, HttpServletRequest request) {
 		System.out.println("======================updateStatus"+vo);
-		dao.updateStatus(vo);
+		service.updateStatus(vo);
 		
-		model.addAttribute("regList", dao.selectStoreRegList(cri,request));
-		model.addAttribute("paging", new StorePageMaker(cri, dao.totalCnt()));
+		model.addAttribute("regList", service.selectStoreRegList(cri,request));
+		model.addAttribute("paging", new StorePageMaker(cri, service.totalCnt()));
 		return "admin/store/storeWaitingApprovalList";
 	}
 	

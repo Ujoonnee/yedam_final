@@ -145,7 +145,7 @@
 	          pay_method: "card",
 	          merchant_uid: 'merchant_' + new Date().getTime(),
 	          name: "예담통합플랫폼 결제",
-	          amount: '1', //amout에 넣으면됨 parseInt(totalPrice)
+	          amount: parseInt(totalPrice), //amout에 넣으면됨 parseInt(totalPrice)
 	          buyer_email : '<%=email%>',
               buyer_name : '<%=name%>',
               buyer_tel : '<%=phone%>',
@@ -169,8 +169,8 @@
 
 	function resetValue(){
 		document.getElementById('keyword').value = '';
-		document.getElementById('lowPrice').value = 0;
-		document.getElementById('highPrice').value = 0;
+		document.getElementById('lowPrice').value = '';
+		document.getElementById('highPrice').value = '';
 		
 	}
 	function selectChanged(e){
