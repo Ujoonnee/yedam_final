@@ -17,6 +17,7 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberService;
 import com.yedam.finalPrj.member.service.MemberVO;
+import com.yedam.finalPrj.review.service.ReviewVO;
 
 @Service
 public class ExhibitionServiceImpl implements ExhibitionService {
@@ -40,9 +41,9 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	}	
 
 	@Override
-	public ExhibitionReservationVO exDetail(ExhibitionReservationVO vo) {
+	public ExhibitionReservationVO exDetail(int exResNo) {
 		// TODO Auto-generated method stub
-		return map.exDetail( vo);
+		return map.exDetail(exResNo);
 	}
 	
 	
@@ -98,6 +99,16 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	@Override
 	public int exhReject(int exNo) {
 		return map.exhReject(exNo);
+	}
+	//리뷰로드
+	@Override
+	public ReviewVO reviewLoad(int selectedResNo) {
+		return map.reviewLoad(selectedResNo);
+	}
+	//예약취소
+	@Override
+	public void cancelOneReservation(int exResNo) {
+		map.cancelOneReservation(exResNo);
 	}
 	
 	// 성환
@@ -200,6 +211,9 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		return user;
 	}
+
+
+
 
 	
 }

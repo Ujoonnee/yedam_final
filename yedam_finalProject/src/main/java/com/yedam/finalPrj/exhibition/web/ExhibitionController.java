@@ -47,20 +47,26 @@ public class ExhibitionController {
 	}
 
 	// 예약목록 상세페이지
-	@RequestMapping(value = "exhibitionReservationDetail", method = RequestMethod.GET)
-	public String exhibitionReservationDetail(Model model, ExhibitionReservationVO vo) {
-		System.out.println(vo.getExResNo());
-		ExhibitionReservationVO detail = service.exDetail(vo);
-		model.addAttribute("exRes", detail);
+	@RequestMapping(value = "exhibitionReservationDetail/{selectedResNo}", method = RequestMethod.GET)
+	public String exhibitionReservationDetail(@PathVariable("selectedResNo") int selectedResNo,Model model) {
+
+		model.addAttribute("exRes", service.exDetail(selectedResNo));
+		model.addAttribute("reviewList", service.reviewLoad(selectedResNo));
+		
 		return "general/exhibition/exhibitionReservationDetail";
 	}
 
-	
 	// 예약번호로 검색
 	@GetMapping("searchExhibitionByNo")
 	@ResponseBody
 	public List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
 		return service.searchExhibitionByNo(exResNo);
+	}
+	// 예약 취소
+	@PostMapping("cancel")
+	@ResponseBody
+	public void cancelOneReservation(int exResNo) {
+		service.cancelOneReservation(exResNo);
 	}
 	
 	// 준우

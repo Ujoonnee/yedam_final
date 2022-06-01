@@ -344,8 +344,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 //리뷰페이지 상세에 같이 출력
 	@Override
-	public ReviewVO reviewLoad(int revNo) {
-		return map.reviewLoad(revNo);
+	public ReviewVO reviewLoad(int selectedResNo) {
+		return map.reviewLoad(selectedResNo);
 	}
 //예약 취소	
 	@Override

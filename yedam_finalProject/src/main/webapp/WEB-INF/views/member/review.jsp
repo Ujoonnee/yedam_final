@@ -64,8 +64,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-				<div id="serviceNameDiv"></div>
-					<div id="pickupDate"></div><br>
+				<div id="serviceNameDiv"></div><div id="resDate"></div><br>
 					<h2 class="h6 modal-title">평점</h2>
 					<div>
 						<p id="star">
@@ -125,10 +124,14 @@
 					method: "POST",
 					data: 	$("#frm").serialize(),		
 					success: function (re) {
+						//모달창닫기
+						$("#modal-default").hide();
+						//리뷰작성 버튼 숨기기
+						$("#btnModal").hide();
 						
-						console.log(re.revNo); $("#btnModal").hide();
-						 alert("성공")
-						 location.href=resNo;
+						alert("성공");
+						location.reload(true);
+						 
 						
 					},
 					error: function () {
