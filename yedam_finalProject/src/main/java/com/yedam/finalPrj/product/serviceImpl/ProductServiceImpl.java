@@ -103,9 +103,9 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		System.out.println("myStoreProductManagement 에서 user세션값"+user.getMemNo());
+//		System.out.println("myStoreProductManagement 에서 user세션값"+user.getMemNo());
 		int memNo = map.getStoreNo(user);
-		System.out.println("getStoreNo : "+memNo);
+//		System.out.println("getStoreNo : "+memNo);
 		cri.setStoreNo(memNo);
 		return map.myStoreProductManegement(cri);
 	}
@@ -116,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 	
 		int storeNo = map.getStoreNo(user);
-		System.out.println("getStoreNo : "+storeNo);
+//		System.out.println("getStoreNo : "+storeNo);
 		cri.setStoreNo(storeNo);
 		return map.myStoreProductCnt(cri);
 	}
@@ -147,20 +147,20 @@ public class ProductServiceImpl implements ProductService {
          String saveFileName = genSaveFileName(extName);
          
          
-         StringBuilder sb = new StringBuilder();
-         sb.append(user.getMemNo());
-         sb.append(vo.getProdNo());
-         sb.append(saveFileName.substring(7, 15));
-         
-         saveFileName= sb.toString();
-         System.out.println(saveFileName);
-         
-         System.out.println(multi.toString());
-         System.out.println("uploadpath : " + uploadpath);
-         System.out.println("originFilename : " + originFilename);
-         System.out.println("extensionName : " + extName);
-         System.out.println("size : " + size);
-         System.out.println("saveFileName : " + saveFileName);
+//         StringBuilder sb = new StringBuilder();
+//         sb.append(user.getMemNo());
+//         sb.append(vo.getProdNo());
+//         sb.append(saveFileName.substring(7, 15));
+//         saveFileName= sb.toString();
+//         
+//         System.out.println("===================SaveFileName"+saveFileName);
+//         
+//         System.out.println(multi.toString());
+//         System.out.println("uploadpath : " + uploadpath);
+//         System.out.println("originFilename : " + originFilename);
+//         System.out.println("extensionName : " + extName);
+//         System.out.println("size : " + size);
+//         System.out.println("saveFileName : " + saveFileName);
          vo.setProdThumbnail(saveFileName);
          vo.setProdNo(vo.getProdNo());
          if(!multi.isEmpty())
