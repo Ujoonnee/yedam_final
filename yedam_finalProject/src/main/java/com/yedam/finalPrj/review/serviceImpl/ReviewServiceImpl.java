@@ -44,4 +44,10 @@ public class ReviewServiceImpl implements ReviewService {
 		// TODO Auto-generated method stub
 		return map.reviewUpdate(vo);
 	}
+
+//답변등록.
+	@Override
+	public void replyInsert(int prodResNo, String replyContent) {
+		map.replyInsert(prodResNo, replyContent);
+	}
 }

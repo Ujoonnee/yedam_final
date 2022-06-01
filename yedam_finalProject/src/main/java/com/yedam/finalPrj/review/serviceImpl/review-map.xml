@@ -5,25 +5,25 @@
 	<insert id="insert" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
 		INSERT INTO REVIEW(REV_NO, RES_NO, CATEGORY, SCORE, CONTENT, REV_TIME, MEM_NO, SERVICE_NAME) 
 		VALUES(SEQ_REVIEW.NEXTVAL, #{resNo}, #{category}, #{score}, #{content}, default, #{memNo}, #{serviceName})
-
 	</insert>
-	
 	<select id="reviewSelectAll" resultType="com.yedam.finalPrj.review.service.ReviewVO">
 		SELECT service_name, score, content, reply_content, res_no, rev_no
 		FROM Review 
 		WHERE mem_no = #{memNo}
 	</select>
-	
 	<update id="reviewUpdate" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
 		UPDATE review SET content = #{content}, score = #{score}
 		WHERE rev_no = #{revNo}
 	</update>
-	
 	<select id="reviewSelectOne" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO">
 		SELECT * 
 		FROM Review
 		WHERE rev_no = #{revNo}
 	</select>
-	
-	
+	<update id="replyInsert" parameterType="com.yedam.finalPrj.review.service.ReviewVO" >
+		UPDATE review
+		SET reply_content = #{replyContent}
+		WHERE res_no = #{prodResNo}
+		AND category = '00204'
+	</update>
 </mapper>
