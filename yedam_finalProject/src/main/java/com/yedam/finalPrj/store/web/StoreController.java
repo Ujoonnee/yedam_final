@@ -101,6 +101,7 @@ public class StoreController {
 	@RequestMapping(value ="searchApprovalList", method= {RequestMethod.GET})
 	public String serachApprovalList(StorePagingCriteria cri,Model model, HttpServletRequest request) {
 		service.searchApprovalList(cri, model,request);
+
 		return "admin/store/storeWaitingApprovalList";
 	}
 	
@@ -111,6 +112,7 @@ public class StoreController {
 		
 		model.addAttribute("regList", service.selectStoreRegList(cri,request));
 		model.addAttribute("paging", new StorePageMaker(cri, service.totalCnt()));
+
 		return "admin/store/storeWaitingApprovalList";
 	}
 	
@@ -136,10 +138,14 @@ public class StoreController {
 //	Hong
 
 //	댓글 삭제
-	@ResponseBody
 	@PostMapping("delete")
+	@ResponseBody
+	public void replyDelete(String revNo) {
+		service.deleteReply(Integer.parseInt(revNo));
+
 	public void replyDeletePOST(com.yedam.finalPrj.store.vo.jo.ProductReservationVO vo) {
 		service.deleteReply(vo);
+
 	}
 
 	
@@ -182,7 +188,9 @@ public class StoreController {
 			Model model,HttpServletRequest request,@RequestParam("storeNo") int storeNo, @RequestParam(value="prodNo[]") List<String> prodNo) {
 		
 		service.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
+
 		service.CancelRes2(storeNo, prodNo);
+
 		return "redirect:/store/resProdList";
 	}
 	

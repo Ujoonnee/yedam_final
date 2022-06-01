@@ -133,11 +133,6 @@
 </c:if>
 
 
-<!-- hong -->
-<%-- <c:if test="${user.memNo == memNo}"> --%>
-	
-<%-- </c:if> --%>
-
 
 
 </div>
@@ -173,6 +168,9 @@
 			var text = prompt("비밀번호를 입력하세요.");
 			if(text==${user.password}){
 				console.log("매장번호 : " +${detail.store.storeNo})
+
+			location.href="cancel/"+${detail.prodResNo};
+
 				$.ajax({
 					url:"cancel/"+${detail.prodResNo},
 					method:"GET",
@@ -188,6 +186,7 @@
 				
 				
 			/* location.href="cancel/"+${detail.prodResNo}; */
+
 			}else{
 				return alert("비밀번호가 틀립니다.");
 			}
@@ -247,15 +246,12 @@
 		let replyId = $(this).attr("href");
 		
 		$.ajax({
+			url : '${pageContext.request.contextPath}/store/delete',
+			method : 'POST',
 			data : {
-				replyId : replyId,
 				revNo : '${reviewList.revNo}'
 			},
-			url : '/delete',
-			type : 'POST',
-			success : function(result){
-					alert('삭제가 되었습니다.')
-			}
+			success : () => location.reload()
 		});
 	});
 //답변작성 버튼 클릭시 화면에 에디터 show.

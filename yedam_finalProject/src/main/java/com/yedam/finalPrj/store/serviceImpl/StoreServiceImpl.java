@@ -268,11 +268,14 @@ public class StoreServiceImpl implements StoreService{
 
 
 	@Override
-	public int deleteReply(ProductReservationVO vo) {
-		int result = map.deleteReply(vo.getRevNo());
+	public int deleteReply(int revNo) {
+		int result = map.deleteReply(revNo);
 		return result;
 	}
 
+
+	
+	
 	
 //	Jo
 	
@@ -363,6 +366,10 @@ public class StoreServiceImpl implements StoreService{
 		}
 		return 1;
 	}
+
+
+
+	
 
 
 
