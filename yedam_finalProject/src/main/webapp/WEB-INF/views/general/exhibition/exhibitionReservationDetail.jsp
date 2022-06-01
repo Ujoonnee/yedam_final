@@ -77,11 +77,46 @@
 		</tr>
 	</table>
 	<hr>
-	<c:if test="${exRes.paymentStatus eq 'Y' }">
-	<button>예약취소</button><button>리뷰작성</button>
-	</c:if>
-	<button>예약취소</button><button id="btnModal">리뷰작성</button>
+
+
+
 	<div id="reviewModal"></div>
+	
+	<!-- 리뷰 작성안했다면 작성버튼 show. -->
+<%-- <c:if test="${exRes.paymentStatus eq 'Y' }"> --%>
+<c:if test="${empty reviewList}" >
+<button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
+</c:if>
+<%-- </c:if> --%>
+
+<!-- 픽업상태 'N'이면 예약취소 버튼 show -->
+<c:if test="${exRes.paymentStatus eq 'Y' }">
+<button type="button" class="btn btn-block btn-gray-800 mb-3" id="resCancel">예약취소</button>
+</c:if>
+
+<!--수정버튼은 상의 필요...  -->
+<c:if test="${not empty reviewList}" >
+<button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" onclick=reviewUpd() >리뷰수정</button>
+
+<button type="submit"  class="btn btn-block btn-gray-800 mb-3 delBtn" value="${reviewList.revNo }">삭 제</button>
+
+</c:if>
+
+<hr>
+<c:if test="${not empty reviewList}">
+<div>
+<h3>내 리뷰</h3>
+			<div>${reviewList.serviceName }</div>
+			<hr>
+			<span>평점(${reviewList.score })</span><span id="vscore">${reviewList.score }</span>
+			<div>${reviewList.content }</div>
+			<hr>
+			<div>답변</div>
+			<div>${reviewList.replyContent }</div>
+			<hr>
+</div>
+</c:if>
+	
 <script type="text/javascript">
 	//리뷰모달 띄우기
 	$('#btnModal').on("click", function(){
@@ -95,11 +130,94 @@
 	 		$("#category").val("${exRes.category}");
 	 		$("#resNo").val("${exRes.exResNo}");
 	 		$("#serviceName").val("${exRes.name}");
-	 		//$("#pickupDate").html("${detail.pickupDate} ${detail.pickupTime}");
+	 		$("#resDate").html("${exRes.exDate}");
 	 		$("#serviceNameDiv").html("${exRes.name}");
 	 		
 	 	})
 	 });
+	//평점 ★로 출력하기
+	var score = $("#vscore").html();
+	var space ="";
+	
+	for(var i=0; i<score; i++){
+		space = space + "★";
+	} 
+	
+	$("#vscore").html(space)
+
+	
+	//예약취소(비밀번호입력)
+	console.log(${detail.store.storeNo});
+	 $("#resCancel").on("click", function(){
+		
+		 if(confirm("예약을 취소하시겠습니까?")){
+			var text = prompt("비밀번호를 입력하세요.");
+			if(text==${user.password}){
+				
+				$.ajax({
+					url:"../cancel",
+					method:"POST",
+					data:{
+						exResNo : ${exRes.exResNo },
+					},
+					success: function(){
+						alert("성공");
+						location.href="${pageContext.request.contextPath}/exhibition/exSelectAllReservation"
+					}
+				})
+				
+				
+			/* location.href="cancel/"+${detail.prodResNo}; */
+			}else{
+				return alert("비밀번호가 틀립니다.");
+			}
+		}else{
+			return alert("취소되었습니다.");
+		} 
+	 }); 
+	
+
+	
+	 
+	
+	 //리뷰수정 버튼 클릭시 모달띄우기
+		function reviewUpd(){
+		 
+		var revNo = ${reviewList.revNo}
+		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_update/"+revNo, function(){
+		 		const myModal = new bootstrap.Modal('#modal-default');
+		 		
+		 		myModal.show();
+		 		
+		 		//모달뜨고 나서 모달 안에 폼태그에 값 입력.
+		 		$("#category").val("${exRes.category}");
+		 		$("#resNo").val("${exRes.exResNo}");
+		 		$("#serviceName").val("${exRes.name}");
+		 		$("#resDate").html("${exRes.exDate}");
+		 		$("#serviceNameDiv").html("${exRes.name}");
+		 		
+		 	})
+		 
+	 	};
+
+	
+	 
+	$(document).on('click', '.delBtn', function(e){
+		e.preventDefault();
+		let replyId = $(this).attr("href");
+		
+		$.ajax({
+			data : {
+				replyId : replyId,
+				revNo : '${reviewList.revNo}'
+			},
+			url : '/delete',
+			type : 'POST',
+			success : function(result){
+					alert('삭제가 되었습니다.')
+			}
+		});
+	});
 	
 </script>
 </body>

@@ -38,13 +38,13 @@
 				<th>리뷰</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="tbd">
 			<c:forEach items="${exhibitionReservationVO }" var="exRes">
 				<tr class="list">
 				
 					<td>${exRes.exResNo }</td>
 					<td>
-					<a href="exhibitionReservationDetail?exResNo=${exRes.exResNo}">${exRes.name }	</a>
+					<%-- <a href="exhibitionReservationDetail?exResNo=${exRes.exResNo}"> --%>${exRes.name }	<input type="hidden" value="${exRes.exResNo}"><!-- </a> -->
 					
 						<!--<c:out value="${exRes.name }"/> -->
 					
@@ -67,12 +67,20 @@
 							</c:choose>
 					
 					</td>
-					<td>${exRes.payment }</td>
+					<td>${exRes.paymentAmt }</td>
 					<td><button>리뷰작성</button></td>
 				</tr>
 			
 			</c:forEach>
 		</tbody>
 	</table>
+<script type="text/javascript">
+//리스트 클릭시 상세페이지로 이동(예약번호넘겨서)
+$("#tbd").on("click", ".list", function(){
+	var selectedResNo = $(this).find("input").val();
+	console.log(selectedResNo);
+	location.href="exhibitionReservationDetail/" + selectedResNo;
+});
+</script>
 </body>
 </html>

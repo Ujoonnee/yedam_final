@@ -75,7 +75,7 @@ public interface StoreService {
 	 int storeCnt(ResProdListPagingCriteria cri); // 매장 이름 검색시 총 매장 개수
 	 int prodNameCnt(ResProdListPagingCriteria cri);  // 상품명이 포함된 총 예약건 수
 //리뷰페이지 상세에 같이 출력
-	 public ReviewVO reviewLoad(int revNo); 
+	 public ReviewVO reviewLoad(int selectedResNo); 
 //예약 취소
 	 int CancelRes(int prodResNo); // product_reservation테이블에서 결제상태 'N'으로, 
 	 int CancelRes2(int storeNo, List<String> prodNo); //reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가
