@@ -81,7 +81,7 @@
 					<form action="zipFileDown">
 						<div>
 							<c:forEach var="file" items="${file}">
-								<td><input type="checkbox" name="fileNo" onclick="fn_zipFileDown('${file.FILE_NO}');"><a class="form-control" style="width:350px" href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME} (${file.FILE_SIZE}kb)</a></td><br>
+								<td><input type="checkbox" name="fileNo" onclick="fn_zipFileDown('${file.fileNo}');"><a class="form-control" style="width:350px" href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME} (${file.FILE_SIZE}kb)</a></td><br>
 							</c:forEach>
 								<input type="submit">
 						</div>
