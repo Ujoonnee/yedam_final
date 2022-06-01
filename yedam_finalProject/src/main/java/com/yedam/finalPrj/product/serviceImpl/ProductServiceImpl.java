@@ -1,7 +1,9 @@
 package com.yedam.finalPrj.product.serviceImpl;
 
 import java.io.File;
-import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,7 @@ import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
+import com.yedam.finalPrj.store.vo.park.ProductReservation;
 
 
 
@@ -277,7 +280,39 @@ public class ProductServiceImpl implements ProductService {
 //		cri에서 price, keyword존재,storeNo
 		return map.searchPriceProdName(cri);
 	}
+	@Override
+	public int productReservationInsert(HashMap<String, String> vo, Model model, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+
+		
+		String from = vo.get("time");
+		SimpleDateFormat transFormat = new SimpleDateFormat("HH:mm:ss");
+		Date pickUpTime = null;
+		try {
+			pickUpTime = (Date) transFormat.parse(from);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(pickUpTime);
 	
+		ProductReservation ProResVO = new ProductReservation();
+		ProResVO.setProdResNo(Integer.parseInt(vo.get("impUid"))); //전달받은 주문번호를 예약번호로 pk잡음.
+		ProResVO.setStoreNo(Integer.parseInt(vo.get("storeNo")));
+		ProResVO.setMemNo(Integer.parseInt(vo.get("memNo")));
+		ProResVO.setPaymentAmt(vo.get("amount"));
+		
+//		결제금액이 있다면 결제상태 Y로변경
+		if (vo.get("amount") != null) {
+			ProResVO.setPaymentStatus("Y");
+		}
+		
+//		픽업시간
+//		ProResVO.setPickupDate();
+		ProResVO.setPickupTime(pickUpTime);
+		
+		return map.productReservationInsert(ProResVO);
+	}
 	
 	
 //	Hong
@@ -308,6 +343,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductReservationVO> proReDetailList(ProductReservationVO vo) {
 		return map.proReDetailList(vo);
 	}
+
 
 
 

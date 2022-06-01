@@ -51,6 +51,7 @@ public class ProductController {
 		}else {
 		System.out.println(user.getName());
 		
+		model.addAttribute("memNo",user.getMemNo());
 		model.addAttribute("name",user.getName());
 		model.addAttribute("email",user.getEmail());
 		model.addAttribute("tel",user.getTel());
@@ -59,6 +60,20 @@ public class ProductController {
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
 		return "main/store/storeView";
 		}
+	}
+//	결제정보전달
+	@RequestMapping("paymenInformation")
+	public String PaymentInformation(@RequestBody HashMap<String,String> vo) {
+		System.out.println("=================vo"+vo);
+		String address = vo.get("address");
+		String imp_uid = vo.get("imp_uid");
+		String name = vo.get("name");
+		String tel = vo.get("tel");
+		String merchant_uid = vo.get("merchant_uid");
+		String email = vo.get("email");
+		String time = vo.get("time");
+		
+		return "";
 	}
 	
 //  상품 검색

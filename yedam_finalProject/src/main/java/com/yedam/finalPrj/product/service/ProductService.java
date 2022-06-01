@@ -50,7 +50,7 @@ public interface ProductService {
 //	통계 날짜 검색
 	List<ProductReservationVO> searchDateInStatistics(Statistics vo);
 	
-	
+	int productReservationInsert(HashMap<String, String> vo,Model model,HttpServletRequest request);
 	
 //	Hong
 

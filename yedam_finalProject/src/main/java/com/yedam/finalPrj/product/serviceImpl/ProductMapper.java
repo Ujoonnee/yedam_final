@@ -13,6 +13,7 @@ import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
+import com.yedam.finalPrj.store.vo.park.ProductReservation;
 
 public interface ProductMapper {
 	
@@ -39,7 +40,8 @@ public interface ProductMapper {
 	int oneProductInsert(Product product); //단일상품 등록
 	
 	int getStoreNo(MemberVO vo); //회원번호로 storeNO조회
-	
+	int productReservationInsert(ProductReservation vo);
+
 	
 //	파일업로드
 	String thumbnailUpdate(Product product) throws Exception;
