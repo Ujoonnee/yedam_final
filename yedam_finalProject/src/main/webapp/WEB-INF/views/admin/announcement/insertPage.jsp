@@ -36,7 +36,7 @@
 	function fn_addFile(){
 		var fileIndex = 1;
 		$(".fileAdd_btn").on("click", function(){
-			$("#fileIndex").append("<div style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
+			$("#fileIndex").append("<div class='input-group' style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		});
 		$(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();
@@ -69,7 +69,10 @@
 			</select>
 		</div>
 		<div class="mb-5 my-3">&nbsp;</div>
-		<div class="mb-5 my-3">첨부파일 <button class="fileAdd_btn" type="button">파일추가</button></div>
+		<div>
+			<div>첨부파일 추가</div>
+			<div class="mb-2 my-3 input-group"><button class="fileAdd_btn btn btn-sm btn-primary" type="button">첨부파일</button></div>
+		</div>
 		<hr>
 		<div id="fileIndex"></div>
 		<div>&nbsp;</div>

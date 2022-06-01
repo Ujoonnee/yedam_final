@@ -3,7 +3,6 @@ package com.yedam.finalPrj.exhibition.web;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,6 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPageMaker;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
-import com.yedam.finalPrj.member.serviceImpl.MemberServiceImpl;
 
 @Controller
 @RequestMapping("/exhibition/*")
@@ -49,20 +47,26 @@ public class ExhibitionController {
 	}
 
 	// 예약목록 상세페이지
-	@RequestMapping(value = "exhibitionReservationDetail", method = RequestMethod.GET)
-	public String exhibitionReservationDetail(Model model, ExhibitionReservationVO vo) {
-		System.out.println(vo.getExResNo());
-		ExhibitionReservationVO detail = service.exDetail(vo);
-		model.addAttribute("exRes", detail);
+	@RequestMapping(value = "exhibitionReservationDetail/{selectedResNo}", method = RequestMethod.GET)
+	public String exhibitionReservationDetail(@PathVariable("selectedResNo") int selectedResNo,Model model) {
+
+		model.addAttribute("exRes", service.exDetail(selectedResNo));
+		model.addAttribute("reviewList", service.reviewLoad(selectedResNo));
+		
 		return "general/exhibition/exhibitionReservationDetail";
 	}
 
-	
 	// 예약번호로 검색
 	@GetMapping("searchExhibitionByNo")
 	@ResponseBody
 	public List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
 		return service.searchExhibitionByNo(exResNo);
+	}
+	// 예약 취소
+	@PostMapping("cancel")
+	@ResponseBody
+	public void cancelOneReservation(int exResNo) {
+		service.cancelOneReservation(exResNo);
 	}
 	
 	// 준우
@@ -98,7 +102,7 @@ public class ExhibitionController {
 	@GetMapping("exRegAppDetail/{exNo}")
 	public String selectOneByExNo(@PathVariable int exNo, Model model) {
 		model.addAttribute("detail", service.selectOneByExNo(exNo));
-		return "exhibition/exRegAppDetail";
+		return "admin/exhibition/exRegAppDetail";
 	}
 
 	// 전시등록 승인(00401로 update)
@@ -200,9 +204,6 @@ public class ExhibitionController {
 //	전시 목록 검색
 	@RequestMapping(value = "searchExhibition", method = { RequestMethod.GET })
 	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
-		System.out.println(cri.getExVO().getAddress());
-		System.out.println(cri.getExVO().getStartDate());
-		System.out.println(cri.getExVO().getEndDate());
 		model.addAttribute("exhibitionList", service.searchEx(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
 		return "main/exhibition/exhibitionList";

@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
@@ -26,5 +25,5 @@ public class ExhibitionVO {
 	private String approvalStatus;
 	private String approvalStatusCodeName;
 	private Date applicationDate;
-	
+
 }

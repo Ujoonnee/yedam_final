@@ -59,12 +59,12 @@
                 없음
             </h2> 
     </c:if> <td> --%>
-		<td id="thumbNail" >${list.product.prodThumbnail}</td>
+		<td id="thumbNail" ><%-- ${list.product.prodThumbnail} --%></td>
 		<td>${list.product.prodName}</td>
 		<td>${list.product.price}</td>
 		<td>${list.reservedProduct.count}개</td>
 		<td>금액 : ${list.product.price * list.reservedProduct.count}</td>
-		<td >${list.product.prodNo}</td>
+		<td style="display:none">${list.product.prodNo}</td>
 	</tr>
 	</c:forEach>
 	</tbody>
@@ -99,6 +99,12 @@
 			<div>답변</div>
 			<div>${reviewList.replyContent }</div>
 			<hr>
+			<!-- 관리자이면 답변저장 보이도록 -->
+			<%-- <c:if test="${admin.id eq admin@admin.com}">
+			</c:if> --%>
+			<button type="button" id="replyWrite">답변작성</button>
+			<jsp:include page="../../member/reply.jsp"/>
+			<!-- <div id="replyWriteDiv"></div> -->
 </div>
 </c:if>
 <!-- 	모달 -->
@@ -120,7 +126,7 @@
 
 <!--수정버튼은 상의 필요...  -->
 <c:if test="${not empty reviewList}" >
-<button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" >리뷰수정</button>
+<button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" onclick=reviewUpd() >리뷰수정</button>
 
 <button type="submit"  class="btn btn-block btn-gray-800 mb-3 delBtn" value="${reviewList.revNo }">삭 제</button>
 
@@ -145,25 +151,42 @@
 	
 	$("#vscore").html(space)
 	
-	//상품번호 매장번호 리스트만 들어서 넘기기.
-	<c:forEach items="${prodList}" var="list">
-					var obj = []
-					var obj = ${list[i].product.prodNo}
-					
-					console.log(obj)
-					
-					/* var objToSend = {}
-					objToSend.push(${detail.store.storeNo}, ) */
-				</c:forEach>
+	//상품번호 배열에 담아서 넘기기.
+		var prodNo = []
+		<c:forEach items="${prodList}" var="list">
+		
+			prodNo.push(${list.product.prodNo})
+			
+		</c:forEach>
+					console.log(prodNo)
 	
 	//예약취소(비밀번호입력)
+	console.log(${detail.store.storeNo});
 	 $("#resCancel").on("click", function(){
-
+		
 		 if(confirm("예약을 취소하시겠습니까?")){
 			var text = prompt("비밀번호를 입력하세요.");
 			if(text==${user.password}){
 				console.log("매장번호 : " +${detail.store.storeNo})
+
 			location.href="cancel/"+${detail.prodResNo};
+
+				$.ajax({
+					url:"cancel/"+${detail.prodResNo},
+					method:"GET",
+					data:{
+						storeNo : ${detail.store.storeNo},
+						prodNo : prodNo
+					},
+					success: function(){
+						alert("성공");
+						location.href="${pageContext.request.contextPath}/store/resProdList"
+					}
+				})
+				
+				
+			/* location.href="cancel/"+${detail.prodResNo}; */
+
 			}else{
 				return alert("비밀번호가 틀립니다.");
 			}
@@ -199,6 +222,7 @@
 		function reviewUpd(){
 		 
 		var revNo = ${reviewList.revNo}
+		//등록된 리뷰내용 불러오기.
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_update/"+revNo, function(){
 		 		const myModal = new bootstrap.Modal('#modal-default');
 		 		
@@ -230,7 +254,12 @@
 			success : () => location.reload()
 		});
 	});
-
+//답변작성 버튼 클릭시 화면에 에디터 show.
+	$("#replyWrite").on("click", function(){
+		document.getElementById("smEditor").style.display="block";
+		//$("#frm").style.display="block";
+		//$("#replyWriteDiv").load("reply.jsp");
+	})
 	
 
 </script>

@@ -22,7 +22,7 @@
 		<div>
 			<button type="button" id = "location_now" name ="location_now" onclick = "locationN()">현재 위치</button>
 		</div>
-		<form action ="searchList" method="post" name="searchForm" autocomplete="off">
+		<form action ="searchList" method="get" name="searchForm" autocomplete="off">
 			<select id="type" name="type"
 				onchange="allSelected()">
 					<option value="1">전체</option>
@@ -30,7 +30,10 @@
 					<option value="store_cat"<c:out value="${paging.cri.type eq 'store_cat'? 'selected': '' }" />>카테고리</option>
 					<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
 			</select>
-			<input type="text" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${keyword}" size="40">&nbsp;
+			<input type="text" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
+			<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
+			<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
+			<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
 			<button id = "searchBtn" >버튼</button>&nbsp;
 		</form>
 	</div>
@@ -52,18 +55,10 @@
 					</c:forEach>
 				</c:if>
 			</table>
-			<input type = "hidden" id = "store_no" name ="store_no">
+			<input type = "hidden" id = "storeNo" name ="storeNo">
 		</form>
 	</div>
 	
-	<form id="pagingFrm" name="pagingForm" action="list" method="get">
-		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-		<input type="hidden" id="pageNum" name="amount" value="${paging.cri.amount }">
-		<input type="hidden" id="type" name="type" value="${paging.cri.type }">
-		<input type="hidden" id="keyword" name="keyword" value="${paging.cri.keyword }">
-		<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
-		<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
-	</form>
 	
 	<div id="pagingDiv">
 		<!-- 이전페이지 -->
@@ -88,7 +83,7 @@
 		$('#pagingDiv a').click(function(e){
 			e.preventDefault();
 			$('#pageNum').val($(this).attr("href"));
-			pagingFrm.submit();
+			searchForm.submit();
 		})
 	});
 		
@@ -102,7 +97,7 @@
 	}
 	// 상점 클릭시 공지사항 번호를 넘겨줌
 	function storeView(n) {
-		frm.store_no.value = n;
+		frm.storeNo.value = n;
 		frm.action = "product/productView";
 		frm.submit();
 	}
@@ -119,7 +114,7 @@
 					console.log(xy);
 					$('input[name=latitude]').attr('value',xy.documents[0].y);
 					$('input[name=longitude]').attr('value',xy.documents[0].x);
-					pagingFrm.submit();
+					searchForm.submit();
 // 					XYget(xy.documents[0].y,xy.documents[0].x);
 					
 				},

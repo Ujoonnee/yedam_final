@@ -108,6 +108,7 @@
 		from store
 		where mem_no = #{memNo}
 	</select>
+	
 	<select id = "myStoreProductManegement" resultType="com.yedam.finalPrj.product.vo.park.Product">
 	    select p.*,GET_CODE_NAME(status) status_name  
 	    from product p
@@ -142,7 +143,17 @@
 		</selectKey>
 			insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},#{status},#{price},'',#{prodCat})	
 	</insert>
-	
+	<select id ="searchPriceProdName" resultType="com.yedam.finalPrj.product.vo.park.Product">
+		SELECT P.PROD_NO, P.STORE_NO,P.PROD_NAME,P.STOCK,P.STATUS,P.PRICE,p.prod_thumbnail
+		FROM PRODUCT P, STORE S 
+		WHERE S.STORE_NO = P.STORE_NO
+		AND S.STORE_NO LIKE #{storeNo}
+		and p.prod_name like ('%'||#{keyword}||'%')
+		<if test ="lowPrice != null and !lowPrice.equals('')">
+		and #{lowPrice}  <![CDATA[<=]]> price</if>
+		<if test = "highPrice != null and !highPrice.equals('')">
+		AND PRICE <![CDATA[<=]]> #{highPrice}</if>
+	</select>
 	
 	<update id = "myStoreProductUpdate" parameterType="java.util.HashMap">
 		UPDATE PRODUCT

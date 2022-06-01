@@ -23,17 +23,21 @@
 	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
 	body {font-family: 'Jeju Gothic', sans-serif;}
 	
-	a:not(#loginInfo a) {
+	a {
 		color: black;
 		text-decoration: none;
 	}
+	
+	span {font-family: 'Jeju Gothic', sans-serif;}
 </style>
 <title> <tiles:getAsString name="title"/> </title>
 </head>
 <body>
-	<tiles:insertAttribute name="header"/>
-	<tiles:insertAttribute name="body"/>
-	<tiles:insertAttribute name="footer"/>
+	<main class="content m-0">
+		<tiles:insertAttribute name="header"/>
+		<tiles:insertAttribute name="body"/>
+		<tiles:insertAttribute name="footer"/>
+	</main>
 	
     <!-- Core -->
 	<script src="${pageContext.request.contextPath}/resources/vendor/@popperjs/core/dist/umd/popper.min.js"></script>

@@ -6,12 +6,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.member.service.MemberVO;
-import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
 import com.yedam.finalPrj.store.serviceImpl.StoreServiceImpl;
+import com.yedam.finalPrj.store.vo.jo.ProductVO;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPageMaker;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
 import com.yedam.finalPrj.store.vo.park.Store;
@@ -38,8 +40,27 @@ public class StoreController {
 	
 //	매장신청 양식 페이지
 	@RequestMapping("register")
-	public String register() {
-		return "provider/store/storeRegister";
+	public String register(HttpServletRequest request,Model model) {
+		HttpSession session =  request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		
+		
+		if(user == null) {
+			return "main/unusalApproach";
+		}
+//		관리자, 일반회원일시 메시지 출력 후 홈으로 이동 
+		if(!user.getMemType().equals("00103")) {
+			return "main/unusalApproach";
+		}else {
+			String vo = service.checkStoreNo(user, request, model);
+			System.out.println("resgister========================"+vo);
+			System.out.println(vo.length());
+			if(vo.length() > 0) {
+				return "main/unusalApproach"; //계정에 기존에 가게가 있다면 등록폼으로 이동 불가.
+			}else {
+				return "provider/store/storeRegister"; // 계정에 등록된 가게가 없을 시 등록폼으로 이동
+			}
+		}
 	}
 //	매장신청 양식 전송
 	@RequestMapping("regist")
@@ -77,9 +98,21 @@ public class StoreController {
 		return "main/unusalApproach";
 		
 	}
-	@RequestMapping(value ="searchApprovalList", method= {RequestMethod.POST})
+	@RequestMapping(value ="searchApprovalList", method= {RequestMethod.GET})
 	public String serachApprovalList(StorePagingCriteria cri,Model model, HttpServletRequest request) {
 		service.searchApprovalList(cri, model,request);
+
+		return "admin/store/storeWaitingApprovalList";
+	}
+	
+	@PostMapping("updateStatus")
+	public String updateStatus(@RequestBody List<HashMap<String,String>> vo,StorePagingCriteria cri,Model model, HttpServletRequest request) {
+		System.out.println("======================updateStatus"+vo);
+		service.updateStatus(vo);
+		
+		model.addAttribute("regList", service.selectStoreRegList(cri,request));
+		model.addAttribute("paging", new StorePageMaker(cri, service.totalCnt()));
+
 		return "admin/store/storeWaitingApprovalList";
 	}
 	
@@ -94,7 +127,7 @@ public class StoreController {
 	
 
 //	매장에서의 검색처리
-	@RequestMapping(value ="searchList", method= {RequestMethod.POST})
+	@RequestMapping(value ="searchList", method= {RequestMethod.GET})
 	public String search(StorePagingCriteria cri,Model model, HttpServletRequest request ) {
 		service.search(cri, model);
 		return "main/store/storeList";
@@ -109,6 +142,10 @@ public class StoreController {
 	@ResponseBody
 	public void replyDelete(String revNo) {
 		service.deleteReply(Integer.parseInt(revNo));
+
+	public void replyDeletePOST(com.yedam.finalPrj.store.vo.jo.ProductReservationVO vo) {
+		service.deleteReply(vo);
+
 	}
 
 	
@@ -147,9 +184,12 @@ public class StoreController {
 	}
 //	예약한 상품 리스트 출력(예약취소후)
 	@GetMapping("resProdListByProdName/cancel/{prodResNo}")
-	public String resProductsList(@PathVariable int prodResNo, ResProdListPagingCriteria cri,Model model,HttpServletRequest request) {
+	public String resProductsList(@PathVariable int prodResNo, ResProdListPagingCriteria cri,
+			Model model,HttpServletRequest request,@RequestParam("storeNo") int storeNo, @RequestParam(value="prodNo[]") List<String> prodNo) {
 		
 		service.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
+
+		service.CancelRes2(storeNo, prodNo);
 
 		return "redirect:/store/resProdList";
 	}

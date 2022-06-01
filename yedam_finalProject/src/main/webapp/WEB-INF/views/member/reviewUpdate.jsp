@@ -65,7 +65,7 @@
 				</div>
 				<div class="modal-body">
 				<div id="serviceNameDiv"></div>
-					<div id="pickupDate"></div><br>
+					<div id="resDate"></div><br>
 					<h2 class="h6 modal-title">평점</h2>
 					<div>
 						<p id="star">

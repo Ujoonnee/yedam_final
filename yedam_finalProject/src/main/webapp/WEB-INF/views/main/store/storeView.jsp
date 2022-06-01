@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <%
+    int memNo = (Integer)request.getAttribute("memNo");
     String name = (String)request.getAttribute("name");
     String email = (String)request.getAttribute("email");
     String phone = (String)request.getAttribute("tel");
@@ -64,37 +66,41 @@
 	 </div>
 	</section>
 <!-- 	상품검색 -->
-	<form action ="searchProduct" method="post" name="searchForm" autocomplete="off">
-			<select id="type" name="type"
-				onchange="allSelected()">
-					<option value="1">전체</option>
-					<option value="name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
-					<option value="prod_name"<c:out value="${paging.cri.type eq 'price'? 'selected': '' }" />>가격</option>
-			</select>
-			<input type="hidden" name = "store_no" value="${product.storeNo }">
-			<input type="text" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${keyword}" size="40">&nbsp;
-			<button id = "searchBtn" >버튼</button>&nbsp;
-		</form>
+	<form action ="searchProduct" method="get" name="searchForm" autocomplete="off">
+	<div id = "searchBox">
+		<p>상품명 : 
+		<input type = "text" id ="keyword" name = "keyword" value="${paging.cri.keyword }" placeholder="상품명 입력하세요." ></p>
+		<p>가격 :
+		<input type = "number" id ="lowPrice" name = "lowPrice" placeholder="최소가격." size="15"min = "0"  value="${paging.cri.lowPrice }"  > 
+		~ <input type = "number" id = "highPrice" name = "highPrice" placeholder="최대가격"size="15"min = "0"value="${paging.cri.highPrice }" ></p>
+		
+		<input type="hidden" id ="storeNo" name = "storeNo" value="${products[0].storeNo }"> 
+		
+		<button id = "searchBtn" >버튼</button>&nbsp;
+	</div>		
+	</form>
+		<button  onclick="resetValue()">초기화</button>
 	<!-- 상품 목록 -->
 	<table id = "productList">
 		<c:if test = "${empty products }">
 			<tr><td colspan ="3">등록된 상품이 없습니다.</td></tr>
 		</c:if>
-			<c:if test = "${not empty products }">
-				<c:forEach items="${products }" var= "product">
-					<tr>	
-					<c:if test ="${product.prodThumbnail != null }">
-						<td align = "center"><img src="/img/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
-					</c:if>
-					<c:if test ="${product.prodThumbnail == null }">
-						<td align ="center"></td>
-					</c:if>
-						<td align = "center"  style=" vertical-align : middle;"><input type ="checkbox" id = "checkf" name="checkf" value ="${product }"
-						data-prodNo ="${product.prodNo }" data-stock ="1" data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }"  
-						>${product.prodName }</td>
-						<td align = "center" style=" vertical-align : middle;">가격 : ${product.price }</td>
-					</tr>
-				</c:forEach>
+		<c:if test = "${not empty products }">
+			<c:forEach items="${products }" var= "product">
+				<tr>	
+				<c:if test ="${product.prodThumbnail != null }">
+					<td align = "center"><img src="/img/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
+				</c:if>
+				<c:if test ="${product.prodThumbnail == null }">
+					<td align ="center"></td>
+				</c:if>
+					<td align = "center"  style=" vertical-align : middle;"><input type ="checkbox" id = "checkf" name="checkf" value ="${product }"
+					data-prodNo ="${product.prodNo }" data-stock ="1" data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }"  
+					>${product.prodName }</td>
+					<td align = "center" style=" vertical-align : middle;">가격 : ${product.price }</td>
+					<td align = "center" style=" vertical-align : middle;">재고 : ${product.stock }</td>
+				</tr>
+			</c:forEach>
 		</c:if>
 	</table>	
 <!-- 	모달 -->
@@ -125,65 +131,108 @@
 	<button class="btn-open-popup" onclick="getCheckboxValue()">장바구니</button>
 
 
-	
-	<form id="pagingFrm" name="pagingForm" action="storeView?store_no=${product.storeNo }" method="get">
-		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.amount }">
-		<input type="hidden" id="type" name="type" value="${paging.cri.type }">
-		<input type="hidden" id="keyword" name="keyword" value="${paging.cri.keyword }">
-	</form>
-	
-	<div id="pagingDiv">
-		<!-- 이전페이지 -->
-		<c:if test="${paging.prev }">
-			<a href="${paging.startPage - 1}">이전</a>
-		</c:if>
-			<!-- 1 2 3 4   -->
-		<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-		&nbsp;<a href="${num }">${num }</a>&nbsp;
-		</c:forEach>
-			<!-- 다음페이지 -->	
-		<c:if test="${paging.next }">
-			<a id="next" href="${paging.endPage + 1 }">다음</a>
-		</c:if>
-	</div>
+
 </div>
  <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script type="text/javascript">
+
 	var IMP = window.IMP;
 	IMP.init('imp73462839');
+	
 	 function requestPay() {
-	var totalPrice = $('#totalPrice').val();
-		console.log(totalPrice);
-	      // IMP.request_pay(param, callback) 결제창 호출
-	      IMP.request_pay({ // param
-	          pg: "html5_inicis",
-	          pay_method: "card",
-	          merchant_uid: 'merchant_' + new Date().getTime(),
-	          name: "예담통합플랫폼 결제",
-	          amount: '1', //amout에 넣으면됨 parseInt(totalPrice)
-	          buyer_email : '<%=email%>',
-              buyer_name : '<%=name%>',
-              buyer_tel : '<%=phone%>',
-              buyer_addr : '<%=address%>'
-	      }, function (rsp) { // callback
-	          if (rsp.success) {
-	        	  alert(rsp.success);
-	        	  console.log(rsp.success);
-	        	  console.log(rsp);
-	              // 결제 성공 시 로직,
-	        	 alert('성공')
-	          } else {
-	        	 alert('실패')
-	              // 결제 실패 시 로직,
-	          }
-	      });
+		
+// 		날짜구하기
+// 		let today = new Date();   
+// 		let year = today.getFullYear(); // 년도
+// 		let month = today.getMonth() + 1;  // 월
+// 		let date = today.getDate();  // 날짜
+// 		let yyyyMMdd = year + '-'+ month + '-'+ date
+// 		console.log(yyyyMMdd);
+		
+		var mem_no = '<%=memNo%>'
+		var email = '<%=email%>'
+		var totalPrice = $('#totalPrice').val();
+		var pickupTime = document.getElementById('pickupTime').value
+		var store_no = document.getElementById('storeNo').value
+		console.log(pickupTime);
+		console.log(storeNo);
+		
+			if(email == null || email == "null"){
+				alert("로그인을 해야 결제를 할 수 있습니다.")
+				return;
+			}
+			
+				
+		      // IMP.request_pay(param, callback) 결제창 호출
+		      IMP.request_pay({ // param
+		          pg: "html5_inicis",
+		          pay_method: "card",
+		          merchant_uid: 'merchant_' + new Date().getTime(),
+		          name: "예담통합플랫폼 결제",
+		          amount: parseInt(totalPrice), //amout에 넣으면됨 parseInt(totalPrice)
+		          buyer_email : email,
+	              buyer_name : '<%=name%>',	
+	              buyer_tel : '<%=phone%>',
+	              buyer_addr : '<%=address%>'
+		      }, function (rsp) { // callback
+		          if (rsp.success) {
+		        	  
+		        	  alert(rsp.success);
+		        	  console.log(rsp.success);
+		        	  console.log(rsp);
+		        	  console.log(mem_no);
+		              // 결제 성공 시 로직,
+		              
+		               jQuery.ajax({
+				            url: "paymenInformation", // 예: https://www.myservice.com/payments/complete
+				            method: "POST",
+				            headers: { "Content-Type": "application/json" },
+				            data: JSON.stringify({
+				                impUid: rsp.imp_uid,			//결제번호
+				                merchantUid: rsp.merchant_uid,  //주문번호
+				                amount : rsp.paid_amount,		//총금액
+				                email : rsp.buyer_email,		//Id
+				                name : rsp.buyer_name,			//이름
+				                tel : rsp.buyer_tel,			//전화번호
+				                address : rsp.buyer_addr,		//주소
+				                time : pickupTime,				//픽업시간
+				                pay_method : rsp.pay_method,	//결제방법
+				                storeNo : store_no,				//매장등록번호
+				                memNo : mem_no					//결제한 멤버 정보.
+				            })
+				        }).done(function (data) {
+				          // 가맹점 서버 결제 API 성공시 로직
+				          console.log(data);
+			        	 alert('정보저장성공');
+				        })
+						alert("결제성공");        
+				      
+		          } else {
+		        	  console.log(data)
+		              // 결제 실패 시 로직,
+		        	 alert('결제실패')
+		          }
+		      });
 	    }
 </script>
   
 <script>
 
+	function resetValue(){
+		document.getElementById('keyword').value = '';
+		document.getElementById('lowPrice').value = '';
+		document.getElementById('highPrice').value = '';
+		
+	}
+	function selectChanged(e){
+		if(e.value == 'name'){
+			alert('name');
+		}
+		if(e.value == 'prod_name'){
+			alert('prodname')	
+		}
+	}
 	
 
 	
@@ -235,15 +284,6 @@
 // 		alert("결제클릭")
 // 	}
 // 	)
-	$(document).ready(function(){
-		/* 페이지 번호 이동 id> pageNum > attr로 속성 href줌 */
-		$('#pagingDiv a').click(function(e){
-			e.preventDefault();
-			$('#pageNum').val($(this).attr("href"));
-			pagingForm.submit();
-		})
-	});
-	
 	
 		
 
@@ -345,14 +385,6 @@
     		
      }
     	
-   // 검색 [전체] 선택 시 검색창 비우기
-  	function allSelected() {
-  		var selected = document.getElementById("type");
-  		if (selected.options[selected.selectedIndex].value == 1) {
-  			document.getElementById("keyword").value = '';
-  		}
-  	
-  	}
 </script>
 </body>
 </html>

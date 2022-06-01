@@ -2,6 +2,7 @@ package com.yedam.finalPrj.product.web;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,24 +39,51 @@ public class ProductController {
 	// park
 //	매장 상세정보(선택한 매장페이지)
 	@RequestMapping(value = "/productView", method = RequestMethod.GET)
-	public String Storeview(ProductPagingCriteria cri,Model model,int store_no,HttpServletRequest request) {
-		cri.setStoreNo(store_no);
+	public String Storeview(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
+		System.out.println(cri.getStoreNo());
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
+		
+		if (user == null) {
+			model.addAttribute("products" ,dao.selectOne(cri));
+			model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
+			return "main/store/storeView";
+		}else {
 		System.out.println(user.getName());
+		
+		model.addAttribute("memNo",user.getMemNo());
 		model.addAttribute("name",user.getName());
 		model.addAttribute("email",user.getEmail());
 		model.addAttribute("tel",user.getTel());
 		model.addAttribute("address",user.getAddress());
 		model.addAttribute("products" ,dao.selectOne(cri));
-		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(store_no)));
+		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
 		return "main/store/storeView";
+		}
+	}
+//	결제정보전달
+	@RequestMapping("paymenInformation")
+	public String PaymentInformation(@RequestBody HashMap<String,String> vo) {
+		System.out.println("=================vo"+vo);
+		String address = vo.get("address");
+		String imp_uid = vo.get("imp_uid");
+		String name = vo.get("name");
+		String tel = vo.get("tel");
+		String merchant_uid = vo.get("merchant_uid");
+		String email = vo.get("email");
+		String time = vo.get("time");
+		
+		return "";
 	}
 	
 //  상품 검색
-	@RequestMapping(value = "searchProduct",method = {RequestMethod.POST})
+	@RequestMapping(value = "searchProduct",method = {RequestMethod.GET})
 	public String searchProduct(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
-		dao.search(cri, model,request);
+		model.addAttribute("products",	dao.searchPriceProdName( cri, model, request));
+		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
+
+
+//		type,store_no,keyword
 		return "main/store/storeView";
 	}
 	

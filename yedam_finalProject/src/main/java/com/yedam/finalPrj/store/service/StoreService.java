@@ -1,5 +1,6 @@
 package com.yedam.finalPrj.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.yedam.finalPrj.member.service.MemberVO;
 import com.yedam.finalPrj.review.service.ReviewVO;
 import com.yedam.finalPrj.store.vo.jo.ProductReservationVO;
 import com.yedam.finalPrj.store.vo.jo.ResProdListPagingCriteria;
@@ -18,7 +20,7 @@ public interface StoreService {
 //	Park
 	//매장등록신청
 	String regist(Store store, HttpServletRequest request, MultipartFile multi, Model model); 
-	
+	String checkStoreNo(MemberVO mem, HttpServletRequest request,Model model);
 	void searchApprovalList(StorePagingCriteria cri, Model model,HttpServletRequest request);
 	List<Store> selectStoreRegList(StorePagingCriteria cri,HttpServletRequest request); //매장등록신청 목록조회
 	List<Store> searchStoreName(StorePagingCriteria cri,HttpServletRequest request);
@@ -27,7 +29,8 @@ public interface StoreService {
 	int totalApprovalStoreNameCnt(StorePagingCriteria cri);
 	int totalApprovalNameCnt(StorePagingCriteria cri);
 	int totalBlankCnt(StorePagingCriteria cri);
-	
+	void updateStatus(List<HashMap<String, String>> vo); //관리자-> 매장 신청 승인 및 거절
+
 //	매장 들어갈 시 리스트 출력
 	List<Store> storeList(StorePagingCriteria cri);
 
@@ -74,12 +77,17 @@ public interface StoreService {
 	 int storeCnt(ResProdListPagingCriteria cri); // 매장 이름 검색시 총 매장 개수
 	 int prodNameCnt(ResProdListPagingCriteria cri);  // 상품명이 포함된 총 예약건 수
 //리뷰페이지 상세에 같이 출력
-	 public ReviewVO reviewLoad(int revNo); 
+	 public ReviewVO reviewLoad(int selectedResNo); 
 //예약 취소
+
 	 int CancelRes(int prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
 
 	int deleteReply(int revNo);
 	 
+
+	 int CancelRes(int prodResNo); // product_reservation테이블에서 결제상태 'N'으로, 
+	 int CancelRes2(int storeNo, List<String> prodNo); //reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가
+
 //		Yoon
 		
 		
