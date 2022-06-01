@@ -94,57 +94,75 @@
 <jsp:useBean id="today" class="java.util.Date" />
 </head>
 <body>
-View페이징
-<div>
-<pre>매장번호;${exhibitionView.exNo },
-멤버번호;${exhibitionView.memNo },
-이름;${exhibitionView.name },
-쇼룸;${exhibitionView.showRoom },
-날짜;${sta } ~ ${end },
-카테고리;${exhibitionView.category }
-</pre>
-</div>
-
-<div>
-여기는댓글.
-</div>
-
-<!-- 	메인모달 -->
-	<div class="modal"> 
-		<div class="modal_body">
-			<div id ="관람일"><input type = "text" id = "exDate"> </div>
-			<div id = "ticketAmt">수량 <input type =number id = "ticketCount"  placeholder="수량을 입력하세요.:)" max="30" min="0" style="width:150px;"> </div>
-			<div id = "modalButton"><button class = "btn-sub-popup">결제하기</button></div>
+<div class = "row justify-content-center">
+	<div class = "col-8">
+		<h3 class="display-3">View페이지</h3>
+		<hr>
+	
+		
+		<div>
+		<pre>
+		매장번호;${exhibitionView.exNo },
+		멤버번호;${exhibitionView.memNo },
+		이름;${exhibitionView.name },
+		쇼룸;${exhibitionView.showRoom },
+		날짜;${sta } ~ ${end },
+		카테고리;${exhibitionView.category }
+		</pre>
 		</div>
-	</div> 
+		
+		
+		
+		
+		
+		<div>
+		여기는댓글.
+		</div>
 	<button class="btn-open-popup" >예약하기</button>
+
+
+
+
+
+	<!-- 	메인모달 -->
+		<div class="modal"> 
+			<div class="modal_body">
+				<div id ="관람일"><input type = "text" id = "exDate"> </div>
+				<div id = "ticketAmt">수량 <input type =number id = "ticketCount"  placeholder="수량을 입력하세요.:)" max="30" min="0" style="width:150px;"> </div>
+				<div id = "modalButton"><button class = "btn-sub-popup">결제하기</button></div>
+			</div>
+		</div> 
+		
+
 	
 <!-- 	서브모달 -->
-	<form id = "frm" >
-	<div class="sub_modal">
-		<div class="sub_modal_body">
-			<p>예약정보확인</p>
-			<p>-------------------------------------------------------------</p>
-			<p>예약일			: <input type="text" name="exDate" value="" disabled></p>
-			<p>카테고리			: ${exhibitionView.category }</p>
-			<p>전시명			: ${exhibitionView.name } </p>
-			<p>예약자명			: ${member.name }</p>
-			<p>예약자  연락처	: ${member.tel }</p>
-			<p>수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></p>
-			<p>결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></p>
-			<button onclick = "payment()" >결제하기</button>
-			
-			
-			
-			
+		<form id = "frm" >
+		<div class="sub_modal">
+			<div class="sub_modal_body">
+				<p>예약정보확인</p>
+				<p>-------------------------------------------------------------</p>
+				<p>예약일			: <input type="text" name="exDate" value="" disabled></p>
+				<p>카테고리			: ${exhibitionView.category }</p>
+				<p>전시명			: ${exhibitionView.name } </p>
+				<p>예약자명			: ${member.name }</p>
+				<p>예약자  연락처	: ${member.tel }</p>
+				<p>수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></p>
+				<p>결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></p>
+				<button onclick = "payment()" >결제하기</button>
+				
+				
+				
+				
+			</div>
+			<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
+			<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
+			<input type = "hidden" name="status" value ="N">
+			<input type = "hidden" name="category" value ="${exhibitionView.category }">
+			<input type ="hidden" id = "price" value ="${exhibitionView.price }">
 		</div>
-		<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
-		<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
-		<input type = "hidden" name="status" value ="N">
-		<input type = "hidden" name="category" value ="${exhibitionView.category }">
-		<input type ="hidden" id = "price" value ="${exhibitionView.price }">
+		</form>
 	</div>
-	</form>
+</div>
 <script>
 
 // 모달처리
