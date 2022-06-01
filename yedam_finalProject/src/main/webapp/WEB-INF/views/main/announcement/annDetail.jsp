@@ -20,7 +20,13 @@
 		formObj.submit();
 	}
 	
-
+	function fn_zipFileDown(fileNo){
+		var formObj = $("form[name='readForm']");
+		$("#FILE_NO").attr("value", fileNo);
+		formObj.attr("action", "zipFileDown");
+		formObj.submit();
+	}
+	
 </script>
 <div class="row justify-content-center">
 	<hr>
@@ -74,8 +80,12 @@
 						<div class="mb-3  display-6">파일 목록</div>
 						<div>
 							<c:forEach var="file" items="${file}">
-								<a class="form-control" style="width:350px" href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME} (${file.FILE_SIZE}kb)</a><br>
+								<td><input type="checkbox" name="" value="${file.FILE_NO}"><a class="form-control" style="width:350px" href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORIGINAL_NAME} (${file.FILE_SIZE}kb)</a></td><br>
 							</c:forEach>
+							<div>zip으로 다운 이벤트 걸꺼 들어올곳</div>
+							<form action="zipFileDown">
+								<input type="submit">
+							</form>
 						</div>
 			</div>
 			
