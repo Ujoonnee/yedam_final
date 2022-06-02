@@ -267,11 +267,11 @@ public class StoreServiceImpl implements StoreService{
 //	Hong
 
 
-//	@Override
-//	public int deleteReply(int revNo) {
-//		int result = map.deleteReply(revNo);
-//		return result;
-//	}
+	@Override
+	public int deleteReply(int revNo) {
+		int result = map.deleteReply(revNo);
+		return result;
+	}
 
 
 	

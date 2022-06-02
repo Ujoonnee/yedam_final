@@ -202,22 +202,22 @@
 
 	
 	 
-	$(document).on('click', '.delBtn', function(e){
-		e.preventDefault();
-		let replyId = $(this).attr("href");
-		
-		$.ajax({
-			data : {
-				replyId : replyId,
-				revNo : '${reviewList.revNo}'
-			},
-			url : '/delete',
-			type : 'POST',
-			success : function(result){
-					alert('삭제가 되었습니다.')
-			}
+		$(document).on('click', '.delBtn', function(e){
+			e.preventDefault();
+			let replyId = $(this).attr("href");
+			
+			$.ajax({
+				url : '${pageContext.request.contextPath}/store/delete',
+				method : 'POST',
+				data : {
+					revNo : '${reviewList.revNo}'
+				},
+				success : () => location.reload()
+			});
 		});
-	});
+
+	
+	
 	
 </script>
 </body>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.member.service.MemberVO;
@@ -135,11 +136,11 @@ public class StoreController {
 //	Hong
 
 //	댓글 삭제
-//	@PostMapping("delete")
-//	@ResponseBody
-//	public void replyDelete(String revNo) {
-//		service.deleteReply(Integer.parseInt(revNo));
-//
+	@PostMapping("delete")
+	@ResponseBody
+	public void replyDelete(String revNo) {
+		service.deleteReply(Integer.parseInt(revNo));
+	}
 //	public void replyDeletePOST(com.yedam.finalPrj.store.vo.jo.ProductReservationVO vo) {
 //		service.deleteReply(vo);
 //

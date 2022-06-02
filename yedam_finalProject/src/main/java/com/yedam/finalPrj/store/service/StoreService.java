@@ -51,6 +51,7 @@ public interface StoreService {
 //		Hong
 
 //		댓글 삭제
+	 public int deleteReply(int revNo);
 	 
 
 //		Jo
