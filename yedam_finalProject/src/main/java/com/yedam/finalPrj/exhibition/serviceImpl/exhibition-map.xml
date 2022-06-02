@@ -154,7 +154,14 @@
 	<select id="selectProviderReservationList" parameterType="ExhibitionReservationVO" resultType="ExhibitionReservationVO">
 		SELECT e.*, GET_CODE_NAME(category) AS category_code_name, GET_CODE_NAME(payment_status) AS payment_status_code_name
 		FROM exhibition_reservation e
-		WHERE ex_no=#{exNo} AND mem_no=#{memNo}
+		WHERE ex_no=#{exNo}
+	</select>
+	
+	<!-- 예약 상세 -->
+	<select id="selectReservation" parameterType="ExhibitionReservationVO" resultType="ExhibitionReservationVO">
+		SELECT e.*, GET_CODE_NAME(category) AS category_code_name, payment_status
+		FROM exhibition_reservation e
+		WHERE ex_res_no = ${exResNo}
 	</select>
 	
 <!-- 	성준 -->

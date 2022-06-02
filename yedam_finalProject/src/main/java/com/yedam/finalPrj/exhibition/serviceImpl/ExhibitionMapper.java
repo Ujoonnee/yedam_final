@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
+import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
@@ -41,6 +42,7 @@ public interface ExhibitionMapper {
 	ExhibitionVO selectRegistrationDetail(int exNo);
 	List<ExhibitionVO> selectProviderExhibitionList(MemberVO vo);
 	List<HongExhibitionReservationVO> selectProviderReservationList(HongExhibitionReservationVO vo);
+	ExhibitionReservationVO selectReservation(ExhibitionReservationVO vo);
 	
 	
 	// 성준
