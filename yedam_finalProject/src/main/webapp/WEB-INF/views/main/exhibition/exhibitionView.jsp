@@ -257,6 +257,7 @@
 		
 		
 		if (sub_modal.classList.contains('show')) {
+			modal.style.overflow = 'hidden';
 	        body.style.overflow = 'hidden';
 	      }
 	});

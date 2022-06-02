@@ -10,72 +10,96 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
-<!-- body 헤더 -->
-<div align = "center" id ="container">
-	<section id ="page_header" class="single-page-header">
-		<div class="container">
-			<h2>매장목록</h2>
-		 </div>
-	</section>
-<!-- 	검색창 -->
-	<div>
-		<div>
-			<button type="button" id = "location_now" name ="location_now" onclick = "locationN()">현재 위치</button>
+<div class = "row justify-content-center">
+	<div class = "col-8">
+	<!-- body 헤더 -->
+		<div align = "center" id ="container">
+			<section id ="page_header" class="single-page-header">
+				<div class="container">
+					<h3 class="display-4" style="text-align: left;" ><a href = "http://localhost/finalPrj">메인</a> > <a href="list">매장</a> </h3>
+				 </div>
+			</section>
+		<!-- 	검색창 -->
+		<hr>
+		<p></p>
+		<p></p>
+		<p></p>
+		
+			<div>
+				<form action ="searchList" method="get" name="searchForm" autocomplete="off">
+				<div class = "col-lg-10"> 
+		<div class="card border-0 shadow mb-4">
+		<div class="card-body">
+					<div class="col-lg-2" style = "float : left" >
+						<select id="type" name="type" class = "form-select"
+							onchange="allSelected()">
+								<option value="1">전체</option>
+								<option value="name"<c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장명</option>
+								<option value="store_cat"<c:out value="${paging.cri.type eq 'store_cat'? 'selected': '' }" />>카테고리</option>
+								<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
+						</select>
+					</div>
+					
+					
+					<div class= " col-lg-8" style = "float : left; padding-left: 20px">
+						<input type="text" id="keyword" name="keyword" class="form-control" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
+					</div>
+						<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
+						<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
+						<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
+						<button id = "searchBtn" class="btn btn-outline-gray-500" >검색</button>&nbsp;
+				</div>
 		</div>
-		<form action ="searchList" method="get" name="searchForm" autocomplete="off">
-			<select id="type" name="type"
-				onchange="allSelected()">
-					<option value="1">전체</option>
-					<option value="name"<c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장명</option>
-					<option value="store_cat"<c:out value="${paging.cri.type eq 'store_cat'? 'selected': '' }" />>카테고리</option>
-					<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
-			</select>
-			<input type="text" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
-			<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-			<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
-			<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
-			<button id = "searchBtn" >버튼</button>&nbsp;
-		</form>
-	</div>
-	<!-- 	매장목록 -->
-	<div>
-		<form id ="frm" method ="get">
-			<table id ="contents">
-				<c:if test="${empty storeList }">
-					<tr><td align ="center">등록된 매장이 없습니다.</td></tr>
+		</div>
+						<p></p>
+						<p></p>
+					<div style="clear: left;">
+						<button type="button" id = "location_now" name ="location_now" class="btn btn-lg  btn-outline-gray-500"  onclick = "locationN()">현재 위치</button>
+					</div>
+				</form>
+			</div>
+			<p></p>
+			<p></p>
+			<p></p>
+			<!-- 	매장목록 -->
+			<div>
+				<form id ="frm" method ="get">
+					<table id ="contents">
+						<c:if test="${empty storeList }">
+							<tr><td align ="center">등록된 매장이 없습니다.</td></tr>
+						</c:if>
+						
+						<c:if test="${not empty storeList }">
+							<c:forEach items="${storeList }" var = "list">
+								<tr height="150px" onclick ="storeView(${list.storeNo})" >
+									<td align = "center"><img src="/store/${list.thumbnail } " class="selected_img"  height="150px" width="150px"></td>
+									<td align = "center">${list.name }</td>
+									<td align = "center">${list.address }</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</table>
+					<input type = "hidden" id = "storeNo" name ="storeNo">
+				</form>
+			</div>
+			
+			<div id="pagingDiv">
+				<!-- 이전페이지 -->
+				<c:if test="${paging.prev }">
+					<a href="${paging.startPage - 1}">이전</a>
 				</c:if>
-				
-				<c:if test="${not empty storeList }">
-					<c:forEach items="${storeList }" var = "list">
-						<tr height="150px" onclick ="storeView(${list.storeNo})" >
-							<td align = "center"><img src="/store/${list.thumbnail } " class="selected_img"  height="150px" width="150px"></td>
-							<td align = "center">${list.name }</td>
-							<td align = "center">${list.address }</td>
-						</tr>
-					</c:forEach>
+					<!-- 1 2 3 4   -->
+				<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
+				&nbsp;<a href="${num }">${num }</a>&nbsp;
+				</c:forEach>
+					<!-- 다음페이지 -->	
+				<c:if test="${paging.next }">
+					<a id="next" href="${paging.endPage + 1 }">다음</a>
 				</c:if>
-			</table>
-			<input type = "hidden" id = "storeNo" name ="storeNo">
-		</form>
-	</div>
-	
-	
-	<div id="pagingDiv">
-		<!-- 이전페이지 -->
-		<c:if test="${paging.prev }">
-			<a href="${paging.startPage - 1}">이전</a>
-		</c:if>
-			<!-- 1 2 3 4   -->
-		<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-		&nbsp;<a href="${num }">${num }</a>&nbsp;
-		</c:forEach>
-			<!-- 다음페이지 -->	
-		<c:if test="${paging.next }">
-			<a id="next" href="${paging.endPage + 1 }">다음</a>
-		</c:if>
+			</div>
+		</div>
 	</div>
 </div>
-
 <script>
 
 	$(document).ready(function(){
