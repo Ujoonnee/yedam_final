@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionReservationVO;
@@ -37,7 +40,7 @@ public interface ExhibitionService {
 	
 	
 	// 우준	
-	int insertExhibition(ExhibitionVO vo);														// 전시 등록 신청
+	String insertExhibition(ExhibitionVO vo, MultipartFile multi, Model model);														// 전시 등록 신청
 	List<ExhibitionVO> getRegistrationList(HttpServletRequest request);							// 전시 등록 신청 목록
 	ExhibitionVO getRegistration(int exNo);														// 전시 등록 신청 상세
 	List<ExhibitionVO> getExhibitionList(HttpServletRequest request);							// 승인된 전시 목록

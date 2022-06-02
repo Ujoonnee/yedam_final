@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
@@ -143,6 +145,7 @@ public class ExhibitionController {
 		
 		HttpSession session = request.getSession();
 		
+		
 		model.addAttribute("member", (MemberVO) session.getAttribute("user"));
 
 		return "provider/exhibition/register";
@@ -150,12 +153,16 @@ public class ExhibitionController {
 
 	// 전시 등록 신청
 	@PostMapping("provider/register")
-	public String register(ExhibitionVO vo, HttpServletRequest request) {
+	public String register(ExhibitionVO vo, HttpServletRequest request,@RequestParam("fileUpload") MultipartFile multi,Model model) {
+		
+		System.out.println("multtipart==========================="+multi);
+		
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		vo.setMemNo(user.getMemNo());
+
 		
-		service.insertExhibition(vo);
+		service.insertExhibition(vo,multi,model);
 
 		// TODO 사업자의 등록 신청 목록 페이지로 이동시킬 것	
 		return "redirect:registration";
