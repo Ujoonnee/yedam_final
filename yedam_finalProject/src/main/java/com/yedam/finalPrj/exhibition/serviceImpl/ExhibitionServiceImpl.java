@@ -102,8 +102,8 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	}
 	//리뷰로드
 	@Override
-	public ReviewVO reviewLoad(int selectedResNo) {
-		return map.reviewLoad(selectedResNo);
+	public ReviewVO selectReview(int selectedResNo) {
+		return map.selectReview(selectedResNo);
 	}
 	//예약취소
 	@Override
