@@ -15,6 +15,8 @@ public interface ReviewService {
 	public int reviewUpdate(ReviewVO vo);
 //	리뷰 삭제
 
+	//상품예약 답변등록.
 	void replyInsert(int prodResNo, String replyContent);
-	
+	//전시리뷰 답변 등록.
+	void exhReplyInsert(int resNo, String replyContent);
 }

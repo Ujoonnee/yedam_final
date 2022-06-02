@@ -44,6 +44,7 @@ public class ProductController {
 	@RequestMapping(value = "/productView", method = RequestMethod.GET)
 	public String Storeview(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
 		System.out.println(cri.getStoreNo());
+		System.out.println(cri.getStoreName());
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		
@@ -63,7 +64,8 @@ public class ProductController {
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
 		
 		//By JO, 매장명 받아서 review 목록 출력.
-		
+		System.out.println("++++++++++++++++++++++++");
+		System.out.println(cri.getStoreName()); 
 		model.addAttribute("reviewList", dao.selectReviewList(cri.getStoreName()));
 		return "main/store/storeView";
 		}
@@ -106,6 +108,7 @@ public class ProductController {
 		if(!user.getMemType().equals("00103")) {
 			return "main/unusalApproach";
 		}else {
+//			product 가 null이면 매장이없음, product가 size가 0이면 제품이 없음. 
 			List<Product> productList = dao.myStoreProductManegement(cri,request);
 			model.addAttribute("ProductList",productList);
 			if (productList != null) {

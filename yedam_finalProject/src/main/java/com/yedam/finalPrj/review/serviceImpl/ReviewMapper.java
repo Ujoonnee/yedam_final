@@ -21,5 +21,6 @@ public interface ReviewMapper {
 	
 //답변 등록
 	void replyInsert(@Param("prodResNo") int prodResNo, @Param("replyContent") String replyContent);
-	
+//전시답변 등록
+	void exhReplyInsert(@Param("resNo") int resNo,@Param("replyContent") String replyContent);
 }

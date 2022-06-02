@@ -340,7 +340,7 @@ public class ProductServiceImpl implements ProductService {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		String memType = user.getMemType();
-		System.out.println("======serviceImpl"+user);
+		System.out.println("======serviceImpl	"+user);
 		return map.proReSelectAll(user);
 	}
 	@Override

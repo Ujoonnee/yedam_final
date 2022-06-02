@@ -19,6 +19,7 @@ import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PageMaker;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
+import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPageMaker;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
@@ -201,9 +202,13 @@ public class ExhibitionController {
 
 	// TODO 예약정보 상세
 	@RequestMapping("provider/{exNo}/reservation/{exResNo}")
-	public String getReservationDetail(@PathVariable("exNo") int exNo, @PathVariable("exResNo") int exResNo ) {
+	public String getReservationDetail(@PathVariable("exNo") int exNo, @PathVariable("exResNo") int exResNo, Model model) {
+		ExhibitionReservationVO vo = new ExhibitionReservationVO();
+		vo.setExResNo(exResNo);
 		
-		return "";
+		model.addAttribute("reviewList", service.selectReview(exResNo));
+		model.addAttribute("res", service.getReservation(vo));
+		return "provider/exhibition/reservation";
 	}
 
 	// 사업자 끝 ===================
