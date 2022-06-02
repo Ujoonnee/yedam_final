@@ -49,7 +49,7 @@ public interface ExhibitionService {
 	int totalExCnt(ParkExhibitionPagingCriteria cri); //페이징 위한 전시 개수 
 	int listTotalCnt(ParkExhibitionPagingCriteria cri);
 	ParkExhibitionVO findExVO(ParkExhibitionVO vo); //	전시 상세 페이지
-	int insertExhibitionReservation(ParkExhibitionVO vo);//예약 정보 등록
+	int insertExhibitionReservation(ParkExhibitionReservationVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인
 	void cancelOneReservation(int exResNo); //예약취소
 	

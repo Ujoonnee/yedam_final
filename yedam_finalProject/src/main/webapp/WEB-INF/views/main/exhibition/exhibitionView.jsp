@@ -105,7 +105,6 @@
 		<div class="col" style="width: 35%; padding: 15px">
 	          <div class="card shadow-sm">
 	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></svg>
-	            쇼룸 : ${exhibitionView.showRoom }
 	          </div>
 	    </div>
 		<div style="padding : 25px;">
@@ -152,7 +151,7 @@
 			<div class="modal_body">
 				<div id ="관람일"><input type = "text" id = "exDate"> </div>
 				<div id = "ticketAmt">수량 <input type =number id = "ticketCount"  placeholder="수량을 입력하세요.:)" max="30" min="0" style="width:150px;"> </div>
-				<div id = "modalButton"><button class = "btn-sub-popup">결제하기</button></div>
+				<div id = "modalButton"><button class = "btn-sub-popup">결제정보확인</button></div>
 			</div>
 		</div> 
 		
@@ -163,15 +162,15 @@
 		<div class="sub_modal">
 			<div class="sub_modal_body">
 				<p>예약정보확인</p>
-				<p>-------------------------------------------------------------</p>
-				<p>예약일			: <input type="text" name="exDate" value="" disabled></p>
+				<p>------------------------------------------------</p>
+				<p>예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></p>
 				<p>카테고리			: ${exhibitionView.category }</p>
 				<p>전시명			: ${exhibitionView.name } </p>
 				<p>예약자명			: ${member.name }</p>
 				<p>예약자  연락처	: ${member.tel }</p>
 				<p>수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></p>
 				<p>결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></p>
-				<button onclick = "payment()" >결제하기</button>
+				<button id="payBtn" >결제하기</button>
 				
 				
 				
@@ -187,8 +186,105 @@
 
 </div>
 </div>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<script type="text/javascript">
+// 	결제 function
+// var IMP = window.IMP;
+// IMP.init('imp73462839');
 
-<script>
+// 	function payment(){
+// 		alert("payment");
+		
+// 		IMP.request_pay({
+// 			pg: "html5_inicis",
+// 			pay_method: "card",
+// 			merchant_uid: 'merchant_' + new Date().getTime()
+// 		},function (rsp){
+// 	//			결제성공
+// 			console.log(rsp);
+// 			if (rsp.success){
+// 				console.log(rsp.success);
+// 	        	console.log(rsp);
+// 	        	  jQuery.ajax({
+// 	        		  url: "paymenInformation", // 예: https://www.myservice.com/payments/complete
+// 			          method: "POST",
+// 			          headers: { "Content-Type": "application/json" },
+// 	        		  data : JSON.stringify({
+// 	        			  impUid: rsp.imp_uid,			//결제번호
+// 			              merchantUid: rsp.merchant_uid,  //주문번호
+// 	        		  })
+// 	        	  }).done(function (data){
+// 	        		  console.log(data);
+// 	        	  })
+// 	        	  alert("결제성공");
+	        	
+// 			}else {
+// 	        	console.log(data)
+// 	            // 결제 실패 시 로직,
+// 	        	alert('결제실패')
+// 	       }
+// 		});
+		
+		
+// 		alert('아임포트 끝')
+		
+// 		var queryString = $('#frm').serialize();
+		
+// 		$.ajax({
+// 			url : "payment",
+// 			type : "post",
+// 			data : {
+// 				"exhibitionReservation" : queryString
+// 			},
+// 			success: function(result){
+// 				alert("result : " + result);				
+// 			},
+// 			error:function(error){
+// 				alert("error : "+error);
+// 			}
+// 		})
+// 	}
+
+	
+	$('#payBtn').click(function(){
+		const memNo= '${user.memNo}';
+		
+		
+		if (memNo == '') {
+			alert("로그인 후 사용해주세요.")
+			return;
+		}else{
+			alert("시작");
+			var amountVal = document.getElementById('amount').value;
+			var paymentAmtVal = document.getElementById('paymentAmt').value;
+			var exDateVal = document.getElementById('exDate').value;
+			
+			$.ajax({
+				url : "payment",
+				type : "post",
+				data : {
+					"exNo" : ${exhibitionView.exNo },
+					"memNo" : memNo	,
+					"exDate" : exDateVal,
+					"amount" : amountVal,
+					"paymentAmt" : paymentAmtVal
+				},
+				success: function(result){
+					alert("결제성공");				
+					console.log(result);		
+					location.reload();
+	
+				},
+				error:function(error){
+					alert("error : "+error);
+					console.log(error);
+				}
+			})
+		
+		}
+	})
+		
+
 
 // 모달처리
 
@@ -273,24 +369,7 @@
 	
 	
 	
-	// 	결제 function
 
-	function payment(){
-		var queryString = $('#frm').serialize();
-		$.ajax({
-			url : "payment",
-			type : "post",
-			data : {
-				"exhibitionReservation" : queryString
-			},
-			success: function(result){
-				alert("result : " + result);				
-			},
-			error:function(error){
-				alert("error : "+error);
-			}
-		})
-	}
 
 	
 	 $(document).ready(function () {

@@ -178,10 +178,14 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		// TODO Auto-generated method stub
 		return map.listTotalCnt(cri);
 	}
+	
 //	예약 정보 등록
 	@Override
-	public int insertExhibitionReservation(ParkExhibitionVO vo) {
-		// TODO Auto-generated method stub
+	public int insertExhibitionReservation(ParkExhibitionReservationVO vo) {
+		if(vo.getAmount() == 0) {
+			vo.setPaymentStatus("N");
+		}
+		vo.setPaymentStatus("Y");
 		return map.insertExhibitionReservation(vo);
 	}
 //	예약정보확인

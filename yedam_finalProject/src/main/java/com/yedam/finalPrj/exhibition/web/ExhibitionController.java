@@ -22,6 +22,7 @@ import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPageMaker;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
+import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
 
@@ -221,7 +222,7 @@ public class ExhibitionController {
 
 //	전시 목록 검색
 	@RequestMapping(value = "searchExhibition", method = { RequestMethod.GET })
-	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
+	public String searchEx(ParkExhibitionPagingCriteria cri, Model model,HttpServletRequest request) {
 		model.addAttribute("exhibitionList", service.searchEx(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
 		return "main/exhibition/exhibitionList";
@@ -230,18 +231,24 @@ public class ExhibitionController {
 //	전시 상세보기
 	@RequestMapping(value = "detailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
-		System.out.println("===========vo"+vo.getExNo());
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		System.out.println("=========user"+user);
 		
+		model.addAttribute("member", user);
 		model.addAttribute("exhibitionView", service.findExVO(vo));
 		return "main/exhibition/exhibitionView";
 	}
 
 //	결제하기
 	@RequestMapping(value = "payment", method = RequestMethod.POST)
-	public String payment(Model model, ParkExhibitionVO vo) {
+	public String payment(Model model, ParkExhibitionReservationVO vo,ParkExhibitionVO exhibitionVo) {
 		System.out.println("paymentDo");
 		service.insertExhibitionReservation(vo);
-		return "";
+		
+		exhibitionVo.setExNo(vo.getExNo());
+		model.addAttribute("exhibitionView", service.findExVO(exhibitionVo));
+		return "main/exhibition/exhibitionView";
 	}
 
 	
