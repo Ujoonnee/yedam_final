@@ -142,7 +142,7 @@
 			<div align="right">
 				<button type="button" class="update_btn btn btn-tertiary">수정</button>
 				&nbsp;&nbsp;
-				<button type="button" class="btn btn-gray-200" id="list" onclick="location.href='list'">취소</button>
+				<button type="button" class="btn btn-gray-200" id="list" onclick="location.href='adminList'">취소</button>
 			</div>
 		</form>
 </section>
@@ -158,7 +158,7 @@
 	$('#list').click(function(e){
 			e.preventDefault();
 			var $form = $('<form></form>');
-			$form.attr('action','list');
+			$form.attr('action','adminList');
 			$form.attr('method','get');
 			$form.appendTo('body');
 			

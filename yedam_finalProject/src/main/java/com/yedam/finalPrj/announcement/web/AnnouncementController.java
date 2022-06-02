@@ -76,16 +76,16 @@ public class AnnouncementController {
 
 	// 공지사항 등록
 
-	@RequestMapping(value = "admin/annInsert", method = RequestMethod.POST)
+	@RequestMapping(value = "annInsert", method = RequestMethod.POST)
 	public String anninsert(AnnouncementVO announcement, MultipartHttpServletRequest fileRequest) throws IOException {
 		System.out.println(fileRequest.getSession().getServletContext().getRealPath("/resources/announcement"));
 		service.annInsert(announcement, fileRequest);
 
-		return "redirect:list";
+		return "redirect:adminList";
 	}
 
 	// 공지사항 등록하는 페이지
-	@RequestMapping("admin/insertPage")
+	@RequestMapping("insertPage")
 	public String insertPage() {
 
 		return "admin/announcement/insertPage";
@@ -93,7 +93,7 @@ public class AnnouncementController {
 	}
 
 	// 공지사항 상세페이지(일반)
-	@RequestMapping("main/annDetail")
+	@RequestMapping("mainAnnDetail")
 	public String findOne(AnnouncementVO announcement, Model model,
 			@ModelAttribute("cri") AnnouncementPagingCriteria cri) throws Exception {
 
@@ -112,7 +112,7 @@ public class AnnouncementController {
 	}
 
 	// 공지사항 수정페이지이동
-	@RequestMapping("admin/annDetail")
+	@RequestMapping("annDetail")
 	public String annDetail(AnnouncementVO announcement, Model model) throws Exception {
 
 		model.addAttribute("announcement", service.findOne(announcement));
@@ -126,17 +126,17 @@ public class AnnouncementController {
 	}
 
 	// 공지사항 수정
-	@RequestMapping("admin/annUpdate")
+	@RequestMapping("annUpdate")
 	public String annUpdate(AnnouncementVO announcement, @RequestParam(value = "fileNoDel[]") String[] files,
 			@RequestParam(value = "fileNameDel[]") String[] fileNames, MultipartHttpServletRequest fileRequest,
 			@ModelAttribute AnnouncementPagingCriteria cri, FileVO file) throws Exception {
 		service.annUpdate(announcement, files, fileNames, fileRequest);
 
-		return "redirect:list?pageNum=" + cri.getPageNum();
+		return "redirect:adminList?pageNum=" + cri.getPageNum();
 	}
 
 	// 공지사항 다중 수정
-	@RequestMapping("admin/statusUpdates")
+	@RequestMapping("statusUpdates")
 	public String statusUpdates(String[] lists, String status) throws Exception {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -146,11 +146,11 @@ public class AnnouncementController {
 		System.out.println("list------------------------------------------" + lists.length);
 		System.out.println("status------------------------------------------" + status);
 		service.statusUpdates(paramMap);
-		return "redirect:list";
+		return "redirect:adminList";
 	}
 
 //	상단고정 해제	
-	@RequestMapping("admin/topStatus")
+	@RequestMapping("topStatus")
 	public String topStatus(String[] lists, String status) throws Exception {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -159,18 +159,18 @@ public class AnnouncementController {
 		paramMap.put("list", lists);
 		service.statusUpdates(paramMap);
 
-		return "redirect:list";
+		return "redirect:adminList";
 	}
 
 //  파일 업데이트
-	@RequestMapping("admin/fileUpdate")
+	@RequestMapping("fileUpdate")
 	public void fileUpdate(FileVO file, HttpServletRequest fileRequest) {
 
 		service.fileUpdate(file, fileRequest);
 	}
 
-//	상단삭제
-	@RequestMapping("admin/statusDelete")
+//	삭제
+	@RequestMapping("statusDelete")
 	public String statusDelete(String[] lists, String status) throws Exception {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -180,11 +180,11 @@ public class AnnouncementController {
 
 		service.statusUpdates(paramMap);
 
-		return "redirect:list";
+		return "redirect:adminList";
 	}
 
 	// 파일 다운로드
-	@RequestMapping("main/fileDown")
+	@RequestMapping("fileDown")
 	public void fileDown(@RequestParam Map<String, Object> maps, HttpServletResponse response,
 			HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = service.selectFileInfo(maps);
