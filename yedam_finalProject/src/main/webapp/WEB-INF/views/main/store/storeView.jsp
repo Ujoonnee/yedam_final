@@ -69,10 +69,14 @@
 		
 		<input type="hidden" id ="storeNo" name = "storeNo" value="${products[0].storeNo }"> 
 		
-		<button id = "searchBtn" >버튼</button>&nbsp;
 	</div>		
 	</form>
-		<button  onclick="resetValue()">초기화</button>
+	<div class="row">
+		<div  class="ms-6 row col-6 justify-content-center" style="width:300px">
+			<button id = "searchBtn" class="btn btn-tertiary col-4">버튼</button>&nbsp;
+			<button class="btn btn-tertiary col-4" onclick="resetValue()">초기화</button>
+		</div>
+	</div>
 	<!-- 상품 목록 -->
 	<table id = "productList">
 		<c:if test = "${empty products }">
