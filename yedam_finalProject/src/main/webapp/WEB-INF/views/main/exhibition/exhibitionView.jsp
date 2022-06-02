@@ -254,10 +254,9 @@
 		
 		
 		sub_modal.classList.toggle('show');
-		
+		modal.classList.replace('show','hidden');
 		
 		if (sub_modal.classList.contains('show')) {
-			modal.style.overflow = 'hidden';
 	        body.style.overflow = 'hidden';
 	      }
 	});
