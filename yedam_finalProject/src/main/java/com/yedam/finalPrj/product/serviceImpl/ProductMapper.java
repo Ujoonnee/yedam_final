@@ -39,7 +39,7 @@ public interface ProductMapper {
 	int myStoreProductCnt(ProductPagingCriteria cri); //내 상품에 제품 개수
 	int oneProductInsert(Product product); //단일상품 등록
 	
-	int getStoreNo(MemberVO vo); //회원번호로 storeNO조회
+	Integer getStoreNo(MemberVO vo); //회원번호로 storeNO조회
 	int productReservationInsert(ProductReservation vo);
 
 	

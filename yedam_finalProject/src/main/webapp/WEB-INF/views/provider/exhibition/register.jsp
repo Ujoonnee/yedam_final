@@ -5,7 +5,7 @@
 
 <h1>전시 등록 신청</h1>
 
-<form id="frm" action="register" method="post">
+<form id="frm" action="provider/register" method="post">
 	<table border="1">
 		<colgroup>
 			<col>

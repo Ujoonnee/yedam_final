@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
-import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
+import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
@@ -28,20 +28,20 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	// 예약목록 전체 조회
 	@Override
-	public List<ExhibitionReservationVO> selectAllExhibitionReservattion() {
+	public List<HongExhibitionReservationVO> selectAllExhibitionReservattion() {
 		// TODO Auto-generated method stub
 		return map.selectAllExhibitionReservattion();
 	}
 	
 	// 예약목록 단건 조회
 	@Override
-	public ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO) {
+	public HongExhibitionReservationVO selectOneExhibitionReservationVO(HongExhibitionReservationVO exhibitionReservationVO) {
 		// TODO Auto-generated method stub
 		return map.selectOneExhibitionReservationVO(exhibitionReservationVO);
 	}	
 
 	@Override
-	public ExhibitionReservationVO exDetail(int exResNo) {
+	public HongExhibitionReservationVO exDetail(int exResNo) {
 		// TODO Auto-generated method stub
 		return map.exDetail(exResNo);
 	}
@@ -55,7 +55,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	
 	@Override
-	public List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
+	public List<HongExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
 		// TODO Auto-generated method stub
 		return map.searchExhibitionByNo(exResNo);
 	}
@@ -145,10 +145,10 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 
 	// 선택한 전시의 예약자 목록
 	@Override
-	public List<ExhibitionReservationVO> getReservationList(int exNo, HttpServletRequest request) {
+	public List<HongExhibitionReservationVO> getReservationList(int exNo, HttpServletRequest request) {
 		MemberVO user = getCurrentUser(request);
 		
-		ExhibitionReservationVO vo = new ExhibitionReservationVO();
+		HongExhibitionReservationVO vo = new HongExhibitionReservationVO();
 		vo.setExNo(exNo);
 		vo.setMemNo(user.getMemNo());
 		

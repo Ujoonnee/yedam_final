@@ -104,10 +104,13 @@ public class ProductServiceImpl implements ProductService {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 //		System.out.println("myStoreProductManagement 에서 user세션값"+user.getMemNo());
-		int memNo = map.getStoreNo(user);
-//		System.out.println("getStoreNo : "+memNo);
-		cri.setStoreNo(memNo);
-		return map.myStoreProductManegement(cri);
+		Integer storeNo = map.getStoreNo(user);
+		if (storeNo != null) {
+			cri.setStoreNo(storeNo);
+			return map.myStoreProductManegement(cri);
+		} else {
+			return null;
+		}
 	}
 	@Override
 	public int myStoreProductCnt(ProductPagingCriteria cri,HttpServletRequest request) {
