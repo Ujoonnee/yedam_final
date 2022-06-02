@@ -108,14 +108,14 @@
 						<c:set var="buisnessName" value="공연" />
 					</c:when>
 					<c:when test="${user.buisnessType eq '00202'}">
-					<c:set var="buisness" value="exhibition" />
+						<c:set var="buisness" value="exhibition" />
 						<c:set var="buisnessName" value="전시" />
 					</c:when>
 					<c:when test="${user.buisnessType eq '00203'}">
-					<c:set var="buisness" value="facility" />
+						<c:set var="buisness" value="facility" />
 						<c:set var="buisnessName" value="시설" />
 					</c:when>
-					<c:when test="${user.buisnessType eq '00203'}">
+					<c:when test="${user.buisnessType eq '00204'}">
 						<c:set var="buisness" value="store" />
 						<c:set var="buisnessName" value="매장" />
 					</c:when>
@@ -132,7 +132,7 @@
 				</li>
 				
 				<li class="nav-item">
-					<a href="${pageContext.request.contextPath}/${buisness }/registration" class="nav-link">
+					<a href="${pageContext.request.contextPath}/${buisness }/provider/registration" class="nav-link">
 						<span class="sidebar-icon">
 							<svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
 						</span> 
@@ -141,12 +141,22 @@
 				</li>
 				
 				<li class="nav-item">
-					<a href="${pageContext.request.contextPath}/${buisness }/provider/exhibitionList" class="nav-link">
-						<span class="sidebar-icon">
-							<svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
-						</span> 
-						<span class="sidebar-text">내 ${buisnessName } 목록</span>
-					</a>
+					<c:if test="${buisness eq 'exhibition' }">
+						<a href="${pageContext.request.contextPath}/${buisness }/provider/exhibitionList" class="nav-link">
+							<span class="sidebar-icon">
+								<svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+							</span> 
+							<span class="sidebar-text">내 ${buisnessName } 목록</span>
+						</a>
+					</c:if>
+					<c:if test="${buisness eq 'store' }">
+						<a href="${pageContext.request.contextPath}/${buisness }/product/management" class="nav-link">
+							<span class="sidebar-icon">
+								<svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+							</span> 
+							<span class="sidebar-text">내 ${buisnessName } 관리</span>
+						</a>
+					</c:if>
 				</li>
 				
 				

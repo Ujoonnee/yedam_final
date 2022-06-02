@@ -102,9 +102,12 @@ public class ProductController {
 		if(!user.getMemType().equals("00103")) {
 			return "main/unusalApproach";
 		}else {
-			model.addAttribute("ProductList",dao.myStoreProductManegement(cri,request));
-			model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
-			return"provider/store/myProductManagement";
+			List<Product> productList = dao.myStoreProductManegement(cri,request);
+			model.addAttribute("ProductList",productList);
+			if (productList != null) {
+				model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
+			}
+			return "provider/store/myProductManagement";
 		}
 	}
 	
