@@ -24,7 +24,7 @@
 		<![CDATA[
 			SELECT *
 			FROM (SELECT /*+INDEX_DESC(vw_ex_re pk_board) */
-			                ROWNUM rn, ex_res_no, name, start_date, payment_status, payment
+			                ROWNUM rn, ex_res_no, name, ex_date, payment_status, payment_amt
 			      FROM vw_ex_re WHERE ROWNUM <= 10)
 			WHERE rn > 0
 		]]>

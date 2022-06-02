@@ -158,75 +158,36 @@
 
 	
 <!-- 	서브모달 -->
-		<form id = "frm" >
 		<div class="sub_modal">
 			<div class="sub_modal_body">
-				<p>예약정보확인</p>
-				<p>------------------------------------------------</p>
-				<p>예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></p>
-				<p>카테고리			: ${exhibitionView.category }</p>
-				<p>전시명			: ${exhibitionView.name } </p>
-				<p>예약자명			: ${member.name }</p>
-				<p>예약자  연락처	: ${member.tel }</p>
-				<p>수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></p>
-				<p>결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></p>
+				<form id = "frm" >
+					<p>예약정보확인</p>
+					<p>------------------------------------------------</p>
+					<p>예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></p>
+					<p>카테고리			: ${exhibitionView.category }</p>
+					<p>전시명			: ${exhibitionView.name } </p>
+					<p>예약자명			: ${member.name }</p>
+					<p>예약자  연락처	: ${member.tel }</p>
+					<p>수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></p>
+					<p>결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></p>
+				
+					<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
+					<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
+					<input type = "hidden" name="status" value ="N">
+					<input type = "hidden" name="category" value ="${exhibitionView.category }">
+					<input type ="hidden" id = "price" value ="${exhibitionView.price }">
+				</form>
 				<button id="payBtn" >결제하기</button>
-				
-				
-				
-				
 			</div>
-			<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
-			<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
-			<input type = "hidden" name="status" value ="N">
-			<input type = "hidden" name="category" value ="${exhibitionView.category }">
-			<input type ="hidden" id = "price" value ="${exhibitionView.price }">
 		</div>
-		</form>
 
 </div>
 </div>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script type="text/javascript">
 // 	결제 function
-// var IMP = window.IMP;
-// IMP.init('imp73462839');
 
-// 	function payment(){
-// 		alert("payment");
 		
-// 		IMP.request_pay({
-// 			pg: "html5_inicis",
-// 			pay_method: "card",
-// 			merchant_uid: 'merchant_' + new Date().getTime()
-// 		},function (rsp){
-// 	//			결제성공
-// 			console.log(rsp);
-// 			if (rsp.success){
-// 				console.log(rsp.success);
-// 	        	console.log(rsp);
-// 	        	  jQuery.ajax({
-// 	        		  url: "paymenInformation", // 예: https://www.myservice.com/payments/complete
-// 			          method: "POST",
-// 			          headers: { "Content-Type": "application/json" },
-// 	        		  data : JSON.stringify({
-// 	        			  impUid: rsp.imp_uid,			//결제번호
-// 			              merchantUid: rsp.merchant_uid,  //주문번호
-// 	        		  })
-// 	        	  }).done(function (data){
-// 	        		  console.log(data);
-// 	        	  })
-// 	        	  alert("결제성공");
-	        	
-// 			}else {
-// 	        	console.log(data)
-// 	            // 결제 실패 시 로직,
-// 	        	alert('결제실패')
-// 	       }
-// 		});
-		
-		
-// 		alert('아임포트 끝')
 		
 // 		var queryString = $('#frm').serialize();
 		
@@ -245,44 +206,94 @@
 // 		})
 // 	}
 
-	
-	$('#payBtn').click(function(){
+var IMP = window.IMP;
+IMP.init('imp73462839');
+
+
+$('#payBtn').click(() => requestPay() );
+
+
+function requestPay() {
+		
 		const memNo= '${user.memNo}';
+
 		
 		
 		if (memNo == '') {
 			alert("로그인 후 사용해주세요.")
 			return;
 		}else{
-			alert("시작");
-			var amountVal = document.getElementById('amount').value;
+			
+			
 			var paymentAmtVal = document.getElementById('paymentAmt').value;
 			var exDateVal = document.getElementById('exDate').value;
 			
-			$.ajax({
-				url : "payment",
-				type : "post",
-				data : {
-					"exNo" : ${exhibitionView.exNo },
-					"memNo" : memNo	,
-					"exDate" : exDateVal,
-					"amount" : amountVal,
-					"paymentAmt" : paymentAmtVal
-				},
-				success: function(result){
-					alert("결제성공");				
-					console.log(result);		
-					location.reload();
-	
-				},
-				error:function(error){
-					alert("error : "+error);
-					console.log(error);
-				}
-			})
+			var amountVal = document.getElementById('amount').value;
+			console.log(amountVal);
+			const tel= '${user.tel}';
+			const name= '${user.name}';
+			const email= '${user.email}';
+			const address= '${user.address}';
+			
+			
+		
+			
+			
+			
+			// IMP.request_pay(param, callback) 결제창 호출
+		    IMP.request_pay({ // param
+		        pg: "html5_inicis",
+		        pay_method: "card",
+		        merchant_uid:  'merchant_' + new Date().getTime(),
+		        name: "예담통합플랫폼 결제",
+		        amount: 100, //paymentAmtVal
+		        buyer_email: email,
+		        buyer_name: name,
+		        buyer_tel: tel,
+		        buyer_addr: address
+		    }, function (rsp) { // callback
+		        if (rsp.success) {
+		            // 결제 성공 시 로직,
+		        	console.log(rsp.success);
+		        	
+					$.ajax({
+						url : "payment",
+						type : "post",
+						data : {
+							"exNo" : ${exhibitionView.exNo },
+							"memNo" : memNo	,
+							"exDate" : exDateVal,
+							"amount" : amountVal,
+							"paymentAmt" : paymentAmtVal
+						},
+						success: function(result){
+							alert("결제성공");				
+							console.log(result);		
+							location.reload();
+						},
+						error:function(error){
+							alert("error : "+error);
+							console.log(error);
+						}
+					})
+					
+					
+		        	
+		        } else {
+		              // 결제 실패 시 로직,
+		        	  console.log(data)
+		        	 alert('결제실패')
+		            
+		            
+		        }
+		    });
+			
+
+			
+		
 		
 		}
-	})
+	}
 		
 
 

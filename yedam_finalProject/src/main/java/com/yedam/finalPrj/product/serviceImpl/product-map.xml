@@ -184,6 +184,13 @@
 		group by pickup_date,store_no
 		order by pickup_date
 	</select>
+<!-- 	상품예약등록 -->
+	<insert id="productReservationInsert" parameterType="com.yedam.finalPrj.store.vo.park.ProductReservation">
+		insert into product_reservation 
+		values(#{prodResNo},#{storeNo},#{memNo},'','',#{paymentAmt},#{setPaymentStatus},#{orderDate},'N','00204');
+	</insert>
+	
+	
 <!-- 		Hong -->
 
 	<!-- 상품 예약 목록 -->

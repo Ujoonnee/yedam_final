@@ -77,8 +77,8 @@
 					              <div class="d-flex justify-content-between align-items-center">
 					                <div class="btn-group">
 					                
-					                	<p class="card-text">${list.startDate } ~ </p> 
-					                	<p class="card-text">${list.endDate }</p>
+					                	<small class="card-text">${list.startDate } ~ </small> 
+					                	<small class="card-text">${list.endDate }</small>
 					                </div>
 					              </div>
 					            </div>
