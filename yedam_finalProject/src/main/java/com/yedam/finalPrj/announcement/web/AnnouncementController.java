@@ -27,11 +27,7 @@ import com.yedam.finalPrj.common.FileVO;
 
 // 윤성환
 @Controller
-<<<<<<< HEAD
-@RequestMapping("/announcement/*")
-=======
 @RequestMapping("announcement/*")
->>>>>>> refs/heads/main
 public class AnnouncementController {
 
 	@Autowired
