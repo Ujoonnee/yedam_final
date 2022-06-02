@@ -213,6 +213,8 @@ public class ExhibitionController {
 	public String getReservationDetail(@PathVariable("exNo") int exNo, @PathVariable("exResNo") int exResNo, Model model) {
 		ExhibitionReservationVO vo = new ExhibitionReservationVO();
 		vo.setExResNo(exResNo);
+		
+		model.addAttribute("reviewList", service.selectReview(exResNo));
 		model.addAttribute("res", service.getReservation(vo));
 		return "provider/exhibition/reservation";
 	}

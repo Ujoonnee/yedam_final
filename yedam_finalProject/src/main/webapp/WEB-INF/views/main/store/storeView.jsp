@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,6 +124,16 @@
 	
 	<button class="btn-open-popup" onclick="getCheckboxValue()">장바구니</button>
 
+<!-- By jo, 리뷰목록 출력하기. ${reviewList }-->
+<div  ><button type="button" id="review11">리뷰별표시 테스트</button>
+	<c:forEach var="list" items="${reviewList}" varStatus="status">
+		<div>${list.member.name}님  <fmt:formatDate value="${list.revTime}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
+		<span class="tscore${status.index}">${list.score}</span>
+		${list.content}</div><br>
+		
+		
+	</c:forEach>
+</div>
 
 
 </div>
@@ -391,6 +402,28 @@
     		
     		
      }
+     
+    //JO 리뷰 여러개일때 별출력 하기.
+    	//리뷰 갯수(length)구하기.
+ 	 var revNo = [];	
+	 	 <c:forEach var="list" items="${reviewList}">
+	 	 	revNo.push("1");
+	 	 </c:forEach>
+ 	 var reviewLength = revNo.length;
+
+       	for(var j=0; j<reviewLength; j++){
+       	var space ="";
+      	for(var i=0; i<$(".tscore"+j).html(); i++){
+      		space = space + "★";
+      	} 
+       	console.log($(".tscore"+j).html())
+       	console.log($(".tscore"+j).html(space))
+      	$(".tscore"+j).html(space)
+
+       	}
+      	
+      	
+      
     	
 </script>
 </body>

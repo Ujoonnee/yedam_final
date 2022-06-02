@@ -44,6 +44,7 @@ public class ProductController {
 	@RequestMapping(value = "/productView", method = RequestMethod.GET)
 	public String Storeview(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
 		System.out.println(cri.getStoreNo());
+		System.out.println(cri.getStoreName());
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		
@@ -61,6 +62,11 @@ public class ProductController {
 		model.addAttribute("address",user.getAddress());
 		model.addAttribute("products" ,dao.selectOne(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
+		
+		//By JO, 매장명 받아서 review 목록 출력.
+		System.out.println("++++++++++++++++++++++++");
+		System.out.println(cri.getStoreName()); 
+		model.addAttribute("reviewList", dao.selectReviewList(cri.getStoreName()));
 		return "main/store/storeView";
 		}
 	}

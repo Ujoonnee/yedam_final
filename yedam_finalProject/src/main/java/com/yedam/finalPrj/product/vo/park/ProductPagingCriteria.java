@@ -15,6 +15,7 @@ public class ProductPagingCriteria {
 	private String longitude;
 	
 	private int storeNo;
+	private String storeName;
 	
 	//낮은가격 높은가격
 	private String lowPrice;
