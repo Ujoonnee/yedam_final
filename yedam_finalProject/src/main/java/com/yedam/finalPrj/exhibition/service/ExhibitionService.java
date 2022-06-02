@@ -20,7 +20,7 @@ public interface ExhibitionService {
 	List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo); // 예약번호로검색
 	ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO);
 	ExhibitionReservationVO exDetail(int exResNo);
-	public ReviewVO reviewLoad(int selectedResNo);
+	public ReviewVO selectReview(int selectedResNo);
 	
 	int totalCnt(PagingVO vo);
 	

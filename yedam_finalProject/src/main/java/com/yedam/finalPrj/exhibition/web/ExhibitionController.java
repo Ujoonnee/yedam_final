@@ -51,7 +51,7 @@ public class ExhibitionController {
 	public String exhibitionReservationDetail(@PathVariable("selectedResNo") int selectedResNo,Model model) {
 
 		model.addAttribute("exRes", service.exDetail(selectedResNo));
-		model.addAttribute("reviewList", service.reviewLoad(selectedResNo));
+		model.addAttribute("reviewList", service.selectReview(selectedResNo));
 		
 		return "general/exhibition/exhibitionReservationDetail";
 	}
