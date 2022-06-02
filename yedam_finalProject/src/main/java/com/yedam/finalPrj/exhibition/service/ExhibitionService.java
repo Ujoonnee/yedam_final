@@ -36,6 +36,7 @@ public interface ExhibitionService {
 	public ExhibitionVO selectOneByExNo(int exNo); 								//전시등록번호로 상세내역 가져오기
 	public int exhPermit(int exNo);												//전시등록 승인하기
 	public int exhReject(int exNo); 											//전시등록 반려하기
+	List<ReviewVO> exhReviewLoad(int exNo); 											//리뷰목록 출력
 	// 성환
 	
 	
@@ -57,6 +58,7 @@ public interface ExhibitionService {
 	int insertExhibitionReservation(ParkExhibitionReservationVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인
 	void cancelOneReservation(int exResNo); //예약취소
+	
 	
 	
 }

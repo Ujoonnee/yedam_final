@@ -135,10 +135,16 @@
 	</div>
 	
 </div>
-<div class="card border-0 shadow mb-4">
-		<div>
-		여기는댓글.
-		</div>
+				<!-- By jo, 리뷰목록 출력하기 -->
+				<div class="card border-0 shadow mb-4" id="exhReviewList">
+						<c:forEach var="list" items="${reviewList}" varStatus="status">
+							<div>
+								<div>${list.member.name}님  <fmt:formatDate value="${list.revTime}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
+								<span class="tscore${status.index}">${list.score}</span><br>
+								${list.content}</div><br>
+							</div>
+						</c:forEach>
+				</div>
 </div>
 
 <div align="center">
@@ -182,7 +188,7 @@
 		</div>
 
 </div>
-</div>
+
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script type="text/javascript">
 // 	결제 function
@@ -414,6 +420,24 @@ function requestPay() {
   
  });
 
+	//JO 리뷰 여러개일때 별출력 하기.
+ 	//리뷰 갯수(length)구하기.
+	 var revNo = [];	
+	 	 <c:forEach var="list" items="${reviewList}">
+	 	 	revNo.push("1");
+	 	 </c:forEach>
+	 var reviewLength = revNo.length;
+
+    	for(var j=0; j<reviewLength; j++){
+    	var space ="";
+   	for(var i=0; i<$(".tscore"+j).html(); i++){
+   		space = space + "★";
+   	} 
+    	console.log($(".tscore"+j).html())
+    	console.log($(".tscore"+j).html(space))
+   	$(".tscore"+j).html(space)
+
+    	}
 
 </script>
 </body>
