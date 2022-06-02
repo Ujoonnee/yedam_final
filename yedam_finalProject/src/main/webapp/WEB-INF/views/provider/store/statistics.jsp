@@ -14,21 +14,28 @@
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 </head>
 <body>
-<form action = "searchDate" method ="post">
-	<div id ="날짜선택" align="center">
-	<input type="hidden" id = "storeNo" name = "storeNo" value ="${productReservation[0].storeNo }">
-	<input type = "text" id = "startDate" name = "startDate"placeholder="날짜를 입력하세요."> ~
-	<input type = "text" id = "endDate" name="endDate" placeholder="날짜를 입력하세요.">
-	<button type ="submit">검색</button> </div>
-</form>
 
-	<div class='container'>
-	 <div class="row">
-	  <div class="col-md-12">
-	   <canvas id = "myChartOne"></canvas>
-	  </div>
-	 </div>
+
+
+<div class="chartjs-size-monitor">
+	<form action = "searchDate" method ="post">
+		<div id ="날짜선택" align="center">
+		<input type="hidden" id = "storeNo" name = "storeNo" value ="${productReservation[0].storeNo }">
+		<input type = "text" id = "startDate" name = "startDate"placeholder="날짜를 입력하세요."> ~
+		<input type = "text" id = "endDate" name="endDate" placeholder="날짜를 입력하세요.">
+		<button type ="submit">검색</button> </div>
+	</form>
+
+	<div class="card-body p-2"> 
+		<div class='container'>
+		 <div class="row">
+		  <div class="col-md-12">
+		   <canvas class="my-4 w-100" id = "myChartOne"></canvas>
+		  </div>
+		 </div>
+		</div>
 	</div>
+ </div>
 <c:forEach items="${productReservation }" var = "list">
 	<input type ="hidden" id = "salesData" name="salesData" value = "${list }"
 	data-pickupDate="${list.pickupDate } " data-paymentAmt = "${list.paymentAmt }">
@@ -124,7 +131,7 @@
 		                'rgba(75, 192, 192, 1)',
 		                'rgba(153, 102, 255, 1)',
 		                'rgba(255, 159, 64, 1)'
-		            ],
+		            ]
 			
 			
 			}]

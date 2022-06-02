@@ -87,7 +87,11 @@ public class MemberController {
 		return "member/confirm";
 	}
 	
-
+	// 회원정보 수정
+	@GetMapping("update")
+	public String update(Model model) {
+		return "member/update";
+	}
 	
 	
 }
