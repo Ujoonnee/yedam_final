@@ -31,6 +31,7 @@ import com.yedam.finalPrj.common.FileVO;
 
 // 윤성환
 @Controller
+@RequestMapping("announcement/*")
 public class AnnouncementController {
 
 	@Autowired
@@ -58,7 +59,7 @@ public class AnnouncementController {
 	}
 	
 	// 공지사항 목록(이용자)
-		@RequestMapping("main/list")
+		@RequestMapping("list")
 		public String userFindAll(AnnouncementPagingCriteria cri,AnnouncementVO announcement,Model model) throws Exception {
 
 			int total = service.totalCnt(cri);
