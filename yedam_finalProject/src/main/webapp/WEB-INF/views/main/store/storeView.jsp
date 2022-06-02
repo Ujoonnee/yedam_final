@@ -7,13 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<%
-    int memNo = (Integer)request.getAttribute("memNo");
-    String name = (String)request.getAttribute("name");
-    String email = (String)request.getAttribute("email");
-    String phone = (String)request.getAttribute("tel");
-    String address = (String)request.getAttribute("address");
-%>
 <style> 
 	.modal { 
 		position: absolute; 
@@ -150,18 +143,31 @@
 // 		let yyyyMMdd = year + '-'+ month + '-'+ date
 // 		console.log(yyyyMMdd);
 		
-		var mem_no = '<%=memNo%>'
-		var email = '<%=email%>'
+		var mem_no = '${user.memNo}';
+		var email = '${user.email}';
 		var totalPrice = $('#totalPrice').val();
 		var pickupTime = document.getElementById('pickupTime').value
 		var store_no = document.getElementById('storeNo').value
-		console.log(pickupTime);
-		console.log(storeNo);
 		
-			if(email == null || email == "null"){
-				alert("로그인을 해야 결제를 할 수 있습니다.")
-				return;
-			}
+		if(email == ''){
+			alert("로그인을 해야 결제를 할 수 있습니다.")
+			return;
+		}
+		
+   	  	const selectedEls = document.querySelectorAll(input[name="checkf"]:checked);
+		
+   	  	console.log(selectedEls);
+   	  	
+   	  	selectedEls.forEach(product => {
+   	  		console.log(product.dataset.prodno);
+   	  	})
+			
+// 			$.ajax({
+// 				url: '',
+// 				method: 'post',
+				
+// 			})
+			
 			
 				
 		      // IMP.request_pay(param, callback) 결제창 호출
@@ -172,9 +178,9 @@
 		          name: "예담통합플랫폼 결제",
 		          amount: parseInt(totalPrice), //amout에 넣으면됨 parseInt(totalPrice)
 		          buyer_email : email,
-	              buyer_name : '<%=name%>',	
-	              buyer_tel : '<%=phone%>',
-	              buyer_addr : '<%=address%>'
+	              buyer_name : '${user.name}',	
+	              buyer_tel : '${user.tel}',
+	              buyer_addr : '${user.address}'
 		      }, function (rsp) { // callback
 		          if (rsp.success) {
 		        	  

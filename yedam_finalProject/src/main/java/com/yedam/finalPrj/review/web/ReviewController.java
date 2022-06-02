@@ -51,14 +51,14 @@ public class ReviewController {
 		return service.reviewSelectAll(memNo);
 	}
 	
-	
 
-	
+//JO
+	//리뷰모달 버튼 클릭시 리뷰jsp 던져주기.
 	@GetMapping("rev_insert")
 	public String insert() {
 		return "member/review";
 	}
-	
+	//리뷰등록하기.
 	@PostMapping("rev_insert")
 	@ResponseBody
 	public void list(ReviewVO vo, Model model) {
@@ -76,6 +76,13 @@ public class ReviewController {
 	@ResponseBody
 	public void updatedlist(ReviewVO vo, Model model) {
 		service.reviewUpdate(vo);
+	}
+	//답변 등록.
+	@PostMapping("replyInsert")
+	public String replyInsert(int prodResNo, String replyContent) {
+		service.replyInsert(prodResNo, replyContent);
+		
+		return "redirect:/store/product/proReDetail?prodResNo="+prodResNo;
 	}
 
 	

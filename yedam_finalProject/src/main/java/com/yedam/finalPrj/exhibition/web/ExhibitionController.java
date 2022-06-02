@@ -171,22 +171,28 @@ public class ExhibitionController {
 		return "provider/exhibition/exhibitionList";
 	}
 
-	// TODO 전시 상세
-	@GetMapping("provider/exhibitionList/{exNo}")
+	// 전시 상세
+	@GetMapping("provider/exhibition/{exNo}")
 	public String getProviderExhibition(@PathVariable("exNo") int exNo, Model model) {
-
-		// 서비스의 전시 상세 페이지로 연결할 것
-		return "";
+		ParkExhibitionVO vo = new ParkExhibitionVO();
+		vo.setExNo(exNo);
+		model.addAttribute("exhibitionView", service.findExVO(vo));
+		return "main/exhibition/exhibitionView";
 	}
 
 	// 전시 예약자 목록
-	@RequestMapping("provider/exhibitionList/{exNo}/reservation")
+	@RequestMapping("provider/exhibition/{exNo}/reservation")
 	public String getProviderReservationList(@PathVariable("exNo") int exNo, HttpServletRequest request) {
-
-		return "";
+		service.getReservationList(exNo, request);
+		return "provider/exhibition/reservationList";
 	}
 
 	// TODO 예약정보 상세
+	@RequestMapping("provider/exhibition/{exNo}/reservation/{exResNo}")
+	public String getReservationDetail(@PathVariable("exNo") int exNo, @PathVariable("exResNo") int exResNo ) {
+		
+		return "";
+	}
 
 	// 사업자 끝 ===================
 

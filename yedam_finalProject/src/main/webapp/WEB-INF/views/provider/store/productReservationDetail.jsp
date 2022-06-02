@@ -67,10 +67,73 @@
 <!-- 	<button class="btn btn-primary" type="button" id="list_btn">목 록</button> -->
 	<input class="btn btn-outline-primary" type="button" value="목록" onclick="history.go(-1)">
 	<button class="btn btn-primary" >주문취소</button>
+	
+	<!-- 리뷰보기/답변달기 -->
+	<c:if test="${not empty reviewList}">
+<div>
+<br>
+<br>
+<br>
+<h3>리뷰/답변</h3>
+			<div>${reviewList.serviceName }</div>
+			<hr>
+			<span>평점(${reviewList.score })</span><span id="vscore">${reviewList.score }</span>
+			<div>${reviewList.content }</div>
+			<hr>
+			<div>답변</div>
+			<div>${reviewList.replyContent }</div>
+			<hr>
+			
+			<c:if test="${empty reviewList.replyContent  }">
+			<button type="button" id="replyWrite">답변작성</button>
+
+			<div id="replyWriteDiv" style="display:none"><button onclick="replySend()">답변등록</button>
+				<form id="replyFrm" action="${pageContext.request.contextPath}/review/replyInsert" method="post">
+				<input type="hidden" name="prodResNo" value="${proRe.prodResNo }">
+				<textarea rows="10" style=width:100% id="replyContent" name="replyContent"></textarea>
+				</form>
+			</div>
+			</c:if>
+			
+</div>
+
+
+</c:if>
+
 </body>
 <script>
+//평점 ★로 출력하기
+	var score = $("#vscore").html();
+	var space ="";
+	
+	for(var i=0; i<score; i++){
+		space = space + "★";
+	} 
+	
+	$("#vscore").html(space)
+
 	$("#list_btn").click(function(){
 		self.location = "/provider/proReSelectAll?"
 	})
+	
+	//답변작성 버튼 클릭시 에디터모달 show.
+	$("#replyWrite").on("click", function(){
+		$("#replyWriteDiv").css("display", "block");
+	 		
+	 		//모달뜨고 나서 모달 안에 폼태그에 값 입력.
+	 		
+	 		//$("#resNoForReply").val("${proRe.prodResNo }");
+	 		
+	 	});
+	
+	//답변 전송 등록.
+	function replySend(){
+		
+			replyFrm.submit();
+		
+		//$("#replyEnd").css("display", "none");
+	}
+	
+	
 </script>
 </html>

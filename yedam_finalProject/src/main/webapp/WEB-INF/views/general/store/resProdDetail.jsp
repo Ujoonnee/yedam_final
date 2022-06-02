@@ -99,12 +99,6 @@
 			<div>답변</div>
 			<div>${reviewList.replyContent }</div>
 			<hr>
-			<!-- 관리자이면 답변저장 보이도록 -->
-			<%-- <c:if test="${admin.id eq admin@admin.com}">
-			</c:if> --%>
-			<button type="button" id="replyWrite">답변작성</button>
-			<jsp:include page="../../member/reply.jsp"/>
-			<!-- <div id="replyWriteDiv"></div> -->
 </div>
 </c:if>
 <!-- 	모달 -->
@@ -124,12 +118,13 @@
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="resCancel">예약취소</button>
 </c:if>
 
-<!--수정버튼은 상의 필요...  -->
+<!--리뷰작성하면 show, 답변아직 안달리면 리뷰수정가능-->
 <c:if test="${not empty reviewList}" >
+<c:if test="${empty reviewList.replyContent}">
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" onclick=reviewUpd() >리뷰수정</button>
 
 <button type="submit"  class="btn btn-block btn-gray-800 mb-3 delBtn" value="${reviewList.revNo }">삭 제</button>
-
+</c:if>
 </c:if>
 
 
@@ -254,12 +249,7 @@
 			success : () => location.reload()
 		});
 	});
-//답변작성 버튼 클릭시 화면에 에디터 show.
-	$("#replyWrite").on("click", function(){
-		document.getElementById("smEditor").style.display="block";
-		//$("#frm").style.display="block";
-		//$("#replyWriteDiv").load("reply.jsp");
-	})
+
 	
 
 </script>
