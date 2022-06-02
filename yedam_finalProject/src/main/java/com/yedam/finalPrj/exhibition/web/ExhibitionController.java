@@ -3,6 +3,7 @@ package com.yedam.finalPrj.exhibition.web;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +52,7 @@ public class ExhibitionController {
 	public String exhibitionReservationDetail(@PathVariable("selectedResNo") int selectedResNo,Model model) {
 
 		model.addAttribute("exRes", service.exDetail(selectedResNo));
-		model.addAttribute("reviewList", service.reviewLoad(selectedResNo));
+		model.addAttribute("reviewList", service.selectReview(selectedResNo));
 		
 		return "general/exhibition/exhibitionReservationDetail";
 	}
@@ -70,11 +71,20 @@ public class ExhibitionController {
 	}
 	
 	// 준우
+//(admin 전시등록신청목록보기 페이지 + 상세 페이지.)	
 	// 모든 등록신청목록조회.
 	@GetMapping("exRegAppList")
-	public String exRegAppList(String approvalStatus, Model model) {
-		model.addAttribute("regList", service.selectAllExh());
-		return "admin/exhibition/exRegAppList";
+	public String exRegAppList(String approvalStatus, Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		
+		if(user.getMemNo()==0) {
+			model.addAttribute("regList", service.selectAllExh());
+			return "admin/exhibition/exRegAppList";
+		}else {
+			return null; //404에러페이지 출력.
+		}
 	}
 
 	// 승인여부로 검색.
@@ -98,7 +108,7 @@ public class ExhibitionController {
 		return service.selectAllByMemName(memName);
 	}
 
-	// 전시등록번호에 따라 상세내용 출력하는 페이지로 넘어감
+	// 전시등록번호받아서 상세내용 출력하는 페이지로 넘어감
 	@GetMapping("exRegAppDetail/{exNo}")
 	public String selectOneByExNo(@PathVariable int exNo, Model model) {
 		model.addAttribute("detail", service.selectOneByExNo(exNo));

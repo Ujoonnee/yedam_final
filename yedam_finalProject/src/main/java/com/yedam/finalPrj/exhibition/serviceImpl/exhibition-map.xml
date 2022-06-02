@@ -12,7 +12,7 @@
 
 	<!-- 예약내역 상세정보 -->
 	<select id="exDetail" resultType="com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO">
-		SELECT r.*,e.*,(m.name) AS memName , (m.tel) AS memTel, (e.price * r.amount) AS payment_amt
+		SELECT r.*,e.*,(m.name) AS memName , (m.tel) AS memTel, (e.price * r.amount) AS payment
 		FROM exhibition_reservation r, exhibition e, member m
 		WHERE r.ex_no = e.ex_no 
 		AND r.mem_no = m.mem_no
@@ -24,7 +24,7 @@
 		<![CDATA[
 			SELECT *
 			FROM (SELECT /*+INDEX_DESC(vw_ex_re pk_board) */
-			                ROWNUM rn, ex_res_no, name, start_date, payment_status, payment_amt
+			                ROWNUM rn, ex_res_no, name, start_date, payment_status, payment
 			      FROM vw_ex_re WHERE ROWNUM <= 10)
 			WHERE rn > 0
 		]]>
@@ -111,12 +111,12 @@
 			where ex_no = #{exNo}
 	</update>
 <!-- 전시예약상세페이지에서 리뷰출력 -->
-<select id="reviewLoad" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO" >
+<select id="selectReview" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO" >
 	SELECT * 
 	FROM REVIEW r, EXHIBITION_RESERVATION e
 	WHERE r.res_no = e.ex_res_no
-	AND e.category = '00202' 
-	AND e.ex_res_no = #{selectedResNo}
+	AND r.category = '00202' 
+	AND r.res_no = #{selectedResNo}
 </select>
 <!-- 예약취소 -->
 <update id="cancelOneReservation" parameterType="int">

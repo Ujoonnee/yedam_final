@@ -387,8 +387,8 @@ SELECT count(*)
 	SELECT * 
 	FROM REVIEW r, PRODUCT_RESERVATION pr
 	WHERE r.res_no = pr.prod_res_no
-	AND pr.category = '00204'
-	AND pr.prod_res_no = #{selectedResNo}
+	AND r.category = '00204'
+	AND r.res_no = #{selectedResNo}
 </select>
 <!-- product_reservation 테이블에서 결제상태 'N'으로 수정(상품예약번호) --> 
 <update id="CancelRes" parameterType="int">
