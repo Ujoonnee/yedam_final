@@ -33,7 +33,7 @@ public interface AnnouncementMapper {
 	List<Map<String, Object>> selectFileList(int annNo) throws Exception; 
 	public void fileUpdate(Map<String, Object>maps);
 
-	/* List<FileVO> selectZipFileInfo(Map<String, Object>map); */
+//	List<String> selectZipFileInfo(List<String> list); 
 	//글 갯수
 	int totalCnt(AnnouncementPagingCriteria cri);
 	// 조회수 올리기

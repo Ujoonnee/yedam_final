@@ -287,33 +287,35 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productReservationInsert(HashMap<String, String> vo, Model model, HttpServletRequest request) {
 		// TODO Auto-generated method stub
-
 		
+
+		ProductReservation ProResVO = new ProductReservation();
 		String from = vo.get("time");
 		SimpleDateFormat transFormat = new SimpleDateFormat("HH:mm:ss");
-		Date pickUpTime = null;
+		Date orderTime = null;
 		try {
-			pickUpTime = (Date) transFormat.parse(from);
+			orderTime = (Date) transFormat.parse(from);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(pickUpTime);
+		System.out.println("=========orderTime"+orderTime);
 	
-		ProductReservation ProResVO = new ProductReservation();
-		ProResVO.setProdResNo(Integer.parseInt(vo.get("impUid"))); //전달받은 주문번호를 예약번호로 pk잡음.
+//		ProResVO.setProdResNo(Integer.parseInt(vo.get("impUid"))); //전달받은 주문번호를 예약번호로 pk잡음.
 		ProResVO.setStoreNo(Integer.parseInt(vo.get("storeNo")));
 		ProResVO.setMemNo(Integer.parseInt(vo.get("memNo")));
 		ProResVO.setPaymentAmt(vo.get("amount"));
+		ProResVO.setOrderDate(orderTime);
 		
 //		결제금액이 있다면 결제상태 Y로변경
 		if (vo.get("amount") != null) {
 			ProResVO.setPaymentStatus("Y");
+		}else {
+			ProResVO.setPaymentStatus("N");
 		}
 		
 //		픽업시간
 //		ProResVO.setPickupDate();
-		ProResVO.setPickupTime(pickUpTime);
 		
 		return map.productReservationInsert(ProResVO);
 	}

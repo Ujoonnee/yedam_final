@@ -38,7 +38,7 @@ $(document).ready(function() {
 		<hr>
 		<br>
 		<div >	
-			<form action="list" method="POST" name="searchForm" autocomplete="off">
+			<form action="adminList" method="POST" name="searchForm" autocomplete="off">
 				<div align="center">
 					<div class="input-group" style="width:500px;">
 						<select name="type" class="form-select" style="width:10%;">
@@ -126,7 +126,7 @@ $(document).ready(function() {
 			</div>
 		</form>
 
-<form id="pagingFrm" name="pagingForm" action="list" method="post">
+<form id="pagingFrm" name="pagingForm" action="adminList" method="post">
 	<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
 	<input type="hidden" id="amount" name="amount" value="${paging.cri.amount }">
 	<input type="hidden" id="type" name="type" value="${paging.cri.type }">

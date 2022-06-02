@@ -31,6 +31,10 @@
   	<put-attribute name="body" value="/WEB-INF/views/layouts/myPage/myPageMain.jsp"/>
   </definition>
   
+  <definition name="main/member/update" extends="mypage">
+  	<put-attribute name="body" value="/WEB-INF/views/member/update.jsp"/>
+  </definition>
+  
   <definition name="*/*/*" extends="mypage">
   	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
   </definition>

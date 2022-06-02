@@ -117,7 +117,7 @@
 			</div>
 			<div id = 'priceCheck'>
 				<p align="right">총가격 : <input type = "text" id="totalPrice" name = "totalPrice" disabled="disabled"></p>
-				<button class ="payment" onclick="requestPay()">결제하기</button>
+				<button id="payBtn">결제하기</button>
 			</div>
 		</div>
 	</div> 
@@ -144,6 +144,10 @@
 	var IMP = window.IMP;
 	IMP.init('imp73462839');
 	
+	
+	$('#payBtn').click(() => requestPay() );
+	
+	
 	 function requestPay() {
 		
 // 		날짜구하기
@@ -165,7 +169,7 @@
 			return;
 		}
 		
-   	  	const selectedEls = document.querySelectorAll(input[name="checkf"]:checked);
+   	  	const selectedEls = document.querySelectorAll('input[name="checkf"]:checked');
 		
    	  	console.log(selectedEls);
    	  	
@@ -178,8 +182,6 @@
 // 				method: 'post',
 				
 // 			})
-			
-			
 				
 		      // IMP.request_pay(param, callback) 결제창 호출
 		      IMP.request_pay({ // param
@@ -187,7 +189,7 @@
 		          pay_method: "card",
 		          merchant_uid: 'merchant_' + new Date().getTime(),
 		          name: "예담통합플랫폼 결제",
-		          amount: parseInt(totalPrice), //amout에 넣으면됨 parseInt(totalPrice)
+		          amount: 100, //amout에 넣으면됨 parseInt(totalPrice)
 		          buyer_email : email,
 	              buyer_name : '${user.name}',	
 	              buyer_tel : '${user.tel}',
@@ -232,10 +234,9 @@
 		          }
 		      });
 	    }
-</script>
-  
-<script>
 
+	
+	 
 	function resetValue(){
 		document.getElementById('keyword').value = '';
 		document.getElementById('lowPrice').value = '';
