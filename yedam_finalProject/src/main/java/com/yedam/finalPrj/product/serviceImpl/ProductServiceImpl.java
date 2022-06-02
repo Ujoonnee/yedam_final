@@ -27,6 +27,7 @@ import com.yedam.finalPrj.product.vo.park.ProductPageMaker;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
+import com.yedam.finalPrj.review.service.ReviewVO;
 import com.yedam.finalPrj.store.vo.park.ProductReservation;
 
 
@@ -347,15 +348,13 @@ public class ProductServiceImpl implements ProductService {
 		return map.proReDetailList(vo);
 	}
 
-
-
-
-	
-
-
 	
 //	Jo
-	
+	//리뷰 목록 출력.
+	@Override
+	public List<ReviewVO> selectReviewList(String storeName) {
+		return map.selectReviewList(storeName);
+	}
  
 	
 	

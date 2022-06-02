@@ -61,6 +61,10 @@ public class ProductController {
 		model.addAttribute("address",user.getAddress());
 		model.addAttribute("products" ,dao.selectOne(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
+		
+		//By JO, 매장명 받아서 review 목록 출력.
+		
+		model.addAttribute("reviewList", dao.selectReviewList(cri.getStoreName()));
 		return "main/store/storeView";
 		}
 	}

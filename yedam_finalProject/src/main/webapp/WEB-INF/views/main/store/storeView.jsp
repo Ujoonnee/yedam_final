@@ -123,6 +123,7 @@
 	
 	<button class="btn-open-popup" onclick="getCheckboxValue()">장바구니</button>
 
+<!-- By jo, 리뷰목록 출력하기. ${reviewList }-->
 
 
 </div>
