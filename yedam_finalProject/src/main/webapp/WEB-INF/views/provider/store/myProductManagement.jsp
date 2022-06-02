@@ -73,62 +73,66 @@
 </head>
 <body>
 
-
-<c:if test="${empty ProductList }">
-<button type="button" id="excelFormDownload" class="download">양식다운</button>
-    <label class="btn btn-primary btn-file">
-        재고변경<input type="file" id="id_file_upload" style="display: none;">
-    </label>
-	<tr><td>등록된 매장이 없습니다.</td></tr>
+<c:if test="${ProductList eq null }">
+	<h3>등록된 매장이 없습니다.</h3>
 </c:if>
 
-<c:if test="${not empty ProductList }">
-	<table id="tableData" class="table">
-	<thead>
-		<tr>
-		<th>제품번호</th>
-		<th>사진</th>
-		<th>제품명</th>
-		<th>카테고리</th>
-		<th>가격</th>
-		<th>수량</th>
-		<th>상태</th>
-		</tr>
-	</thead>
-	<tbody>
-	<c:forEach items="${ProductList }" var = "list">
-		<c:if test="${list.status ne '00603' }">
+<c:if test="${ProductList ne null }">
+	<c:if test="${empty ProductList }">
+	<button type="button" id="excelFormDownload" class="download">양식다운</button>
+	    <label class="btn btn-primary btn-file">
+	        재고변경<input type="file" id="id_file_upload" style="display: none;">
+	    </label>
+		<tr><td>등록된 매장이 없습니다.</td></tr>
+	</c:if>
+	
+	<c:if test="${not empty ProductList }">
+		<table id="tableData" class="table">
+		<thead>
 			<tr>
-			<td align="center"><input type ="checkbox" id = "checkf" name="checkf" value="${list }"
-				 data-prodName="${list.prodName }" data-price="${list.price }" data-stock="${list.stock }" data-prodNo ="${list.prodNo }"
-				 data-thumbnail="${list.prodThumbnail }"  data-prodCat="${list.prodCat }" data-status ="${list.status }"
-				 >
-				 ${list.prodNo }</td>	
-			<c:if test = "${list.prodThumbnail != null}">
-				<td align="center"> 
-					<img src="/img/${list.prodThumbnail } " class="selected_img"  height="150px" width="150px">
-					<input type="hidden" class="prodThumbnail"value = "${list.prodThumbnail }">
-					<input type="hidden" class="prodNo_img"value = "${list.prodNo }">
-				</td></c:if>
-			<c:if test ="${list.prodThumbnail == null }">
-				<td align = "center">
-					 <div class = "imageValue">
-						<input type="file" class = "thumbnail_file_upload" name="fileUpload" value ="사진등록">
-						<input type="hidden" class="prodNo"value = "${list.prodNo }">
-					</div>
-				</td>
-			</c:if>
-			<td align="center">${list.prodName }</td>		
-			<td align="center">${list.prodCat }</td>		
-			<td align="center">${list.price }</td>		
-			<td align="center"> ${list.stock }</td>		
-			<td align="center"> ${list.statusName }</td>		
+			<th>제품번호</th>
+			<th>사진</th>
+			<th>제품명</th>
+			<th>카테고리</th>
+			<th>가격</th>
+			<th>수량</th>
+			<th>상태</th>
 			</tr>
-		</c:if>
-	</c:forEach>
-	</tbody>
-	</table>
-</c:if>
+		</thead>
+		<tbody>
+		<c:forEach items="${ProductList }" var = "list">
+			<c:if test="${list.status ne '00603' }">
+				<tr>
+				<td align="center"><input type ="checkbox" id = "checkf" name="checkf" value="${list }"
+					 data-prodName="${list.prodName }" data-price="${list.price }" data-stock="${list.stock }" data-prodNo ="${list.prodNo }"
+					 data-thumbnail="${list.prodThumbnail }"  data-prodCat="${list.prodCat }" data-status ="${list.status }"
+					 >
+					 ${list.prodNo }</td>	
+				<c:if test = "${list.prodThumbnail != null}">
+					<td align="center"> 
+						<img src="/img/${list.prodThumbnail } " class="selected_img"  height="150px" width="150px">
+						<input type="hidden" class="prodThumbnail"value = "${list.prodThumbnail }">
+						<input type="hidden" class="prodNo_img"value = "${list.prodNo }">
+					</td></c:if>
+				<c:if test ="${list.prodThumbnail == null }">
+					<td align = "center">
+						 <div class = "imageValue">
+							<input type="file" class = "thumbnail_file_upload" name="fileUpload" value ="사진등록">
+							<input type="hidden" class="prodNo"value = "${list.prodNo }">
+						</div>
+					</td>
+				</c:if>
+				<td align="center">${list.prodName }</td>		
+				<td align="center">${list.prodCat }</td>		
+				<td align="center">${list.price }</td>		
+				<td align="center"> ${list.stock }</td>		
+				<td align="center"> ${list.statusName }</td>		
+				</tr>
+			</c:if>
+		</c:forEach>
+		</tbody>
+		</table>
+	</c:if>
 	<button type="button" id="excelDownload" class="download">재고다운로드</button>
 	<!-- 	메인모달 -->
 	<div class="modal"> 
@@ -153,8 +157,7 @@
 <!-- 		</form> -->
 		</div>
 	</div> 
-	<button class="btn-open-popup" onclick="getCheckboxValue()">상품관리</button>
-	<button id = "showButton" onclick = "addTextBox()">단일상품등록</button>
+
 <!-- 	; this.onclick=null; -->
 	<form id = "productRegist" name="productRegist">
         <div id="box">
@@ -177,6 +180,9 @@
 	<table id="excelForm" style="display: none;">
 		<tr><th>prodName</th><th>prodCat</th><th>price</th><th>stock</th><th>카테고리 종류 : 스낵류, 유제품, 커피 , 라면</th></tr>
 	</table>   
+
+</c:if>
+
 
 <script>
 
