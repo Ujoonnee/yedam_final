@@ -124,16 +124,16 @@
 	
 	<button class="btn-open-popup" onclick="getCheckboxValue()">장바구니</button>
 
-<%-- <!-- By jo, 리뷰목록 출력하기. ${reviewList }-->
+<!-- By jo, 리뷰목록 출력하기. ${reviewList }-->
 <div  ><button type="button" id="review11">리뷰별표시 테스트</button>
 	<c:forEach var="list" items="${reviewList}" varStatus="status">
 		<div>${list.member.name}님  <fmt:formatDate value="${list.revTime}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
-		<span class="vscore${status.index}">${list.score}</span>
+		<span class="tscore${status.index}">${list.score}</span>
 		${list.content}</div><br>
 		
 		
 	</c:forEach>
-</div> --%>
+</div>
 
 
 </div>
@@ -403,23 +403,26 @@
     		
      }
      
-     //JO 별 표시하기.
-     /* $("#review11").on("click", function(){
-    	 //var revNums = ${reviewList.revNo};
-         console.log("11111111");
-         console.log(revNums.length);
-         console.log("11111111");
-       //평점 ★로 출력하기
-       //for(var n = 0; n<
-     	var score = $(".vscore"+n).html();
-     	var space ="";
-     	
-     	for(var i=0; i<score; i++){
-     		space = space + "★";
-     	} 
-     	
-     	$(".vscore"+n).html(space)
-     }) */
+    //JO 리뷰 여러개일때 별출력 하기.
+    	//리뷰 갯수(length)구하기.
+ 	 var revNo = [];	
+	 	 <c:forEach var="list" items="${reviewList}">
+	 	 	revNo.push("1");
+	 	 </c:forEach>
+ 	 var reviewLength = revNo.length;
+
+       	for(var j=0; j<reviewLength; j++){
+       	var space ="";
+      	for(var i=0; i<$(".tscore"+j).html(); i++){
+      		space = space + "★";
+      	} 
+       	console.log($(".tscore"+j).html())
+       	console.log($(".tscore"+j).html(space))
+      	$(".tscore"+j).html(space)
+
+       	}
+      	
+      	
       
     	
 </script>
