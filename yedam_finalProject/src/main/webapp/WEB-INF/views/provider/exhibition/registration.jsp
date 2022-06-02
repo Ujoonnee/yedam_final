@@ -19,7 +19,7 @@
 	</tr>
 	<tr>
 		<th>전시장명</th>
-		<td>${exhibition.location }</td>
+		<td>${exhibition.locationName }</td>
 	</tr>
 	<tr>
 		<th>티켓 가격</th>

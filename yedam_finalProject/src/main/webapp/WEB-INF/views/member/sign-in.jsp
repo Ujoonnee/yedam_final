@@ -178,33 +178,8 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 <script>
-Kakao.init('cac63f0a1da1b6e5771c1fc5d58f4a0f'); //발급받은 키 중 javascript키를 사용해준다.
-console.log(Kakao.isInitialized()); // sdk초기화여부판단
-//카카오로그인
-function kakaoLogin() {
-    Kakao.Auth.login({
-      success: function (response) {
-        Kakao.API.request({
-          url: '/v2/user/me',
-          success: function (response) {
-              console.log(response)
-          },
-          fail: function (error) {
-            console.log(error)
-          },
-        })
-      },
-      fail: function (error) {
-        console.log(error)
-      },
-    })
-  }
 
-
-
-
-
-	// 알림창
+// 알림창
 	const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-primary',
@@ -215,34 +190,40 @@ function kakaoLogin() {
 	
 	// 로그인 버튼 클릭 시
 	$('#submit').on('click', () => {
-		kakaoLogin();
 		// TODO 로그인 시도 전 체크 조건
 		
-// 		$.ajax({
-// 			url: 'sign-in',
-// 			method: 'post',
-// 			data: $('form').serialize()
-// 		}).done(result => {
+		$.ajax({
+			url: 'sign-in',
+			method: 'post',
+			data: $('form').serialize()
+		}).done(result => {
 			
-// 			if (result == 'success') {
-// 				opener.parent.location.reload();
-// 				window.close();
+			if (result == 'success') {
+				opener.parent.location.reload();
+				window.close();
 				
-// 			} else if(result == 'email') {
-// 				swalWithBootstrapButtons.fire({
-// 	                icon: 'error',
-// 	                title: '이메일을 확인해 주세요.',
-// 	                timer: 800
-// 	            });
+			} else if(result == 'email') {
+				swalWithBootstrapButtons.fire({
+	                icon: 'error',
+	                title: '이메일을 확인해 주세요.',
+	                timer: 800
+	            });
 				
-// 			} else if(result == 'pw') {
-// 				swalWithBootstrapButtons.fire({
-// 	                icon: 'error',
-// 	                title: '비밀번호를 확인해 주세요.',
-//                 	timer: 800
-// 	            });
-// 			}
-// 		});
+			} else if(result == 'pw') {
+				swalWithBootstrapButtons.fire({
+	                icon: 'error',
+	                title: '비밀번호를 확인해 주세요.',
+                	timer: 800
+	            });
+			} else if (result == 'confirm') {
+				swalWithBootstrapButtons.fire({
+	                icon: 'error',
+	                title: '이메일 인증이 필요합니다.',
+	                text: '메일로 발송된 링크를 눌러 인증을 진행해 주세요.',
+                	timer: 800
+	            });
+			}
+		});
 	});
 	
 	// 회원가입으로 이동

@@ -12,17 +12,17 @@
 
 <h3>내 예약 정보</h3>
 
-	<form name="frm" method="get" action="">
-			<label class="hidden"></label>
-				<select id="searchCondition" name="searchCondition">
-					<option value="none">전체</option>
-					<option value="exNo">전시등록번호</option>
-					<option value="name">전시명</option>
+	<form name="frm" method="POST" action="exSelectAllReservation">
+			<div class="row input-group" align="center" style="width:400px">
+				<select class="form-control col-2" name="type"  class="form-select">
+					<option value="">전체</option>
+					<option value="exResNo" <c:out value="${paging.vo.type eq 'exResNo'?'selected':'' }" />>전시등록번호</option>
+					<option value="name" <c:out value="${paging.vo.type eq 'name'?'selected':'' }" />>전시명</option>
 				</select>
-			<label></label>	
-				<input type="text" id="searchKeyword" name="searchKeyword" />
-				<input type="submit" value="검색">
-	
+			
+				<input class="form-control col-6" type="text" id="searchKeyword" name="keyword" value="${keyword }"/>
+				<input class="form-control col-2" type="submit" value="검색">
+			</div>
 	
 
 	</form>
@@ -61,9 +61,6 @@
 									결제
 								</c:when>
 								
-								<c:otherwise>
-									미결제
-								</c:otherwise>
 							</c:choose>
 					
 					</td>
@@ -76,9 +73,9 @@
 	</table>
 	
 	
-	<form id="pagingFrm" name="pagingForm" action="resProdList" method="get">
+	<form id="pagingFrm" name="pagingForm" action="exSelectAllReservation" method="get">
 		<input type="hidden" id="pageNum" name="pageNum" value="${paging.vo.pageNum }">
-		<input type="hidden" id="pageNum" name="amount" value="${paging.vo.amount }">
+		<input type="hidden" id="amount" name="amount" value="${paging.vo.amount }">
 		<input type="hidden" id="type" name="type" value="${paging.vo.type }">
 		<input type="hidden" id="keyword" name="keyword" value="${paging.vo.keyword }">
 	</form>

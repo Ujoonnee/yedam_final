@@ -51,15 +51,15 @@ public class MemberServiceImpl implements MemberService {
 		
 		member = map.findByEmail(member);
 		
-		String result = (member == null)? "email" 
-						: (!member.getPassword().equals(pw))? "pw" : "success";
+		// 로그인 실패
+		if (member == null) return "email";
+		if (!member.getPassword().equals(pw)) return "pw";
+		if (member.getStatus().equals("00302")) return "confirm";
 		
-		if (result.equals("success")) {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", member);
-		}
-		
-		return result;
+		// 로그인 성공
+		HttpSession session = request.getSession();
+		session.setAttribute("user", member);
+		return "success";
 	}
 
 	@Override

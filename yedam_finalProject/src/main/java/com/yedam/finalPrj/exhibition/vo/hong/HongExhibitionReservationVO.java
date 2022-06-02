@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-public class ExhibitionReservationVO {
+public class HongExhibitionReservationVO {
 	
 	private int exResNo;
 	private int exNo;
@@ -34,6 +34,7 @@ public class ExhibitionReservationVO {
 	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date applicationDate;
 	
+	private int payment;
 	
 	private String memName;
 	private String memTel;

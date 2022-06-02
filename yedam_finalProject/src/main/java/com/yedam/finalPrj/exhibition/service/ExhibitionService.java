@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
+import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
@@ -16,10 +16,10 @@ import com.yedam.finalPrj.review.service.ReviewVO;
 public interface ExhibitionService {
 
 	// 홍제
-	List<ExhibitionReservationVO> selectAllExhibitionReservattion(); // 전체조회
-	List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo); // 예약번호로검색
-	ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO);
-	ExhibitionReservationVO exDetail(int exResNo);
+	List<HongExhibitionReservationVO> selectAllExhibitionReservattion(PagingVO vo); // 전체조회
+	List<HongExhibitionReservationVO> searchExhibitionByNo(int exResNo); // 예약번호로검색
+	HongExhibitionReservationVO selectOneExhibitionReservationVO(HongExhibitionReservationVO exhibitionReservationVO);  //예약 상세 조회
+	HongExhibitionReservationVO exDetail(int exResNo);
 	public ReviewVO selectReview(int selectedResNo);
 	
 	int totalCnt(PagingVO vo);
@@ -40,7 +40,7 @@ public interface ExhibitionService {
 	List<ExhibitionVO> getRegistrationList(HttpServletRequest request);						// 전시 등록 신청 목록
 	ExhibitionVO getRegistration(int exNo);													// 전시 등록 신청 상세
 	List<ExhibitionVO> getExhibitionList(HttpServletRequest request);						// 승인된 전시 목록
-	List<ExhibitionReservationVO> getReservationList(int exNo, HttpServletRequest request);	// 전시의 예약자 목록
+	List<HongExhibitionReservationVO> getReservationList(int exNo, HttpServletRequest request);	// 전시의 예약자 목록
 	
 	// 성준
 
@@ -52,6 +52,7 @@ public interface ExhibitionService {
 	int insertExhibitionReservation(ParkExhibitionVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인
 	void cancelOneReservation(int exResNo); //예약취소
+
 	
 	
 }

@@ -3,6 +3,7 @@ package com.yedam.finalPrj.exhibition.web;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
-import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
+import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PageMaker;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
@@ -35,11 +36,12 @@ public class ExhibitionController {
 	// 홍제
 
 	// 내 예약 목록
-	@GetMapping("exSelectAllReservation")
+	@RequestMapping("exSelectAllReservation")
 	public String exSelectAllReservation(PagingVO vo, Model model) {
-		List<ExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion();
+		System.out.println(vo.getPageNum());
+		List<HongExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion(vo);
 		int total = service.totalCnt(vo);
-
+		System.out.println("================================"+vo.getType());
 		model.addAttribute("exhibitionReservationVO", exhibitionReservationVO);
 		model.addAttribute("paging", new PageMaker(vo, total));
 
@@ -59,7 +61,7 @@ public class ExhibitionController {
 	// 예약번호로 검색
 	@GetMapping("searchExhibitionByNo")
 	@ResponseBody
-	public List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
+	public List<HongExhibitionReservationVO> searchExhibitionByNo(int exResNo) {
 		return service.searchExhibitionByNo(exResNo);
 	}
 	// 예약 취소
@@ -70,11 +72,20 @@ public class ExhibitionController {
 	}
 	
 	// 준우
+//(admin 전시등록신청목록보기 페이지 + 상세 페이지.)	
 	// 모든 등록신청목록조회.
 	@GetMapping("exRegAppList")
-	public String exRegAppList(String approvalStatus, Model model) {
-		model.addAttribute("regList", service.selectAllExh());
-		return "admin/exhibition/exRegAppList";
+	public String exRegAppList(String approvalStatus, Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		
+		if(user.getMemNo()==0) {
+			model.addAttribute("regList", service.selectAllExh());
+			return "admin/exhibition/exRegAppList";
+		}else {
+			return null; //404에러페이지 출력.
+		}
 	}
 
 	// 승인여부로 검색.
@@ -98,7 +109,7 @@ public class ExhibitionController {
 		return service.selectAllByMemName(memName);
 	}
 
-	// 전시등록번호에 따라 상세내용 출력하는 페이지로 넘어감
+	// 전시등록번호받아서 상세내용 출력하는 페이지로 넘어감
 	@GetMapping("exRegAppDetail/{exNo}")
 	public String selectOneByExNo(@PathVariable int exNo, Model model) {
 		model.addAttribute("detail", service.selectOneByExNo(exNo));
@@ -126,29 +137,31 @@ public class ExhibitionController {
 	// 사업자 시작 ===================
 
 	// 전시 등록 신청 폼
-	@GetMapping("register")
-	public String registerForm(Model model) {
-
-		// TODO session 에서 받는 member 정보로 교체할 것
-		MemberVO member = new MemberVO();
-		member.setMemNo(2);
-		model.addAttribute("member", member);
+	@GetMapping("provider/register")
+	public String registerForm(HttpServletRequest request, Model model) {
+		
+		HttpSession session = request.getSession();
+		
+		model.addAttribute("member", (MemberVO) session.getAttribute("user"));
 
 		return "provider/exhibition/register";
 	}
 
 	// 전시 등록 신청
-	@PostMapping("register")
-	public String register(ExhibitionVO vo) {
-		System.out.println(vo);
+	@PostMapping("provider/register")
+	public String register(ExhibitionVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		vo.setMemNo(user.getMemNo());
+		
 		service.insertExhibition(vo);
 
-		// TODO 사업자의 등록 신청 목록 페이지로 이동시킬 것
-		return "provider/exhibition/registrationList";
+		// TODO 사업자의 등록 신청 목록 페이지로 이동시킬 것	
+		return "redirect:registration";
 	}
 
 	// 로그인한 사업자의 전시 등록 신청 목록
-	@GetMapping("registration")
+	@GetMapping("provider/registration")
 	public String getRegistrationList(Model model, HttpServletRequest request) {
 		model.addAttribute("list", service.getRegistrationList(request));
 
@@ -156,7 +169,7 @@ public class ExhibitionController {
 	}
 
 	// 전시 등록 신청 상세
-	@GetMapping("registration/{exNo}")
+	@GetMapping("provider/registration/{exNo}")
 	public String getRegistration(@PathVariable("exNo") int exNo, Model model) {
 		
 		model.addAttribute("exhibition", service.getRegistration(exNo));
@@ -172,7 +185,7 @@ public class ExhibitionController {
 	}
 
 	// 전시 상세
-	@GetMapping("provider/exhibition/{exNo}")
+	@GetMapping("provider/{exNo}")
 	public String getProviderExhibition(@PathVariable("exNo") int exNo, Model model) {
 		ParkExhibitionVO vo = new ParkExhibitionVO();
 		vo.setExNo(exNo);
@@ -181,14 +194,14 @@ public class ExhibitionController {
 	}
 
 	// 전시 예약자 목록
-	@RequestMapping("provider/exhibition/{exNo}/reservation")
-	public String getProviderReservationList(@PathVariable("exNo") int exNo, HttpServletRequest request) {
-		service.getReservationList(exNo, request);
+	@RequestMapping("provider/{exNo}/reservation")
+	public String getProviderReservationList(@PathVariable("exNo") int exNo, HttpServletRequest request, Model model) {
+		model.addAttribute("list", service.getReservationList(exNo, request));
 		return "provider/exhibition/reservationList";
 	}
 
 	// TODO 예약정보 상세
-	@RequestMapping("provider/exhibition/{exNo}/reservation/{exResNo}")
+	@RequestMapping("provider/{exNo}/reservation/{exResNo}")
 	public String getReservationDetail(@PathVariable("exNo") int exNo, @PathVariable("exResNo") int exResNo ) {
 		
 		return "";

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,12 +55,8 @@
 	<tbody>
 	<c:forEach var="list" items="${prodList}">
 	<tr class="product"  >
-	<%--<td> <c:if test="${list.prodThumbnail eq null }"> 
-            <h2> 
-                없음
-            </h2> 
-    </c:if> <td> --%>
-		<td id="thumbNail" ><%-- ${list.product.prodThumbnail} --%></td>
+	
+		<td id="thumbNail" >${list.product.prodThumbnail} </td>
 		<td>${list.product.prodName}</td>
 		<td><fmt:formatNumber value="${list.product.price}" pattern="#,###"/> </td>
 		<td>${list.reservedProduct.count}개</td>
@@ -82,7 +78,9 @@
 	</tr> 
 	<tr>
 		<td>예약 일시</td>
-		<td>${detail.pickupTime} ${detail.pickupDate}</td>
+		 
+		<td><fmt:formatDate value="${detail.pickupDate}" dateStyle="full"/>
+		 <fmt:formatDate value="${detail.pickupTime}" type="time"/> </td>
 	</tr>
 	<tr>
 		<td>연락처</td>
