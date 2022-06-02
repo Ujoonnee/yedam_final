@@ -32,7 +32,8 @@ public interface ExhibitionMapper {
 	public int exhPermit(int exNo); 										
 	public int exhReject(int exNo); 	
 	public ReviewVO selectReview(int selectedResNo);
-	void cancelOneReservation(int exResNo); //예약취소
+	void cancelOneReservation(int exResNo); 									//예약취소
+	List<ReviewVO> exhReviewLoad(int exNo); 											//리뷰목록 출력
 	// 성환
 	
 	

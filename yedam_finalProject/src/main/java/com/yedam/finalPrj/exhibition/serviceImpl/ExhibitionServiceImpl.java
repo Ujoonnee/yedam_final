@@ -115,6 +115,11 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public void cancelOneReservation(int exResNo) {
 		map.cancelOneReservation(exResNo);
 	}
+	//리뷰리스트 출력
+	@Override
+	public List<ReviewVO> exhReviewLoad(int exNo) {
+		return map.exhReviewLoad(exNo);
+	}
 	
 	// 성환
 	
@@ -271,6 +276,8 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		return user;
 	}
+
+	
 
 
 

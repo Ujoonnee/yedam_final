@@ -125,6 +125,15 @@
 	WHERE ex_res_no = #{exResNo} 
 	AND category= '00202'
 </update>
+<!-- 리뷰 리스트 출력 -->
+<select id="exhReviewLoad" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO">
+	SELECT DISTINCT r.*, m.name AS "member.name"
+	FROM review r, exhibition e, member m, exhibition_reservation er
+	WHERE e.name = r.service_name
+	AND er.mem_no = m.mem_no
+	AND e.ex_no = #{exNo}
+</select>
+
 <!-- 	성환 -->
 	
 	

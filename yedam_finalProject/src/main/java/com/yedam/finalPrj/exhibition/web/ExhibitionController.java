@@ -228,7 +228,7 @@ public class ExhibitionController {
 
 		model.addAttribute("exhibitionList", service.exhibition(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.listTotalCnt(cri)));
-
+		
 		return "main/exhibition/exhibitionList";
 	}
 
@@ -249,6 +249,11 @@ public class ExhibitionController {
 		
 		model.addAttribute("member", user);
 		model.addAttribute("exhibitionView", service.findExVO(vo));
+		
+		//전시번호 받아서 리뷰리스트 출력.
+		int exNo = service.findExVO(vo).getExNo();
+		model.addAttribute("reviewList",service.exhReviewLoad(exNo) );
+		
 		return "main/exhibition/exhibitionView";
 	}
 
