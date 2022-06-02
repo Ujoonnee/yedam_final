@@ -174,7 +174,7 @@ public class StoreController {
 			
 		model.addAttribute("detail", service.resProdDetail(selectedResNo));
 		model.addAttribute("prodList", service.resProdDetailList(selectedResNo));
-		model.addAttribute("reviewList", service.reviewLoad(selectedResNo));
+		model.addAttribute("review", service.reviewLoad(selectedResNo));
 		
 		return "general/store/resProdDetail";
 

@@ -30,7 +30,7 @@ public interface ExhibitionMapper {
 	public ExhibitionVO selectOneByExNo(int exNo);							
 	public int exhPermit(int exNo); 										
 	public int exhReject(int exNo); 	
-	public ReviewVO reviewLoad(int selectedResNo);
+	public ReviewVO selectReview(int selectedResNo);
 	void cancelOneReservation(int exResNo); //예약취소
 	// 성환
 	
