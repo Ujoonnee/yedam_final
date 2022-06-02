@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
+import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
@@ -36,11 +37,12 @@ public interface ExhibitionService {
 	
 	
 	// 우준	
-	int insertExhibition(ExhibitionVO vo);													// 전시 등록 신청
-	List<ExhibitionVO> getRegistrationList(HttpServletRequest request);						// 전시 등록 신청 목록
-	ExhibitionVO getRegistration(int exNo);													// 전시 등록 신청 상세
-	List<ExhibitionVO> getExhibitionList(HttpServletRequest request);						// 승인된 전시 목록
+	int insertExhibition(ExhibitionVO vo);														// 전시 등록 신청
+	List<ExhibitionVO> getRegistrationList(HttpServletRequest request);							// 전시 등록 신청 목록
+	ExhibitionVO getRegistration(int exNo);														// 전시 등록 신청 상세
+	List<ExhibitionVO> getExhibitionList(HttpServletRequest request);							// 승인된 전시 목록
 	List<HongExhibitionReservationVO> getReservationList(int exNo, HttpServletRequest request);	// 전시의 예약자 목록
+	ExhibitionReservationVO getReservation(ExhibitionReservationVO vo);							// 예약 상세
 	
 	// 성준
 
