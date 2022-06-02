@@ -102,6 +102,7 @@ public class ProductController {
 		if(!user.getMemType().equals("00103")) {
 			return "main/unusalApproach";
 		}else {
+//			product 가 null이면 매장이없음, product가 size가 0이면 제품이 없음. 
 			List<Product> productList = dao.myStoreProductManegement(cri,request);
 			model.addAttribute("ProductList",productList);
 			if (productList != null) {

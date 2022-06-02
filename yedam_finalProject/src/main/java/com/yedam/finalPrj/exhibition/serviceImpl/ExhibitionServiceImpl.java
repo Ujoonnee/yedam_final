@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
+import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
@@ -146,16 +147,18 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	// 선택한 전시의 예약자 목록
 	@Override
 	public List<HongExhibitionReservationVO> getReservationList(int exNo, HttpServletRequest request) {
-		MemberVO user = getCurrentUser(request);
 		
 		HongExhibitionReservationVO vo = new HongExhibitionReservationVO();
 		vo.setExNo(exNo);
-		vo.setMemNo(user.getMemNo());
 		
 		return map.selectProviderReservationList(vo);
 	}
 
-	
+	// 예약 상세
+	@Override
+	public ExhibitionReservationVO getReservation(ExhibitionReservationVO vo) {
+		return map.selectReservation(vo);
+	}
 	
 	
 	// 성준

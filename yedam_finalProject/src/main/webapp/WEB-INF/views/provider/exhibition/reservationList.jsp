@@ -19,21 +19,23 @@
 		</c:if>
 		<c:if test = "${not empty list }">
 			<c:forEach items="${list }" var = "res" >
-			<tr onclick="getReservation(${res.exNo})">
+			<tr onclick="getReservation(${res.exResNo})">
 				<td>${res.exResNo }</td>
 				<td>${res.exNo }</td>
 				<td>${res.exDate }</td>
-				<td>${res.startDate }</td>
-				<td>${res.endDate }</td>
-				<td>${res.paymentStatusCodeName }</td>
+				<td>${res.paymentStatus }</td>
 			</tr>
 			</c:forEach>
 		</c:if>
 	</table>
 	
-	
-	
 </form>
-	
+
+<script>
+	function getReservation(exResNo) {
+		frm.action = 'reservation/' + exResNo;
+		frm.submit();
+	}
+</script>
 </body>
 </html>

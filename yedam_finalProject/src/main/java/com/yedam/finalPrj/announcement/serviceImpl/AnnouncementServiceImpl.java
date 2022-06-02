@@ -159,4 +159,15 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return map.topStatus(maps);
 	}
 	
+	// zip파일인데 먼저 css 끝내고 할것 
+	/*
+	 * @Override public List<String> selectZipFileInfo(List<String> list) { // TODO
+	 * Auto-generated method stub return map.selectZipFileInfo(list); }
+	 */
+
+	/*
+	 * @Override public List<FileVO> selectZipFileInfo(Map<String, Object> map) { //
+	 * TODO Auto-generated method stub return map.se; }
+	 */
+	
 }
