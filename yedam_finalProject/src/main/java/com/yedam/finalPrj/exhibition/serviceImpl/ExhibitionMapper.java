@@ -2,7 +2,7 @@ package com.yedam.finalPrj.exhibition.serviceImpl;
 
 import java.util.List;
 
-import com.yedam.finalPrj.exhibition.vo.hong.ExhibitionReservationVO;
+import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
@@ -15,10 +15,10 @@ import com.yedam.finalPrj.review.service.ReviewVO;
 public interface ExhibitionMapper {
 
 	// 홍제
-	List<ExhibitionReservationVO> selectAllExhibitionReservattion();
-	List<ExhibitionReservationVO> searchExhibitionByNo(int exResNo); // 예약번호로검색
-	ExhibitionReservationVO selectOneExhibitionReservationVO(ExhibitionReservationVO exhibitionReservationVO);
-	ExhibitionReservationVO exDetail(int exResNo);
+	List<HongExhibitionReservationVO> selectAllExhibitionReservattion();
+	List<HongExhibitionReservationVO> searchExhibitionByNo(int exResNo); // 예약번호로검색
+	HongExhibitionReservationVO selectOneExhibitionReservationVO(HongExhibitionReservationVO exhibitionReservationVO);
+	HongExhibitionReservationVO exDetail(int exResNo);
 	
 	int totalCnt(PagingVO vo);
 	
@@ -30,7 +30,7 @@ public interface ExhibitionMapper {
 	public ExhibitionVO selectOneByExNo(int exNo);							
 	public int exhPermit(int exNo); 										
 	public int exhReject(int exNo); 	
-	public ReviewVO reviewLoad(int selectedResNo);
+	public ReviewVO selectReview(int selectedResNo);
 	void cancelOneReservation(int exResNo); //예약취소
 	// 성환
 	
@@ -40,7 +40,7 @@ public interface ExhibitionMapper {
 	List<ExhibitionVO> selectRegistrationList(MemberVO vo);
 	ExhibitionVO selectRegistrationDetail(int exNo);
 	List<ExhibitionVO> selectProviderExhibitionList(MemberVO vo);
-	List<ExhibitionReservationVO> selectProviderReservationList(ExhibitionReservationVO vo);
+	List<HongExhibitionReservationVO> selectProviderReservationList(HongExhibitionReservationVO vo);
 	
 	
 	// 성준

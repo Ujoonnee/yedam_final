@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,12 +55,8 @@
 	<tbody>
 	<c:forEach var="list" items="${prodList}">
 	<tr class="product"  >
-	<%--<td> <c:if test="${list.prodThumbnail eq null }"> 
-            <h2> 
-                없음
-            </h2> 
-    </c:if> <td> --%>
-		<td id="thumbNail" ><%-- ${list.product.prodThumbnail} --%></td>
+	
+		<td id="thumbNail" >${list.product.prodThumbnail} </td>
 		<td>${list.product.prodName}</td>
 		<td>${list.product.price}</td>
 		<td>${list.reservedProduct.count}개</td>
@@ -81,23 +78,25 @@
 	</tr> 
 	<tr>
 		<td>예약 일시</td>
-		<td>${detail.pickupTime} ${detail.pickupDate}</td>
+		 
+		<td><fmt:formatDate value="${detail.pickupDate}" dateStyle="full"/>
+		 <fmt:formatDate value="${detail.pickupTime}" type="time"/> </td>
 	</tr>
 	<tr>
 		<td>연락처</td>
 		<td>${detail.member.tel}</td>
 	</tr>
 </table> 
-<c:if test="${not empty reviewList}">
+<c:if test="${not empty review}">
 <div>
 <h3>내 리뷰</h3>
-			<div>${reviewList.serviceName }</div>
+			<div>${review.serviceName }</div>
 			<hr>
-			<span>평점(${reviewList.score })</span><span id="vscore">${reviewList.score }</span>
-			<div>${reviewList.content }</div>
+			<span>평점(${review.score })</span><span id="vscore">${review.score }</span>
+			<div>${review.content }</div>
 			<hr>
 			<div>답변</div>
-			<div>${reviewList.replyContent }</div>
+			<div>${review.replyContent }</div>
 			<hr>
 </div>
 </c:if>
@@ -108,7 +107,7 @@
 
 <!-- 리뷰 작성안했다면 작성버튼 show. -->
 <c:if test="${detail.pickupStatus eq 'Y'}"> 
-<c:if test="${empty reviewList}" >
+<c:if test="${empty review}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
 </c:if>
 </c:if>
@@ -119,11 +118,11 @@
 </c:if>
 
 <!--리뷰작성하면 show, 답변아직 안달리면 리뷰수정가능-->
-<c:if test="${not empty reviewList}" >
-<c:if test="${empty reviewList.replyContent}">
+<c:if test="${not empty review}" >
+<c:if test="${empty review.replyContent}">
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" onclick=reviewUpd() >리뷰수정</button>
 
-<button type="submit"  class="btn btn-block btn-gray-800 mb-3 delBtn" value="${reviewList.revNo }">삭 제</button>
+<button type="submit"  class="btn btn-block btn-gray-800 mb-3 delBtn" value="${review.revNo }">삭 제</button>
 </c:if>
 </c:if>
 
@@ -216,7 +215,7 @@
 	 //리뷰수정 버튼 클릭시 모달띄우기
 		function reviewUpd(){
 		 
-		var revNo = ${reviewList.revNo}
+		var revNo = ${review.revNo}
 		//등록된 리뷰내용 불러오기.
 		 $("#reviewModal").load("${pageContext.request.contextPath}/review/rev_update/"+revNo, function(){
 		 		const myModal = new bootstrap.Modal('#modal-default');
@@ -244,7 +243,7 @@
 			url : '${pageContext.request.contextPath}/store/delete',
 			method : 'POST',
 			data : {
-				revNo : '${reviewList.revNo}'
+				revNo : '${review.revNo}'
 			},
 			success : () => location.reload()
 		});
