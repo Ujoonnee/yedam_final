@@ -1,7 +1,5 @@
 package com.yedam.finalPrj.common;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;

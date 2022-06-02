@@ -54,7 +54,7 @@
 		
 									<td style="width: 10%">${announcement.annNo }</td>
 									<td style="width: 55%"><a class="text-primary fw-bold"
-										href="annDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">${announcement.title }</a></td>
+										href="mainAnnDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">${announcement.title }</a></td>
 									<td style="width: 10%">${announcement.annDate }</td>
 									<td style="width: 5%">${announcement.annView }</td>
 								</tr>
@@ -66,7 +66,7 @@
 								<c:forEach items="${list }" var="announcement">
 										<tr>
 											<td>${announcement.annNo }</td>
-											<td><a class="text-primary fw-bold" href="annDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">${announcement.title }</a></td>
+											<td><a class="text-primary fw-bold" href="mainAnnDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">${announcement.title }</a></td>
 											<td>${announcement.annDate }</td>
 											<td>${announcement.annView }</td>
 										</tr>
