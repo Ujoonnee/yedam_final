@@ -24,7 +24,7 @@
 		<![CDATA[
 			SELECT *
 			FROM (SELECT /*+INDEX_DESC(vw_ex_re pk_board) */
-			                ROWNUM rn, ex_res_no, name, start_date, payment_status, payment
+			                ROWNUM rn, ex_res_no, name, ex_date, payment_status, payment_amt
 			      FROM vw_ex_re WHERE ROWNUM <= 10)
 			WHERE rn > 0
 		]]>
@@ -206,13 +206,13 @@
 	where ex_no = #{exNo}
 	</select>
 <!-- 	예약정보등록 -->
-	<insert id = "insertExhibitionReservation" parameterType = "ExhibitionVO" >
-		<selectKey keyProperty="memNo" resultType="int" order="BEFORE">
+	<insert id = "insertExhibitionReservation" parameterType = "com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO" >
+		<selectKey keyProperty="exResNo" resultType="int" order="BEFORE">
 			SELECT CASE WHEN MAX(ex_res_no) IS NULL THEN 1
 			ELSE MAX(ex_res_no) + 1 END AS ex_res_no
 			FROM exhibition_reservation
 		</selectKey>
-		insert into exhibition_reservation values (#{ex_res_no},#{exNo},#{memNo},#{exDate},#{Amount},#{paymentAmt},#{category},#{paymentStatus})
+		insert into exhibition_reservation values (#{exResNo},#{exNo},#{memNo},#{exDate},#{amount},#{paymentAmt},'00202',#{paymentStatus})
 	</insert>
 <!-- 	예약정보확인 -->
 	<select id = "findExReVO" resultType ="HashMap">

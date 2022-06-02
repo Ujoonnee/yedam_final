@@ -104,8 +104,7 @@
 	<div class="row row-cols-1 row-cols-sm-2 g-2" style="padding :15px;">
 		<div class="col" style="width: 35%; padding: 15px">
 	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></svg>
-	            쇼룸 : ${exhibitionView.showRoom }
+	            <img src ="/exhibition/${exhibitionView.thumbnail }" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></img>
 	          </div>
 	    </div>
 		<div style="padding : 25px;">
@@ -152,43 +151,151 @@
 			<div class="modal_body">
 				<div id ="관람일"><input type = "text" id = "exDate"> </div>
 				<div id = "ticketAmt">수량 <input type =number id = "ticketCount"  placeholder="수량을 입력하세요.:)" max="30" min="0" style="width:150px;"> </div>
-				<div id = "modalButton"><button class = "btn-sub-popup">결제하기</button></div>
+				<div id = "modalButton"><button class = "btn-sub-popup">결제정보확인</button></div>
 			</div>
 		</div> 
 		
 
 	
 <!-- 	서브모달 -->
-		<form id = "frm" >
 		<div class="sub_modal">
 			<div class="sub_modal_body">
-				<p>예약정보확인</p>
-				<p>-------------------------------------------------------------</p>
-				<p>예약일			: <input type="text" name="exDate" value="" disabled></p>
-				<p>카테고리			: ${exhibitionView.category }</p>
-				<p>전시명			: ${exhibitionView.name } </p>
-				<p>예약자명			: ${member.name }</p>
-				<p>예약자  연락처	: ${member.tel }</p>
-				<p>수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></p>
-				<p>결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></p>
-				<button onclick = "payment()" >결제하기</button>
+				<form id = "frm" >
+					<p>예약정보확인</p>
+					<p>------------------------------------------------</p>
+					<p>예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></p>
+					<p>카테고리			: ${exhibitionView.category }</p>
+					<p>전시명			: ${exhibitionView.name } </p>
+					<p>예약자명			: ${member.name }</p>
+					<p>예약자  연락처	: ${member.tel }</p>
+					<p>수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></p>
+					<p>결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></p>
 				
-				
-				
-				
+					<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
+					<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
+					<input type = "hidden" name="status" value ="N">
+					<input type = "hidden" name="category" value ="${exhibitionView.category }">
+					<input type ="hidden" id = "price" value ="${exhibitionView.price }">
+				</form>
+				<button id="payBtn" >결제하기</button>
 			</div>
-			<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
-			<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
-			<input type = "hidden" name="status" value ="N">
-			<input type = "hidden" name="category" value ="${exhibitionView.category }">
-			<input type ="hidden" id = "price" value ="${exhibitionView.price }">
 		</div>
-		</form>
 
 </div>
 </div>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<script type="text/javascript">
+// 	결제 function
 
-<script>
+		
+		
+// 		var queryString = $('#frm').serialize();
+		
+// 		$.ajax({
+// 			url : "payment",
+// 			type : "post",
+// 			data : {
+// 				"exhibitionReservation" : queryString
+// 			},
+// 			success: function(result){
+// 				alert("result : " + result);				
+// 			},
+// 			error:function(error){
+// 				alert("error : "+error);
+// 			}
+// 		})
+// 	}
+
+var IMP = window.IMP;
+IMP.init('imp73462839');
+
+
+$('#payBtn').click(() => requestPay() );
+
+
+function requestPay() {
+		
+		const memNo= '${user.memNo}';
+
+		
+		
+		if (memNo == '') {
+			alert("로그인 후 사용해주세요.")
+			return;
+		}else{
+			
+			
+			var paymentAmtVal = document.getElementById('paymentAmt').value;
+			var exDateVal = document.getElementById('exDate').value;
+			
+			var amountVal = document.getElementById('amount').value;
+			console.log(amountVal);
+			const tel= '${user.tel}';
+			const name= '${user.name}';
+			const email= '${user.email}';
+			const address= '${user.address}';
+			
+			
+		
+			
+			
+			
+			// IMP.request_pay(param, callback) 결제창 호출
+		    IMP.request_pay({ // param
+		        pg: "html5_inicis",
+		        pay_method: "card",
+		        merchant_uid:  'merchant_' + new Date().getTime(),
+		        name: "예담통합플랫폼 결제",
+		        amount: 100, //paymentAmtVal
+		        buyer_email: email,
+		        buyer_name: name,
+		        buyer_tel: tel,
+		        buyer_addr: address
+		    }, function (rsp) { // callback
+		        if (rsp.success) {
+		            // 결제 성공 시 로직,
+		        	console.log(rsp.success);
+		        	
+					$.ajax({
+						url : "payment",
+						type : "post",
+						data : {
+							"exNo" : ${exhibitionView.exNo },
+							"memNo" : memNo	,
+							"exDate" : exDateVal,
+							"amount" : amountVal,
+							"paymentAmt" : paymentAmtVal
+						},
+						success: function(result){
+							alert("결제성공");				
+							console.log(result);		
+							location.reload();
+						},
+						error:function(error){
+							alert("error : "+error);
+							console.log(error);
+						}
+					})
+					
+					
+		        	
+		        } else {
+		              // 결제 실패 시 로직,
+		        	  console.log(data)
+		        	 alert('결제실패')
+		            
+		            
+		        }
+		    });
+			
+
+			
+		
+		
+		}
+	}
+		
+
 
 // 모달처리
 
@@ -273,24 +380,7 @@
 	
 	
 	
-	// 	결제 function
 
-	function payment(){
-		var queryString = $('#frm').serialize();
-		$.ajax({
-			url : "payment",
-			type : "post",
-			data : {
-				"exhibitionReservation" : queryString
-			},
-			success: function(result){
-				alert("result : " + result);				
-			},
-			error:function(error){
-				alert("error : "+error);
-			}
-		})
-	}
 
 	
 	 $(document).ready(function () {

@@ -5,7 +5,7 @@
 
 <h1>전시 등록 신청</h1>
 
-<form id="frm" action="provider/register" method="post">
+<form id="frm" action="register" method="post" enctype="multipart/form-data">
 	<table border="1" class="form-control">
 		<colgroup>
 			<col>
@@ -30,7 +30,7 @@
 		<tr class="mb-3">
 			<th>썸네일</th>
 			<td>
-				<input class="ms- mt-3 mb-3 form-control" type="file" name="thumbnail">
+				<input class="ms- mt-3 mb-3 form-control" type="file" name="fileUpload">
 			</td>
 		</tr>
 		<tr>

@@ -66,17 +66,15 @@ public class ProductController {
 	}
 //	결제정보전달
 	@RequestMapping("paymenInformation")
-	public String PaymentInformation(@RequestBody HashMap<String,String> vo) {
+	public String PaymentInformation(@RequestBody HashMap<String,String> vo,ProductPagingCriteria cri,Model model,HttpServletRequest request) {
+		System.out.println(cri.getStoreNo());
 		System.out.println("=================vo"+vo);
-		String address = vo.get("address");
-		String imp_uid = vo.get("imp_uid");
-		String name = vo.get("name");
-		String tel = vo.get("tel");
-		String merchant_uid = vo.get("merchant_uid");
-		String email = vo.get("email");
-		String time = vo.get("time");
 		
-		return "";
+		dao.productReservationInsert(vo, model, request);
+		
+		model.addAttribute("products" ,dao.selectOne(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
+		return "main/store/storeView";
 	}
 	
 //  상품 검색

@@ -31,7 +31,7 @@
 				<tr class="row mb-2">
 					<th class="col-3">썸네일</th>
 					<td class="col-6">
-					<img width="300px" src="https://sunstat.com/wp-content/uploads/2019/01/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C-%EB%B0%B0%EA%B2%BD%EC%9D%B4%EB%AF%B8%EC%A7%80.png" alt="thumbnail preview">
+					<img width="300px" src="/exhibition/${exhibition.thumbnail }" alt="thumbnail preview">
 					</td>
 				</tr>
 				<tr style="width:400px;" class="row mb-2">

@@ -71,14 +71,13 @@
 				        <c:forEach items="${exhibitionList }" var = "list" >
 					        <div class="col" >
 					          <div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
-					            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진 </text></svg>
+					            <img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진 </text></src>
 					            <div class="card-body">
 					              <p class="card-text">${list.name }</p>
 					              <div class="d-flex justify-content-between align-items-center">
 					                <div class="btn-group">
-					                
-					                	<p class="card-text">${list.startDate } ~ </p> 
-					                	<p class="card-text">${list.endDate }</p>
+					                	<small class="card-text">${list.startDate } ~ </small> 
+					                	<small class="card-text">${list.endDate }</small>
 					                </div>
 					              </div>
 					            </div>
