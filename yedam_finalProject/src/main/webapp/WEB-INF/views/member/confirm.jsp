@@ -58,7 +58,7 @@
         <section class="vh-100 d-flex align-items-center justify-content-center">
             <div class="container">
                 <div class="row align-items-center ">
-                	<!-- 청상 처리 -->
+                	<!-- 정상 처리 -->
 	            	<c:if test="${not isExpired }">
 	                     <div class="col-lg-5 order-2 order-lg-1 text-center text-lg-left">
 			                <h1 class="mt-5">환영합니다!</h1>

@@ -540,7 +540,7 @@
 			}
 			
 			// 연락처 미입력 시
-			if ($('#tel2').val() == '') {
+			if ($('#tel2').val() == '' || $('#tel2').val().length < 4) {
 				$('#tel2').addClass('is-invalid');
 				$('#telValidation').html('연락처를 입력하세요.');
 				isValid = false;
@@ -548,7 +548,7 @@
 				$('#tel2').addClass('is-valid');
 			}
 
-			if ($('#tel3').val() == '') {
+			if ($('#tel3').val() == '' || $('#tel3').val().length < 4) {
 				$('#tel3').addClass('is-invalid');
 				$('#telValidation').html('연락처를 입력하세요.');
 				isValid = false;

@@ -94,20 +94,19 @@
                                        <div id="passwordValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
                                    </div>
 	                            
-	                            <div class="mb-2">
+	                            <div class="mb-4">
                                     <div>
                                         <label for="">이름</label>
                                         <input class="form-control" type="text" value="${user.name }" disabled>
                                     </div>
 	                            </div>
-	                            <div id="nameValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
 	                            
                                 <div class="mb-2">
                                     <div>
                                         <label for="">연락처</label>
                                         <div id="tel" class="input-group">
 	                                        <select class="form-select w-30" id="tel1">
-		                                        <option value="010" selected>010</option>
+		                                        <option value="010">010</option>
 		                                        <option value="011">011</option>
 		                                        <option value="017">017</option>
 		                                        <option value="018">018</option>
@@ -117,7 +116,7 @@
                                         </div>
                                     </div>
 	                            </div>
-                                      <div id="telValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
+                                <div id="telValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
 	                            
                                 <div class="row mb-1">
                                     <div class="col-7">
@@ -130,12 +129,12 @@
 	                            </div>
                                 <div class="mb-1">
                                     <div>
-                                        <input class="form-control" id="address1" type="text" required readonly>
+                                        <input class="form-control" id="address1" type="text" value="${user.address }" readonly>
                                     </div>
 	                            </div>
                                 <div class="mb-2">
                                     <div>
-                                        <input class="form-control" id="address2" type="text" required>
+                                        <input class="form-control" id="address2" type="text" value="${user.addressDetail }" required>
                                     </div>
 	                            </div>
 	                            <div id="addressValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
@@ -221,8 +220,20 @@
 	<!-- script -->
 	<script>
 	
+	// 기존 전화번호 입력
+	const tel = '${user.tel}';
+	$('#tel1').val(tel.split('-')[0]);
+	$('#tel2').val(tel.split('-')[1]);
+	$('#tel3').val(tel.split('-')[2]);
+
+	// 연락처에 문자 입력 방지
+	$('#tel').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
+	
+	// 연락처 커서 이동
+	$('#tel2').on('keyup', event => { if (event.target.value.length == 4) $('#tel3').focus(); } );
+	
 	// 다음 버튼 클릭시 form1 체크
-	$('#nextBtn').on('click', () => {
+	$('#updateBtn').on('click', () => {
 		let isValid = true;
 		
 		// 비밀번호 미입력 시
@@ -250,44 +261,52 @@
 			$('#password2').addClass('is-valid');
 		}
 		
+		// 연락처 미입력 시
+		if ($('#tel2').val() == '' || $('#tel2').val().length < 4) {
+			$('#tel2').addClass('is-invalid');
+			$('#telValidation').html('연락처를 입력하세요.');
+			isValid = false;
+		} else {
+			$('#tel2').addClass('is-valid');
+		}
+
+		if ($('#tel3').val() == '' || $('#tel3').val().length < 4) {
+			$('#tel3').addClass('is-invalid');
+			$('#telValidation').html('연락처를 입력하세요.');
+			isValid = false;
+		} else {
+			$('#tel3').addClass('is-valid');
+		}
+		
+		// 주소(address1) 미입력 시
+		if ($('#address1').val() == '') {
+			$('#zipcode').addClass('is-invalid');
+			$('#address1').addClass('is-invalid');
+			$('#addressValidation').html('주소를 입력하세요.');
+			isValid = false;
+		} else {
+			$('#zipcode').addClass('is-valid');
+			$('#address1').addClass('is-valid');
+		}
+		
+		
 	});
 	
 	// form1 입력값 수정 시 validation 초기화
-	$('#form1 input').on('change', event => {
+	$('input').on('change', event => {
 		const id = event.target.id;
-		
-		if (id == 'email1') {
-			$('#email1').removeClass('is-invalid');
-			$('#emailValidation').html('&nbsp;');
-		}
-		if (id == 'email2') {
-			$('#email2').removeClass('is-invalid');
-			$('#emailValidation').html('&nbsp;');
-		}
 		
 		if (id.startsWith('password')) {
 			$('#password1').removeClass('is-invalid');
 			$('#password2').removeClass('is-invalid');
 			$('#passwordValidation').html('&nbsp;');
 		}
+		
+		if (id.startsWith('tel')) {
+			$('#tel input').removeClass('is-invalid');
+			$('#telValidation').html('&nbsp;');
+		}
 	});
-	
-	// 주소 select 태그 변경 시 validation 초기화
-	$('#site').on('change', () => {
-		$('#email2').removeClass('is-invalid');
-		$('#emailValidation').html('&nbsp;');
-	});
-	
-	// form1 끝
-	
-	
-	// form2 시작
-	
-	// 연락처에 문자 입력 방지
-	$('#tel').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
-	
-	// 연락처 커서 이동
-	$('#tel2').on('keyup', event => { if (event.target.value.length == 4) $('#tel3').focus(); } );
 	
 	// 주소 검색 기능
 	$('#addressSearchBtn').on('click', event => {
@@ -312,33 +331,6 @@
 		let isValid = true;
 		
 		
-		// 연락처 미입력 시
-		if ($('#tel2').val() == '') {
-			$('#tel2').addClass('is-invalid');
-			$('#telValidation').html('연락처를 입력하세요.');
-			isValid = false;
-		} else {
-			$('#tel2').addClass('is-valid');
-		}
-
-		if ($('#tel3').val() == '') {
-			$('#tel3').addClass('is-invalid');
-			$('#telValidation').html('연락처를 입력하세요.');
-			isValid = false;
-		} else {
-			$('#tel3').addClass('is-valid');
-		}
-		
-		// 주소(address1) 미입력 시
-		if ($('#address1').val() == '') {
-			$('#zipcode').addClass('is-invalid');
-			$('#address1').addClass('is-invalid');
-			$('#addressValidation').html('주소를 입력하세요.');
-			isValid = false;
-		} else {
-			$('#zipcode').addClass('is-valid');
-			$('#address1').addClass('is-valid');
-		}
 		
 		// 회원가입 성공
 		if (isValid) {
@@ -380,33 +372,6 @@
 			}).fail(response => {
 				console.log(response);
 			})
-		}
-	});
-	
-	// form2 입력값 수정 시 validation 초기화
-	// 주소 validation은 주소검색 완료에서 초기화
-	$('#form2 input').on('change', event => {
-		const id = event.target.id;
-		
-		if (id == 'name') {
-			$('#name').removeClass('is-invalid');
-			$('#nameValidation').html('&nbsp;');
-		}
-		
-		if (id.startsWith('tel')) {
-			$('#tel input').removeClass('is-invalid');
-			$('#telValidation').html('&nbsp;');
-		}
-		
-		if (id.startsWith('buisness')) {
-			$('#buisnessDiv input').removeClass('is-invalid');
-			$('#telValidation').html('&nbsp;');
-		}
-		
-
-		if (id == 'termCheckbox') {
-			$('#termCheckbox').removeClass('is-invalid');
-			$('#termValidation').html('&nbsp;');
 		}
 	});
 		
