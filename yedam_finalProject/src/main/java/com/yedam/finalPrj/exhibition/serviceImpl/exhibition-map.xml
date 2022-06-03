@@ -160,9 +160,11 @@
 	</select>
 	
 	<!-- 선택한 전시의 예약자 목록 -->
-	<select id="selectProviderReservationList" parameterType="ExhibitionReservationVO" resultType="ExhibitionReservationVO">
-		SELECT e.*, GET_CODE_NAME(category) AS category_code_name, GET_CODE_NAME(payment_status) AS payment_status_code_name
+	<select id="selectProviderReservationList" parameterType="ExhibitionReservationVO" resultType="com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO">
+		SELECT e.*, GET_CODE_NAME(category) AS category_code_name, GET_CODE_NAME(payment_status) AS payment_status_code_name, m.name AS memName
 		FROM exhibition_reservation e
+		JOIN member m
+		ON e.mem_no = m.mem_no
 		WHERE ex_no=#{exNo}
 	</select>
 	

@@ -28,10 +28,4 @@ public class HomeController {
 		return "main/error/500";
 	}
 	
-	
-	@GetMapping("myPage")
-	public String myPage() {
-		return "layouts/myPage/myPageMain";
-	}
-	
 }
