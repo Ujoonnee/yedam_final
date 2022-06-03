@@ -21,7 +21,7 @@
 	</tr>
 	<tr>
 		<td>썸네일</td>
-		<td><img alt="" src="../../resources/img/${detail.thumbnail}">${detail.thumbnail}</td>
+		<td><img alt="" src="../../resources/img/${detail.thumbnail}"></td>
 	</tr>
 	<tr>
 		<td>장소명</td>

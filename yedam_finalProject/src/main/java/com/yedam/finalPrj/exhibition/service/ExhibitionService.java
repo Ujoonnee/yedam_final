@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.hong.PagingVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionReservationVO;
@@ -33,11 +36,12 @@ public interface ExhibitionService {
 	public ExhibitionVO selectOneByExNo(int exNo); 								//전시등록번호로 상세내역 가져오기
 	public int exhPermit(int exNo);												//전시등록 승인하기
 	public int exhReject(int exNo); 											//전시등록 반려하기
+	List<ReviewVO> exhReviewLoad(int exNo); 											//리뷰목록 출력
 	// 성환
 	
 	
 	// 우준	
-	int insertExhibition(ExhibitionVO vo);														// 전시 등록 신청
+	String insertExhibition(ExhibitionVO vo, MultipartFile multi, Model model);														// 전시 등록 신청
 	List<ExhibitionVO> getRegistrationList(HttpServletRequest request);							// 전시 등록 신청 목록
 	ExhibitionVO getRegistration(int exNo);														// 전시 등록 신청 상세
 	List<ExhibitionVO> getExhibitionList(HttpServletRequest request);							// 승인된 전시 목록
@@ -51,10 +55,11 @@ public interface ExhibitionService {
 	int totalExCnt(ParkExhibitionPagingCriteria cri); //페이징 위한 전시 개수 
 	int listTotalCnt(ParkExhibitionPagingCriteria cri);
 	ParkExhibitionVO findExVO(ParkExhibitionVO vo); //	전시 상세 페이지
-	int insertExhibitionReservation(ParkExhibitionVO vo);//예약 정보 등록
+	int insertExhibitionReservation(ParkExhibitionReservationVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인
 	void cancelOneReservation(int exResNo); //예약취소
 
+	
 	
 	
 }

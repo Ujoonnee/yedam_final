@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
@@ -23,6 +25,7 @@ import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPageMaker;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
+import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
 
@@ -143,6 +146,7 @@ public class ExhibitionController {
 		
 		HttpSession session = request.getSession();
 		
+		
 		model.addAttribute("member", (MemberVO) session.getAttribute("user"));
 
 		return "provider/exhibition/register";
@@ -150,12 +154,16 @@ public class ExhibitionController {
 
 	// 전시 등록 신청
 	@PostMapping("provider/register")
-	public String register(ExhibitionVO vo, HttpServletRequest request) {
+	public String register(ExhibitionVO vo, HttpServletRequest request,@RequestParam("fileUpload") MultipartFile multi,Model model) {
+		
+		System.out.println("multtipart==========================="+multi);
+		
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		vo.setMemNo(user.getMemNo());
+
 		
-		service.insertExhibition(vo);
+		service.insertExhibition(vo,multi,model);
 
 		// TODO 사업자의 등록 신청 목록 페이지로 이동시킬 것	
 		return "redirect:registration";
@@ -206,6 +214,8 @@ public class ExhibitionController {
 	public String getReservationDetail(@PathVariable("exNo") int exNo, @PathVariable("exResNo") int exResNo, Model model) {
 		ExhibitionReservationVO vo = new ExhibitionReservationVO();
 		vo.setExResNo(exResNo);
+		
+		model.addAttribute("reviewList", service.selectReview(exResNo));
 		model.addAttribute("res", service.getReservation(vo));
 		return "provider/exhibition/reservation";
 	}
@@ -219,13 +229,13 @@ public class ExhibitionController {
 
 		model.addAttribute("exhibitionList", service.exhibition(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.listTotalCnt(cri)));
-
+		
 		return "main/exhibition/exhibitionList";
 	}
 
 //	전시 목록 검색
 	@RequestMapping(value = "searchExhibition", method = { RequestMethod.GET })
-	public String searchEx(ParkExhibitionPagingCriteria cri, Model model) {
+	public String searchEx(ParkExhibitionPagingCriteria cri, Model model,HttpServletRequest request) {
 		model.addAttribute("exhibitionList", service.searchEx(cri));
 		model.addAttribute("paging", new ParkExhibitionPageMaker(cri, service.totalExCnt(cri)));
 		return "main/exhibition/exhibitionList";
@@ -234,18 +244,29 @@ public class ExhibitionController {
 //	전시 상세보기
 	@RequestMapping(value = "detailView", method = RequestMethod.GET)
 	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
-		System.out.println("===========vo"+vo.getExNo());
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		System.out.println("=========user"+user);
 		
+		model.addAttribute("member", user);
 		model.addAttribute("exhibitionView", service.findExVO(vo));
+		
+		//전시번호 받아서 리뷰리스트 출력.
+		int exNo = service.findExVO(vo).getExNo();
+		model.addAttribute("reviewList",service.exhReviewLoad(exNo) );
+		
 		return "main/exhibition/exhibitionView";
 	}
 
 //	결제하기
 	@RequestMapping(value = "payment", method = RequestMethod.POST)
-	public String payment(Model model, ParkExhibitionVO vo) {
+	public String payment(Model model, ParkExhibitionReservationVO vo,ParkExhibitionVO exhibitionVo) {
 		System.out.println("paymentDo");
 		service.insertExhibitionReservation(vo);
-		return "";
+		
+		exhibitionVo.setExNo(vo.getExNo());
+		model.addAttribute("exhibitionView", service.findExVO(exhibitionVo));
+		return "main/exhibition/exhibitionView";
 	}
 
 	

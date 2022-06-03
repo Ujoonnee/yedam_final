@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.exhibition.serviceImpl;
 
+import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.exhibition.service.ExhibitionService;
 import com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO;
@@ -111,6 +115,11 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public void cancelOneReservation(int exResNo) {
 		map.cancelOneReservation(exResNo);
 	}
+	//리뷰리스트 출력
+	@Override
+	public List<ReviewVO> exhReviewLoad(int exNo) {
+		return map.exhReviewLoad(exNo);
+	}
 	
 	// 성환
 	
@@ -119,10 +128,59 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	// DB 에 전시 등록
 	@Override
-	public int insertExhibition(ExhibitionVO vo) {
-		return map.insertExhibition(vo);
+	public String insertExhibition(ExhibitionVO vo,MultipartFile multi,Model model) {
+//		multipartFile로 받은 input file값에서 필요한 값 vo에 옮김
+		String path="C:\\Exhibition\\";
+		
+		String uploadpath = path;
+		String originFilename = multi.getOriginalFilename();
+		String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
+		String saveFileName = genSaveFileName(extName);
+		System.out.println(saveFileName);
+//		변환된 파일 이름(물리경로에 저장된 파일) VO에 담음
+		vo.setThumbnail(saveFileName);
+		if(!multi.isEmpty())
+        {
+            File file = new File(uploadpath, saveFileName);
+            try {
+				multi.transferTo(file);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+            model.addAttribute("filename",saveFileName);
+            model.addAttribute("uploadPath", file.getAbsolutePath());
+            try {
+//            	vo값 insert
+				map.insertExhibition(vo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            return "filelist";
+        }
+		
+		return null;
 	}
 
+	// 현재 시간을 기준으로 파일 이름 생성
+	 private String genSaveFileName(String extName) {
+	        String fileName = "";
+	        
+	        Calendar calendar = Calendar.getInstance();
+	        fileName += calendar.get(Calendar.YEAR);
+	        fileName += calendar.get(Calendar.MONTH);
+	        fileName += calendar.get(Calendar.DATE);
+	        fileName += calendar.get(Calendar.HOUR);
+	        fileName += calendar.get(Calendar.MINUTE);
+	        fileName += calendar.get(Calendar.SECOND);
+	        fileName += calendar.get(Calendar.MILLISECOND);
+	        fileName += extName;
+	        
+	        return fileName;
+	 }
+	
 	// 사업자의 전시 등록 신청 목록 조회
 	@Override
 	public List<ExhibitionVO> getRegistrationList(HttpServletRequest request) {
@@ -181,10 +239,14 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		// TODO Auto-generated method stub
 		return map.listTotalCnt(cri);
 	}
+	
 //	예약 정보 등록
 	@Override
-	public int insertExhibitionReservation(ParkExhibitionVO vo) {
-		// TODO Auto-generated method stub
+	public int insertExhibitionReservation(ParkExhibitionReservationVO vo) {
+		if(vo.getAmount() == 0) {
+			vo.setPaymentStatus("N");
+		}
+		vo.setPaymentStatus("Y");
 		return map.insertExhibitionReservation(vo);
 	}
 //	예약정보확인
@@ -214,6 +276,10 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		return user;
 	}
+
+	
+
+
 
 
 
