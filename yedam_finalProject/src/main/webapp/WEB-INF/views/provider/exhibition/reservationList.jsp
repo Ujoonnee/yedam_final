@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,8 +35,8 @@
 										<c:forEach items="${list }" var="res">
 										<tr onclick="getReservation(${res.exResNo})">
 											<td>${res.exResNo }</td>
-											<td>${res.exNo }</td>
-											<td>${res.exDate }</td>
+											<td>${res.memName }</td>
+											<td><fmt:formatDate var="exhDate" value="${res.exDate }" pattern="yyyy-MM-dd"/> ${exhDate }</td>
 											<c:if test = "${res.paymentStatus == 'N' }">
 												<td>결제대기</td>
 											</c:if>
@@ -61,20 +62,5 @@
 		frm.submit();
 	}
 </script>
-<%-- 				<c:if test = "${not empty list }"> --%>
-<%-- 					<c:forEach items="${list }" var = "res" > --%>
-<%-- 					<tr onclick="getReservation(${res.exResNo})"> --%>
-<%-- 						<td>${res.exResNo }</td> --%>
-<%-- 						<td>${res.exNo }</td> --%>
-<%-- 						<td>${res.exDate }</td> --%>
-<%-- 						<c:if test = "${res.paymentStatus == 'N' }"> --%>
-<!-- 							<td>결제대기</td> -->
-<%-- 						</c:if> --%>
-<%-- 						<c:if test = "${res.paymentStatus == 'Y' }"> --%>
-<!-- 							<td>결제완료</td> -->
-<%-- 						</c:if> --%>
-<!-- 					</tr> -->
-<%-- 					</c:forEach> --%>
-<%-- 				</c:if> --%>
 </body>
 </html>

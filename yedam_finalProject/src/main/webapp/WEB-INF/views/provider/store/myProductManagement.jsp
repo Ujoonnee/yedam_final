@@ -456,6 +456,7 @@
 	    excelDownload.addEventListener('click', exportExcel);
 	    excelFormDownload.addEventListener('click', exportFormExcel);
 	});
+	
 // 	재고다운로드
 	function exportExcel(){ 
 		  // step 1. workbook 생성
@@ -473,6 +474,7 @@
 		  // step 5. 엑셀 파일 내보내기 
 		  saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), excelHandler.getExcelFileName());
 		}
+		
 	var excelHandler = {
 		    getExcelFileName : function(){
 		        return '재고.xlsx';	//파일명

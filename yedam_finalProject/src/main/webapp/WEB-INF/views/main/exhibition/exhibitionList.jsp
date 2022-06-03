@@ -70,18 +70,38 @@
 			        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="padding :9px;">
 				        <c:forEach items="${exhibitionList }" var = "list" >
 					        <div class="col" >
-					          <div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
-					            <img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진 </text></src>
-					            <div class="card-body">
-					              <p class="card-text">${list.name }</p>
-					              <div class="d-flex justify-content-between align-items-center">
-					                <div class="btn-group">
-					                	<small class="card-text">${list.startDate } ~ </small> 
-					                	<small class="card-text">${list.endDate }</small>
-					                </div>
-					              </div>
-					            </div>
-					          </div>
+					        
+					        <c:if test = "${empty list.thumbnail }">
+						          <div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
+						            <img src="https://cdn-icons-png.flaticon.com/512/3342/3342136.png"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진 </text></src>
+						            <div class="card-body">
+						              <p class="card-text">${list.name }</p>
+						              <div class="d-flex justify-content-between align-items-center">
+						                <div class="btn-group">
+						                	<small class="card-text">${list.startDate } ~ </small> 
+						                	<small class="card-text">${list.endDate }</small>
+						                </div>
+						              </div>
+						            </div>
+						          </div>
+					          </c:if>
+					          
+					        <c:if test = "${not empty list.thumbnail }">
+						          <div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
+						            <img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진 </text></src>
+						            <div class="card-body">
+						              <p class="card-text">${list.name }</p>
+						              <div class="d-flex justify-content-between align-items-center">
+						                <div class="btn-group">
+						                	<small class="card-text">${list.startDate } ~ </small> 
+						                	<small class="card-text">${list.endDate }</small>
+						                </div>
+						              </div>
+						            </div>
+						          </div>
+					          </c:if>
+					          
+					          
 					        </div>
 			      	  </c:forEach>
 			        </div>
