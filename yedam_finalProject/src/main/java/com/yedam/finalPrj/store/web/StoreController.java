@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.finalPrj.member.service.MemberVO;
@@ -180,15 +181,16 @@ public class StoreController {
 
 	}
 //	예약한 상품 리스트 출력(예약취소후)
-	@GetMapping("resProdListByProdName/cancel/{prodResNo}")
+	@PostMapping("resProdListByProdName/cancel/{prodResNo}")
+	@ResponseBody
 	public String resProductsList(@PathVariable int prodResNo, ResProdListPagingCriteria cri,
 			Model model,HttpServletRequest request,@RequestParam("storeNo") int storeNo, @RequestParam(value="prodNo[]") List<String> prodNo) {
 		
-		service.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
+		service.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, 
 
-		service.CancelRes2(storeNo, prodNo);
+		service.CancelRes2(storeNo, prodNo); // reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가
 
-		return "redirect:/store/resProdList";
+		return "cancel success";
 	}
 	
 //	Yoon

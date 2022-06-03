@@ -157,35 +157,30 @@
 	//예약취소(비밀번호입력)
 	console.log(${detail.store.storeNo});
 	 $("#resCancel").on("click", function(){
-		
+		 /* console.log("매장번호 : " +${detail.store.storeNo}) */
 		 if(confirm("예약을 취소하시겠습니까?")){
 			var text = prompt("비밀번호를 입력하세요.");
 			if(text==${user.password}){
-				console.log("매장번호 : " +${detail.store.storeNo})
-
-			location.href="cancel/"+${detail.prodResNo};
-
 				$.ajax({
 					url:"cancel/"+${detail.prodResNo},
-					method:"GET",
+					method:"POST",
 					data:{
 						storeNo : ${detail.store.storeNo},
 						prodNo : prodNo
 					},
-					success: function(){
-						alert("성공");
+					success: function(data){
+						alert("예약이 취소되었습니다.");
 						location.href="${pageContext.request.contextPath}/store/resProdList"
+					},
+					error : function(){
+						alert("에러");
 					}
 				})
-				
-				
-			/* location.href="cancel/"+${detail.prodResNo}; */
-
 			}else{
 				return alert("비밀번호가 틀립니다.");
 			}
 		}else{
-			return alert("취소되었습니다.");
+			return alert("취소.");
 		} 
 	 }); 
 	
