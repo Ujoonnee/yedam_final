@@ -62,8 +62,34 @@
 		<a href="${pageContext.request.contextPath}/exhibition/list">전시</a>
 	</div>
 	<div class="col-2 px-3 h4 border-start">
-		<a href="${pageContext.request.contextPath}/store/list">매장</a>
+		<a id="storeList" href="${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude=&longitude=">매장</a>
 	</div>
 </div>
 
 <hr>
+
+<script>
+	
+	let xVal = '';
+	let yVal = '';
+	
+	const userAddress = '${user.address}';
+	if (userAddress != '')	{ 
+		$.ajax({
+			url:"https://dapi.kakao.com/v2/local/search/address.json?query="+encodeURIComponent(userAddress),
+			type : "GET",
+			headers: {'Authorization' : 'KakaoAK ee381ad2653c27997305ec26eef7c94b'},
+			success:function(data){
+				console.log(data)
+				xVal = data.documents[0].x;
+				yVal = data.documents[0].y;
+				$('#storeList').attr('href','${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude='+xVal+'&longitude='+yVal);
+			},
+			error : function(e){
+				console.log(e);
+			}
+		}); 
+	};
+	
+
+</script>
