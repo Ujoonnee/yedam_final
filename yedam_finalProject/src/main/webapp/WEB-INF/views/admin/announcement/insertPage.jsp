@@ -80,7 +80,7 @@
 		<br>
 		<div align="right">
 			<input class=".write_btn btn btn-tertiary" type="submit" value="작성"> 
-			<input type="button" class="btn btn-gray-200" onclick="location.href='adminList'" value="취소">
+			<input type="button" class="btn btn-gray-200" onclick="announcement" value="취소">
 		</div>
 	</form>
 	
