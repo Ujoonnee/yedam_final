@@ -14,7 +14,7 @@
 <div class="row justify-content-center">
 	<div class="col-8 form-control" style="width:700px;">
 		<div class="row">
-		<%-- <div class="col-6"><img style="width:382px; height:314px;" alt="" src="../../resources/img/${detail.thumbnail}"></div>
+		<div class="col-6"><img style="width:382px; height:314px;" alt="" src="../../resources/img/${detail.thumbnail}"></div>
 		<div class="col-6">
 			<dl>
 				<dt>서비스명</dt>
@@ -47,10 +47,10 @@
 				<dd>${detail.detail}</dd>
 			</dl>
 		</div>
-		</div> --%>
+		</div>
 		<!-- <div class="col-6"> -->
-		<table class="form-control">
-		<colgroup>
+		<%-- <table class="form-control">
+		<colgro<%-- up>
 			<col width="30%">
 			<col width="30%">
 			<col width="10%">
@@ -91,8 +91,8 @@
 				<td class="display-5">서비스설명</td>
 				<td class="display-6">${detail.detail}</td>
 			</tr>
-		</table>
-		</div>
+		</tabl --%>e> --%>
+		<!-- </div> -->
 		<hr>
 		<div align="right">
 			<input type="hidden" id="exNo" value="${detail.exNo}">
