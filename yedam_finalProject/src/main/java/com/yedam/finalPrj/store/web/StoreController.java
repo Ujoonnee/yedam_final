@@ -84,6 +84,7 @@ public class StoreController {
 	public String approvalList(StorePagingCriteria cri,Model model, HttpServletRequest request ) {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
+		
 		if(user == null) {
 			return "main/unusalApproach";
 		}

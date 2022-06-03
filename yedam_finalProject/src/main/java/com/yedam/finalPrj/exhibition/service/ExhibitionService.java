@@ -58,6 +58,7 @@ public interface ExhibitionService {
 	int insertExhibitionReservation(ParkExhibitionReservationVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인
 	void cancelOneReservation(int exResNo); //예약취소
+	int updatePayStatus(ParkExhibitionReservationVO vo);
 
 	
 	

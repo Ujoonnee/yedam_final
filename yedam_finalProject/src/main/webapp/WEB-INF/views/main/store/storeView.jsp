@@ -95,6 +95,7 @@
 	<div align="right">
 		<button class="btn-open-popup  btn btn-sm btn-primary" onclick="getCheckboxValue()">예약하기</button>
 	</div>
+	
 	<!-- 상품 목록 -->
 		<c:if test = "${empty products }">
 			<tr><td colspan ="3">등록된 상품이 없습니다.</td></tr>
@@ -162,8 +163,6 @@
 		<div>${list.member.name}님  <fmt:formatDate value="${list.revTime}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
 		<span class="tscore${status.index}">${list.score}</span>
 		${list.content}</div><br>
-		
-		
 	</c:forEach>
 </div>
 
@@ -388,13 +387,15 @@
     	  // 선택된 목록 가져오기
     	  const query = 'input[name="checkf"]:checked';
     	  const selectedEls = document.querySelectorAll(query);
-    	  
     	  // 선택된 목록에서 value 찾기
     	  let result = '';
     	  var obj_length = Object.keys(selectedEls).length;
     	  var checkList = [];
     	  var inputStock = document.createElement('input');
-    		
+    	
+    	  if(!obj_length == 0){
+        		alert("상품이 없습니다.")  
+        	  }
     		
     		for(let obj of selectedEls){
     			
@@ -441,7 +442,7 @@
     			total += productPrice
     			
     		}
-    		
+      	
     		$('input[name=totalPrice]').attr('value',total);
     		
     		
