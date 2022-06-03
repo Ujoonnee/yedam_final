@@ -54,29 +54,36 @@
 </head>
 <body>
 <div align = "center" id = "container">
+	<div class="form-control" style="width:800px">
 	<section id ="page_header" class="single-page-header">
-	<div class="container">
-		<h2>상품목록</h2>
-	 </div>
+<div align="left"><a class="display-6" href="http://localhost/finalPrj">메인 </a> > <a class="display-6" href="http://localhost/finalPrj/store/list"> 매장 </a> > <a class="display-6">${paging.cri.storeName}</a></div>
+<hr>
+	<div class="container display-3">${paging.cri.storeName}</div>
 	</section>
+	<hr>
 <!-- 	상품검색 -->
 	<form action ="searchProduct" method="get" name="searchForm" autocomplete="off">
-	<div id = "searchBox">
-		<p>상품명 : 
-		<input type = "text" id ="keyword" name = "keyword" value="${paging.cri.keyword }" placeholder="상품명 입력하세요." ></p>
-		<p>가격 :
-		<input type = "number" id ="lowPrice" name = "lowPrice" placeholder="최소가격." size="15"min = "0"  value="${paging.cri.lowPrice }"  > 
-		~ <input type = "number" id = "highPrice" name = "highPrice" placeholder="최대가격"size="15"min = "0"value="${paging.cri.highPrice }" ></p>
-		
+	<div id = "searchBox row" align="center">
+		<p class="row col-3" align="center" style="width:300px"><span class="display-5 me-2 mb-2">상품명</span>
+		<input class="col-6 form-control" type = "text" id ="keyword" name = "keyword" value="${paging.cri.keyword }" placeholder="상품명 입력하세요." ></p>
+		<p align="center" class="justify-content-center me-7" ><span class="display-5 col-2 ms-7">가격</span>
+		<div class="row justify-content-center">
+			<input class="form-control col-4" style="width:150px" type = "number" id ="lowPrice" name = "lowPrice" placeholder="최소가격." size="15"min = "0"  value="${paging.cri.lowPrice }"> 
+			<span class="display-3 col-1">~</span><input class="form-control col-4" style="width:150px" type = "number" id = "highPrice" name = "highPrice" placeholder="최대가격"size="15"min = "0"value="${paging.cri.highPrice }" ></p>
+		</div>
 		<input type="hidden" id ="storeNo" name = "storeNo" value="${products[0].storeNo }"> 
 		
 	</div>		
 	</form>
-	<div class="row">
-		<div  class="ms-6 row col-6 justify-content-center" style="width:300px">
-			<button id = "searchBtn" class="btn btn-tertiary col-4">버튼</button>&nbsp;
-			<button class="btn btn-tertiary col-4" onclick="resetValue()">초기화</button>
+		<div align="center">
+			<div class="row col-6 ms-3">
+				<button id = "searchBtn" class="ms-6 btn btn-sm btn-primary col-3">검색</button>&nbsp;
+				<button class="btn btn-sm btn-primary col-3" onclick="resetValue()">초기화</button>
+			</div>
 		</div>
+	<hr>
+	<div align="right">
+		<button class="btn-open-popup  btn btn-sm btn-primary" onclick="getCheckboxValue()">예약하기</button>
 	</div>
 	<!-- 상품 목록 -->
 	<table id = "productList">
@@ -98,6 +105,7 @@
 					<td align = "center" style=" vertical-align : middle;">가격 : ${product.price }</td>
 					<td align = "center" style=" vertical-align : middle;">재고 : ${product.stock }</td>
 				</tr>
+				<tr><td>&nbsp;</td></tr>
 			</c:forEach>
 		</c:if>
 	</table>	
@@ -125,9 +133,8 @@
 			</div>
 		</div>
 	</div> 
+	<hr>
 	
-	<button class="btn-open-popup" onclick="getCheckboxValue()">장바구니</button>
-
 <!-- By jo, 리뷰목록 출력하기. ${reviewList }-->
 <div  ><button type="button" id="review11">리뷰별표시 테스트</button>
 	<c:forEach var="list" items="${reviewList}" varStatus="status">
@@ -139,12 +146,11 @@
 	</c:forEach>
 </div>
 
-
+</div>
 </div>
  <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script type="text/javascript">
-
 	var IMP = window.IMP;
 	IMP.init('imp73462839');
 	
