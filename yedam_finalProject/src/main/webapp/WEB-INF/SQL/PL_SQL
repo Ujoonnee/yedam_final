@@ -2,7 +2,20 @@
 
 
 -- 조준우
+--일반회원 매장상품예약 더미
+DECLARE
+NUM1 NUMBER :=7; --7부터 시작.
 
+BEGIN
+    LOOP
+    insert into product_reservation values(NUM1, 1 ,2, TO_DATE('2022-06-05 12:30:00', 'SYYYY-MM-DD HH24:MI:SS'), '2022-06-05', 8100,'Y',sysdate,'N','00204');
+    insert into reserved_product values(NUM1,1,1,3);
+    insert into reserved_product values(NUM1,1,2,3);
+
+    NUM1 := NUM1+1; --NUM = NUM +1
+    EXIT WHEN NUM1 >25; --NUM1이 25보다 크면 LOOP종료
+    END LOOP;
+END;
 
 -- 윤성환
 --공개/비공개
