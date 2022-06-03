@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,13 +121,23 @@
 			</div>
 			<div id = 'priceCheck'>
 				<p align="right">총가격 : <input type = "text" id="totalPrice" name = "totalPrice" disabled="disabled"></p>
-				<button class ="payment" onclick="requestPay()">결제하기</button>
+				<button id="payBtn">결제하기</button>
 			</div>
 		</div>
 	</div> 
 	
 	<button class="btn-open-popup" onclick="getCheckboxValue()">장바구니</button>
 
+<!-- By jo, 리뷰목록 출력하기. ${reviewList }-->
+<div  ><button type="button" id="review11">리뷰별표시 테스트</button>
+	<c:forEach var="list" items="${reviewList}" varStatus="status">
+		<div>${list.member.name}님  <fmt:formatDate value="${list.revTime}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
+		<span class="tscore${status.index}">${list.score}</span>
+		${list.content}</div><br>
+		
+		
+	</c:forEach>
+</div>
 
 
 </div>
@@ -136,6 +147,10 @@
 
 	var IMP = window.IMP;
 	IMP.init('imp73462839');
+	
+	
+	$('#payBtn').click(() => requestPay() );
+	
 	
 	 function requestPay() {
 		
@@ -158,7 +173,7 @@
 			return;
 		}
 		
-   	  	const selectedEls = document.querySelectorAll(input[name="checkf"]:checked);
+   	  	const selectedEls = document.querySelectorAll('input[name="checkf"]:checked');
 		
    	  	console.log(selectedEls);
    	  	
@@ -171,8 +186,6 @@
 // 				method: 'post',
 				
 // 			})
-			
-			
 				
 		      // IMP.request_pay(param, callback) 결제창 호출
 		      IMP.request_pay({ // param
@@ -180,7 +193,7 @@
 		          pay_method: "card",
 		          merchant_uid: 'merchant_' + new Date().getTime(),
 		          name: "예담통합플랫폼 결제",
-		          amount: parseInt(totalPrice), //amout에 넣으면됨 parseInt(totalPrice)
+		          amount: 100, //amout에 넣으면됨 parseInt(totalPrice)
 		          buyer_email : email,
 	              buyer_name : '${user.name}',	
 	              buyer_tel : '${user.tel}',
@@ -225,10 +238,9 @@
 		          }
 		      });
 	    }
-</script>
-  
-<script>
 
+	
+	 
 	function resetValue(){
 		document.getElementById('keyword').value = '';
 		document.getElementById('lowPrice').value = '';
@@ -394,6 +406,28 @@
     		
     		
      }
+     
+    //JO 리뷰 여러개일때 별출력 하기.
+    	//리뷰 갯수(length)구하기.
+ 	 var revNo = [];	
+	 	 <c:forEach var="list" items="${reviewList}">
+	 	 	revNo.push("1");
+	 	 </c:forEach>
+ 	 var reviewLength = revNo.length;
+
+       	for(var j=0; j<reviewLength; j++){
+       	var space ="";
+      	for(var i=0; i<$(".tscore"+j).html(); i++){
+      		space = space + "★";
+      	} 
+       	console.log($(".tscore"+j).html())
+       	console.log($(".tscore"+j).html(space))
+      	$(".tscore"+j).html(space)
+
+       	}
+      	
+      	
+      
     	
 </script>
 </body>

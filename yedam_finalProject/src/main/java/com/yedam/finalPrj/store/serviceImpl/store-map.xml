@@ -319,7 +319,7 @@
            FROM
                (SELECT *
 					FROM(
-						SELECT p.prod_name AS "product.prodName", s.name AS "store.name", r.payment_amt, r.pickup_status, r.pickup_time, r.prod_res_no, rank()over(partition by r.prod_res_no order by p.prod_name) as rank
+						SELECT p.prod_name AS "product.prodName", s.name AS "store.name", r.payment_amt, r.pickup_status, r.pickup_time, r.pickup_date, r.prod_res_no, rank()over(partition by r.prod_res_no order by p.prod_name) as rank
 							FROM store s, product_reservation r, product p
 								WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
 							AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}

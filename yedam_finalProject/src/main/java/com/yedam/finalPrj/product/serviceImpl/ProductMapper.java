@@ -13,6 +13,7 @@ import com.yedam.finalPrj.product.vo.park.Product;
 import com.yedam.finalPrj.product.vo.park.ProductPagingCriteria;
 import com.yedam.finalPrj.product.vo.park.Statistics;
 import com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO;
+import com.yedam.finalPrj.review.service.ReviewVO;
 import com.yedam.finalPrj.store.vo.park.ProductReservation;
 
 public interface ProductMapper {
@@ -67,7 +68,8 @@ public interface ProductMapper {
 	
 
 //	Jo
-	
+	//리뷰목록 출력.
+	public List<ReviewVO> selectReviewList(String storeName);
  
 	
 	

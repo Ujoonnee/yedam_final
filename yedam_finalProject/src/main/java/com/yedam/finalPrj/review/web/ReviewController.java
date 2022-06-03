@@ -84,6 +84,14 @@ public class ReviewController {
 		
 		return "redirect:/store/product/proReDetail?prodResNo="+prodResNo;
 	}
+	//전시리뷰의 답변 등록.
+	@PostMapping("exhReplyInsert")
+	@ResponseBody
+	public void exhReplyInsert(int resNo, String replyContent) {
+		service.exhReplyInsert(resNo, replyContent);
+		
+		//return "redirect:/store/product/proReDetail?prodResNo="+resNo;
+	}
 
 	
 }

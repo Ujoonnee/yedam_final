@@ -71,15 +71,17 @@
 						
 						<c:if test="${not empty storeList }">
 							<c:forEach items="${storeList }" var = "list">
-								<tr height="150px" onclick ="storeView(${list.storeNo})" >
+								<tr height="150px" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
 									<td align = "center"><img src="/store/${list.thumbnail } " class="selected_img"  height="150px" width="150px"></td>
-									<td align = "center">${list.name }</td>
+									<td align = "center" class="StoreNameFind">${list.name }</td>
 									<td align = "center">${list.address }</td>
+							
 								</tr>
 							</c:forEach>
 						</c:if>
 					</table>
 					<input type = "hidden" id = "storeNo" name ="storeNo">
+					<input type = "hidden" id = "storeName" name ="storeName">
 				</form>
 			</div>
 			<div id="pagingDiv" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-center">
@@ -131,8 +133,10 @@
 	
 	}
 	// 상점 클릭시 공지사항 번호를 넘겨줌
-	function storeView(n) {
+	function storeView(n,m) {
+		
 		frm.storeNo.value = n;
+		frm.storeName.value = m;
 		frm.action = "product/productView";
 		frm.submit();
 	}

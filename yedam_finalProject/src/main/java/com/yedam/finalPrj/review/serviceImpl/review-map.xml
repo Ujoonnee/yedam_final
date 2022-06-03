@@ -26,4 +26,10 @@
 		WHERE res_no = #{prodResNo}
 		AND category = '00204'
 	</update>
+	<update id="exhReplyInsert" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
+		UPDATE review
+		SET reply_content = #{replyContent}
+		WHERE res_no = #{resNo}
+		AND category = '00202'
+	</update>
 </mapper>

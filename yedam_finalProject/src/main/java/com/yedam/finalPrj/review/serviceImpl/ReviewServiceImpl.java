@@ -50,4 +50,9 @@ public class ReviewServiceImpl implements ReviewService {
 	public void replyInsert(int prodResNo, String replyContent) {
 		map.replyInsert(prodResNo, replyContent);
 	}
+//전시 답변등록
+	@Override
+	public void exhReplyInsert(int resNo, String replyContent) {
+		map.exhReplyInsert(resNo, replyContent);
+	}
 }

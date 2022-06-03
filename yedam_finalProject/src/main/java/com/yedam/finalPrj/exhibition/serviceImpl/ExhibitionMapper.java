@@ -32,7 +32,8 @@ public interface ExhibitionMapper {
 	public int exhPermit(int exNo); 										
 	public int exhReject(int exNo); 	
 	public ReviewVO selectReview(int selectedResNo);
-	void cancelOneReservation(int exResNo); //예약취소
+	void cancelOneReservation(int exResNo); 									//예약취소
+	List<ReviewVO> exhReviewLoad(int exNo); 											//리뷰목록 출력
 	// 성환
 	
 	
@@ -52,7 +53,7 @@ public interface ExhibitionMapper {
 	int totalExCnt(ParkExhibitionPagingCriteria cri); //페이징 위한 전시 개수 
 	int listTotalCnt(ParkExhibitionPagingCriteria cri); //전시 리스트 첫회면 페이징 
 	ParkExhibitionVO findExVO(ParkExhibitionVO vo); //	전시 상세 페이지
-	int insertExhibitionReservation(ParkExhibitionVO vo);//예약 정보 등록
+	int insertExhibitionReservation(ParkExhibitionReservationVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인
 	
 }

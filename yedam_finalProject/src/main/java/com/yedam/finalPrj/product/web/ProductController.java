@@ -44,6 +44,7 @@ public class ProductController {
 	@RequestMapping(value = "/productView", method = RequestMethod.GET)
 	public String Storeview(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
 		System.out.println(cri.getStoreNo());
+		System.out.println(cri.getStoreName());
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		
@@ -61,22 +62,25 @@ public class ProductController {
 		model.addAttribute("address",user.getAddress());
 		model.addAttribute("products" ,dao.selectOne(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
+		
+		//By JO, 매장명 받아서 review 목록 출력.
+		System.out.println("++++++++++++++++++++++++");
+		System.out.println(cri.getStoreName()); 
+		model.addAttribute("reviewList", dao.selectReviewList(cri.getStoreName()));
 		return "main/store/storeView";
 		}
 	}
 //	결제정보전달
 	@RequestMapping("paymenInformation")
-	public String PaymentInformation(@RequestBody HashMap<String,String> vo) {
+	public String PaymentInformation(@RequestBody HashMap<String,String> vo,ProductPagingCriteria cri,Model model,HttpServletRequest request) {
+		System.out.println(cri.getStoreNo());
 		System.out.println("=================vo"+vo);
-		String address = vo.get("address");
-		String imp_uid = vo.get("imp_uid");
-		String name = vo.get("name");
-		String tel = vo.get("tel");
-		String merchant_uid = vo.get("merchant_uid");
-		String email = vo.get("email");
-		String time = vo.get("time");
 		
-		return "";
+		dao.productReservationInsert(vo, model, request);
+		
+		model.addAttribute("products" ,dao.selectOne(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
+		return "main/store/storeView";
 	}
 	
 //  상품 검색
