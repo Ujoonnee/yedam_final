@@ -6,7 +6,7 @@ import lombok.Data;
 public class PagingVO {
 	
 	private int pageNum=1;  // 페이지번호
-	private int amount=10;  // 페이지당 데이터 갯수
+	private int amount=5;  // 페이지당 데이터 갯수
 	
 	private String type;
 	private String keyword;

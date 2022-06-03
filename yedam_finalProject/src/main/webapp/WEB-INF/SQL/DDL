@@ -87,6 +87,15 @@ CREATE TABLE seat (
     );
 
 
+
+-- 전시예약 view
+CREATE VIEW vw_ex_re
+AS
+SELECT r.ex_res_no, e.name, r.ex_date, r.payment_status ,(e.price * r.amount) AS payment_amt
+FROM exhibition_reservation r, exhibition e
+WHERE r.ex_no = e.ex_no;
+
+
 -- 조준우
 --시설 정보 테이블 생성, 입력.
 CREATE SEQUENCE SEQ_FAC

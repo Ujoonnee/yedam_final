@@ -33,9 +33,9 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	// 예약목록 전체 조회
 	@Override
-	public List<HongExhibitionReservationVO> selectAllExhibitionReservattion() {
+	public List<HongExhibitionReservationVO> selectAllExhibitionReservattion(PagingVO paging) {
 		// TODO Auto-generated method stub
-		return map.selectAllExhibitionReservattion();
+		return map.selectAllExhibitionReservattion(paging);
 	}
 	
 	// 예약목록 단건 조회

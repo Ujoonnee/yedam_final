@@ -16,7 +16,7 @@ import com.yedam.finalPrj.review.service.ReviewVO;
 public interface ExhibitionMapper {
 
 	// 홍제
-	List<HongExhibitionReservationVO> selectAllExhibitionReservattion();
+	List<HongExhibitionReservationVO> selectAllExhibitionReservattion(PagingVO paging);
 	List<HongExhibitionReservationVO> searchExhibitionByNo(int exResNo); // 예약번호로검색
 	HongExhibitionReservationVO selectOneExhibitionReservationVO(HongExhibitionReservationVO exhibitionReservationVO);
 	HongExhibitionReservationVO exDetail(int exResNo);

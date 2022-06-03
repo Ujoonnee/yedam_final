@@ -20,9 +20,9 @@ import com.yedam.finalPrj.review.service.ReviewVO;
 public interface ExhibitionService {
 
 	// 홍제
-	List<HongExhibitionReservationVO> selectAllExhibitionReservattion(); // 전체조회
+	List<HongExhibitionReservationVO> selectAllExhibitionReservattion(PagingVO vo); // 전체조회
 	List<HongExhibitionReservationVO> searchExhibitionByNo(int exResNo); // 예약번호로검색
-	HongExhibitionReservationVO selectOneExhibitionReservationVO(HongExhibitionReservationVO exhibitionReservationVO);
+	HongExhibitionReservationVO selectOneExhibitionReservationVO(HongExhibitionReservationVO exhibitionReservationVO);  //예약 상세 조회
 	HongExhibitionReservationVO exDetail(int exResNo);
 	public ReviewVO selectReview(int selectedResNo);
 	
@@ -58,6 +58,7 @@ public interface ExhibitionService {
 	int insertExhibitionReservation(ParkExhibitionReservationVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인
 	void cancelOneReservation(int exResNo); //예약취소
+
 	
 	
 	

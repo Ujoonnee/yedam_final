@@ -29,18 +29,13 @@ public class MemberController {
 		return "member/sign-in";
 	}
 	
-	@PostMapping("sign-in")
-	@ResponseBody
-	public String signIn(MemberVO member, HttpServletRequest request) {
-		return service.signIn(member, request);
-	}
-	
 	@GetMapping("tempLogin")
 	public String tempLogin(MemberVO member, HttpServletRequest request) {
 		service.signIn(member, request);
 		return "redirect:" + request.getHeader("Referer");
 	}
 	
+	// 로그아웃
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -53,32 +48,6 @@ public class MemberController {
 		return "member/sign-up";
 	}
 	
-	// 이메일 중복체크
-	@GetMapping("emailCheck")
-	@ResponseBody
-	public boolean emailCheck(MemberVO member) {
-		return service.isValidEmail(member);
-	}
-	
-	// 회원가입 처리 및 확인메일 발송
-	@PostMapping("sign-up")
-	@ResponseBody
-	public String signUp(@RequestBody Map<String,String> member, Model model) {
-		
-		if (service.signUp(member).equals("success")) {
-			Thread thread = new Thread() {
-				@Override
-				public void run() {
-					service.sendConfirmationMail(member);
-				}
-			};
-			thread.start();
-			return "success";
-		} else {
-			return "fail";
-		}
-	}
-	
 	// 회원가입 확인
 	@GetMapping("confirm")
 	public String confirm(String applicationNo, Model model) {
@@ -87,11 +56,14 @@ public class MemberController {
 		return "member/confirm";
 	}
 	
-	// 회원정보 수정
-	@GetMapping("update")
-	public String update(Model model) {
-		return "member/update";
+	@GetMapping("myPage")
+	public String myPage() {
+		return "member/myPage/update";
 	}
 	
-	
+	// 회원정보 수정 페이지
+	@PostMapping("updateInfo")
+	public String updateInfo() {
+		return "member/myPage/updateInfo";
+	}
 }
