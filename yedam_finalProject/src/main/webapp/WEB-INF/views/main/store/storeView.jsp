@@ -9,6 +9,16 @@
 <title>Insert title here</title>
 
 <style> 
+	#popup_mask { /* 팝업 배경 css */
+	        position: fixed;
+	        width: 100%;
+	        height: 1000px;
+	        top: 0px;
+	        left: 0px;
+	         display: none; 
+	         background-color:#000;
+	         opacity: 0.8;
+	    }
 	.modal { 
 		position: absolute; 
 		top: 0; 
@@ -56,7 +66,7 @@
 <div align = "center" id = "container">
 	<div class="form-control" style="width:800px">
 	<section id ="page_header" class="single-page-header">
-<div align="left"><a class="display-6" href="http://localhost/finalPrj">메인 </a> > <a class="display-6" href="http://localhost/finalPrj/store/list"> 매장 </a> > <a class="display-6">${paging.cri.storeName}</a></div>
+<div align="left"><a class="display-3" href="http://localhost/finalPrj/store/list"> 매장 </a></div>
 <hr>
 	<div class="container display-3">${paging.cri.storeName}</div>
 	</section>
@@ -86,32 +96,43 @@
 		<button class="btn-open-popup  btn btn-sm btn-primary" onclick="getCheckboxValue()">예약하기</button>
 	</div>
 	<!-- 상품 목록 -->
-	<table id = "productList">
 		<c:if test = "${empty products }">
 			<tr><td colspan ="3">등록된 상품이 없습니다.</td></tr>
 		</c:if>
 		<c:if test = "${not empty products }">
-			<c:forEach items="${products }" var= "product">
-				<tr>	
-				<c:if test ="${product.prodThumbnail != null }">
-					<td align = "center"><img src="/img/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
-				</c:if>
-				<c:if test ="${product.prodThumbnail == null }">
-					<td align ="center"></td>
-				</c:if>
-					<td align = "center"  style=" vertical-align : middle;"><input type ="checkbox" id = "checkf" name="checkf" value ="${product }"
-					data-prodNo ="${product.prodNo }" data-stock ="1" data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }"  
-					>${product.prodName }</td>
-					<td align = "center" style=" vertical-align : middle;">가격 : ${product.price }</td>
-					<td align = "center" style=" vertical-align : middle;">재고 : ${product.stock }</td>
-				</tr>
-				<tr><td>&nbsp;</td></tr>
-			</c:forEach>
+			<table id = "productList" class="w-100">
+				<colgroup>
+					<col width="10%">
+					<col width="20%">
+					<col width="20%">
+					<col width="30%">
+					<col width="20%">
+				</colgroup>
+				<tbody>
+					<c:forEach items="${products }" var= "product">
+						<tr>	
+							<td>
+								<input type ="checkbox" id = "checkf" class="form-check-input" name="checkf" value ="${product }" data-prodNo ="${product.prodNo }" data-stock ="1" data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }">
+							</td>
+							<c:if test ="${product.prodThumbnail != null }">
+								<td align = "center"><img src="/img/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
+							</c:if>
+							<c:if test ="${product.prodThumbnail == null }">
+								<td align ="center"></td>
+							</c:if>
+							<td align = "center"  style=" vertical-align : middle;">${product.prodName }</td>
+							<td align = "center" style=" vertical-align : middle;"> ${product.price } 원</td>
+							<td align = "center" style=" vertical-align : middle;">남은 수량 : ${product.stock }</td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+					</c:forEach>
+				</tbody>
+			</table>	
 		</c:if>
-	</table>	
 <!-- 	모달 -->
-	<div class="modal"> 
-		<div class="modal_body">
+	<div id ="popup_mask" ></div> <!-- 팝업 배경 DIV -->
+    <div id= "modal"class="modal"> 
+        <div id="modal_body"class="modal_body">
 			<div>픽업 예상 시간 <input type="time" id="pickupTime" min="00:00" max="23:59"></div>
 			<div id ="cart"></div>
 			<div id = "management">
@@ -333,6 +354,17 @@
 	  
 	  btnOpenPopup.addEventListener('click', () => {
 	        modal.classList.toggle('show');
+	        $("#modal").css({
+	              "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
+	              "left": (($(window).width()-$("#modal").outerWidth())/2+$(window).scrollLeft())+"px"
+	              //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
+
+	           }); 
+
+	        $("#popup_mask").css("display","block"); //팝업 뒷배경 display block
+	        $("#modal").css("display","block"); //팝업창 display block
+
+	        $("body").css("overflow","hidden");//body 스크롤바 없애기
 
 	        if (modal.classList.contains('show')) {
 	          body.style.overflow = 'hidden';
@@ -342,7 +374,9 @@
       modal.addEventListener('click', (event) => {
         if (event.target === modal) {
           modal.classList.toggle('show');
-
+          $("#popup_mask").css("display","none"); //팝업창 뒷배경 display none
+          $("#modal").css("display","none"); //팝업창 display none
+          $("body").css("overflow","auto");//body 스크롤바 생성
           if (!modal.classList.contains('show')) {
             body.style.overflow = 'auto';
           }
@@ -433,6 +467,11 @@
        	}
       	
       	
+       	
+	// 행 클릭하면 체크박스 체크
+	$('tr').on('click', function(event) {
+		this.childNodes[1].childNodes[1].click();
+	})
       
     	
 </script>
