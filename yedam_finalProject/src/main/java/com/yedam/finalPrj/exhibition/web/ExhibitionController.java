@@ -40,11 +40,12 @@ public class ExhibitionController {
 	// 홍제
 
 	// 내 예약 목록
-	@GetMapping("exSelectAllReservation")
+	@RequestMapping("exSelectAllReservation")
 	public String exSelectAllReservation(PagingVO vo, Model model) {
-		List<HongExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion();
+		System.out.println(vo.getPageNum());
+		List<HongExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion(vo);
 		int total = service.totalCnt(vo);
-
+		System.out.println("================================"+vo.getType());
 		model.addAttribute("exhibitionReservationVO", exhibitionReservationVO);
 		model.addAttribute("paging", new PageMaker(vo, total));
 

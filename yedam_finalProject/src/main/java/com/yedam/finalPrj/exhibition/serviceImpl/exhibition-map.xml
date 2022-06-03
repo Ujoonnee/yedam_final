@@ -8,6 +8,18 @@
 <!-- 	</select> -->
 	
 <!-- 	홍제 -->
+
+	<sql id="searchBtn">
+		<choose>
+			<when test="type == 'exResNo'">
+				AND ex_res_no LIKE ('%'||#{keyword}||'%')
+			</when>
+			<when test="type == 'name'">
+				AND name LIKE ('%'||#{keyword}||'%')
+			</when>
+		</choose>
+	</sql>
+	
 <!-- 	조인으로 전체조회 -->
 
 	<!-- 예약내역 상세정보 -->
@@ -21,12 +33,18 @@
 	
 	<!-- 페이징  -->
 	<select id="selectAllExhibitionReservattion" resultType="com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO">
-		<![CDATA[
+	<![CDATA[
 			SELECT *
-			FROM (SELECT /*+INDEX_DESC(vw_ex_re pk_board) */
-			                ROWNUM rn, ex_res_no, name, ex_date, payment_status, payment_amt
-			      FROM vw_ex_re WHERE ROWNUM <= 10)
-			WHERE rn > 0
+			FROM (SELECT rownum rn, ex_res_no, name, ex_date, payment_status, payment_amt
+			      FROM vw_ex_re 
+					WHERE ex_res_no > 0
+		]]>		
+		<include refid="searchBtn"></include>
+		<![CDATA[
+					AND rownum <= #{pageNum} * #{amount}  
+					)
+			WHERE rn > (#{pageNum}-1) * #{amount}
+			
 		]]>
 	</select>
 	
@@ -34,7 +52,10 @@
 	<select id="totalCnt" resultType="int">
 		SELECT count(*)
 		FROM vw_ex_re
+		where EX_RES_NO>0
+		<include refid="searchBtn"></include>
 	</select>
+	
 	
 	
 	<!-- 검색 -->

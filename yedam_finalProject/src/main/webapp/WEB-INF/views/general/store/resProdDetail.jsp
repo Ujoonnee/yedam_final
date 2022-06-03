@@ -58,16 +58,16 @@
 	
 		<td id="thumbNail" >${list.product.prodThumbnail} </td>
 		<td>${list.product.prodName}</td>
-		<td>${list.product.price}</td>
+		<td><fmt:formatNumber value="${list.product.price}" pattern="#,###"/> </td>
 		<td>${list.reservedProduct.count}개</td>
-		<td>금액 : ${list.product.price * list.reservedProduct.count}</td>
+		<td>금액 : <fmt:formatNumber value="${list.product.price * list.reservedProduct.count}" pattern="#,###"/></td>
 		<td style="display:none">${list.product.prodNo}</td>
 	</tr>
 	</c:forEach>
 	</tbody>
 	<tr>
 		<td colspan="4"></td>
-		<td colspan="3">총 금액 : ${detail.paymentAmt}</td>
+		<td colspan="3">총 금액 : <fmt:formatNumber value="${detail.paymentAmt}" pattern="#,###"/></td>
 	</tr>
 </table>
 
@@ -103,7 +103,9 @@
 <!-- 	모달 -->
 <div>
 
-<input class="btn btn-block btn-outline-gray-800 mb-3" type="button" value="목록" onclick="history.go(-1)">
+<input class="btn btn-block btn-outline-gray-800 mb-3" type="button" value="목록" onclick="location.href='../resProdList'">
+
+
 
 <!-- 리뷰 작성안했다면 작성버튼 show. -->
 <c:if test="${detail.pickupStatus eq 'Y'}"> 
