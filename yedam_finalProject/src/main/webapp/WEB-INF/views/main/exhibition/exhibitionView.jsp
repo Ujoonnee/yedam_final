@@ -21,6 +21,26 @@
 <head>
 <meta charset="UTF-8">
 <style> 
+	#popup_mask { /* 팝업 배경 css */
+	        position: fixed;
+	        width: 100%;
+	        height: 1000px;
+	        top: 0px;
+	        left: 0px;
+	         display: none; 
+	         background-color:#000;
+	         opacity: 0.8;
+	    }
+	#popup_sub_mask { /* 팝업 배경 css */
+	        position: fixed;
+	        width: 100%;
+	        height: 1000px;
+	        top: 0px;
+	        left: 0px;
+	         display: none; 
+	         background-color:#000;
+	         opacity: 0.8;
+	    }
 	.modal { 
 		position: absolute; 
 		top: 0; 
@@ -103,9 +123,16 @@
 <div class="card border-0 shadow mb-4">
 	<div class="row row-cols-1 row-cols-sm-2 g-2" style="padding :15px;">
 		<div class="col" style="width: 35%; padding: 15px">
-	          <div class="card shadow-sm">
-	            <img src ="/exhibition/${exhibitionView.thumbnail }" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></img>
-	          </div>
+			  <c:if test = "${empty exhibitionView.thumbnail }">
+		          <div class="card shadow-sm">
+		            <img src ="https://cdn-icons-png.flaticon.com/512/3342/3342136.png" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></img>
+		          </div>
+	          </c:if>
+			  <c:if test = "${not empty exhibitionView.thumbnail }">
+		          <div class="card shadow-sm">
+		            <img src ="/exhibition/${exhibitionView.thumbnail }" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></img>
+		          </div>
+	          </c:if>
 	    </div>
 		<div style="padding : 25px;">
 				<h4 class="display-4" style="padding-bottom: 10px;">${exhibitionView.name }</h4>
@@ -153,40 +180,48 @@
 
 
 	<!-- 	메인모달 -->
-		<div class="modal"> 
-			<div class="modal_body">
-				<div id ="관람일"><input type = "text" id = "exDate"> </div>
+	<div id ="popup_mask" ></div> <!-- 팝업 배경 DIV -->
+	    <div id= "modal"class="modal"> 
+	        <div id="modal_body"class="modal_body">
+				<div id ="관람일">
+				<div id = "exDate"></div></div>
+				<hr>
 				<div id = "ticketAmt">수량 <input type =number id = "ticketCount"  placeholder="수량을 입력하세요.:)" max="30" min="0" style="width:150px;"> </div>
-				<div id = "modalButton"><button class = "btn-sub-popup">결제정보확인</button></div>
+				<p></p>
+				<div id = "modalButton"><button id = "btn-sub-popup" class="btn btn-primary">결제정보확인</button></div>
 			</div>
 		</div> 
-		
+	
 
 	
 <!-- 	서브모달 -->
-		<div class="sub_modal">
-			<div class="sub_modal_body">
+<div id ="popup_sub_mask" ></div> <!-- 팝업 배경 DIV -->
+		<div id = "sub_modal"class="sub_modal">
+			<div id="sub_modal_body" class="sub_modal_body">
 				<form id = "frm" >
-					<p>예약정보확인</p>
-					<p>------------------------------------------------</p>
-					<p>예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></p>
-					<p>카테고리			: ${exhibitionView.category }</p>
-					<p>전시명			: ${exhibitionView.name } </p>
-					<p>예약자명			: ${member.name }</p>
-					<p>예약자  연락처	: ${member.tel }</p>
-					<p>수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></p>
-					<p>결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></p>
+				<div align= "left">
+					<small class = "display-5">예약정보확인</small><br>
+					<hr>
+					<small class = "text-muted">예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></small><br>
+					<small class = "text-muted">카테고리			: ${exhibitionView.category }</small><br>
+					<small class = "text-muted">전시명			: ${exhibitionView.name } </small><br>
+					<small class = "text-muted">예약자명			: ${member.name }</small><br>
+					<small class = "text-muted">예약자  연락처	: ${member.tel }</small><br>
+					<small class = "text-muted">수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></small><br>
+					<small class = "text-muted">결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></small><br>
 				
 					<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
 					<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
 					<input type = "hidden" name="status" value ="N">
 					<input type = "hidden" name="category" value ="${exhibitionView.category }">
 					<input type ="hidden" id = "price" value ="${exhibitionView.price }">
+				</div>
 				</form>
-				<button id="payBtn" >결제하기</button>
+				<hr>
+				<br>
+				<button id="payBtn" class="btn btn-primary">결제하기</button>
 			</div>
 		</div>
-
 </div>
 
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
@@ -258,7 +293,10 @@ function requestPay() {
 		        buyer_tel: tel,
 		        buyer_addr: address
 		    }, function (rsp) { // callback
+		    	console.log(rsp.merchant_uid);
+		    	alert(rsp.merchant_uid);
 		        if (rsp.success) {
+		        	
 		            // 결제 성공 시 로직,
 		        	console.log(rsp.success);
 		        	
@@ -311,7 +349,17 @@ function requestPay() {
 	
 	btnOpenPopup.addEventListener('click', () => {
 	      modal.classList.toggle('show');
-	
+	      $("#modal").css({
+              "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
+              "left": (($(window).width()-$("#modal").outerWidth())/2+$(window).scrollLeft())+"px"
+              //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
+
+           }); 
+
+        $("#popup_mask").css("display","block"); //팝업 뒷배경 display block
+        $("#modal").css("display","block"); //팝업창 display block
+
+        $("body").css("overflow","hidden");//body 스크롤바 없애기
 	      if (modal.classList.contains('show')) {
 	        body.style.overflow = 'hidden';
 	      }
@@ -320,6 +368,9 @@ function requestPay() {
 	modal.addEventListener('click', (event) => {
 	  if (event.target === modal) {
 	    modal.classList.toggle('show');
+	    $("#popup_mask").css("display","none"); //팝업창 뒷배경 display none
+        $("#modal").css("display","none"); //팝업창 display none
+        $("body").css("overflow","auto");//body 스크롤바 생성
 	
 	    if (!modal.classList.contains('show')) {
 	      body.style.overflow = 'auto';
@@ -330,9 +381,11 @@ function requestPay() {
 // 	모달닫기(차례대로)
 	$(document).mouseup(function (e){
 		var subModal = $(".sub_modal");	
-		var modal = $(".modal");	
+		var modal = $(".modal");
 		if (subModal.has(e.target).length === 0){
+
 			subModal.removeClass("show");
+
 		}
 		
 	});
@@ -340,7 +393,8 @@ function requestPay() {
 	
 // 	서브모달
 	const sub_modal = document.querySelector('.sub_modal');
-	const sub_btnOpenPopup = document.querySelector('.btn-sub-popup');
+	const sub_btnOpenPopup = document.querySelector('#btn-sub-popup');
+	
 	
 	sub_btnOpenPopup.addEventListener('click', () => {
 		
@@ -363,7 +417,18 @@ function requestPay() {
 			return;
 		}
 		
+		$("#modal").css("display","none"); //팝업창 display none
 		
+		$("#sub_modal").css({
+            "top": (($(window).height()-$("#sub_modal").outerHeight())/2+$(window).scrollTop())+"px",
+            "left": (($(window).width()-$("#sub_modal").outerWidth())/2+$(window).scrollLeft())+"px"
+            //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
+         }); 
+		
+        $("#sub_modal").css("display","block"); //팝업창 display block
+        $("body").css("overflow","hidden");//body 스크롤바 없애기
+
+
 		
 		
 		sub_modal.classList.toggle('show');
@@ -371,15 +436,21 @@ function requestPay() {
 		
 		if (sub_modal.classList.contains('show')) {
 	        body.style.overflow = 'hidden';
+	   
 	      }
 	});
 	
 	sub_modal.addEventListener('click', (event) => {
-		  if (event.target === modal) {
+
+		  if (event.target === sub_modal) {
 		    sub_modal.classList.toggle('show');
-		
+	        $("body").css("overflow","auto");//body 스크롤바 생성
+		    $("#popup_mask").css("display","none"); //팝업창 뒷배경 display none
+	        $("#sub_modal").css("display","none"); //팝업창 display none
 		    if (!modal.classList.contains('show')) {
-		      body.style.overflow = 'hidden';
+// 		      body.style.overflow = 'hidden';
+		        $("body").css("overflow","auto");//body 스크롤바 생성
+
 	    }
 	  }
 	});

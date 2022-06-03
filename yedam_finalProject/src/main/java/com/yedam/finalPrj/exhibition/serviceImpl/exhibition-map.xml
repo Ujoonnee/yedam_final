@@ -270,6 +270,7 @@
 		        (select *
 		        from exhibition 
 		            where address like ('%'||#{exVO.address}||'%')
+		            and  approval_status = '00401'
 		            <if test ="exVO.startDate != null">
 		            and trunc(start_date) <![CDATA[>=]]> #{exVO.startDate}
 		            </if>
@@ -303,5 +304,9 @@
 	</select>
 
 	
-
+	<update id ="updatePayStatus" parameterType="com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO" >
+		update  exhibition_reservation  
+		set payment_status = 'N'
+		where ex_res_no = #{exResNo};
+	</update>
 </mapper>

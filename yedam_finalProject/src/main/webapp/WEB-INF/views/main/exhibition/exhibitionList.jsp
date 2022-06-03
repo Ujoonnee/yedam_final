@@ -178,6 +178,7 @@
 		frm.action = "detailView";
 		frm.submit();
 	}
+	
 </script>
 </body>
 </html>

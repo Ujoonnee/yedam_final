@@ -348,13 +348,15 @@
     	  // 선택된 목록 가져오기
     	  const query = 'input[name="checkf"]:checked';
     	  const selectedEls = document.querySelectorAll(query);
-    	  
     	  // 선택된 목록에서 value 찾기
     	  let result = '';
     	  var obj_length = Object.keys(selectedEls).length;
     	  var checkList = [];
     	  var inputStock = document.createElement('input');
-    		
+    	
+    	  if(!obj_length == 0){
+        		alert("상품이 없습니다.")  
+        	  }
     		
     		for(let obj of selectedEls){
     			
@@ -401,7 +403,7 @@
     			total += productPrice
     			
     		}
-    		
+      	
     		$('input[name=totalPrice]').attr('value',total);
     		
     		

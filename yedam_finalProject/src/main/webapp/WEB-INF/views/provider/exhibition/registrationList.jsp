@@ -11,7 +11,7 @@
 		</c:if>
 		<div class="card border-0 shadow mb-4">
 						<div class="card-body">
-							<div class="table-responsive">
+							<div >
 								<c:if test = "${not empty list }">
 								<table class="table table-centered table-nowrap mb-0 rounded">
 									<thead class="thead-light">

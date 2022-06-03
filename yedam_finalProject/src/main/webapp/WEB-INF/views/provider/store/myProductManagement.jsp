@@ -133,7 +133,10 @@
 		</tbody>
 		</table>
 	</c:if>
+	
 	<button type="button" id="excelDownload" class="download">재고다운로드</button>
+	<button class="btn-open-popup" onclick="getCheckboxValue()">상품관리</button>
+	<button id = "showButton" onclick = "addTextBox()">단일상품등록</button>
 	<!-- 	메인모달 -->
 	<div class="modal"> 
 		<div class="modal_body">
