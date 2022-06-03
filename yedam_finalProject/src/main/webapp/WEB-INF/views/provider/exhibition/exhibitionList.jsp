@@ -25,7 +25,6 @@
 								<thead class="thead-light">
 									<tr class="border-0 rounded-start">
 										<th class="border-0 rounded-start">전시번호</th>
-										<th class="border-0">회원번호</th>
 										<th class="border-0">전시명</th>
 										<th class="border-0">시작일자</th>
 										<th class="border-0">종료일자</th>
@@ -35,7 +34,6 @@
 									<c:forEach items="${list }" var = "ex" >
 									<tr onclick="getReservationList(${ex.exNo})">
 										<td>${ex.exNo }</td>
-										<td>${ex.memNo }</td>
 										<td>${ex.name }</td>
 										<td>${ex.startDate }</td>
 										<td>${ex.endDate }</td>

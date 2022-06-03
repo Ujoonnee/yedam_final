@@ -55,5 +55,6 @@ public interface ExhibitionMapper {
 	ParkExhibitionVO findExVO(ParkExhibitionVO vo); //	전시 상세 페이지
 	int insertExhibitionReservation(ParkExhibitionReservationVO vo);//예약 정보 등록
 	ParkExhibitionReservationVO findExReVO(ParkExhibitionVO vo);//예약정보 확인
+	int updatePayStatus(ParkExhibitionReservationVO vo);  // 환불 -> 결제상태 변경
 	
 }

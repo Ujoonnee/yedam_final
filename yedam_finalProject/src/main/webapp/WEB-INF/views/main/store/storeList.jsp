@@ -48,7 +48,7 @@
 						<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
 						<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
 						<button id = "searchBtn" class="btn btn-outline-gray-500" >검색</button>&nbsp;
-				</div>
+		</div>
 		</div>
 		</div>
 						<p></p>

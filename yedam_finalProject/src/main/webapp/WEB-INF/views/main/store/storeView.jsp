@@ -78,6 +78,7 @@
 			<button class="btn btn-tertiary col-4" onclick="resetValue()">초기화</button>
 		</div>
 	</div>
+	
 	<!-- 상품 목록 -->
 	<table id = "productList">
 		<c:if test = "${empty products }">
@@ -101,6 +102,7 @@
 			</c:forEach>
 		</c:if>
 	</table>	
+	
 <!-- 	모달 -->
 	<div class="modal"> 
 		<div class="modal_body">
@@ -134,8 +136,6 @@
 		<div>${list.member.name}님  <fmt:formatDate value="${list.revTime}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
 		<span class="tscore${status.index}">${list.score}</span>
 		${list.content}</div><br>
-		
-		
 	</c:forEach>
 </div>
 
@@ -348,13 +348,15 @@
     	  // 선택된 목록 가져오기
     	  const query = 'input[name="checkf"]:checked';
     	  const selectedEls = document.querySelectorAll(query);
-    	  
     	  // 선택된 목록에서 value 찾기
     	  let result = '';
     	  var obj_length = Object.keys(selectedEls).length;
     	  var checkList = [];
     	  var inputStock = document.createElement('input');
-    		
+    	
+    	  if(!obj_length == 0){
+        		alert("상품이 없습니다.")  
+        	  }
     		
     		for(let obj of selectedEls){
     			
@@ -401,7 +403,7 @@
     			total += productPrice
     			
     		}
-    		
+      	
     		$('input[name=totalPrice]').attr('value',total);
     		
     		
