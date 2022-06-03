@@ -21,7 +21,7 @@
 			<c:forEach items="${list }" var = "res" >
 			<tr onclick="getReservation(${res.exResNo})">
 				<td>${res.exResNo }</td>
-				<td>${res.exNo }</td>
+				<td>${res.memName }</td>
 				<td>${res.exDate }</td>
 				<td>${res.paymentStatus }</td>
 			</tr>

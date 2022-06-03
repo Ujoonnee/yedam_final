@@ -29,7 +29,7 @@
 						
 						<!-- 유저 버튼 목록 -->
 					<div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
-						<a class="dropdown-item d-flex align-items-center" href="${pageContext.request.contextPath}/myPage">
+						<a class="dropdown-item d-flex align-items-center" href="${pageContext.request.contextPath}/member/myPage">
 							<svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
 							마이페이지
 						</a>
@@ -62,8 +62,34 @@
 		<a href="${pageContext.request.contextPath}/exhibition/list">전시</a>
 	</div>
 	<div class="col-2 px-3 h4 border-start">
-		<a href="${pageContext.request.contextPath}/store/list">매장</a>
+		<a id="storeList" href="${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude=&longitude=">매장</a>
 	</div>
 </div>
 
 <hr>
+
+<script>
+	
+	let xVal = '';
+	let yVal = '';
+	
+	const userAddress = '${user.address}';
+	if (userAddress != '')	{ 
+		$.ajax({
+			url:"https://dapi.kakao.com/v2/local/search/address.json?query="+encodeURIComponent(userAddress),
+			type : "GET",
+			headers: {'Authorization' : 'KakaoAK ee381ad2653c27997305ec26eef7c94b'},
+			success:function(data){
+				console.log(data)
+				xVal = data.documents[0].x;
+				yVal = data.documents[0].y;
+				$('#storeList').attr('href','${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude='+xVal+'&longitude='+yVal);
+			},
+			error : function(e){
+				console.log(e);
+			}
+		}); 
+	};
+	
+
+</script>

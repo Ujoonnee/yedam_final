@@ -23,16 +23,8 @@
     <put-attribute name="title" value="마이페이지" />
     <put-attribute name="header" value="/WEB-INF/views/layouts/myPage/header.jsp" />
     <put-attribute name="sidebar" value="/WEB-INF/views/layouts/myPage/sidebar.jsp" />
-    <put-attribute name="body" value="" />
+    <put-attribute name="body" value="/WEB-INF/views/layouts/myPage/update.jsp" />
     <put-attribute name="footer" value="/WEB-INF/views/layouts/footer.jsp" />
-  </definition>
-  
-  <definition name="main/member/myPageMain" extends="mypage">
-  	<put-attribute name="body" value="/WEB-INF/views/layouts/myPage/myPageMain.jsp"/>
-  </definition>
-  
-  <definition name="main/member/update" extends="mypage">
-  	<put-attribute name="body" value="/WEB-INF/views/member/update.jsp"/>
   </definition>
   
   <definition name="*/*/*" extends="mypage">
