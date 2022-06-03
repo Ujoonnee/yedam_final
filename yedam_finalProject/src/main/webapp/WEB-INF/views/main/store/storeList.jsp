@@ -62,9 +62,9 @@
 			<p></p>
 			<p></p>
 			<!-- 	매장목록 -->
-			<div>
+			<div class="form-control">
 				<form id ="frm" method ="get">
-					<table id ="contents">
+					<table id ="contents" class="table table-centered table-nowrap mb-0 rounded">
 						<c:if test="${empty storeList }">
 							<tr><td align ="center">등록된 매장이 없습니다.</td></tr>
 						</c:if>
@@ -84,20 +84,31 @@
 					<input type = "hidden" id = "storeName" name ="storeName">
 				</form>
 			</div>
-			
-			<div id="pagingDiv">
-				<!-- 이전페이지 -->
-				<c:if test="${paging.prev }">
-					<a href="${paging.startPage - 1}">이전</a>
-				</c:if>
-					<!-- 1 2 3 4   -->
-				<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-				&nbsp;<a href="${num }">${num }</a>&nbsp;
-				</c:forEach>
-					<!-- 다음페이지 -->	
-				<c:if test="${paging.next }">
-					<a id="next" href="${paging.endPage + 1 }">다음</a>
-				</c:if>
+			<div id="pagingDiv" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-center">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination mb-0">
+						<!-- 이전페이지 -->
+						<c:if test="${paging.prev }">
+							<li class="page-item">
+								<a class="page-link" href="${paging.startPage - 1}">이전</a>
+							</li>
+						</c:if>
+							<!-- 1 2 3 4   -->
+						<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
+							<c:if test="${paging.cri.pageNum == num }">
+								<li class="page-item active">
+								&nbsp;<a class="page-link" href="${num }">${num }</a>&nbsp;
+								</li>
+							</c:if>
+						</c:forEach>
+							<!-- 다음페이지 -->	
+						<c:if test="${paging.next }">
+							<li class="page-item">
+								<a class="page-link" id="next" href="${paging.endPage + 1 }">다음</a>
+							</li>
+						</c:if>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</div>
