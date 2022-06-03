@@ -12,47 +12,55 @@
 
 </head>
 <body>
-	
-	<h3>상품 예약 목록</h3>
-	
-	<table class="table">
-		<thead>
-			<tr align="center">
-				<td>예약번호</td>
-				<td>예약자이름</td>
-				<td>픽업일시</td>
-				<td>결제여부</td>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${proReSelectAll }" var="proRe">
-				<tr>
-					<td><a href="proReDetail?prodResNo=${proRe.prodResNo }">${proRe.prodResNo }</a>
-					
-					</td>
-					<td><a href="proReDetail?prodResNo=${proRe.prodResNo }">${proRe.name }</a></td>
-					<td><fmt:formatDate value="${proRe.pickupTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-					<td>
-					 
-						<c:set var="paymentStatus" value="Y"/>
-							<c:choose>
-								<c:when test="${proRe.paymentStatus eq 'Y' }">
-									결제완료
-								</c:when>
-								
-								<c:when test="${proRe.paymentStatus eq 'N' }">
-									취소
-								</c:when>
-								
-								<c:otherwise>
-									미결제
-								</c:otherwise>	
-							</c:choose>					
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+<div class="row justify-content-center">
+	<div class="col-8">
+		<h3>상품 예약 목록</h3>
+		<div class="card border-0 shadow mb-4">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-centered table-nowrap mb-0 rounded" id="boardtable">
+						<thead class="thead-light">
+							<tr class="border-0 rounded-start">
+								<th class="border-0 rounded-start display-3">예약번호</th>
+								<th class="border-0">예약자이름</th>
+								<th class="border-0">픽업일시</th>
+								<th class="border-0 rounded-end">결제여부</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${proReSelectAll }" var="proRe">
+								<tr>
+									<td><a href="proReDetail?prodResNo=${proRe.prodResNo }">${proRe.prodResNo }</a>
+									
+									</td>
+									<td><a href="proReDetail?prodResNo=${proRe.prodResNo }">${proRe.name }</a></td>
+									<td><fmt:formatDate value="${proRe.pickupTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<td>
+									 
+										<c:set var="paymentStatus" value="Y"/>
+											<c:choose>
+												<c:when test="${proRe.paymentStatus eq 'Y' }">
+													결제완료
+												</c:when>
+												
+												<c:when test="${proRe.paymentStatus eq 'N' }">
+													취소
+												</c:when>
+												
+												<c:otherwise>
+													미결제
+												</c:otherwise>	
+											</c:choose>					
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 	<form id="pagingFrm" name="pagingFrm" action="proReSelectAll" method="get">
 		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
 		<input type="hidden" id="pageNum" name="amount" value="${paging.cri.amount }">
@@ -62,7 +70,7 @@
 <%-- 	<c:if test="${user.memType eq '00103' }">
 		<button>sadfsadfasf</button>
 	</c:if> --%>
-	<div id="pagingDiv">
+	<div id="pagingDiv" align="center">
 		<!-- 이전페이지 -->
 		<c:if test="${paging.prev }">
 			<a href="${paging.startPage - 1}">이전</a>
