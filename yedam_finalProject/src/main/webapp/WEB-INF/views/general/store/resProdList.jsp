@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,8 +38,7 @@
 						<c:when test="${YN eq 'N'}">픽업대기</c:when>
 					</c:choose>
 				</td>
-				<td><fmt:formatDate value="${list.pickupDate}" dateStyle="full"/><br>
-		 <fmt:formatDate value="${list.pickupTime}" type="time"/> </td>
+				<td>${list.pickupTime} + ${list.pickupDate}</td>
 			</tr>
 		</c:forEach>
 	</tbody>

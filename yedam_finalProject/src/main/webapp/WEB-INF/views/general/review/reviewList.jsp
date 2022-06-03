@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+  #vscore {
+   color: red;
+  } 
+</style>
 </head>
 <body>
 	<h3>내 리뷰 목록</h3>

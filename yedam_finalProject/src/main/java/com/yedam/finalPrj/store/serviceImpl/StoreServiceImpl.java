@@ -149,10 +149,10 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public List<Store> storeList(StorePagingCriteria cri) {
 		if(cri.getLatitude() == "" || cri.getLongitude() == "") {
+			// 로그인 안하면 위치 기본값 예담
 			cri.setLatitude("30.8690794214");
 			cri.setLongitude("128.5942180675");
 		}
-		// TODO Auto-generated method stub
 		return map.storeList(cri);
 	}
 
@@ -267,11 +267,11 @@ public class StoreServiceImpl implements StoreService{
 //	Hong
 
 
-//	@Override
-//	public int deleteReply(int revNo) {
-//		int result = map.deleteReply(revNo);
-//		return result;
-//	}
+	@Override
+	public int deleteReply(int revNo) {
+		int result = map.deleteReply(revNo);
+		return result;
+	}
 
 
 	

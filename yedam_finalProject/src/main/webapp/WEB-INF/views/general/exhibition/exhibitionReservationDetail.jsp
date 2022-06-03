@@ -8,6 +8,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+  #vscore {
+   color: red;
+  } 
+</style>
 </head>
 <body>
 
@@ -29,7 +34,10 @@
 						<c:when test="${exRes.paymentStatus eq 'Y' }">
 							결제
 						</c:when>
-				
+						
+						<c:otherwise>
+							미결제
+						</c:otherwise>
 					</c:choose>
 				
 			</td>
@@ -73,7 +81,7 @@
 		</tr>
 		<tr>
 			<td>결제금액</td>
-			<td>${exRes.payment }</td>
+			<td><fmt:formatNumber value="${exRes.paymentAmt }" pattern="#,###"/></td>
 		</tr>
 	</table>
 	<hr>
@@ -81,6 +89,8 @@
 
 
 	<div id="reviewModal"></div>
+	
+<input class="btn btn-block btn-outline-gray-800 mb-3" type="button" value="목록" onclick="location.href='../exSelectAllReservation'">
 	
 	<!-- 리뷰 작성안했다면 작성버튼 show. -->
 <%-- <c:if test="${exRes.paymentStatus eq 'Y' }"> --%>
@@ -202,22 +212,22 @@
 
 	
 	 
-	$(document).on('click', '.delBtn', function(e){
-		e.preventDefault();
-		let replyId = $(this).attr("href");
-		
-		$.ajax({
-			data : {
-				replyId : replyId,
-				revNo : '${reviewList.revNo}'
-			},
-			url : '/delete',
-			type : 'POST',
-			success : function(result){
-					alert('삭제가 되었습니다.')
-			}
+		$(document).on('click', '.delBtn', function(e){
+			e.preventDefault();
+			let replyId = $(this).attr("href");
+			
+			$.ajax({
+				url : '${pageContext.request.contextPath}/store/delete',
+				method : 'POST',
+				data : {
+					revNo : '${reviewList.revNo}'
+				},
+				success : () => location.reload()
+			});
 		});
-	});
+
+	
+	
 	
 </script>
 </body>

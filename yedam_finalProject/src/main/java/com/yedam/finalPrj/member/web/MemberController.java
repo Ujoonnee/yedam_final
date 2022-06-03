@@ -64,6 +64,6 @@ public class MemberController {
 	// 회원정보 수정 페이지
 	@PostMapping("updateInfo")
 	public String updateInfo() {
-		return "member/updateInfo";
+		return "member/myPage/updateInfo";
 	}
 }
