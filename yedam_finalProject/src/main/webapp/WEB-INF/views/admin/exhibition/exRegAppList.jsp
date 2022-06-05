@@ -10,47 +10,63 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>전시등록신청목록</h3>
-
+<div class="row justify-content-center">
+	<div class="col-10">
+		<div class="display-4">전시등록신청목록</div>
+		<hr>
 <form id="form1" name="form1">
 <!-- 승인여부로검색 -->
-<select id="selectPermit" name="selectPermit" onchange="init()" >
-	<option value="">--선택--</option>
-	<option value="00401">승인</option>
-	<option value="00402">반려</option>
-	<option value="00403">대기</option>
-</select>
-<select id="selectName" onchange="nameChange()">
-	<option >--선택--</option>
-	<option value="exName">전시명</option>
-	<option value="pname">사업자명</option>
-</select>
-<input type="text" id="input">
-<button type="button" id="searchBtn">검색</button>
-
+<div align="center">
+	<div class="input-group" style="width:500px;">
+		<select id="selectPermit" name="selectPermit" class="form-select" onchange="init()" >
+			<option value="">--선택--</option>
+			<option value="00401">승인</option>
+			<option value="00402">반려</option>
+			<option value="00403">대기</option>
+		</select>
+		<select id="selectName" class="form-select" onchange="nameChange()">
+			<option >--선택--</option>
+			<option value="exName">전시명</option>
+			<option value="pname">사업자명</option>
+		</select>
+		<input type="text"  class="form-control" id="input">
+		<button type="button" id="searchBtn" class="input-group-text">
+			<svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+		</button>
+		</div>
+	</div>
 </form>
 
-<table>
-	<tr>
-		<td>전시등록번호</td>
-		<td>전시명</td>
-		<td>사업자명</td>
-		<td>신청일</td>
-		<td>승인여부</td>
-	</tr>
-	<tbody id="tbd">
-		<c:forEach var="reg"  items="${regList}">
-			<tr class="list">
-				<td>${reg.exNo}</td>
-				<td>${reg.name}</td>
-				<td>${reg.member.name}</td>
-				<td><fmt:formatDate value="${reg.applicationDate}" pattern="yyyy-MM-dd"/></td>
-				<td>${reg.approvalStatus}</td>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>
-
+		<div class="card border-0 shadow mb-4">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-centered table-nowrap mb-0 rounded"
+								id="boardtable">
+								<thead class="thead-light">
+									<tr class="border-0 rounded-start">
+										<th class="border-0">전시등록번호</th>
+										<th class="border-0">전시명</th>
+										<th class="border-0">사업자명</th>
+										<th class="border-0">신청일</th>
+										<th class="border-0 rounded-end">승인여부</th>
+									</tr>
+						<tbody id="tbd">
+							<c:forEach var="reg"  items="${regList}">
+								<tr class="list align-middle">
+									<td>${reg.exNo}</td>
+									<td>${reg.name}</td>
+									<td>${reg.member.name}</td>
+									<td><fmt:formatDate value="${reg.applicationDate}" pattern="yyyy-MM-dd"/></td>
+									<td>${reg.approvalStatus}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
 	//전시등록번호<tr> 선택시 상세페이지로 이동
 	$("#tbd").on("click", ".list", function(){
@@ -174,8 +190,6 @@
 	
 		}
 });	
-
-
 </script>
 </body>
 </html>
