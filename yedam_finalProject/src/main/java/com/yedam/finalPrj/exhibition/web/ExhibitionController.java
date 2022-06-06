@@ -267,12 +267,12 @@ public class ExhibitionController {
 		
 		exhibitionVo.setExNo(vo.getExNo());
 		model.addAttribute("exhibitionView", service.findExVO(exhibitionVo));
-		return "main/exhibition/exhibitionView";
+		return "main/exhibition/"+vo.getExNo()+"/exhibitionView";
 	}
 
 //  판매자 -> 결제취소 기능
-	@PostMapping("refund")
-	public String exhibitionRefund(@PathVariable("exResNo") int exResNo,@PathVariable("exNo") int exNo, Model model, HttpServletRequest request) {
+	@PostMapping("provider/{exNo}/refund")
+	public String exhibitionRefund(@RequestParam("exResNo") int exResNo,@RequestParam("exNo") int exNo, Model model, HttpServletRequest request) {
 		System.out.println("===========Controller refund");
 		System.out.println(exResNo);
 		System.out.println(exNo);
@@ -283,6 +283,7 @@ public class ExhibitionController {
 		service.updatePayStatus(vo);
 		
 		model.addAttribute("list", service.getReservationList(exNo, request));
+		
 		return "provider/exhibition/reservationList";
 	}
 	

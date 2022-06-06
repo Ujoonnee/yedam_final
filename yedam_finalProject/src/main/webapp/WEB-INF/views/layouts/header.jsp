@@ -72,6 +72,7 @@
 	
 	let xVal = '';
 	let yVal = '';
+	let locationName = '';
 	
 	const userAddress = '${user.address}';
 	if (userAddress != '')	{ 
@@ -83,7 +84,8 @@
 				console.log(data)
 				xVal = data.documents[0].x;
 				yVal = data.documents[0].y;
-				$('#storeList').attr('href','${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude='+xVal+'&longitude='+yVal);
+				locationName = data.documents[0].address_name;
+				$('#storeList').attr('href','${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude='+xVal+'&longitude='+yVal+'&nowLocation'+locationName);
 			},
 			error : function(e){
 				console.log(e);

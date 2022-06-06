@@ -307,6 +307,6 @@
 	<update id ="updatePayStatus" parameterType="com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO" >
 		update  exhibition_reservation  
 		set payment_status = 'N'
-		where ex_res_no = #{exResNo};
+		where ex_res_no = #{exResNo}
 	</update>
 </mapper>

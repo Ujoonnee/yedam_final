@@ -119,7 +119,7 @@
 								<td align = "center"><img src="/img/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
 							</c:if>
 							<c:if test ="${product.prodThumbnail == null }">
-								<td align ="center"></td>
+								<td align = "center"><img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg" class="selected_img"  height="100px" width="100px"></td>
 							</c:if>
 							<td align = "center"  style=" vertical-align : middle;">${product.prodName }</td>
 							<td align = "center" style=" vertical-align : middle;"> ${product.price } 원</td>
@@ -368,6 +368,18 @@
 	  const btnOpenPopup = document.querySelector('.btn-open-popup'); 
 	  
 	  btnOpenPopup.addEventListener('click', () => {
+// 		  input 0 일때 모달 창 X
+  	    	// 선택된 목록 가져오기
+    	  const query = 'input[name="checkf"]:checked';
+    	  const selectedEls = document.querySelectorAll(query);
+    	  // 선택된 목록에서 value 찾기
+    	  let result = '';
+    	  var obj_length = Object.keys(selectedEls).length;
+		  
+    	  if(obj_length == 0){
+    		  alert("상품이없습니다.")
+    		  return;
+    	  }
 	        modal.classList.toggle('show');
 	        $("#modal").css({
 	              "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
@@ -409,9 +421,6 @@
     	  var checkList = [];
     	  var inputStock = document.createElement('input');
     	
-    	  if(!obj_length == 0){
-        		alert("상품이 없습니다.")  
-        	  }
     		
     		for(let obj of selectedEls){
     			

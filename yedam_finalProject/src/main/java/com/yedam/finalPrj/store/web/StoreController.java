@@ -127,7 +127,7 @@ public class StoreController {
 
 //	매장에서의 검색처리
 	@RequestMapping(value ="searchList", method= {RequestMethod.GET})
-	public String search(StorePagingCriteria cri,Model model, HttpServletRequest request ) {
+	public String search(StorePagingCriteria cri,Model model, HttpServletRequest request) {
 		service.search(cri, model);
 		return "main/store/storeList";
 	}

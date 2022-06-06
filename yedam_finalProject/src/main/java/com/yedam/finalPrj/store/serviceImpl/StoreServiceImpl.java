@@ -150,8 +150,9 @@ public class StoreServiceImpl implements StoreService{
 	public List<Store> storeList(StorePagingCriteria cri) {
 		if(cri.getLatitude() == "" || cri.getLongitude() == "") {
 			// 로그인 안하면 위치 기본값 예담
-			cri.setLatitude("30.8690794214");
-			cri.setLongitude("128.5942180675");
+			cri.setLatitude("35.8690730613163");
+			cri.setLongitude("128.593296913547");
+			cri.setNowLocation("대구 중구 중앙대로 403");
 		}
 		return map.storeList(cri);
 	}
@@ -222,7 +223,6 @@ public class StoreServiceImpl implements StoreService{
 			model.addAttribute("paging",new StorePageMaker(cri,totalCatCnt(cri)));
 			
 		} else {
-			
 			model.addAttribute("storeList", storeList(cri));
 			model.addAttribute("paging",new StorePageMaker(cri, totalCnt()));
 			
