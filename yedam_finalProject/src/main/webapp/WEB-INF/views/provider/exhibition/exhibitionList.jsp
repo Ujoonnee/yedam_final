@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>전시목록</h2>
-<hr>
 <div class="row justify-content-center">
-	<div class="col-10">
+	<div class="col-8">
+<div class="display-4">전시목록</div>
+<hr>
 		<div>
 			<form id="frm" method="post">
 				<div class="card border-0 shadow mb-4">

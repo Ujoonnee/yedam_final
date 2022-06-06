@@ -11,7 +11,7 @@
 </head>
 <div class="row justify-content-center">
 	<div class="col-10">
-		<h1>공지사항</h1>
+		<div>공지사항</div>
 		<hr>
 		<div >	
 			<form action="list" method="post" name="searchForm" autocomplete="off">
