@@ -52,8 +52,8 @@ public class StoreController {
 		}else {
 			String vo = service.checkStoreNo(user, request, model);
 			System.out.println("resgister========================"+vo);
-			System.out.println(vo.length());
-			if(vo.length() > 0) {
+//			System.out.println(vo.length());
+			if(vo == "") {
 				return "main/unusalApproach"; //계정에 기존에 가게가 있다면 등록폼으로 이동 불가.
 			}else {
 				return "provider/store/storeRegister"; // 계정에 등록된 가게가 없을 시 등록폼으로 이동
