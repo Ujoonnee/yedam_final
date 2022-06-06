@@ -19,4 +19,6 @@ public interface MemberService {
 	String signUp(Map<String,String> member);
 	void sendConfirmationMail(Map<String,String> member);
 	boolean confirm(String applicationNo);
+	
+	String update(MemberVO vo);
 }

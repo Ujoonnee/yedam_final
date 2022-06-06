@@ -67,96 +67,94 @@
 
 					<div class="card border-0">
 					    <div class="card-body p-0">
-	                        <form id="form1">
-                                   <div class="form-group mb-3">
-                                       <label for="">이메일</label>
-                                       <input class="form-control" type="text" required value="${user.email }" disabled>
-                                   </div>
-	                            
-	                            <div class="form-group mb-3">
-                                       <label for="">비밀번호</label>
-                                       <div class="input-group">
-                                           <span class="input-group-text" id="basic-addon2">
-                                               <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                                           </span>
-                                           <input type="password" class="form-control" id="password1" required value=>
-                                       </div>  
-                                   </div>
+                            <div class="form-group mb-3">
+                                <label for="">이메일</label>
+                                <input class="form-control" type="text" required value="${user.email }" disabled>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                      <label for="">비밀번호</label>
+                                      <div class="input-group">
+                                          <span class="input-group-text" id="basic-addon2">
+                                              <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                                          </span>
+                                          <input type="password" class="form-control" id="password1" required value=>
+                                      </div>  
+                                  </div>
 
-                                   <div class="form-group mb-4">
-                                       <label for="">비밀번호 확인</label>
-                                       <div class="input-group">
-                                           <span class="input-group-text" id="basic-addon2">
-                                               <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                                           </span>
-                                           <input type="password" class="form-control" id="password2" required value=>
-                                       </div>
-                                       <div id="passwordValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
+                                  <div class="form-group mb-4">
+                                      <label for="">비밀번호 확인</label>
+                                      <div class="input-group">
+                                          <span class="input-group-text" id="basic-addon2">
+                                              <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                                          </span>
+                                          <input type="password" class="form-control" id="password2" required value=>
+                                      </div>
+                                      <div id="passwordValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
+                                  </div>
+                            
+                            <div class="mb-4">
+                                   <div>
+                                       <label for="">이름</label>
+                                       <input class="form-control" type="text" value="${user.name }" disabled>
                                    </div>
-	                            
-	                            <div class="mb-4">
-                                    <div>
-                                        <label for="">이름</label>
-                                        <input class="form-control" type="text" value="${user.name }" disabled>
-                                    </div>
-	                            </div>
-	                            
-                                <div class="mb-2">
-                                    <div>
-                                        <label for="">연락처</label>
-                                        <div id="tel" class="input-group">
-	                                        <select class="form-select w-30" id="tel1">
-		                                        <option value="010">010</option>
-		                                        <option value="011">011</option>
-		                                        <option value="017">017</option>
-		                                        <option value="018">018</option>
-		                                    </select>
-	                                        <input class="form-control w-30" id="tel2" type="text" maxlength="4" required>
-	                                        <input class="form-control w-30" id="tel3" type="text" maxlength="4" required>
-                                        </div>
-                                    </div>
-	                            </div>
-                                <div id="telValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
-	                            
-                                <div class="row mb-1">
-                                    <div class="col-7">
-                                        <label for="">주소</label>
-                                        <div class="input-group">
-	                                        <input id="zipcode" class="form-control" type="text" required readonly>
-	                                        <button class="btn btn-outline-gray-700" id="addressSearchBtn">검색</button>
-                                        </div>
-                                    </div>
-	                            </div>
-                                <div class="mb-1">
-                                    <div>
-                                        <input class="form-control" id="address1" type="text" value="${user.address }" readonly>
-                                    </div>
-	                            </div>
-                                <div class="mb-2">
-                                    <div>
-                                        <input class="form-control" id="address2" type="text" value="${user.addressDetail }" required>
-                                    </div>
-	                            </div>
-	                            <div id="addressValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
-	                            
-	                            <c:if test="${user.memType eq '00103' }">
-		                            <div id="buisnessDiv" class="row justify-content-between">
-		                                <div class="col-sm-5 mb-2">
-	                                        <label data-bs-toggle="tooltip" data-bs-placement="top" title="대표자명은 이전 페이지에서 입력한 이름으로 검사합니다.">
-	                                        	사업자등록번호 
-	                                        </label>
-	                                        <input class="form-control" id="buisnessNum" placeholder="'-' 제외" value="${user.buisnessNum }" disabled>
-		                                </div>
-		                                <div class="col-sm-5 mb-2">
-	                                        <label for="">사업유형</label>
-	                                        <select class="form-select w-30" id="buisnessType" disabled>
-		                                        <option value="00202">전시</option>
-		                                        <option value="00204">매장</option>
-		                                    </select>
-		                                </div>
+                            </div>
+                            
+                               <div class="mb-2">
+                                   <div>
+                                       <label for="">연락처</label>
+                                       <div id="tel" class="input-group">
+                                        <select class="form-select w-30" id="tel1">
+	                                        <option value="010">010</option>
+	                                        <option value="011">011</option>
+	                                        <option value="017">017</option>
+	                                        <option value="018">018</option>
+	                                    </select>
+                                        <input class="form-control w-30" id="tel2" type="text" maxlength="4" required>
+                                        <input class="form-control w-30" id="tel3" type="text" maxlength="4" required>
+                                       </div>
+                                   </div>
+                            </div>
+                               <div id="telValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
+                            
+                               <div class="row mb-1">
+                                   <div class="col-7">
+                                       <label for="">주소</label>
+                                       <div class="input-group">
+                                        <input id="zipcode" class="form-control" type="text" required readonly>
+                                        <button class="btn btn-outline-gray-700" id="addressSearchBtn">검색</button>
+                                       </div>
+                                   </div>
+                            </div>
+                               <div class="mb-1">
+                                   <div>
+                                       <input class="form-control" id="address1" type="text" value="${user.address }" readonly>
+                                   </div>
+                            </div>
+                               <div class="mb-2">
+                                   <div>
+                                       <input class="form-control" id="address2" type="text" value="${user.addressDetail }">
+                                   </div>
+                            </div>
+                            <div id="addressValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
+                            
+                            <c:if test="${user.memType eq '00103' }">
+	                            <div id="buisnessDiv" class="row justify-content-between">
+	                                <div class="col-sm-5 mb-2">
+                                        <label data-bs-toggle="tooltip" data-bs-placement="top" title="대표자명은 이전 페이지에서 입력한 이름으로 검사합니다.">
+                                        	사업자등록번호 
+                                        </label>
+                                        <input class="form-control" id="buisnessNum" placeholder="'-' 제외" value="${user.buisnessNum }" disabled>
 	                                </div>
-	                            </c:if>
-	                        </form>
+	                                <div class="col-sm-5 mb-2">
+                                        <label for="">사업유형</label>
+                                        <select class="form-select w-30" id="buisnessType" disabled>
+	                                        <option value="00202">전시</option>
+	                                        <option value="00204">매장</option>
+	                                    </select>
+	                                </div>
+                                </div>
+                            </c:if>
 			            </div>
                             
                         <div class="d-grid mt-5">
@@ -176,6 +174,7 @@
 	<!-- kakao 주소 검색 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	
+	<%-- 
     <!-- Core -->
 	<script src="${pageContext.request.contextPath}/resources/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -216,164 +215,168 @@
 	
 	<!-- Volt JS -->
 	<script src="${pageContext.request.contextPath}/resources/assets/js/volt.js"></script>
-
+--%>
 	<!-- script -->
 	<script>
-	
-	// 기존 전화번호 입력
-	const tel = '${user.tel}';
-	$('#tel1').val(tel.split('-')[0]);
-	$('#tel2').val(tel.split('-')[1]);
-	$('#tel3').val(tel.split('-')[2]);
-
-	// 연락처에 문자 입력 방지
-	$('#tel').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
-	
-	// 연락처 커서 이동
-	$('#tel2').on('keyup', event => { if (event.target.value.length == 4) $('#tel3').focus(); } );
-	
-	// 다음 버튼 클릭시 form1 체크
-	$('#updateBtn').on('click', () => {
-		let isValid = true;
 		
-		// 비밀번호 미입력 시
-		if ($('#password1').val() == '') {
-			$('#password1').addClass('is-invalid');
-			$('#passwordValidation').html('비밀번호를 확인하세요.');
-			isValid = false;
-		}
+		window.onload = function() {
+			// 결과 알림창
+			const swalWithBootstrapButtons = Swal.mixin({
+		        customClass: {
+		            confirmButton: 'btn btn-primary',
+		            cancelButton: 'btn btn-gray'
+			        },
+			        buttonsStyling: false
+			    });
 		
-		// 비밀번호 확인 미입력 시
-		if ($('#password2').val() == '') {
-			$('#password2').addClass('is-invalid');
-			$('#passwordValidation').html('비밀번호를 확인하세요.');
-			isValid = false;
-		}
+			// 기존 전화번호 입력
+			const tel = '${user.tel}';
+			$('#tel1').val(tel.split('-')[0]);
+			$('#tel2').val(tel.split('-')[1]);
+			$('#tel3').val(tel.split('-')[2]);
 		
-		// 비밀번호 미일치 시
-		if ($('#password1').val() != $('#password2').val()) {
-			$('#password1').addClass('is-invalid');
-			$('#password2').addClass('is-invalid');
-			$('#passwordValidation').html('비밀번호가 일치하지 않습니다.');
-			isValid = false;
-		} else {
-			$('#password1').addClass('is-valid');
-			$('#password2').addClass('is-valid');
-		}
-		
-		// 연락처 미입력 시
-		if ($('#tel2').val() == '' || $('#tel2').val().length < 4) {
-			$('#tel2').addClass('is-invalid');
-			$('#telValidation').html('연락처를 입력하세요.');
-			isValid = false;
-		} else {
-			$('#tel2').addClass('is-valid');
-		}
-
-		if ($('#tel3').val() == '' || $('#tel3').val().length < 4) {
-			$('#tel3').addClass('is-invalid');
-			$('#telValidation').html('연락처를 입력하세요.');
-			isValid = false;
-		} else {
-			$('#tel3').addClass('is-valid');
-		}
-		
-		// 주소(address1) 미입력 시
-		if ($('#address1').val() == '') {
-			$('#zipcode').addClass('is-invalid');
-			$('#address1').addClass('is-invalid');
-			$('#addressValidation').html('주소를 입력하세요.');
-			isValid = false;
-		} else {
-			$('#zipcode').addClass('is-valid');
-			$('#address1').addClass('is-valid');
-		}
-		
-		
-	});
-	
-	// form1 입력값 수정 시 validation 초기화
-	$('input').on('change', event => {
-		const id = event.target.id;
-		
-		if (id.startsWith('password')) {
-			$('#password1').removeClass('is-invalid');
-			$('#password2').removeClass('is-invalid');
-			$('#passwordValidation').html('&nbsp;');
-		}
-		
-		if (id.startsWith('tel')) {
-			$('#tel input').removeClass('is-invalid');
-			$('#telValidation').html('&nbsp;');
-		}
-	});
-	
-	// 주소 검색 기능
-	$('#addressSearchBtn').on('click', event => {
-		event.preventDefault();
-		
-		// kakao 주소검색 api
-		new daum.Postcode({
-			oncomplete : function(data) {
-				// 주소 validation 결과 초기화
-				$('#zipcode').removeClass('is-invalid');
-				$('#address1').removeClass('is-invalid');
-				$('#addressValidation').html('&nbsp;');
-				
-				$('#zipcode').val(data.zonecode);
-				$('#address1').val(data.roadAddress);
-			}
-		}).open();
-	});
-	
-	// 회원가입 버튼 클릭 시 form2 체크
-	$('#registerBtn').on('click', () => {
-		let isValid = true;
-		
-		
-		
-		// 회원가입 성공
-		if (isValid) {
-			const member = {
-							"email": $('#email1').val() + '@' + $('#email2').val(),
-							"password": $('#password1').val(),
-							"name": $('#name').val(),
-							"tel": $('#tel1').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val(),
-							"buisnessNum": $('#buisnessNum').val(),
-							"address": $('#address1').val(),
-							"addressDetail": $('#address2').val(),
-							"buisnessType": $('#buisnessType').val(),
-							};
+			// 연락처에 문자 입력 방지
+			$('#tel').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
 			
-			console.log(member);
+			// 연락처 커서 이동
+			$('#tel2').on('keyup', event => { if (event.target.value.length == 4) $('#tel3').focus(); } );
 			
-			$.ajax({
-				url: 'sign-up',
-				method: 'post',
-				data: JSON.stringify(member),
-				contentType: 'application/json; charset=UTF-8'
-			}).done( response => {
+			// 수정 버튼 클릭 시 validation 후 처리
+			$('#updateBtn').on('click', () => {
+				let isValid = true;
 				
-				if (response != 'fail') {
-					swalWithBootstrapButtons.fire({
-			            icon: 'warning',
-			            title: '이메일이 발송되었습니다.',
-			            text: '이메일 인증 완료 후 정상 이용이 가능합니다.',
-			            showConfirmButton: true,
-			        });
-					
-				} else {
-					swalWithBootstrapButtons.fire({
-		                icon: 'error',
-		                title: '오류가 발생했습니다.',
-		                text: '잠시 후 다시 시도해 주세요.'
-		            });
+				// 비밀번호 미입력 시
+				if ($('#password1').val() == '') {
+					$('#password1').addClass('is-invalid');
+					$('#passwordValidation').html('비밀번호를 확인하세요.');
+					isValid = false;
 				}
-			}).fail(response => {
-				console.log(response);
-			})
-		}
-	});
+				
+				// 비밀번호 확인 미입력 시
+				if ($('#password2').val() == '') {
+					$('#password2').addClass('is-invalid');
+					$('#passwordValidation').html('비밀번호를 확인하세요.');
+					isValid = false;
+				}
+				
+				// 비밀번호 미일치 시
+				if ($('#password1').val() != $('#password2').val()) {
+					$('#password1').addClass('is-invalid');
+					$('#password2').addClass('is-invalid');
+					$('#passwordValidation').html('비밀번호가 일치하지 않습니다.');
+					isValid = false;
+				} else {
+					$('#password1').addClass('is-valid');
+					$('#password2').addClass('is-valid');
+				}
+				
+				// 연락처 미입력 시
+				if ($('#tel2').val() == '' || $('#tel2').val().length < 4) {
+					$('#tel2').addClass('is-invalid');
+					$('#telValidation').html('연락처를 입력하세요.');
+					isValid = false;
+				} else {
+					$('#tel2').addClass('is-valid');
+				}
+		
+				if ($('#tel3').val() == '' || $('#tel3').val().length < 4) {
+					$('#tel3').addClass('is-invalid');
+					$('#telValidation').html('연락처를 입력하세요.');
+					isValid = false;
+				} else {
+					$('#tel3').addClass('is-valid');
+				}
+				
+				// 주소(address1) 미입력 시
+				if ($('#address1').val() == '') {
+					$('#zipcode').addClass('is-invalid');
+					$('#address1').addClass('is-invalid');
+					$('#addressValidation').html('주소를 입력하세요.');
+					isValid = false;
+				} else {
+					$('#zipcode').addClass('is-valid');
+					$('#address1').addClass('is-valid');
+				}
+				
+				// 수정 처리
+				if (isValid) {
+					const member = {
+									"password": $('#password1').val(),
+									"tel": $('#tel1').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val(),
+									"address": $('#address1').val(),
+									"addressDetail": $('#address2').val(),
+									};
+					
+					console.log(member);
+					
+					$.ajax({
+						url: 'update',
+						method: 'post',
+						data: JSON.stringify(member),
+						contentType: 'application/json; charset=UTF-8'
+					}).done( response => {
+						
+						if (response == 'success') {
+							swalWithBootstrapButtons.fire({
+					            icon: 'success',
+					            title: '적용되었습니다!',
+					            showConfirmButton: true,
+					            timer: 1000
+					        });
+							
+						} else {
+							console.log(response);
+						}
+					}).fail(response => {
+						console.log(response);
+						
+						swalWithBootstrapButtons.fire({
+			                icon: 'error',
+			                title: '오류가 발생했습니다.',
+			                text: '잠시 후 다시 시도해 주세요.',
+			                timer: 1000
+			            });
+					})
+				}
+				
+			});
+			
+			// form1 입력값 수정 시 validation 초기화
+			$('input').on('change', event => {
+				const id = event.target.id;
+				
+				if (id.startsWith('password')) {
+					$('#password1').removeClass('is-invalid');
+					$('#password2').removeClass('is-invalid');
+					$('#passwordValidation').html('&nbsp;');
+				}
+				
+				if (id.startsWith('tel')) {
+					$('#tel input').removeClass('is-invalid');
+					$('#telValidation').html('&nbsp;');
+				}
+			});
+			
+			// 주소 검색 기능
+			$('#addressSearchBtn').on('click', event => {
+				console.log(event)
+				event.preventDefault();
+				
+				// kakao 주소검색 api
+				new daum.Postcode({
+					oncomplete : function(data) {
+						// 주소 validation 결과 초기화
+						$('#zipcode').removeClass('is-invalid');
+						$('#address1').removeClass('is-invalid');
+						$('#addressValidation').html('&nbsp;');
+						
+						$('#zipcode').val(data.zonecode);
+						$('#address1').val(data.roadAddress);
+					}
+				}).open();
+			});
+			
+		};
 		
 	</script>
 
