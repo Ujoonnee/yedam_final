@@ -10,73 +10,79 @@
 </head>
 <body>
 
-<h3>내 예약 정보</h3>
-
-	<form name="frm" method="POST" action="exSelectAllReservation">
-			<div class="row input-group" align="center" style="width:600px">
-				<select class="form-control col-2" name="type"  class="form-select">
-					<option value="">전체</option>
-					<option value="exResNo" <c:out value="${paging.vo.type eq 'exResNo'?'selected':'' }" />>전시등록번호</option>
-					<option value="name" <c:out value="${paging.vo.type eq 'name'?'selected':'' }" />>전시명</option>
-				</select>
+<div class="row justify-content-center">
+	<div class="col-8">
+		<h3>내 예약 정보</h3>
+		
+			<form name="frm" method="POST" action="exSelectAllReservation">
+				<div align="center" class="mb-5">	
+					<div class="input-group" align="center" style="width:500px">
+						<select class="form-select" name="type"  class="form-select" style="width: 20%">
+							<option value="">전체</option>
+							<option value="exResNo" <c:out value="${paging.vo.type eq 'exResNo'?'selected':'' }" />>전시등록번호</option>
+							<option value="name" <c:out value="${paging.vo.type eq 'name'?'selected':'' }" />>전시명</option>
+						</select>
+					
+						<input class="form-control" style="width: 60%" type="text" id="searchKeyword" name="keyword" placeholder="검색어를 입력하세요." value="${keyword }"/>
+						<button class="input-group-text" id="topbar-addon2">
+		                	<svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+		                </button>
+					</div>
+				</div>
 			
-				<input class="form-control col-6" type="text" id="searchKeyword" name="keyword" value="${keyword }"/>
-				<button class="input-group-text" id="topbar-addon" type="submit">
-                <svg class="icon icon-xs" x-description="Heroicon name: solid/search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
-                </svg>
-                </button>
+		
+			</form>
+			<div class="card border-0 shadow mb-4">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-centered table-nowrap mb-0 rounded" id="boardtable">
+							<thead class="thead-light">
+								<tr class="border-0 rounded-start">
+									<th class="border-0 rounded-start display-3">예약번호</th>
+									<th class="border-0">전시명</th>
+									<th class="border-0">예약전시일</th>
+									<th class="border-0">금액</th>
+									<th class="border-0 rounded-end">결제여부</th>
+								</tr>
+							</thead>
+							<tbody id="tbd">
+								<c:forEach items="${exhibitionReservationVO }" var="exRes">
+									<tr class="list">
+									
+										<td>${exRes.exResNo }</td>
+										<td>
+										<%-- <a href="exhibitionReservationDetail?exResNo=${exRes.exResNo}"> --%>${exRes.name }	<input type="hidden" value="${exRes.exResNo}"><!-- </a> -->
+										
+											<!--<c:out value="${exRes.name }"/> -->
+										
+										</td>
+										<td><fmt:formatDate value="${exRes.exDate }" pattern="yyyy-MM-dd hh:mm"/></td>
+										<td><fmt:formatNumber value="${exRes.paymentAmt }" pattern="#,###"/></td>
+										<td>
+											<c:set var="status" value="N"/>
+												<c:choose>
+													<c:when test="${exRes.paymentStatus eq 'N' }">
+														취소
+													</c:when>
+													
+													<c:when test="${exRes.paymentStatus eq 'Y' }">
+														결제
+													</c:when>
+													
+												</c:choose>
+										
+										</td>
+										
+									</tr>
+								
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
-	
-
-	</form>
-
-	<table>
-		<thead>
-			<tr>
-				<th>예약번호</th>
-				<th>전시명</th>
-				<th>전시일</th>
-				<th>결제여부</th>
-				<th>금액</th>
-				<th>리뷰</th>
-			</tr>
-		</thead>
-		<tbody id="tbd">
-			<c:forEach items="${exhibitionReservationVO }" var="exRes">
-				<tr class="list">
-				
-					<td>${exRes.exResNo }</td>
-					<td>
-					<%-- <a href="exhibitionReservationDetail?exResNo=${exRes.exResNo}"> --%>${exRes.name }	<input type="hidden" value="${exRes.exResNo}"><!-- </a> -->
-					
-						<!--<c:out value="${exRes.name }"/> -->
-					
-					</td>
-					<td><fmt:formatDate value="${exRes.startDate }" pattern="yyyy-MM-dd"/></td>
-					<td>
-						<c:set var="status" value="N"/>
-							<c:choose>
-								<c:when test="${exRes.paymentStatus eq 'N' }">
-									취소
-								</c:when>
-								
-								<c:when test="${exRes.paymentStatus eq 'Y' }">
-									결제
-								</c:when>
-								
-							</c:choose>
-					
-					</td>
-					<td><fmt:formatNumber value="${exRes.paymentAmt }" pattern="#,###"/></td>
-					<td><button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button></td>
-				</tr>
-			
-			</c:forEach>
-		</tbody>
-	</table>
-	
-	
+	</div>	
+</div>
 	<form id="pagingFrm" name="pagingForm" action="exSelectAllReservation" method="get">
 		<input type="hidden" id="pageNum" name="pageNum" value="${paging.vo.pageNum }">
 		<input type="hidden" id="amount" name="amount" value="${paging.vo.amount }">
@@ -84,7 +90,7 @@
 		<input type="hidden" id="keyword" name="keyword" value="${paging.vo.keyword }">
 	</form>
 	
-	<div id="pagingDiv">
+	<div id="pagingDiv" align="center">
 		<!-- 이전페이지 -->
 		<c:if test="${paging.prev }">
 			<a href="${paging.startPage - 1}">이전</a>

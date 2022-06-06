@@ -15,6 +15,7 @@
 </style>
 </head>
 <body>
+
 <!-- css적용 -->
 <h2>내 예약 정보</h2>
 <div class="row justify-content-center" align=left >
@@ -139,6 +140,7 @@
 	
 	
 
+
 <script type="text/javascript">
 	//리뷰모달 띄우기
 	$('#btnModal').on("click", function(){
@@ -174,7 +176,7 @@
 		
 		 if(confirm("예약을 취소하시겠습니까?")){
 			var text = prompt("비밀번호를 입력하세요.");
-			if(text==${user.password}){
+			if(text == ${user.password}){
 				
 				$.ajax({
 					url:"../cancel",

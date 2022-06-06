@@ -39,4 +39,6 @@ public class HongExhibitionReservationVO {
 	private String memName;
 	private String memTel;
 	
+	private String password;
+	
 }
