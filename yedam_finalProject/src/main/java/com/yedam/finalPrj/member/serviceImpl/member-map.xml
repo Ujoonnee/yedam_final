@@ -64,4 +64,10 @@
 						   #{isExpired, mode=OUT, jdbcType=NUMERIC, javaType=integer})
 		}
 	</select>
+	
+	<update id="update" parameterType="MemberVO">
+		UPDATE member
+		SET password=#{password},tel=#{tel},address=#{address},address_detail=#{addressDetail}
+		WHERE mem_no=#{memNo}
+	</update>
 </mapper>

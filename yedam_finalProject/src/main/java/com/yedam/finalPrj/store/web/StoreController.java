@@ -36,7 +36,7 @@ public class StoreController {
 //	Park
 	
 //	매장신청 양식 페이지
-	@RequestMapping("register")
+	@RequestMapping("provider/registration")
 	public String register(HttpServletRequest request,Model model) {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");

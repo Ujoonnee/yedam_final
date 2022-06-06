@@ -83,11 +83,16 @@
 					</span>
 					
 					<!-- 하위 메뉴 -->
-					<div class="multi-level collapse" role="list" id="submenu-app" aria-expanded="false">
+					<div class="multi-level collapse" role="list" id="submenu-app" aria-expanded="true">
 						<ul class="flex-column nav">
 							<li class="nav-item ">
 								<a class="nav-link" href="${pageContext.request.contextPath}/exhibition/exSelectAllReservation">
 									<span class="sidebar-text">전시</span>
+								</a>
+							</li>
+							<li class="nav-item ">
+								<a class="nav-link" href="${pageContext.request.contextPath}/store/resProdList">
+									<span class="sidebar-text">매장</span>
 								</a>
 							</li>
 						</ul>

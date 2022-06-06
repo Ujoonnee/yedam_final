@@ -19,20 +19,19 @@ import com.yedam.finalPrj.member.service.MemberVO;
 
 @Controller
 @RequestMapping("/member/*")
+@ResponseBody
 public class AjaxMemberController {
 
 	@Autowired MemberService service;
 
 	// 로그인 전 확인
 	@PostMapping("sign-in")
-	@ResponseBody
 	public String signIn(MemberVO member, HttpServletRequest request) {
 		return service.signIn(member, request);
 	}
 	
 	// 이메일 중복체크
 	@GetMapping("emailCheck")
-	@ResponseBody
 	public boolean emailCheck(MemberVO member) {
 		return service.isValidEmail(member);
 	}
@@ -56,5 +55,14 @@ public class AjaxMemberController {
 		}
 	}
 	
-	// 
+	// 회원정보 수정 처리
+	@PostMapping("update")
+	@ResponseBody
+	public String update(@RequestBody MemberVO member, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		member.setMemNo(user.getMemNo());
+		
+		return service.update(member);
+	}
 }
