@@ -99,29 +99,29 @@
 <h3>내 리뷰</h3>
 <div class="row justify-content-left" align=left >
 	<div>
-		<div class="col-6 form-control" style="width:80%">
-			<c:if test="${not empty reviewList}">
-			<div>
-				<div style="display:none">${reviewList.serviceName }</div>
-				<span>평점(${reviewList.score })</span><span id="vscore">${reviewList.score }</span>
-				<div>${reviewList.content }</div>
-				<hr>
-				<div>답변</div>
-				<div>${reviewList.replyContent }</div>
+		<c:if test="${not empty reviewList}">
+			<div class="col-6 form-control" style="width:80%">
+				<div>
+					<div style="display:none">${reviewList.serviceName }</div>
+					<span>평점(${reviewList.score })</span><span id="vscore">${reviewList.score }</span>
+					<div>${reviewList.content }</div>
+					<hr>
+					<div>답변</div>
+					<div>${reviewList.replyContent }</div>
+				</div>
 			</div>
-			</c:if>
-		</div>
+		</c:if>
 	</div>
 </div>
 	
 <input class="btn btn-block btn-outline-gray-800 mb-3" type="button" value="목록" onclick="location.href='../exSelectAllReservation'">
 	
-	<!-- 리뷰 작성안했다면 작성버튼 show. -->
-<%-- <c:if test="${exRes.paymentStatus eq 'Y' }"> --%>
+<!-- 리뷰 작성안했다면 작성버튼 show. -->
+
 <c:if test="${empty reviewList}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
 </c:if>
-<%-- </c:if> --%>
+
 
 <!-- 픽업상태 'N'이면 예약취소 버튼 show -->
 <c:if test="${exRes.paymentStatus eq 'Y' }">
@@ -130,10 +130,11 @@
 
 <!--수정버튼은 상의 필요...  -->
 <c:if test="${not empty reviewList}" >
+<c:if test="${empty reviewList.replyContent}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" onclick=reviewUpd() >리뷰수정</button>
 
 <button type="submit"  class="btn btn-block btn-gray-800 mb-3 delBtn" value="${reviewList.revNo }">삭 제</button>
-
+</c:if>
 </c:if>
 
 
