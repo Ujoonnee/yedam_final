@@ -10,11 +10,53 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
+<script type = "importmap">
+
+{
+	"imports": {
+	     "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+         "GLTFLoader" : "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js"
+	}
+}
+</script>
+
+<script type= "module">
+	import{GLTFLoader} from 'GLTFLoader';
+	import * as THREE from 'three';
+
+	let scene = new THREE.Scene();
+	let renderer = new THREE.WebGLRenderer({
+		canvas : document.querySelector('#canvas'),
+		antialias : true
+	});
+	renderer.outputEncoding = THREE.sRGBEncoding;
+
+	let camera = new THREE.PerspectiveCamera(30,1);
+	camera.position.set(0,0,5);
+
+	scene.background = new THREE.Color('white');
+
+	let loader = new GLTFLoader();
+	loader.load('/shiba/scene.gltf', function(gltf){
+		scene.add(gltf.scene);
+		renderer.render(scene,camera);
+		function animate(){
+			requestAnimationFrame(animate)
+			gltf.scene.rotation.y += 0.02;
+			renderer.render(scene, camera);	
+	}
+	animate()
+	});
+
+
+</script>
 <div class = "row justify-content-center">
 	<div class = "col-8">
 	<!-- body 헤더 -->
 		<div align = "center" id ="container">
 			<section id ="page_header" class="single-page-header">
+			<canvas id="canvas" width="300" height="300"></canvas>
+			
 				<div class="container">
 					<h3 class="display-4" style="text-align: left;" ><a href="list">매장</a> </h3>
 				 </div>
