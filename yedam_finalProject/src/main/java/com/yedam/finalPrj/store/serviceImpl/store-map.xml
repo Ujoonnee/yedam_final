@@ -306,7 +306,7 @@
 							AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
 						order by rank)
 					where ROWNUM <![CDATA[<=]]> (select count(*) from reserved_product)
-               ) where <![CDATA["store.name"]]> like '%'||#{keyword}||'%') a
+               ) where <![CDATA["store.name"]]> like '%'||#{keyword}||'%' and rank = 1) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
        ) b
    WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}
@@ -323,7 +323,7 @@
 							FROM store s, product_reservation r, product p
 								WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
 							AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
-						AND prod_name like '%'||#{keyword}||'%' 
+						AND prod_name like '%'||#{keyword}||'%'
 					ORDER BY rank)
 				where rank = 1) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
