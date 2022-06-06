@@ -163,15 +163,20 @@
 	
 </div>
 				<!-- By jo, 리뷰목록 출력하기 -->
-				<div class="card border-0 shadow mb-4" id="exhReviewList">
+				<!-- <div class="card border-0 shadow mb-4" id="exhReviewList"> -->
+				<span>현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button></div>
+				<div id="reviewListStyle" class="col-8" style="display:none	">
 						<c:forEach var="list" items="${reviewList}" varStatus="status">
+							<hr>
 							<div>
-								<div>${list.member.name}님  <fmt:formatDate value="${list.revTime}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
-								<span class="tscore${status.index}">${list.score}</span><br>
+								<div>${list.member.name}님<br>  
+								<fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
+								<span>평점(${list.score})</span><span class="tscore${status.index}">${list.score}</span><br>
 								${list.content}</div><br>
 							</div>
 						</c:forEach>
-				</div>
+				</div>		
+				<!-- </div> -->
 </div>
 
 <div align="center">
@@ -498,7 +503,7 @@ function requestPay() {
 	 	 	revNo.push("1");
 	 	 </c:forEach>
 	 var reviewLength = revNo.length;
-
+	$("#reviewNums").html(reviewLength);
     	for(var j=0; j<reviewLength; j++){
     	var space ="";
    	for(var i=0; i<$(".tscore"+j).html(); i++){
@@ -509,6 +514,16 @@ function requestPay() {
    	$(".tscore"+j).html(space)
 
     	}
+  	//리뷰보이기/숨기기
+      function openClose(){
+      	 if(document.getElementById('reviewListStyle').style.display === 'none') {
+      	      document.getElementById('reviewListStyle').style.display = 'block';
+      	      document.getElementById('reviewShow').textContent = '리뷰 접기';
+      	    } else {
+      	      document.getElementById('reviewListStyle').style.display = 'none';
+      	      document.getElementById('reviewShow').textContent = '리뷰 보기';
+      	    }
+      } 		
 
 </script>
 </body>

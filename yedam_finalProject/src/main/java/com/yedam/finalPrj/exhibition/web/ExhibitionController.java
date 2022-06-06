@@ -41,6 +41,7 @@ public class ExhibitionController {
 
 	// 내 예약 목록
 	@RequestMapping("exSelectAllReservation")
+//	@ResponseBody
 	public String exSelectAllReservation(PagingVO vo, Model model) {
 		System.out.println(vo.getPageNum());
 		List<HongExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion(vo);

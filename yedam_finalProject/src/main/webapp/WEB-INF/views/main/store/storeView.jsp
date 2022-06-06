@@ -156,18 +156,34 @@
 		</div>
 	</div> 
 	<hr>
-	
-<!-- By jo, 리뷰목록 출력하기. ${reviewList }-->
-<div  ><button type="button" id="review11">리뷰별표시 테스트</button>
-	<c:forEach var="list" items="${reviewList}" varStatus="status">
-		<div>${list.member.name}님  <fmt:formatDate value="${list.revTime}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
-		<span class="tscore${status.index}">${list.score}</span>
-		${list.content}</div><br>
-	</c:forEach>
+	</div>
+
+<!-- By jo, 리뷰목록 출력하기. -->
+	<!-- 리뷰리스트 버튼 -->
+	<div align="left" class="col-5 mt-3" >
+		<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --><span>현재리뷰(<span id="reviewNums"></span>)</span>
+		<button type="button" class="btn btn-sm btn-primary mb-1" id="reviewShow" onclick=openClose()>리뷰 보기</button>
+	</div>
+
+	<!-- 리뷰리스트 시작 -->
+	<div id="reviewListStyle" align="left" class="col-5" style="display:none">
+		<c:forEach var="list" items="${reviewList}" varStatus="status">
+			<hr>
+			<div class="row mb-3">
+				<div class="col-2">${list.member.name}님 </div><br>
+				<div> <fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
+					<span>평점(${list.score})</span><span class="tscore${status.index}">${list.score}</span>
+				</div>
+			</div>
+			<div>	
+				${list.content}
+			</div>
+		</c:forEach>
+	</div>
+	<!-- 리뷰리스트 끝 -->
 </div>
 
-</div>
-</div>
+
  <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script type="text/javascript">
@@ -455,7 +471,7 @@
 	 	 	revNo.push("1");
 	 	 </c:forEach>
  	 var reviewLength = revNo.length;
-
+ 	$("#reviewNums").html(reviewLength);
        	for(var j=0; j<reviewLength; j++){
        	var space ="";
       	for(var i=0; i<$(".tscore"+j).html(); i++){
@@ -466,7 +482,17 @@
       	$(".tscore"+j).html(space)
 
        	}
-      	
+    //리뷰보이기/숨기기
+    function openClose(){
+    	 if(document.getElementById('reviewListStyle').style.display === 'none') {
+    	      document.getElementById('reviewListStyle').style.display = 'block';
+    	      document.getElementById('reviewShow').textContent = '리뷰 접기';
+    	    } else {
+    	      document.getElementById('reviewListStyle').style.display = 'none';
+    	      document.getElementById('reviewShow').textContent = '리뷰 보기';
+    	    }
+    }
+   
       	
        	
 	// 행 클릭하면 체크박스 체크
