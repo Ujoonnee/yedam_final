@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,22 +10,41 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div class="row justify-content-center">
+	<div class="col-8">
+		<h3>내 예약 정보</h3>
+		
 <form action="resProdList" method="get">
-<select id="type" name="type">
+<div align="center" class="mb-5">	
+<div class="input-group" align="center" style="width:500px">
+<select class="form-select" style="width: 20%" id="type" name="type">
 	<option value="name" <c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장이름</option>
 	<option value="prodName" <c:out value="${paging.cri.type eq 'prodName'? 'selected': '' }" />>상품명</option>
 </select>
-<input type="text" id="keyword" name="keyword" value="${keyword}">
-<button id="search">검색</button>
+<input class="form-control" style="width: 60%" placeholder="검색어를 입력하세요." type="text" id="keyword" name="keyword" value="${keyword}">
+<button class="input-group-text" id="search">
+	<svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+		<path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd">
+		</path>
+	</svg>
+</button>
+</div>
+</div>
+
 </form>
-<table>
-		<tr>
-			<td>매장이름</td>
-			<td>상품명</td>
-			<td>총 가격</td>
-			<td>픽업상태</td>
-			<td>픽업시간</td>
+<div class="card border-0 shadow mb-4">
+				<div class="card-body">
+					<div class="table-responsive">
+<table class="table table-centered table-nowrap mb-0 rounded">
+	<thead class="thead-light">
+		<tr class="border-0 rounded-start">
+			<th class="border-0 rounded-start display-3">매장이름</th>
+			<th class="border-0">상품명</th>
+			<th class="border-0">총 가격</th>
+			<th class="border-0">픽업상태</th>
+			<th class="border-0 rounded-end" >픽업시간</th>
 		</tr>
+	</thead>
 	<tbody id="tbd">
 		<c:forEach var="list" items="${resProdList}">
 			<tr class="list">
@@ -38,12 +58,14 @@
 						<c:when test="${YN eq 'N'}">픽업대기</c:when>
 					</c:choose>
 				</td>
-				<td>${list.pickupTime} + ${list.pickupDate}</td>
+				<td>${list.pickupDate} <fmt:formatDate value="${list.pickupTime}" pattern="hh:mm"/> </td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-
+</div>
+</div>
+</div>
 	<form id="pagingFrm" name="pagingForm" action="resProdList" method="get">
 		<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
 		<input type="hidden" id="pageNum" name="amount" value="${paging.cri.amount }">
@@ -52,7 +74,7 @@
 	</form>
 	
 	
-	<div id="pagingDiv">
+	<div id="pagingDiv" align="center">
 		<!-- 이전페이지 -->
 		<c:if test="${paging.prev }">
 			<a href="${paging.startPage - 1}">이전</a>
@@ -66,7 +88,8 @@
 			<a id="next" href="${paging.endPage + 1 }">다음</a>
 		</c:if>
 	</div>
-	
+</div>
+</div>	
 	
 <script>
 
