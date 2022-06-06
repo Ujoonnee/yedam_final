@@ -174,7 +174,6 @@
 	
 	// 로그인 버튼 클릭 시
 	$('#submit').on('click', () => {
-		// TODO 로그인 시도 전 체크 조건
 		
 		$.ajax({
 			url: 'sign-in',
