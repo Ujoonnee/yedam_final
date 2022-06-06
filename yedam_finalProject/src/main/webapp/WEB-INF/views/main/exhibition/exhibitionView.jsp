@@ -418,7 +418,7 @@ function requestPay() {
 			alert("날짜를 입력하세요.");
 			return;
 		}else if (ticketCount === ""){
-			alert("티켓 수량을 입력하세야합니다.")
+			alert("티켓 수량을 입력하셔야 합니다.")
 			return;
 		}
 		

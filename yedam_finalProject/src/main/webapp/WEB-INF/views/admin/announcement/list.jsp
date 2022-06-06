@@ -41,7 +41,7 @@ $(document).ready(function() {
 			<form action="adminList" method="POST" name="searchForm" autocomplete="off">
 				<div align="center">
 					<div class="input-group" style="width:500px;">
-						<select name="type" class="form-select" style="width:10%;">
+						<select name="type" class="form-select" style="width:100px;">
 							<option value="" selected>선택</option>
 							<option value="title" <c:out value="${paging.cri.type eq 'title'?'selected':'' }" />>제목</option>
 							<option value="annContent" <c:out value="${paging.cri.type eq 'annContent'?'selected':'' }" />>내용</option>

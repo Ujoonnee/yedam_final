@@ -1,64 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<title>exhibition registration detail</title>
+<title>exhibition regisdlation detail</title>
 
-<h1>전시 등록 신청 상세</h1>
+<div class="display-4">전시 등록 신청 상세</div>
+<hr>
 <div class="row justify-content-center" align="center" >
-	<div>
-		<div class="col-6 form-control" style="width:500px">
-			<table>
-				<colgroup>
-					<col>
-					<col width="500px">
-				</colgroup>
-				<tr><td>&nbsp;</td></tr>
-				<tr style="width:400px"class="row mb-2">
-					<th class="col-3">카테고리</th>
-					<td class="col-6">전시</td>
-				</tr>
-				<tr style="width:400px"class="row mb-2">
-					<th class="col-3">전시명</th>
-					<td class="col-3">${exhibition.name }</td>
-				</tr>
-				<tr class="row mb-2">
-					<th class="col-3">전시장명</th>
-					<td class="col-6">${exhibition.locationName }</td>
-				</tr>
-				<tr class="row mb-2">
-					<th class="col-3">티켓 가격</th>
-					<td class="col-6">${exhibition.price }</td>
-				</tr>
-				<tr class="row mb-2">
-					<th class="col-3">썸네일</th>
-					<td class="col-6">
-					<img width="300px" src="/exhibition/${exhibition.thumbnail }" alt="thumbnail preview">
-					</td>
-				</tr>
-				<tr style="width:400px;" class="row mb-2">
-					<th class="col-3">전시 기간</th>
-					<td class="col-6">${exhibition.startDate }
-						~ ${exhibition.endDate}</td>
-				</tr>
-				<tr style="width:400px;" class="row mb-2">
-					<th class="col-3">연락처</th>
-					<td class="col-6">${exhibition.tel }</td>
-				</tr>
-				<tr style="width:400px;" class="row mb-2">
-					<th class="col-3">주소</th>
-					<td class="col-6">${exhibition.address }</td>
-				</tr>
-				<tr style="width:400px;" class="row mb-2">
-					<th class="col-3">전시 설명</th>
-					<td class="col-6">${exhibition.detail }</td>
-				</tr>
-				<tr><td>&nbsp;</td></tr>
-			</table>
-		</div>
-			<div class="mt-3" style="width:500px;" align="right">
-				<input type="button" id="listBtn" class="btn btn-tertiary" value="목록">
+	<div class="col-6" align="left">
+			<div class="form-control ms-1" style="width:800px;">
+				<div class="display-4">${exhibition.name }</div>			
+					<hr>
+						<div class="row mb-2">
+								<div class="col-6"><img style="width:382px; height:314px;" src="/exhibition/${exhibition.thumbnail }" alt=""></div>
+								<div class="vr ms-2" style="padding-left: 1px; padding-right: 1px;"></div>
+						<div class="col-5 ms-2">
+			
+							<dl class="mb-3">
+								<dt class="display-5">전시장명</dt>
+								<dd>${exhibition.locationName }</dd>
+							</dl>
+							
+							<dl class="mb-4">
+								<dt class="display-5">티켓 가격</dt>
+								<dd>${exhibition.price }</dd>
+							</dl>
+							
+							<dl class="mb-4">
+								<dt class="display-5">전시 기간</dt>
+								<dd >${exhibition.startDate }
+									~ ${exhibition.endDate}</dd>
+							</dl>
+							
+							<dl class="mb-3">
+								<dt class="display-5">연락처</dt>
+								<dd>${exhibition.tel }</dd>
+							</dl>
+							<dl class="mb-2">
+								<dt class="display-5">주소</dt>
+								<dd>${exhibition.address }</dd>
+							</dl>
+						</div>
+					</div>
+							<dl><dd>&nbsp;</dd></dl>
+					<hr>
+					<div align="left">
+						<dl style="widdt:400px;" class="mb-2">
+							<dt class="col-3 display-5">전시 설명</dt>
+							<dd class="col-6 ms-2">${exhibition.detail }</dd>
+						</dl>
+					</div>
+				</div>
+			<div class="mt-3" align="right">
+					<input type="button" id="listBtn" class="btn btn-tertiary" value="목록">
 			</div>
+		</div>
 	</div>
-</div>
 <script>
 	$('#listBtn').on('click', () => history.back() );
 </script>

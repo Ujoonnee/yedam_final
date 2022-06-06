@@ -4,11 +4,13 @@
 <title>exhibition registration list</title>
 <div class="row justify-content-center">
 	<div class="col-8">
-		<h1>전시 등록 신청 목록</h1>
+		<div class="display-4">전시 등록 신청 목록</div>
 		<hr>
 		<c:if test = "${empty list }">
 			<h3>신청목록이 없습니다.</h3>
 		</c:if>
+		
+		
 		<div class="card border-0 shadow mb-4">
 						<div class="card-body">
 							<div >

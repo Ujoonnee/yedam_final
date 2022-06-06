@@ -12,7 +12,7 @@
 <body>
 <div class="row justify-content-center">
 	<div class="col-8">
-		<h1>내 전시 예약자 목록</h1>
+		<div class="display-3">내 전시 예약자 목록</div>
 		<hr>
 		<div class="card border-0 shadow mb-4">
 			<div class="card-body">
@@ -20,7 +20,7 @@
 					<form id="frm" method="get">
 						<table>
 							<c:if test = "${empty list }">
-								<tr><th>예약이 없습니다.</th></tr>
+								<tr><th>해당 전시에는 예약자가 없습니다.</th></tr>
 							</c:if>
 							<c:if test = "${not empty list }">
 								<table class="table table-centered table-nowrap mb-0 rounded">
