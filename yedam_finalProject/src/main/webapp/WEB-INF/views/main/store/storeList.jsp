@@ -65,7 +65,6 @@
 		<hr>
 		<p></p>
 		<p></p>
-		<p></p>
 		
 			<div>
 				<form action ="searchList" method="get" name="searchForm" autocomplete="off">
