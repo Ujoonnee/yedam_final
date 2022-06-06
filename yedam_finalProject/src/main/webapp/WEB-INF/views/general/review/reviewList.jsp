@@ -14,21 +14,29 @@
 </style>
 </head>
 <body>
-	<h3>내 리뷰 목록</h3>
-	<dl>
-		<c:forEach items="${reviewList }" var="list" varStatus="status">
-			<input type="hidden" id = "resNo" name="resNo" value="${list.resNo }" data-reviewVal="${list.score }" >
-		<dt>내 리뷰</dt>
-			<dd>${list.serviceName }</dd>
-			<dd>평점</dd>
-			<dd class="vscore"><div class="reviewValue${status.index }"></div></dd>
-			<dd>${list.content }</dd>
-			<hr>
-		<dt>답변</dt>
-			<dd>${list.replyContent }</dd>
-			<hr>
-		</c:forEach>
-	</dl>
+<div class="row justify-content-center">
+	<div class="col-6">
+		<h3>내 리뷰 목록</h3>
+		<div class="card border-0 shadow mb-4">
+			<div class="card-body">
+				<dl>
+					<c:forEach items="${reviewList }" var="list" varStatus="status">
+						<input type="hidden" id = "resNo" name="resNo" value="${list.resNo }" data-reviewVal="${list.score }" >
+					<dt>내 리뷰</dt>
+						<dd>${list.serviceName }</dd>
+						<dd>평점</dd>
+						<dd class="vscore"><div class="reviewValue${status.index }"></div></dd>
+						<dd>${list.content }</dd>
+						<hr>
+					<dt>답변</dt>
+						<dd>${list.replyContent }</dd>
+						<hr>
+					</c:forEach>
+				</dl>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 <script>
 // 	$(document).ready(function(){
