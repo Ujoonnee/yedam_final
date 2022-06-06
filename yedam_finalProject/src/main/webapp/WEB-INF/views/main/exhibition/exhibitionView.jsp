@@ -299,10 +299,12 @@ function requestPay() {
 		        buyer_addr: address
 		    }, function (rsp) { // callback
 		    	console.log(rsp.merchant_uid);
+		    	console.log(rsp);
 		    	alert(rsp.merchant_uid);
 		        if (rsp.success) {
 		        	
 		            // 결제 성공 시 로직,
+		            alert("ㅇㅇ")
 		        	console.log(rsp.success);
 		        	
 					$.ajax({
