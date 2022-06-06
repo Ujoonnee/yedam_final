@@ -49,7 +49,7 @@
 	function fn_addFile(){
 		var fileIndex = 1;
 		$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div class='input-group mb-3' style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
+		$("#fileIndex").append("<div class='input-group mb-3 mt-3' style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		})
 		// 삭제 버튼 누를 시 상태가 Y N값으로 변경되는 건데 이건 아예 삭제되게 만들어야함
 		// 
@@ -135,9 +135,8 @@
 				<hr>
 				<div id="fileIndex">첨부파일 추가 &nbsp;<button type="button" class="fileAdd_btn btn btn-sm btn-primary">파일추가</button></div>
 			</div>
-			<input type="hidden" name="pageNum" value="${param.pageNum}">
-			
 			<div>&nbsp;</div>
+			<input type="hidden" name="pageNum" value="${param.pageNum}">
 			<hr>
 			<div align="right">
 				<button type="button" class="update_btn btn btn-tertiary">수정</button>

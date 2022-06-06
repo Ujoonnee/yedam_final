@@ -191,7 +191,7 @@ public class AnnouncementController {
 		String replaceName = (String) resultMap.get("REPLACED_NAME");
 		String originalFileName = (String) resultMap.get("ORIGINAL_NAME");
 		System.out.println("-----------------------------------" + replaceName);
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\image\\" + replaceName));
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\announcement\\" + replaceName));
 		System.out.println("====================================================" + originalFileName);
 
 		// 서버에서 다루는 확장자명이 어떤형식의 자료인지 알려주는거
