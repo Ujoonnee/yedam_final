@@ -9,6 +9,16 @@
 <title>Insert title here</title>
 
 <style> 
+	#popup_mask { /* 팝업 배경 css */
+	        position: fixed;
+	        width: 100%;
+	        height: 1000px;
+	        top: 0px;
+	        left: 0px;
+	         display: none; 
+	         background-color:#000;
+	         opacity: 0.8;
+	    }
 	.modal { 
 		position: absolute; 
 		top: 0; 
@@ -54,56 +64,76 @@
 </head>
 <body>
 <div align = "center" id = "container">
+	<div class="form-control" style="width:800px">
 	<section id ="page_header" class="single-page-header">
-	<div class="container">
-		<h2>상품목록</h2>
-	 </div>
+<div align="left"><a class="display-3" href="http://localhost/finalPrj/store/list"> 매장 </a></div>
+<hr>
+	<div class="container display-3">${paging.cri.storeName}</div>
 	</section>
+	<hr>
 <!-- 	상품검색 -->
 	<form action ="searchProduct" method="get" name="searchForm" autocomplete="off">
-	<div id = "searchBox">
-		<p>상품명 : 
-		<input type = "text" id ="keyword" name = "keyword" value="${paging.cri.keyword }" placeholder="상품명 입력하세요." ></p>
-		<p>가격 :
-		<input type = "number" id ="lowPrice" name = "lowPrice" placeholder="최소가격." size="15"min = "0"  value="${paging.cri.lowPrice }"  > 
-		~ <input type = "number" id = "highPrice" name = "highPrice" placeholder="최대가격"size="15"min = "0"value="${paging.cri.highPrice }" ></p>
-		
+	<div id = "searchBox row" align="center">
+		<p class="row col-3" align="center" style="width:300px"><span class="display-5 me-2 mb-2">상품명</span>
+		<input class="col-6 form-control" type = "text" id ="keyword" name = "keyword" value="${paging.cri.keyword }" placeholder="상품명 입력하세요." ></p>
+		<p align="center" class="justify-content-center me-7" ><span class="display-5 col-2 ms-7">가격</span>
+		<div class="row justify-content-center">
+			<input class="form-control col-4" style="width:150px" type = "number" id ="lowPrice" name = "lowPrice" placeholder="최소가격." size="15"min = "0"  value="${paging.cri.lowPrice }"> 
+			<span class="display-3 col-1">~</span><input class="form-control col-4" style="width:150px" type = "number" id = "highPrice" name = "highPrice" placeholder="최대가격"size="15"min = "0"value="${paging.cri.highPrice }" ></p>
+		</div>
 		<input type="hidden" id ="storeNo" name = "storeNo" value="${products[0].storeNo }"> 
 		
 	</div>		
 	</form>
-	<div class="row">
-		<div  class="ms-6 row col-6 justify-content-center" style="width:300px">
-			<button id = "searchBtn" class="btn btn-tertiary col-4">버튼</button>&nbsp;
-			<button class="btn btn-tertiary col-4" onclick="resetValue()">초기화</button>
+		<div align="center">
+			<div class="row col-6 ms-3">
+				<button id = "searchBtn" class="ms-6 btn btn-sm btn-primary col-3">검색</button>&nbsp;
+				<button class="btn btn-sm btn-primary col-3" onclick="resetValue()">초기화</button>
+			</div>
 		</div>
+	<hr>
+	<div align="right">
+		<button class="btn-open-popup  btn btn-sm btn-primary" onclick="getCheckboxValue()">예약하기</button>
 	</div>
+	
 	<!-- 상품 목록 -->
-	<table id = "productList">
 		<c:if test = "${empty products }">
 			<tr><td colspan ="3">등록된 상품이 없습니다.</td></tr>
 		</c:if>
 		<c:if test = "${not empty products }">
-			<c:forEach items="${products }" var= "product">
-				<tr>	
-				<c:if test ="${product.prodThumbnail != null }">
-					<td align = "center"><img src="/img/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
-				</c:if>
-				<c:if test ="${product.prodThumbnail == null }">
-					<td align ="center"></td>
-				</c:if>
-					<td align = "center"  style=" vertical-align : middle;"><input type ="checkbox" id = "checkf" name="checkf" value ="${product }"
-					data-prodNo ="${product.prodNo }" data-stock ="1" data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }"  
-					>${product.prodName }</td>
-					<td align = "center" style=" vertical-align : middle;">가격 : ${product.price }</td>
-					<td align = "center" style=" vertical-align : middle;">재고 : ${product.stock }</td>
-				</tr>
-			</c:forEach>
+			<table id = "productList" class="w-100">
+				<colgroup>
+					<col width="10%">
+					<col width="20%">
+					<col width="20%">
+					<col width="30%">
+					<col width="20%">
+				</colgroup>
+				<tbody>
+					<c:forEach items="${products }" var= "product">
+						<tr>	
+							<td>
+								<input type ="checkbox" id = "checkf" class="form-check-input" name="checkf" value ="${product }" data-prodNo ="${product.prodNo }" data-stock ="1" data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }">
+							</td>
+							<c:if test ="${product.prodThumbnail != null }">
+								<td align = "center"><img src="/img/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
+							</c:if>
+							<c:if test ="${product.prodThumbnail == null }">
+								<td align ="center"></td>
+							</c:if>
+							<td align = "center"  style=" vertical-align : middle;">${product.prodName }</td>
+							<td align = "center" style=" vertical-align : middle;"> ${product.price } 원</td>
+							<td align = "center" style=" vertical-align : middle;">남은 수량 : ${product.stock }</td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+					</c:forEach>
+				</tbody>
+			</table>	
 		</c:if>
-	</table>	
 <!-- 	모달 -->
-	<div class="modal"> 
-		<div class="modal_body">
+	<div id ="popup_mask" ></div> <!-- 팝업 배경 DIV -->
+    <div id= "modal"class="modal"> 
+        <div id="modal_body"class="modal_body">
 			<div>픽업 예상 시간 <input type="time" id="pickupTime" min="00:00" max="23:59"></div>
 			<div id ="cart"></div>
 			<div id = "management">
@@ -125,26 +155,22 @@
 			</div>
 		</div>
 	</div> 
+	<hr>
 	
-	<button class="btn-open-popup" onclick="getCheckboxValue()">장바구니</button>
-
 <!-- By jo, 리뷰목록 출력하기. ${reviewList }-->
 <div  ><button type="button" id="review11">리뷰별표시 테스트</button>
 	<c:forEach var="list" items="${reviewList}" varStatus="status">
 		<div>${list.member.name}님  <fmt:formatDate value="${list.revTime}" pattern="yyyy년 MM월 dd일 HH:mm:ss"/>
 		<span class="tscore${status.index}">${list.score}</span>
 		${list.content}</div><br>
-		
-		
 	</c:forEach>
 </div>
 
-
+</div>
 </div>
  <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script type="text/javascript">
-
 	var IMP = window.IMP;
 	IMP.init('imp73462839');
 	
@@ -327,6 +353,17 @@
 	  
 	  btnOpenPopup.addEventListener('click', () => {
 	        modal.classList.toggle('show');
+	        $("#modal").css({
+	              "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
+	              "left": (($(window).width()-$("#modal").outerWidth())/2+$(window).scrollLeft())+"px"
+	              //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
+
+	           }); 
+
+	        $("#popup_mask").css("display","block"); //팝업 뒷배경 display block
+	        $("#modal").css("display","block"); //팝업창 display block
+
+	        $("body").css("overflow","hidden");//body 스크롤바 없애기
 
 	        if (modal.classList.contains('show')) {
 	          body.style.overflow = 'hidden';
@@ -336,7 +373,9 @@
       modal.addEventListener('click', (event) => {
         if (event.target === modal) {
           modal.classList.toggle('show');
-
+          $("#popup_mask").css("display","none"); //팝업창 뒷배경 display none
+          $("#modal").css("display","none"); //팝업창 display none
+          $("body").css("overflow","auto");//body 스크롤바 생성
           if (!modal.classList.contains('show')) {
             body.style.overflow = 'auto';
           }
@@ -348,13 +387,15 @@
     	  // 선택된 목록 가져오기
     	  const query = 'input[name="checkf"]:checked';
     	  const selectedEls = document.querySelectorAll(query);
-    	  
     	  // 선택된 목록에서 value 찾기
     	  let result = '';
     	  var obj_length = Object.keys(selectedEls).length;
     	  var checkList = [];
     	  var inputStock = document.createElement('input');
-    		
+    	
+    	  if(!obj_length == 0){
+        		alert("상품이 없습니다.")  
+        	  }
     		
     		for(let obj of selectedEls){
     			
@@ -401,7 +442,7 @@
     			total += productPrice
     			
     		}
-    		
+      	
     		$('input[name=totalPrice]').attr('value',total);
     		
     		
@@ -427,6 +468,11 @@
        	}
       	
       	
+       	
+	// 행 클릭하면 체크박스 체크
+	$('tr').on('click', function(event) {
+		this.childNodes[1].childNodes[1].click();
+	})
       
     	
 </script>

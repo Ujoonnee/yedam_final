@@ -16,7 +16,7 @@
 		<div align = "center" id ="container">
 			<section id ="page_header" class="single-page-header">
 				<div class="container">
-					<h3 class="display-4" style="text-align: left;" ><a href = "http://localhost/finalPrj">메인</a> > <a href="list">매장</a> </h3>
+					<h3 class="display-4" style="text-align: left;" ><a href="list">매장</a> </h3>
 				 </div>
 			</section>
 		<!-- 	검색창 -->
@@ -30,7 +30,7 @@
 				<div class = "col-lg-10"> 
 		<div class="card border-0 shadow mb-4">
 		<div class="card-body">
-					<div class="col-lg-2" style = "float : left" >
+					<div class="col-lg-2 " style = "float : left" >
 						<select id="type" name="type" class = "form-select"
 							onchange="allSelected()">
 								<option value="1">전체</option>
@@ -38,18 +38,16 @@
 								<option value="store_cat"<c:out value="${paging.cri.type eq 'store_cat'? 'selected': '' }" />>카테고리</option>
 								<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
 						</select>
-					</div>
-					
-					
-					<div class= " col-lg-8" style = "float : left; padding-left: 20px">
+					</div>					
+					<div class= "col-lg-8" style = "float : left; padding-left: 20px">
 						<input type="text" id="keyword" name="keyword" class="form-control" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
 					</div>
 						<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
 						<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
 						<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
 						<button id = "searchBtn" class="btn btn-outline-gray-500" >검색</button>&nbsp;
-				</div>
-		</div>
+					</div>
+			</div>
 		</div>
 						<p></p>
 						<p></p>
@@ -71,7 +69,7 @@
 						
 						<c:if test="${not empty storeList }">
 							<c:forEach items="${storeList }" var = "list">
-								<tr height="150px" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
+								<tr class="align-middle" height="150px" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
 									<td align = "center"><img src="/store/${list.thumbnail } " class="selected_img"  height="150px" width="150px"></td>
 									<td align = "center" class="StoreNameFind">${list.name }</td>
 									<td align = "center">${list.address }</td>

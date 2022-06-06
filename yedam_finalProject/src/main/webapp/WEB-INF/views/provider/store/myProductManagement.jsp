@@ -133,7 +133,10 @@
 		</tbody>
 		</table>
 	</c:if>
+	
 	<button type="button" id="excelDownload" class="download">재고다운로드</button>
+	<button class="btn-open-popup" onclick="getCheckboxValue()">상품관리</button>
+	<button id = "showButton" onclick = "addTextBox()">단일상품등록</button>
 	<!-- 	메인모달 -->
 	<div class="modal"> 
 		<div class="modal_body">
@@ -456,6 +459,7 @@
 	    excelDownload.addEventListener('click', exportExcel);
 	    excelFormDownload.addEventListener('click', exportFormExcel);
 	});
+	
 // 	재고다운로드
 	function exportExcel(){ 
 		  // step 1. workbook 생성
@@ -473,6 +477,7 @@
 		  // step 5. 엑셀 파일 내보내기 
 		  saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), excelHandler.getExcelFileName());
 		}
+		
 	var excelHandler = {
 		    getExcelFileName : function(){
 		        return '재고.xlsx';	//파일명

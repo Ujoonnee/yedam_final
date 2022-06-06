@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
@@ -45,10 +46,13 @@
 		<td>${detail.detail}</td>
 	</tr>
 </table>
+<!-- 승인대기 중일 때만 버튼보이기. -->
+	<c:if test="${detail.approvalStatus eq '00403' }">
+		<button id="permit">승인</button>&nbsp;&nbsp;&nbsp;<button id="reject">반려</button>&nbsp;&nbsp;&nbsp;
+	</c:if>
+<button onclick="location.href='${pageContext.request.contextPath}/exhibition/exRegAppList'">목록</button>
 
 <input type="hidden" id="exNo" value="${detail.exNo}">
-<button id="permit">승인</button>&nbsp;&nbsp;&nbsp;<button id="reject">반려</button>&nbsp;&nbsp;&nbsp;
-<button onclick="location.href='${pageContext.request.contextPath}/exhibition/exRegAppList'">목록</button>
 
 <script type="text/javascript">
 	$("#permit").on("click", function(){
@@ -60,6 +64,7 @@
 			data: {exNo: $("#exNo").val()},
 			success: function (data) {
 				alert("승인되었습니다.")
+				location.reload(true);
 	        },
 	        error:function(){
 	        	alert("실패");
@@ -76,6 +81,7 @@
 				data: {exNo: $("#exNo").val()},
 				success: function (data) {
 					alert("반려되었습니다.")
+					location.reload(true);
 		        },
 		        error:function(){
 		        	alert("실패");

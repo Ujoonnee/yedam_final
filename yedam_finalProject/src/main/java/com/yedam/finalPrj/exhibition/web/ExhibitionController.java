@@ -270,7 +270,50 @@ public class ExhibitionController {
 		return "main/exhibition/exhibitionView";
 	}
 
+//  판매자 -> 결제취소 기능
+	@PostMapping("refund")
+	public String exhibitionRefund(@PathVariable("exResNo") int exResNo,@PathVariable("exNo") int exNo, Model model, HttpServletRequest request) {
+		System.out.println("===========Controller refund");
+		System.out.println(exResNo);
+		System.out.println(exNo);
+		ParkExhibitionReservationVO vo = new ParkExhibitionReservationVO();
+		vo.setExNo(exNo);
+		vo.setExResNo(exResNo);
+		
+		service.updatePayStatus(vo);
+		
+		model.addAttribute("list", service.getReservationList(exNo, request));
+		return "provider/exhibition/reservationList";
+	}
 	
+	
+	
+	@RequestMapping(value = "pay/refund")
+	@ResponseBody
+	public String cancel(@RequestParam(value= "merchant_uid") String merchant_uid) {
+		System.out.println("biz_email = " + merchant_uid);
+//		Payed_listVO pvo = paySV.recentlyPay(merchant_uid);
+//					
+//		PaymentCheck obj = new PaymentCheck();
+//		String token = obj.getImportToken();
+//		System.out.println("merchant_uid :" + pvo.getMerchant_uid());
+//		int res = obj.cancelPayment(token, pvo.getMerchant_uid());
+//		
+//		if(res == 1) {
+//			Biz_memberVO bvo = memberSV.selectBizMember(pvo.getBiz_email());
+//			bvo.setPay_coupon(bvo.getPay_coupon()-5);
+//			System.out.println("paycoupon: " + bvo.getPay_coupon());
+//			res = paySV.updateBiz_refund(bvo);
+//			if(res ==1) {
+//				res = paySV.refund_pay(pvo.getMerchant_uid());
+//				if(res ==1) { return "Success";}
+//			}else {	return "biz_refund Failure"; }
+//			return "thanks";
+//		}
+//		else 
+//			return "anyway Failure";
+		return "help";
+	}
 	
 	
 }

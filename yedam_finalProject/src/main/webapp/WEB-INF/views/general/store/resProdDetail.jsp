@@ -27,81 +27,103 @@
 
 
 
-<h3>예약내역 상세</h3><hr>
-
-	<div class="row">
-		<div class="col-2">예약번호</div>
-		<div class="col" id="prodResNo">${detail.prodResNo}</div>
+<h3>예약내역 상세</h3>
+<div class="row justify-content-left" align=left >
+	<div>
+		<div class="col-6 form-control" style="width:80%">
+			<table class="table-info">
+				<colgroup>
+					<col>
+					<col width="500px">
+				</colgroup>
+				<tr><td>&nbsp;</td></tr>
+				<tr style="width:450px"class="row mb-2">
+					<th class="col-3">예약번호</th>
+					<td class="col-6"><div class="col" id="prodResNo">${detail.prodResNo}</div></td>
+				</tr>
+				<tr class="row mb-2">
+					<th class="col-3">예약자 이름</th>
+					<td class="col-6">${detail.member.name}</td>
+				</tr>
+				<tr class="row mb-2">
+					<th class="col-3">결제일자</th>
+					<td class="col-6">${detail.orderDate}</td>
+				</tr>
+				<tr class="row mb-2">
+					<th class="col-3">매장이름</th>
+					<td class="col-6">${detail.store.name}</td>
+				</tr> 
+				<tr class="row mb-2">
+					<th class="col-3">예약 일시</th>
+					<td class="col-6"><fmt:formatDate value="${detail.pickupDate}" dateStyle="full"/><br>
+					<fmt:formatDate value="${detail.pickupTime}" type="time"/> </td>
+				</tr>
+				<tr class="row mb-2">
+					<th class="col-3">연락처</th>
+					<td class="col-6">${detail.member.tel}</td>
+				</tr>
+			</table> 
+		</div>
 	</div>
-	<div class="row">
-		<div class="col-2">예약자 이름</div>
-		<div class="col">${detail.member.name}</div>
-	</div>
-	<div class="row">
-		<div class="col-2">결제일자</div>
-		<div class="col">${detail.orderDate}</div>
-	</div>
-<hr>
-<table class="table">
-<thead>
-	<tr>
-		<th>썸네일</th>
-		<th>상품명</th>
-		<th>단품가격</th>
-		<th>개수</th>
-		<th>금액</th>
-	</tr>
-	</thead>
-	<tbody>
-	<c:forEach var="list" items="${prodList}">
-	<tr class="product"  >
-	
-		<td id="thumbNail" >${list.product.prodThumbnail} </td>
-		<td>${list.product.prodName}</td>
-		<td><fmt:formatNumber value="${list.product.price}" pattern="#,###"/> </td>
-		<td>${list.reservedProduct.count}개</td>
-		<td>금액 : <fmt:formatNumber value="${list.product.price * list.reservedProduct.count}" pattern="#,###"/></td>
-		<td style="display:none">${list.product.prodNo}</td>
-	</tr>
-	</c:forEach>
-	</tbody>
-	<tr>
-		<td colspan="4"></td>
-		<td colspan="3">총 금액 : <fmt:formatNumber value="${detail.paymentAmt}" pattern="#,###"/></td>
-	</tr>
-</table>
-
-<table>
-	<tr>
-		<td>매장이름</td>
-		<td>${detail.store.name}</td>
-	</tr> 
-	<tr>
-		<td>예약 일시</td>
-		 
-		<td><fmt:formatDate value="${detail.pickupDate}" dateStyle="full"/>
-		 <fmt:formatDate value="${detail.pickupTime}" type="time"/> </td>
-	</tr>
-	<tr>
-		<td>연락처</td>
-		<td>${detail.member.tel}</td>
-	</tr>
-</table> 
-<c:if test="${not empty review}">
-<div>
-<h3>내 리뷰</h3>
-			<div>${review.serviceName }</div>
-			<hr>
-			<span>평점(${review.score })</span><span id="vscore">${review.score }</span>
-			<div>${review.content }</div>
-			<hr>
-			<div>답변</div>
-			<div>${review.replyContent }</div>
-			<hr>
 </div>
-</c:if>
+<h3>상품 목록</h3>
+<div class="row justify-content-left" align=left >
+	<div>
+		<div class="col-6 form-control" style="width:80%">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>썸네일</th>
+						<th>상품명</th>
+						<th>단품가격</th>
+						<th>개수</th>
+						<th>금액</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="list" items="${prodList}">
+					<tr class="product"  >
+						<td id="thumbNail" >${list.product.prodThumbnail} </td>
+						<td>${list.product.prodName}</td>
+						<td><fmt:formatNumber value="${list.product.price}" pattern="#,###"/> </td>
+						<td>${list.reservedProduct.count}개</td>
+						<td>금액 : <fmt:formatNumber value="${list.product.price * list.reservedProduct.count}" pattern="#,###"/></td>
+						<td style="display:none">${list.product.prodNo}</td>
+					</tr>
+					</c:forEach>
+				</tbody>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="3">총 금액 : <fmt:formatNumber value="${detail.paymentAmt}" pattern="#,###"/></td>
+					</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<h3>내 리뷰</h3>
+<div class="row justify-content-left" align=left >
+	<div>
+		<div class="col-6 form-control" style="width:80%">
+			<c:if test="${not empty review}">
+			<div>
+				<div style="display:none">${review.serviceName }</div>
+				<span>평점(${review.score })</span><span id="vscore">${review.score }</span>
+				<div>${review.content }</div>
+				<hr>
+				<div>답변</div>
+				<div>${review.replyContent }</div>
+			</div>
+			</c:if>
+		</div>
+	</div>
+</div>
+
 <!-- 	모달 -->
 <div>
+<!-- css적용 -->
+
+<!-- css적용 -->
 
 <input class="btn btn-block btn-outline-gray-800 mb-3" type="button" value="목록" onclick="location.href='../resProdList'">
 
@@ -159,35 +181,30 @@
 	//예약취소(비밀번호입력)
 	console.log(${detail.store.storeNo});
 	 $("#resCancel").on("click", function(){
-		
+		 /* console.log("매장번호 : " +${detail.store.storeNo}) */
 		 if(confirm("예약을 취소하시겠습니까?")){
 			var text = prompt("비밀번호를 입력하세요.");
 			if(text==${user.password}){
-				console.log("매장번호 : " +${detail.store.storeNo})
-
-			location.href="cancel/"+${detail.prodResNo};
-
 				$.ajax({
 					url:"cancel/"+${detail.prodResNo},
-					method:"GET",
+					method:"POST",
 					data:{
 						storeNo : ${detail.store.storeNo},
 						prodNo : prodNo
 					},
-					success: function(){
-						alert("성공");
+					success: function(data){
+						alert("예약이 취소되었습니다.");
 						location.href="${pageContext.request.contextPath}/store/resProdList"
+					},
+					error : function(){
+						alert("에러");
 					}
 				})
-				
-				
-			/* location.href="cancel/"+${detail.prodResNo}; */
-
 			}else{
 				return alert("비밀번호가 틀립니다.");
 			}
 		}else{
-			return alert("취소되었습니다.");
+			return alert("취소.");
 		} 
 	 }); 
 	

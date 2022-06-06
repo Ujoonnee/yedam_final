@@ -269,13 +269,20 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		// TODO Auto-generated method stub
 		return map.totalExCnt(cri);
 	}
-	
+//	환불 -> 결제상태 변경
+	@Override
+	public int updatePayStatus(ParkExhibitionReservationVO vo) {
+		// TODO Auto-generated method stub
+		return map.updatePayStatus(vo);
+	}
 	// 공통
 	private MemberVO getCurrentUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		return user;
 	}
+
+
 
 	
 

@@ -109,15 +109,15 @@ $(document).ready(function() {
 		<hr>
 			<div class="mb-4 row">
 				<div class="col-6">
-					<div class="input-group" style="diplay:block">
-						<select id="selectStatus" class="form-select" name="status" style="display:none;">
+					<div class="input-group col-4" class="row" style="diplay:block">
+						<select id="selectStatus" class="form-select col-3" name="status" style="display:none;">
 							<option value="00501" selected>선택</option>
 							<option value="00501">공개</option>
 							<option value="00502">상단고정</option>
 							<option value="00503">비공개</option>
 						</select>
-						<input type="submit" id="changeStatus" class="btn btn-tertiary" value="상태변경" style="display:none; border-right: 2px solid grey">
-						<input type="submit" id="delete" class="btn btn-tertiary" formaction="statusDelete" name="status" value="삭제" style="display:none;">
+						<input type="submit" id="changeStatus" class="btn btn-tertiary col-3" value="상태변경" style="display:none; border-right: 2px solid grey">
+						<input type="submit" id="delete" class="btn btn-tertiary co-3" formaction="statusDelete" name="status" value="삭제" style="display:none;">
 					</div>
 				</div>
 				<div class="col-6" align="right">

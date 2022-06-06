@@ -284,7 +284,7 @@
 					WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
 					AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
 					ORDER BY RANK)
-				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM reserved_product)
+				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM product_reservation)
                ) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
        ) b
