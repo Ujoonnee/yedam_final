@@ -1,5 +1,3 @@
-
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.finalPrj.exhibition.serviceImpl.ExhibitionMapper">
@@ -309,6 +307,6 @@
 	<update id ="updatePayStatus" parameterType="com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO" >
 		update  exhibition_reservation  
 		set payment_status = 'N'
-		where ex_res_no = #{exResNo};
+		where ex_res_no = #{exResNo}
 	</update>
 </mapper>

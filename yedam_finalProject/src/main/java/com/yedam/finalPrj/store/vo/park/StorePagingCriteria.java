@@ -16,6 +16,7 @@ public class StorePagingCriteria {
 		//위도,경도
 		private String latitude;
 		private String longitude;
+		private String nowLocation = "";
 		
 		private String approvalType; 
 		private String applicationDate; 

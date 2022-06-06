@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="row justify-content-center">
@@ -70,15 +71,17 @@
 // $(".cancelPay").click(()=> cancelPay());
 
 function cancelPay(n,m) {
-	
+	console.log(n);
+	console.log(m);
 		$.ajax({
 			url : "refund",
-			type : "post",
+			type : "POST",
 			data : {
 				"exResNo" :n,
 				"exNo" : m
 			},
 			success: function(result){
+				alert("환불성공")
 				location.reload();
 			},
 			error:function(error){

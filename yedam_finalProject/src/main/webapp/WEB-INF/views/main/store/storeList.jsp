@@ -28,32 +28,34 @@
 			<div>
 				<form action ="searchList" method="get" name="searchForm" autocomplete="off">
 				<div class = "col-lg-10"> 
-		<div class="card border-0 shadow mb-4">
-		<div class="card-body">
-					<div class="col-lg-2 " style = "float : left" >
-						<select id="type" name="type" class = "form-select"
-							onchange="allSelected()">
-								<option value="1">전체</option>
-								<option value="name"<c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장명</option>
-								<option value="store_cat"<c:out value="${paging.cri.type eq 'store_cat'? 'selected': '' }" />>카테고리</option>
-								<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
-						</select>
-					</div>					
-					<div class= "col-lg-8" style = "float : left; padding-left: 20px">
-						<input type="text" id="keyword" name="keyword" class="form-control" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
+					<div class="card border-0 shadow mb-4">
+						<div class="card-body">
+							<div class="col-lg-2 " style = "float : left" >
+								<select id="type" name="type" class = "form-select"
+									onchange="allSelected()">
+										<option value="1">전체</option>
+										<option value="name"<c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장명</option>
+										<option value="store_cat"<c:out value="${paging.cri.type eq 'store_cat'? 'selected': '' }" />>카테고리</option>
+										<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
+								</select>
+							</div>					
+							<div class= "col-lg-8" style = "float : left; padding-left: 20px">
+								<input type="text" id="keyword" name="keyword" class="form-control" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
+							</div>
+								<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
+								<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
+								<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
+								<input type ="hidden" name="nowLocation" value ="${paging.cri.nowLocation }">
+								<button id = "searchBtn" class="btn btn-outline-gray-500" >검색</button>&nbsp;
+						</div>
 					</div>
-						<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-						<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
-						<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
-						<button id = "searchBtn" class="btn btn-outline-gray-500" >검색</button>&nbsp;
-					</div>
-			</div>
-		</div>
-						<p></p>
-						<p></p>
-					<div style="clear: left;">
-						<button type="button" id = "location_now" name ="location_now" class="btn btn-lg  btn-outline-gray-500"  onclick = "locationN()">현재 위치</button>
-					</div>
+				</div>
+				<p></p>
+				<p></p>
+				<div style="clear: left;">
+					<button type="button" id = "location_now" class="btn btn-lg  btn-outline-gray-500"  onclick = "locationN()">현재 위치</button><br>
+					<div>현재 주소 : <input type="text" style=" border:none; " id = "nowLocation" disabled="disabled" value="${paging.cri.nowLocation }" ></div>
+				</div>
 				</form>
 			</div>
 			<p></p>
@@ -70,7 +72,12 @@
 						<c:if test="${not empty storeList }">
 							<c:forEach items="${storeList }" var = "list">
 								<tr class="align-middle" height="150px" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
+								<c:if test ="${list.thumbnail != null }">
 									<td align = "center"><img src="/store/${list.thumbnail } " class="selected_img"  height="150px" width="150px"></td>
+								</c:if>
+								<c:if test ="${list.thumbnail == null }">
+									<td align = "center"><img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg" class="selected_img"  height="150px" width="150px"></td>
+								</c:if>
 									<td align = "center" class="StoreNameFind">${list.name }</td>
 									<td align = "center">${list.address }</td>
 							
@@ -112,7 +119,7 @@
 	</div>
 </div>
 <script>
-
+	
 	$(document).ready(function(){
 		/* 페이지 번호 이동 id> pageNum > attr로 속성 href줌 */
 		$('#pagingDiv a').click(function(e){
@@ -132,7 +139,6 @@
 	}
 	// 상점 클릭시 공지사항 번호를 넘겨줌
 	function storeView(n,m) {
-		
 		frm.storeNo.value = n;
 		frm.storeName.value = m;
 		frm.action = "product/productView";
@@ -149,8 +155,11 @@
 					headers: {'Authorization' : 'KakaoAK ee381ad2653c27997305ec26eef7c94b'},
 				success:function(xy){
 					console.log(xy);
+					
 					$('input[name=latitude]').attr('value',xy.documents[0].y);
 					$('input[name=longitude]').attr('value',xy.documents[0].x);
+					$('input[name=nowLocation]').attr('value',xy.documents[0].address_name);
+					console.log(document.getElementById('nowLocation').value)
 					searchForm.submit();
 // 					XYget(xy.documents[0].y,xy.documents[0].x);
 					
