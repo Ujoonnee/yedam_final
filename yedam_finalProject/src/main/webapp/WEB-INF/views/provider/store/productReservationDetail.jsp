@@ -98,13 +98,14 @@
 					<hr>
 					
 					<c:if test="${empty reviewList.replyContent  }">
-					<button type="button" id="replyWrite">답변작성</button>
+					<button type="button" id="replyWrite" class="btn btn-sm btn-primary">답변작성하기</button>
 		
-					<div id="replyWriteDiv" style="display:none"><button onclick="replySend()">답변등록</button>
+					<div id="replyWriteDiv" style="display:none">
 						<form id="replyFrm" action="${pageContext.request.contextPath}/review/replyInsert" method="post">
 						<input type="hidden" name="prodResNo" value="${proRe.prodResNo }">
 						<textarea rows="10" style=width:100% id="replyContent" name="replyContent"></textarea>
 						</form>
+						<div align="right"><button onclick="replySend()" class="btn btn-sm btn-primary">답변등록</button></div>
 					</div>
 					</c:if>
 					
