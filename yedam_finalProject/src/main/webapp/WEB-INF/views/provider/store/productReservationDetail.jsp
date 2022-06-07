@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#thumbNail {
+	width:150px;
+	height:150px;}
+</style>
 </head>
 <body>
 
@@ -57,7 +62,7 @@
 							<tbody>
 							<c:forEach items="${proReDetail }" var="list" varStatus="status">
 							<tr>
-								<td>${list.prodThumbnail }</td>
+								<td id="thumbNail">${list.prodThumbnail }</td>
 								<td>${list.prodName }</td>
 					 			<td><fmt:formatNumber value="${list.price }" pattern="#,###" /></td> 
 								<td>${list.count }</td>
