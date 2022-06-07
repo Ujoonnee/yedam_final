@@ -72,7 +72,7 @@ public interface ProductMapper {
 	//리뷰목록 출력.
 	public List<ReviewVO> selectReviewList(String storeName);
 	public int pickupComplete(@Param("prodResNo") int prodResNo);
-	
+	public int cancelRes(@Param("prodResNo") int prodResNo);
 	
 //	Yoon
 	

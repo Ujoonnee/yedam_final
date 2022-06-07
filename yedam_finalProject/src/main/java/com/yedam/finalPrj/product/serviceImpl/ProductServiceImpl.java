@@ -362,6 +362,10 @@ public class ProductServiceImpl implements ProductService {
 	public int pickupComplete(int prodResNo) {
 		return map.pickupComplete(prodResNo);
 	}
+	@Override
+	public int cancelRes(int prodResNo) {
+		return map.cancelRes(prodResNo);
+	}
  
 	
 	
