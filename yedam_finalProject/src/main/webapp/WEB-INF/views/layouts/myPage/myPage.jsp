@@ -74,7 +74,6 @@
         
         
         
-
 <!-- Core -->
 <script src="${pageContext.request.contextPath}/resources/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -115,7 +114,6 @@
 
 <!-- Volt JS -->
 <script src="${pageContext.request.contextPath}/resources/assets/js/volt.js"></script>
-
     
 </body>
 

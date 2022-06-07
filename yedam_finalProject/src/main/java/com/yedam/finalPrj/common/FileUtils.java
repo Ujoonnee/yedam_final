@@ -29,7 +29,7 @@ public class FileUtils {
 	
 	public List<Map<String, Object>> parseInsertFileInfo(AnnouncementVO announcement ,MultipartHttpServletRequest fileRequest) throws IllegalStateException, IOException{
 //		TODO 프로젝트 진행 좀 됬을 시 공유폴더에 todo 찍으면 스티커 메모처럼 나옴.
-//		filePath = "\\\\192.168.0.2\\학생공유\\";
+		filePath = "C:\\announcement\\";
 		
 //		선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
 		Iterator<String> iterator = fileRequest.getFileNames();
@@ -162,7 +162,7 @@ public class FileUtils {
 	}
 	public static List<Map<String, Object>> parseUpdateFileInfo(AnnouncementVO announcement, String[] files, String[] fileNames,MultipartHttpServletRequest filerequest) throws Exception{
 		
-				String filePath = "C:\\image\\";
+				String filePath = "C:\\announcement\\";
 		
 			//	선언해준 맵을 돌려서 원하는 파일 가져올 수 있게 해주는것 Iterator
 				Iterator<String> iterator = filerequest.getFileNames();

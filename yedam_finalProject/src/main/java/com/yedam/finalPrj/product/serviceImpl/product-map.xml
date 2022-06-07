@@ -113,7 +113,7 @@
 	    select p.*,GET_CODE_NAME(status) status_name  
 	    from product p
 	    where store_no = #{storeNo}
-	    and status = '00601' or status = '00602'
+	    and <![CDATA[ (status = '00601' or status = '00602')]]>
 	    	 
 	    	 
 	</select>
@@ -131,7 +131,7 @@
 			       END
 			from product
 		</selectKey>
-		insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},#{price},'',#{prodCat},'00601')	
+		insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},'00601',#{price},'',#{prodCat})	
 	</insert>
 	<insert id = "myStoreProductInsert" parameterType="com.yedam.finalPrj.product.vo.park.Product">
 		<selectKey keyProperty="prodNo" resultType="long"
@@ -141,7 +141,7 @@
 			       END
 			from product
 		</selectKey>
-			insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},#{status},#{price},'',#{prodCat})	
+			insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},'00601',#{price},'',#{prodCat})	
 	</insert>
 	<select id ="searchPriceProdName" resultType="com.yedam.finalPrj.product.vo.park.Product">
 		SELECT P.PROD_NO, P.STORE_NO,P.PROD_NAME,P.STOCK,P.STATUS,P.PRICE,p.prod_thumbnail

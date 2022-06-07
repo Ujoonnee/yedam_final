@@ -115,4 +115,9 @@ public class MemberServiceImpl implements MemberService {
 		return (m.get("isExpired") == 1)? true: false; 
 	}
 
+	@Override
+	public String update(MemberVO member) {
+		map.update(member);
+		return "success";
+	}
 }

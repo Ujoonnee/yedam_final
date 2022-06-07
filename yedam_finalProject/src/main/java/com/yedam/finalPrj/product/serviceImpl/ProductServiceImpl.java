@@ -240,6 +240,7 @@ public class ProductServiceImpl implements ProductService {
 			System.out.println(product.getProdCat());
 			System.out.println(product.getPrice());
 			System.out.println(product.getStock());
+			System.out.println(product.getStoreNo());
 			System.out.println("for끝");
 			map.myStoreProductInsert(product);
 		}
