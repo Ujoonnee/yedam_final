@@ -23,11 +23,10 @@
 	
 </script>
 <div class="row justify-content-center">
-	<hr>
 	<div class="col-6">
-		<div class="form-control">
 			<div class="display-4">공지사항 상세페이지</div>
 			<hr>
+		<div class="form-control">
 			<section>
 					<form name="readForm" role="form" method="post">
 						<input name="seq" type="hidden" value="${announcement.annNo}" />

@@ -18,19 +18,19 @@
 <!-- 승인여부로검색 -->
 <div align="center">
 	<div class="input-group" style="width:500px;">
-		<select id="selectPermit" name="selectPermit" class="form-select" onchange="init()" >
+		<select id="selectPermit" name="selectPermit" class="form-select mb-3" onchange="init()" >
 			<option value="">--선택--</option>
 			<option value="00401">승인</option>
 			<option value="00402">반려</option>
 			<option value="00403">대기</option>
 		</select>
-		<select id="selectName" class="form-select" onchange="nameChange()">
+		<select id="selectName" class="form-select mb-3" onchange="nameChange()">
 			<option >--선택--</option>
 			<option value="exName">전시명</option>
 			<option value="pname">사업자명</option>
 		</select>
-		<input type="text"  class="form-control" id="input">
-		<button type="button" id="searchBtn" class="input-group-text">
+		<input type="text"  class="form-control mb-3" id="input">
+		<button type="button" id="searchBtn" class="input-group-text mb-3">
 			<svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
 		</button>
 		</div>
