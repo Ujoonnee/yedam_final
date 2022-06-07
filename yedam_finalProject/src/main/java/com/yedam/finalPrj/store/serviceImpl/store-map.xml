@@ -400,8 +400,9 @@ SELECT count(*)
 <!-- reserved_product테이블에서 취소된만큼 product테이블에서 재고수량 증가  -->
 <update id="CancelRes2" parameterType="map" >
 	    UPDATE product p SET p.stock = (select NVL( MAX(p.stock) , 0) FROM product) + (SELECT rp.count 
-	    																				 FROM reserved_product rp
-		                                                                                WHERE rp.store_no= #{storeNo} AND rp.prod_no = #{prodNo})    
+	    																				 FROM reserved_product rp, product_reservation r
+		                                                                                WHERE r.prod_res_no = rp.prod_res_no
+                                                                                        AND r.prod_res_no= #{prodResNo} AND rp.prod_no = #{prodNo})    
 		WHERE p.store_no= #{storeNo} 
 		  AND p.prod_no = #{prodNo}
 </update>
