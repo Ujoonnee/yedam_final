@@ -43,6 +43,10 @@
 							결제
 						</c:when>
 						
+						<c:when test="${exRes.paymentStatus eq 'R' }">
+							취소신청
+						</c:when>
+						
 						<c:otherwise>
 							미결제
 						</c:otherwise>
