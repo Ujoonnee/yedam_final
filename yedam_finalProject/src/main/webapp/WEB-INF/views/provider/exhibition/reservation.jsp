@@ -45,6 +45,9 @@
 					<c:if test = "${res.paymentStatus == 'N' }">
 						결제대기
 					</c:if>
+					<c:if test = "${res.paymentStatus == 'R' }">
+						취소신청
+					</c:if>
 					<c:if test = "${res.paymentStatus == 'Y' }">
 						결제완료
 					</c:if>

@@ -289,12 +289,10 @@
 				
 				// 주소(address1) 미입력 시
 				if ($('#address1').val() == '') {
-					$('#zipcode').addClass('is-invalid');
 					$('#address1').addClass('is-invalid');
 					$('#addressValidation').html('주소를 입력하세요.');
 					isValid = false;
 				} else {
-					$('#zipcode').addClass('is-valid');
 					$('#address1').addClass('is-valid');
 				}
 				
@@ -366,7 +364,6 @@
 				new daum.Postcode({
 					oncomplete : function(data) {
 						// 주소 validation 결과 초기화
-						$('#zipcode').removeClass('is-invalid');
 						$('#address1').removeClass('is-invalid');
 						$('#addressValidation').html('&nbsp;');
 						

@@ -36,7 +36,7 @@
 	function fn_addFile(){
 		var fileIndex = 1;
 		$(".fileAdd_btn").on("click", function(){
-			$("#fileIndex").append("<div class='input-group' style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
+			$("#fileIndex").append("<div class='input-group mb-3 mt-3' style='width:300px;'><input type='file' class='form-control' style='float:left; width:80%;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' class='btn btn-sm btn-primary' style='float:right; width:20%;' id='fileDelBtn'>"+"삭제"+"</button></div>")
 		});
 		$(document).on("click","#fileDelBtn", function(){
 			$(this).parent().remove();
@@ -46,43 +46,49 @@
 	
 </script>
 <body>
-	<h1>공지사항 등록 페이지</h1>
-	<form name="insertFrm" action="annInsert" method="POST"
-		enctype="multipart/form-data">
-		<label>제목</label>
-		<div>
-			<input type="text" class="form-control" style="width:400px" name="title" required>
+<div align="center"> 
+	<div class="justify-content-center row" style="width:800px">
+			<div class="display-4 mb-2" align="left">공지사항 등록 페이지</div>
+			<hr>
+		<div class="col-10 form-control" align="left">
+			<form name="insertFrm" action="annInsert" method="POST"
+				enctype="multipart/form-data">
+				<label class="display-5 mt-4 ms-2">제목</label>
+				<div class="mb-4 ms-2">
+					<input type="text" class="form-control" style="width:400px" name="title" required>
+				</div>
+				<br> <label class="display-5 ms-2">내용</label>
+				<div class="mb-4 ms-2">
+					<textarea name="annContent" class="form-control" style="width: 538px; height: 200px;" required></textarea>
+				</div>
+				<br>
+				<label class="display-5 ms-2">상태사항</label>
+				<div  class="ms-2" style="width:300px">
+					<select name="status" class="form-control mb-4" required>
+						<option value="" disabled="disabled" selected>공개여부</option>
+						<option value="00501">공개</option>
+						<option value="00502">우선순위</option>
+						<option value="00503">비공개</option>
+						<option value="00504">삭제</option>
+					</select>
+				</div>
+				<div class="mb-5 my-3">&nbsp;</div>
+				<div>
+					<div class="display-5">첨부파일 추가</div>
+					<div class="mb-2 my-3 input-group"><button class="fileAdd_btn btn btn-sm btn-primary" type="button">첨부파일</button></div>
+				</div>
+				<hr>
+				<div id="fileIndex"></div>
+				<div>&nbsp;</div>
+				<hr>
+				<br>
+				<div align="right">
+					<input class=".write_btn btn btn-tertiary" type="submit" value="작성"> 
+					<input type="button" class="btn btn-gray-200" onclick="announcement" value="취소">
+				</div>
+			</form>
 		</div>
-		<br> <label>내용</label>
-		<div>
-			<textarea name="annContent" class="form-control" style="width: 538px; height: 200px;" required></textarea>
-		</div>
-		<br>
-		<label>상태사항</label>
-		<div style="width:300px">
-			<select name="status" class="form-control" required>
-				<option value="" disabled="disabled" selected>공개여부</option>
-				<option value="00501">공개</option>
-				<option value="00502">우선순위</option>
-				<option value="00503">비공개</option>
-				<option value="00504">삭제</option>
-			</select>
-		</div>
-		<div class="mb-5 my-3">&nbsp;</div>
-		<div>
-			<div>첨부파일 추가</div>
-			<div class="mb-2 my-3 input-group"><button class="fileAdd_btn btn btn-sm btn-primary" type="button">첨부파일</button></div>
-		</div>
-		<hr>
-		<div id="fileIndex"></div>
-		<div>&nbsp;</div>
-		<hr>
-		<br>
-		<div align="right">
-			<input class=".write_btn btn btn-tertiary" type="submit" value="작성"> 
-			<input type="button" class="btn btn-gray-200" onclick="announcement" value="취소">
-		</div>
-	</form>
-	
+	</div>
+</div>
 </body>
 </html>

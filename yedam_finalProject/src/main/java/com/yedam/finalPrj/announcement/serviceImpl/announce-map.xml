@@ -32,7 +32,7 @@
 			FROM	(SELECT /*+INDEX_DESC(ANNOUNCEMENT pk_ann_no) */
 					     	rownum rn, ann_no,  title,  ann_content,  ann_date,  ann_view, get_code_name(status) status 
 				      from ANNOUNCEMENT
-				      where status IN('00501', '00502')
+				      where status IN('00501', '00502', '00503')
 									
 					
 			          

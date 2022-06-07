@@ -2,6 +2,7 @@ package com.yedam.finalPrj.announcement.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -187,6 +188,7 @@ public class AnnouncementController {
 	@RequestMapping("fileDown")
 	public void fileDown(@RequestParam Map<String, Object> maps, HttpServletResponse response,
 			HttpServletRequest request) throws Exception {
+		String filePath="C:\\announcement\\";
 		Map<String, Object> resultMap = service.selectFileInfo(maps);
 		String replaceName = (String) resultMap.get("REPLACED_NAME");
 		String originalFileName = (String) resultMap.get("ORIGINAL_NAME");
@@ -194,23 +196,35 @@ public class AnnouncementController {
 		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\announcement\\" + replaceName));
 		System.out.println("====================================================" + originalFileName);
 
-		// 서버에서 다루는 확장자명이 어떤형식의 자료인지 알려주는거
-		// 이부분이
-		response.setContentType("application/octet-stream");
-		// 파일 길이 설정.
-		response.setContentLength(fileByte.length);
-		// attachment : 로컬에 다운로드 & 저장 대부분의 브라우저에서는 바로 다운로드가 되거나, “Save As” 다이얼로그가 표시됨
-		// 다운로드 시 파일이름을 정해줄 수 있음.
-		response.setHeader("Content-Disposition",
-				"attachment; fileName=\"" + URLEncoder.encode(originalFileName, "UTF-8") + "\";");
+		
+		 
+		System.out.println("---------------------------------file");
+		File file = new File(filePath + replaceName);
+			// attachment : 로컬에 다운로드 & 저장 대부분의 브라우저에서는 바로 다운로드가 되거나, “Save As” 다이얼로그가 표시됨
+			// 다운로드 시 파일이름을 정해줄 수 있음.
+			try {
+				response.setHeader("Content-Disposition",
+						"attachment; fileName=\"" + URLEncoder.encode(originalFileName, "UTF-8") + "\";");
+				// 서버에서 다루는 확장자명이 어떤형식의 자료인지 알려주는거
+				// 이부분이
+				response.setContentType("application/octet-stream");
+				// 파일 길이 설정.
+				response.setContentLength(fileByte.length);
 
-		// 파읽읽어 응답
-		response.getOutputStream().write(fileByte);
-		// 버퍼에 저장되어있는 내용 클라이언트로 전송 후 버퍼 비움.
-		response.getOutputStream().flush();
-		response.getOutputStream().close();
+				// 파읽읽어 응답
+				response.getOutputStream().write(fileByte);
+				// 버퍼에 저장되어있는 내용 클라이언트로 전송 후 버퍼 비움.
+				response.getOutputStream().flush();
+				response.getOutputStream().close();
 
-	}
+			} catch (Exception e) {
+//				java단에서 js 알럴트 띄워주는 거 
+				response.setContentType("text/html;charset=UTF-8");
+				response.getWriter().print("<script language='javascript'>alert('관리자에게 문의해주세요.');history.back();</script>");	
+			}
+			
+			
+		}
 
 	// 파일 ZIP 다운로드
 	/*

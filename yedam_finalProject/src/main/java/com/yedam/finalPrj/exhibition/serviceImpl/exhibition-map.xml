@@ -143,13 +143,13 @@
 <!-- 예약취소 -->
 <update id="cancelOneReservation" parameterType="int">
 	UPDATE exhibition_reservation
-	SET payment_status  = 'N' , payment_amt = '0'
+	SET payment_status  = 'R' , payment_amt = '0'
 	WHERE ex_res_no = #{exResNo} 
 	AND category= '00202'
 </update>
 <!-- 리뷰 리스트 출력 -->
 <select id="exhReviewLoad" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO">
-	SELECT DISTINCT r.*, m.name AS "member.name"
+	SELECT DISTINCT r.*, m.email AS "member.email"
 	FROM review r, exhibition e, member m, exhibition_reservation er
 	WHERE e.name = r.service_name
 	AND er.mem_no = m.mem_no
@@ -211,6 +211,7 @@
 		        SELECT *
 		         FROM exhibition
 		         where  approval_status = '00401'
+		         and end_date > sysdate
 		        ) a
 		    WHERE ROWNUM <![CDATA[<]]> #{pageNum} * #{amount}
 		    ) b
@@ -272,6 +273,7 @@
 		        from exhibition 
 		            where address like ('%'||#{exVO.address}||'%')
 		            and  approval_status = '00401'
+		            and end_date > sysdate
 		            <if test ="exVO.startDate != null">
 		            and trunc(start_date) <![CDATA[>=]]> #{exVO.startDate}
 		            </if>

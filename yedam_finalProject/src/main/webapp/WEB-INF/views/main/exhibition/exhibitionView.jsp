@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <!-- 날짜 구하는 함수 -->
@@ -116,7 +116,7 @@
 <body>
 <div class = "row justify-content-center">
 	<div class = "col-8">
-		<h5 class="display-5"><a href = "http://localhost/finalPrj">메인화면</a> > <a href="list">전시</a> > <a href = "detailView?exNo=${exhibitionView.exNo }">전시상세페이지</a></h5>
+		<div class="display-4"><a href="list">전시</a></div>
 		<hr>
 	
 	
@@ -130,7 +130,7 @@
 	          </c:if>
 			  <c:if test = "${not empty exhibitionView.thumbnail }">
 		          <div class="card shadow-sm">
-		            <img src ="/exhibition/${exhibitionView.thumbnail }" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></img>
+		            <img src ="/exhibition/${exhibitionView.thumbnail }" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></img>
 		          </div>
 	          </c:if>
 	    </div>
@@ -169,9 +169,9 @@
 						<c:forEach var="list" items="${reviewList}" varStatus="status">
 							<hr>
 							<div>
-								<div>${list.member.name}님<br>  
-								<fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
-								<span>평점(${list.score})</span><span class="tscore${status.index}">${list.score}</span><br>
+								<div class="display-5">${fn:substring(list.member.email, 0,3)}*** 님<span class="ms-3 display-6">평점(${list.score})<span class="tscore${status.index}">${list.score}</span></span></div><br>  
+								<div><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
+								<br>
 								${list.content}</div><br>
 							</div>
 						</c:forEach>
@@ -302,9 +302,7 @@ function requestPay() {
 		    	console.log(rsp);
 		    	alert(rsp.merchant_uid);
 		        if (rsp.success) {
-		        	
 		            // 결제 성공 시 로직,
-		            alert("ㅇㅇ")
 		        	console.log(rsp.success);
 		        	
 					$.ajax({
@@ -318,12 +316,10 @@ function requestPay() {
 							"paymentAmt" : paymentAmtVal
 						},
 						success: function(result){
-							alert("결제성공");				
 							console.log(result);		
 							location.reload();
 						},
 						error:function(error){
-							alert("error : "+error);
 							console.log(error);
 						}
 					})
@@ -333,7 +329,7 @@ function requestPay() {
 		        } else {
 		              // 결제 실패 시 로직,
 		        	  console.log(data)
-		        	 alert('결제실패')
+		        	 alert('결제가 취소되었습니다.')
 		            
 		            
 		        }
