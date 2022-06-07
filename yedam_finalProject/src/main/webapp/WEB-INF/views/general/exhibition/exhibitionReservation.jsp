@@ -109,6 +109,12 @@
 						<a href="${num }">${num }</a>&nbsp;
 					</li>
 				</c:forEach>
+				
+				<c:if test="${paging.vo.pageNum != num }">
+					<li class="page-time">
+						<a href="${num }">${num }</a>&nbsp;
+					</li>
+				</c:if>
 					<!-- 다음페이지 -->	
 				<c:if test="${paging.next }">
 					<li class="page-item">
