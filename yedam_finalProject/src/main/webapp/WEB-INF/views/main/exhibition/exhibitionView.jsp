@@ -116,8 +116,7 @@
 <body>
 <div class = "row justify-content-center">
 	<div class = "col-8">
-		<div class="display-4"><a href="list">전시</a></div>
-		<hr>
+		<div class="display-4"></div>
 	
 	
 <div class="card border-0 shadow mb-4">

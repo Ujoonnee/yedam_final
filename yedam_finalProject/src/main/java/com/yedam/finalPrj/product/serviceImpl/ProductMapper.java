@@ -42,6 +42,7 @@ public interface ProductMapper {
 	
 	Integer getStoreNo(MemberVO vo); //회원번호로 storeNO조회
 	int productReservationInsert(ProductReservation vo);
+	void myStoreProductStockUpdate(HashMap<String, String> vo,Model model,HttpServletRequest request);
 
 	
 //	파일업로드

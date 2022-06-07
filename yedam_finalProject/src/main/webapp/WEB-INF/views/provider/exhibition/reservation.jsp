@@ -43,7 +43,7 @@
 				<th class="col-4">결제상태</th>
 				<td class="col-6">
 					<c:if test = "${res.paymentStatus == 'N' }">
-						결제대기
+						결제취소
 					</c:if>
 					<c:if test = "${res.paymentStatus == 'R' }">
 						취소신청
@@ -59,6 +59,12 @@
 			</tr>
 		
 		</table>
+		<c:if test="${res.paymentStatus == 'R'}">
+			<button type = "button"  class="btn btn-sm btn-primary" onclick="cancelPay(${res.exResNo},${res.exNo})">예약취소</button>
+		</c:if>
+		<c:if test="${res.paymentStatus == 'Y'}">
+			<button type = "button"  class="btn btn-sm btn-primary" disabled="disabled" onclick="cancelPay(${res.exResNo},${res.exNo})">예약취소</button>
+		</c:if>
 
 
 <!-- 리뷰보기/답변달기 -->
@@ -79,7 +85,6 @@
 			
 			<c:if test="${empty reviewList.replyContent  }">
 			<button type="button" id="replyWrite" class="btn btn-sm btn-primary">답변작성하기</button>
-
 			<div id="replyWriteDiv" style="display:none">
 				<form id="replyFrm" action="${pageContext.request.contextPath}/review/exhReplyInsert" method="post">
 				<input type="hidden" name="resNo" value="${res.exResNo }">
@@ -126,7 +131,30 @@
 		})
 		
 				
-		
+		function cancelPay(n,m) {
+			if(!confirm("정말로 결제를 취소하시겠습니까?")){
+				("결제취소가 실패하였습니다.")
+			}else{
+			console.log(n);
+			console.log(m);
+				$.ajax({
+					url : "refund",
+					type : "POST",
+					data : {
+						"exResNo" :n,
+						"exNo" : m
+					},
+					success: function(result){
+						alert("결제가 취소되었습니다.")
+						location.reload();
+					},
+					error:function(error){
+						alert("error : "+error);
+						console.log(error);
+					}
+				})
+			}
+		}
 </script>
 </body>
 </html>

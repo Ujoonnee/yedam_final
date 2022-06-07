@@ -63,126 +63,165 @@
  
 </head>
 <body>
-<div align = "center" id = "container">
-	<div class="form-control" style="width:800px">
-	<section id ="page_header" class="single-page-header">
-<div align="left"><a class="display-3" href="http://localhost/finalPrj/store/list"> 매장 </a></div>
-<hr>
-	<div class="container display-3">${paging.cri.storeName}</div>
-	</section>
-	<hr>
-<!-- 	상품검색 -->
-	<form action ="searchProduct" method="get" name="searchForm" autocomplete="off">
-	<div id = "searchBox row" align="center">
-		<p class="row col-3" align="center" style="width:300px"><span class="display-5 me-2 mb-2">상품명</span>
-		<input class="col-6 form-control" type = "text" id ="keyword" name = "keyword" value="${paging.cri.keyword }" placeholder="상품명 입력하세요." ></p>
-		<p align="center" class="justify-content-center me-7" ><span class="display-5 col-2 ms-7">가격</span>
-		<div class="row justify-content-center">
-			<input class="form-control col-4" style="width:150px" type = "number" id ="lowPrice" name = "lowPrice" placeholder="최소가격." size="15"min = "0"  value="${paging.cri.lowPrice }"> 
-			<span class="display-3 col-1">~</span><input class="form-control col-4" style="width:150px" type = "number" id = "highPrice" name = "highPrice" placeholder="최대가격"size="15"min = "0"value="${paging.cri.highPrice }" ></p>
-		</div>
-		<input type="hidden" id ="storeNo" name = "storeNo" value="${products[0].storeNo }"> 
+<div class = "row justify-content-center">
+	<div class = "col-8">
+		<div align = "center" id = "container">
+			<div class="card border-0 shadow mb-4">
+			<!-- 	상품검색 -->
+				<form action ="searchProduct" method="get" name="searchForm" autocomplete="off">
+					<section id ="page_header" class="single-page-header">
+						<div align="left" style="padding-left: 50px; padding: 20px;">
+						<div class="container display-3" ><input id = "storeName" name = "storeName" class= "display-4" disabled="disabled" style = " border: none; background-color: white; " value="${products[0].storeName}"></div>
+						</div>
+					</section>
+					<hr>
+				<div id = "searchBox row" align="center">
+					<div class="row justify-content-center">
+						<div class="card-body justify-content-center"> 
+							<div class="row justify-content-center" style="padding-left: 50px;"> 
+								<div class="col-lg-3 mb-3">
+									<p class="row col-3" align="center" style="width:300px"><span class="display-5 me-2 mb-2">상품명</span>
+									<input class="col-6 form-control" type = "text" id ="keyword" name = "keyword" value="${paging.cri.keyword }" placeholder="상품명 입력하세요." ></p>
+								</div>
+								
+								<div class="col-lg-7" >
+								<p align="center" class="justify-content-center me-7"><span class="display-5 col-2 ms-7">가격</span>
+								<div class="row justify-content-center">
+									<input class="form-control col-4" style="width:150px" type = "number" id ="lowPrice" name = "lowPrice" placeholder="최소가격." size="15"min = "0"  value="${paging.cri.lowPrice }"> 
+									<span class="display-3 col-1">~</span><input class="form-control col-4" style="width:150px" type = "number" id = "highPrice" name = "highPrice" placeholder="최대가격"size="15"min = "0"value="${paging.cri.highPrice }" ></p>
+								</div>
+								</div>
+							</div>
+							<input type="hidden" id ="storeNo" name = "storeNo" value="${products[0].storeNo }"> 
+						</div>
+					</div>
+				</div>		
+				<div align="center">
+					<div class="row col-6 ms-3">
+						<button id = "searchBtn" class="ms-6 btn btn-sm btn-primary col-3">검색</button>&nbsp;
+						<button type="button" class="btn btn-sm btn-primary col-3" onclick="resetValue()">초기화</button>
+					</div>
+				</div>
+				</form>
+				<br>
+			</div>
+				
+			<div class="card border-0 shadow mb-4">
+		<!-- 		<hr> -->
+				<div align="right" style="padding-right: 50px; padding-top: 40px">
+					<button class="btn-open-popup  btn btn-sm btn-primary" onclick="getCheckboxValue()">예약하기</button>
+				</div>
 		
-	</div>		
-	</form>
-		<div align="center">
-			<div class="row col-6 ms-3">
-				<button id = "searchBtn" class="ms-6 btn btn-sm btn-primary col-3">검색</button>&nbsp;
-				<button class="btn btn-sm btn-primary col-3" onclick="resetValue()">초기화</button>
+				<!-- 상품 목록 -->
+				<c:if test = "${empty products }">
+					<tr><td colspan ="3">등록된 상품이 없습니다.</td></tr>
+				</c:if>
+				<c:if test = "${not empty products }">
+					<table id = "productList" class="w-100">
+						<colgroup>
+							<col width="10%">
+							<col width="20%">
+							<col width="20%">
+							<col width="30%">
+							<col width="20%">
+						</colgroup>
+						<tbody>
+							<c:forEach items="${products }" var= "product">
+								<tr>	
+									<td>
+										<input type ="checkbox" id = "checkf" class="form-check-input" name="checkf" value ="${product }" data-prodNo ="${product.prodNo }" data-stock ="1" data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }">
+									</td>
+									<c:if test ="${product.prodThumbnail != null }">
+										<td align = "center"><img src="/product/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
+									</c:if>
+									<c:if test ="${product.prodThumbnail == null }">
+										<td align = "center"><img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg" class="selected_img"  height="100px" width="100px"></td>
+									</c:if>
+									<td align = "center"  style=" vertical-align : middle;">${product.prodName }</td>
+									<td align = "center" style=" vertical-align : middle;"> ${product.price } 원</td>
+									<td align = "center" style=" vertical-align : middle;">남은 수량 : ${product.stock }</td>
+								</tr>
+								<tr><td>&nbsp;</td></tr>
+							</c:forEach>
+						</tbody>
+					</table>	
+				</c:if>
 			</div>
-		</div>
-	<hr>
-	<div align="right">
-		<button class="btn-open-popup  btn btn-sm btn-primary" onclick="getCheckboxValue()">예약하기</button>
-	</div>
-	
-	<!-- 상품 목록 -->
-		<c:if test = "${empty products }">
-			<tr><td colspan ="3">등록된 상품이 없습니다.</td></tr>
-		</c:if>
-		<c:if test = "${not empty products }">
-			<table id = "productList" class="w-100">
-				<colgroup>
-					<col width="10%">
-					<col width="20%">
-					<col width="20%">
-					<col width="30%">
-					<col width="20%">
-				</colgroup>
-				<tbody>
-					<c:forEach items="${products }" var= "product">
-						<tr>	
-							<td>
-								<input type ="checkbox" id = "checkf" class="form-check-input" name="checkf" value ="${product }" data-prodNo ="${product.prodNo }" data-stock ="1" data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }">
-							</td>
-							<c:if test ="${product.prodThumbnail != null }">
-								<td align = "center"><img src="/product/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
-							</c:if>
-							<c:if test ="${product.prodThumbnail == null }">
-								<td align = "center"><img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg" class="selected_img"  height="100px" width="100px"></td>
-							</c:if>
-							<td align = "center"  style=" vertical-align : middle;">${product.prodName }</td>
-							<td align = "center" style=" vertical-align : middle;"> ${product.price } 원</td>
-							<td align = "center" style=" vertical-align : middle;">남은 수량 : ${product.stock }</td>
-						</tr>
-						<tr><td>&nbsp;</td></tr>
+				
+				
+				
+				
+				<!-- By jo, 리뷰목록 출력하기. -->
+			<!-- 리뷰리스트 버튼 -->
+			<div class="card border-0 shadow mb-4">
+				<div align="left" class="col-5 mt-3" >
+					<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --><span>현재리뷰(<span id="reviewNums"></span>)</span>
+					<button type="button" class="btn btn-sm btn-primary mb-1" id="reviewShow" onclick=openClose()>리뷰 보기</button>
+				</div>
+			
+				<!-- 리뷰리스트 시작 -->
+				<div id="reviewListStyle" align="left" class="col-5" style="display:none">
+					<c:forEach var="list" items="${reviewList}" varStatus="status">
+						<hr>
+						<div class="row mb-3">
+							<div class="col-2">${list.member.name}님 </div><br>
+							<div> <fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
+								<span>평점(${list.score})</span><span class="tscore${status.index}">${list.score}</span>
+							</div>
+						</div>
+						<div>	
+							${list.content}
+						</div>
 					</c:forEach>
-				</tbody>
-			</table>	
-		</c:if>
-<!-- 	모달 -->
-	<div id ="popup_mask" ></div> <!-- 팝업 배경 DIV -->
-    <div id= "modal"class="modal"> 
-        <div id="modal_body"class="modal_body">
-			<div>픽업 예상 시간 <input type="time" id="pickupTime" min="00:00" max="23:59"></div>
-			<div id ="cart"></div>
-			<div id = "management">
-				<table style ="margin: auto;">
-					<thead>
-						<tr>
-							<th>사진</th>
-							<th>상품명</th>
-							<th>가격</th>
-							<th>수량</th>
-						</tr>
-					</thead>
-					<tbody id="tbody"></tbody>
-				</table>
-			</div>
-			<div id = 'priceCheck'>
-				<p align="right">총가격 : <input type = "text" id="totalPrice" name = "totalPrice" disabled="disabled"></p>
-				<button id="payBtn">결제하기</button>
-			</div>
-		</div>
-	</div> 
-	<hr>
-	</div>
-
-<!-- By jo, 리뷰목록 출력하기. -->
-	<!-- 리뷰리스트 버튼 -->
-	<div align="left" class="col-5 mt-3" >
-		<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --><span>현재리뷰(<span id="reviewNums"></span>)</span>
-		<button type="button" class="btn btn-sm btn-primary mb-1" id="reviewShow" onclick=openClose()>리뷰 보기</button>
-	</div>
-
-	<!-- 리뷰리스트 시작 -->
-	<div id="reviewListStyle" align="left" class="col-5" style="display:none">
-		<c:forEach var="list" items="${reviewList}" varStatus="status">
-			<hr>
-			<div class="row mb-3">
-				<div class="col-2">${list.member.name}님 </div><br>
-				<div> <fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
-					<span>평점(${list.score})</span><span class="tscore${status.index}">${list.score}</span>
 				</div>
 			</div>
-			<div>	
-				${list.content}
-			</div>
-		</c:forEach>
+			<!-- 리뷰리스트 끝 -->
+		
+		</div>
 	</div>
-	<!-- 리뷰리스트 끝 -->
-</div>
 
+
+
+
+
+	<!-- 	모달 -->
+		<div id ="popup_mask" ></div> <!-- 팝업 배경 DIV -->
+	    <div id= "modal"class="modal"> 
+	        <div id="modal_body"class="modal_body">
+				<div>픽업 예상 시간 <input type="time" id="pickupTime" min="00:00" max="23:59"></div>
+				<br>
+				<div id ="cart"></div>
+				<div id = "management">
+					<table style ="margin: auto;">
+						<thead>
+							<tr>
+								<th>사진</th>
+								<th>상품명</th>
+								<th>가격</th>
+								<th>수량</th>
+							</tr>
+						</thead>
+						<tbody id="tbody"></tbody>
+					</table>
+				</div>
+				<div id = 'priceCheck'>
+				<br>
+				<div align="right">
+					<small style="" class="card-text">총가격 : <input type = "text" id="totalPrice" name = "totalPrice" disabled="disabled"></small>
+					
+				</div>
+				<br>
+				<button id="payBtn" class="btn btn-outline-gray-500">결제하기</button>
+				
+				</div>
+			</div>
+		</div> 
+		<hr>
+</div>
+	
+	
+
+<!-- </div> -->
 
  <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
@@ -265,6 +304,8 @@
 				                pay_method : rsp.pay_method,	//결제방법
 				                storeNo : store_no,				//매장등록번호
 				                memNo : mem_no					//결제한 멤버 정보.
+				                
+				                //prodNo,
 				            })
 				        }).done(function (data) {
 				          // 가맹점 서버 결제 API 성공시 로직

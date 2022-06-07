@@ -76,7 +76,9 @@ public class ProductController {
 		System.out.println(cri.getStoreNo());
 		System.out.println("=================vo"+vo);
 		
-		dao.productReservationInsert(vo, model, request);
+		dao.productReservationInsert(vo, model, request); //예약등록
+		dao.myStoreProductStockUpdate(vo, model, request); //재고수정
+		
 		
 		model.addAttribute("products" ,dao.selectOne(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
@@ -86,7 +88,9 @@ public class ProductController {
 //  상품 검색
 	@RequestMapping(value = "searchProduct",method = {RequestMethod.GET})
 	public String searchProduct(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
-		model.addAttribute("products",	dao.searchPriceProdName( cri, model, request));
+		System.out.println("cri getStoreNo : "+ cri.getStoreNo());
+		System.out.println("cri getStoreName : "+ cri.getStoreName());
+		model.addAttribute("products",	dao.searchPriceProdName(cri, model, request));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
 
 

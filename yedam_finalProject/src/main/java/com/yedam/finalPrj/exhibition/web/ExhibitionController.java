@@ -64,7 +64,7 @@ public class ExhibitionController {
 	// 예약목록 상세페이지
 	@RequestMapping(value = "exhibitionReservationDetail/{selectedResNo}", method = RequestMethod.GET)
 	public String exhibitionReservationDetail(@PathVariable("selectedResNo") int selectedResNo,Model model) {
-
+		System.out.println("============== 예약목록 상세페이지 ResNo값 : "+selectedResNo);
 		model.addAttribute("exRes", service.exDetail(selectedResNo));
 		model.addAttribute("reviewList", service.selectReview(selectedResNo));
 		
@@ -277,7 +277,7 @@ public class ExhibitionController {
 	}
 
 //  판매자 -> 결제취소 기능
-	@PostMapping("provider/{exNo}/refund")
+	@RequestMapping(value = {"provider/{exNo}/refund","provider/{exNo}/reservation/refund"}, method = RequestMethod.POST)
 	public String exhibitionRefund(@RequestParam("exResNo") int exResNo,@RequestParam("exNo") int exNo, Model model, HttpServletRequest request) {
 		System.out.println("===========Controller refund");
 		System.out.println(exResNo);
@@ -292,6 +292,7 @@ public class ExhibitionController {
 		
 		return "provider/exhibition/reservationList";
 	}
+	
 	
 	
 	

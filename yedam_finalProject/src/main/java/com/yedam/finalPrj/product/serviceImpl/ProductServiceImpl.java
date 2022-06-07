@@ -321,6 +321,18 @@ public class ProductServiceImpl implements ProductService {
 		return map.productReservationInsert(ProResVO);
 	}
 	
+	@Override
+	public void myStoreProductStockUpdate(HashMap<String, String> vo, Model model, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		Product product = new Product();
+		
+		
+		
+	}
+ 
+	
+	
+	
 	
 //	Hong
 
@@ -362,7 +374,7 @@ public class ProductServiceImpl implements ProductService {
 	public int pickupComplete(int prodResNo) {
 		return map.pickupComplete(prodResNo);
 	}
- 
+
 	
 	
 //	Yoon
