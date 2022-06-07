@@ -119,22 +119,22 @@ $("#tbd").on("click", ".list", function(){
 
 
 //밀리초를 날짜(yy-mm-dd)으로 변경.
-function convertDate1(milliSecond) {
+	//밀리초를 날짜(yy-mm-dd)으로 변경.
+	function convertDate1(milliSecond) {
 
-	  const data = new Date(milliSecond);
-	  
-	  const year = data.getFullYear();
-	  const yy = year.toString().substring(2,4)
-	  var month = data.getMonth() + 1;
-	  var date = data.getDate();
-	
-	  if(month <10 || date <10){
-		 var cmonth = "0"+month;
-		 var cdate = "0"+date;
-	 }
+		  const data = new Date(milliSecond);
+		  	
+		  const year = data.getFullYear();
+		  const yy = year.toString().substring(2,4)
+		  var month = data.getMonth() + 1;
+		  var date = data.getDate();
+		
+		  
+		  if (month < 10) month = "0"+month;
+		  if (date < 10) date = "0"+date;
 
-	  return `\${yy}-\${cmonth}-\${cdate}`;
-	}
+		  return `\${yy}-\${month}-\${date}`;
+		}
 	
 	
 //밀리초를 시간(오전/오후 hh:mm)으로 변경	
