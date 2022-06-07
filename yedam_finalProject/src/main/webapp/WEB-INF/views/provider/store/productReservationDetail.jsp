@@ -39,7 +39,7 @@
 					</div>
 				</div>
 			</div>
-			<h3 class="mt-5"> 예약상품 상세</h3>
+			<h3 class="mt-5"> 상품 목록</h3>
 			<div class="card border-0 shadow mb-4">
 				<div class="card-body">
 					<div class="table-responsive">
@@ -155,14 +155,13 @@
 	
 	//픽업완료 처리
 	$("#pickupComplete").on("click", function(){
-		
+		console.log(${proRe.prodResNo })
 		$.ajax({
 			url:"pickupComplete",
 			method:"POST",
-			data: ${proRe.prodResNo },
+			data: "prodResNo="+${proRe.prodResNo },
 			success:function(data){
 				alert("픽업완료!")
-				
 			},
 			error:function(){
 				alert("실패")
