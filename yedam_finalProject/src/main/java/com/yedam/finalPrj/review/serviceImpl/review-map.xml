@@ -12,7 +12,7 @@
 		WHERE mem_no = #{memNo}
 	</select>
 	<update id="reviewUpdate" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
-		UPDATE review SET content = #{content}, score = #{score}
+		UPDATE review SET content = #{content}, score = NVL(#{score}, 0)
 		WHERE rev_no = #{revNo}
 	</update>
 	<select id="reviewSelectOne" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO">
