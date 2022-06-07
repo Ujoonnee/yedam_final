@@ -74,10 +74,11 @@
 <body>
 
 
-	<h1>공지사항 수정</h1>
-	<hr>
+	
 <div class="row justify-content-center">
-	<div class="col-10">
+	<div class="col-7">
+	<div class="display-4">공지사항 수정</div>
+	<hr>
 	<section>
 		<form name="updateForm" action="admin/annUpdate" role="form" method="post" enctype="multipart/form-data">
 			<input name="annNo" type="hidden" value="${announcement.annNo }" />
@@ -109,7 +110,7 @@
 					
 					<tr>
 						<td>
-							<select name="status" class="form-control" style="width: 200px">
+							<select name="status" class="form-control" style="width:200px">
 								<option value="00501" selected>공개여부</option>
 								<option value="00501">공개</option>
 								<option value="00502">우선순위</option>

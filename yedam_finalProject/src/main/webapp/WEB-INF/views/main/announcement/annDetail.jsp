@@ -15,27 +15,26 @@
 	/* 다운로드 */
 	function fn_fileDown(fileNo){
 		var formObj = $("form[name='readForm']");
-		$("#FILE_NO").attr("value", fileNo);
-		formObj.attr("action", "fileDown");
-		formObj.submit();
+			$("#FILE_NO").attr("value", fileNo);
+			formObj.attr("action", "fileDown");
+			formObj.submit();
 	}
 	
 	
 </script>
 <div class="row justify-content-center">
-	<hr>
-	<div class="col-8">
-		<div class="form-control">
-			<div class="display-3">공지사항 상세페이지(단순조회)</div>
+	<div class="col-6">
+			<div class="display-4">공지사항 상세페이지</div>
 			<hr>
+		<div class="form-control">
 			<section>
 					<form name="readForm" role="form" method="post">
 						<input name="seq" type="hidden" value="${announcement.annNo}" />
 						<input type="hidden" id="FILE_NO" name="fileNo" value="">
 					</form>
 			</section>
-					<div align="center" class="row my-4">
-							<dl><dd class="text-dark mb-0 display-4">${announcement.title}</dd></dl>
+					<div align="center" class="text-align-center my-4">
+							<dl><dd class="text-dark mb-0 display-5">${announcement.title}</dd></dl>
 					</div>
 					<hr>
 				

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <!-- 날짜 구하는 함수 -->
@@ -116,6 +116,9 @@
 <body>
 <div class = "row justify-content-center">
 	<div class = "col-8">
+		<div class="display-4"><a href="list">전시</a></div>
+		<hr>
+	
 	
 <div class="card border-0 shadow mb-4">
 	<div class="row row-cols-1 row-cols-sm-2 g-2" style="padding :15px;">
@@ -166,9 +169,9 @@
 						<c:forEach var="list" items="${reviewList}" varStatus="status">
 							<hr>
 							<div>
-								<div>${list.member.name}님<br>  
-								<fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
-								<span>평점(${list.score})</span><span class="tscore${status.index}">${list.score}</span><br>
+								<div class="display-5">${fn:substring(list.member.email, 0,3)}*** 님<span class="ms-3 display-6">평점(${list.score})<span class="tscore${status.index}">${list.score}</span></span></div><br>  
+								<div><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
+								<br>
 								${list.content}</div><br>
 							</div>
 						</c:forEach>

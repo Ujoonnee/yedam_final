@@ -28,6 +28,7 @@ import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionPagingCriteria;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionReservationVO;
 import com.yedam.finalPrj.exhibition.vo.park.ParkExhibitionVO;
 import com.yedam.finalPrj.member.service.MemberVO;
+import com.yedam.finalPrj.review.service.ReviewVO;
 
 @Controller
 @RequestMapping("/exhibition/*")
@@ -222,7 +223,6 @@ public class ExhibitionController {
 	public String getReservationDetail(@PathVariable("exNo") int exNo, @PathVariable("exResNo") int exResNo, Model model) {
 		ExhibitionReservationVO vo = new ExhibitionReservationVO();
 		vo.setExResNo(exResNo);
-		
 		model.addAttribute("reviewList", service.selectReview(exResNo));
 		model.addAttribute("res", service.getReservation(vo));
 		return "provider/exhibition/reservation";
@@ -255,7 +255,6 @@ public class ExhibitionController {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		System.out.println("=========user"+user);
-		
 		model.addAttribute("member", user);
 		model.addAttribute("exhibitionView", service.findExVO(vo));
 		
