@@ -357,12 +357,12 @@ public class StoreServiceImpl implements StoreService{
 		return map.CancelRes(prodResNo); 
 	}
 	@Override
-	public int CancelRes2(int storeNo, List<String> prodNo) {
+	public int CancelRes2(int prodResNo, List<String> prodNo, int storeNo) {
 		//reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가) 
 		System.out.println(prodNo.size());
 		System.out.println("---------------------------");
 		for(int i=0; i<prodNo.size(); i++) {
-			map.CancelRes2(storeNo, prodNo.get(i));
+			map.CancelRes2(prodResNo, prodNo.get(i), storeNo);
 		}
 		return 1;
 	}

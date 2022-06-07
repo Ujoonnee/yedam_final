@@ -84,7 +84,7 @@ public interface StoreMapper {
 	 public ReviewVO reviewLoad(int selectedResNo);	
 //예약 취소
 	public int CancelRes(int prodResNo);	
-	public void CancelRes2(@Param("storeNo") int storeNo, @Param("prodNo") String prodNo);
+	public void CancelRes2(@Param("prodResNo") int prodResNo, @Param("prodNo") String prodNo, @Param("storeNo") int storeNo);
 	
 
 

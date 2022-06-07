@@ -82,7 +82,7 @@ public interface StoreService {
 //예약 취소
 //	 int deleteReply(int revNo);
 	 int CancelRes(int prodResNo); // product_reservation테이블에서 결제상태 'N'으로, 
-	 int CancelRes2(int storeNo, List<String> prodNo); //reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가
+	 int CancelRes2(int prodResNo, List<String> prodNo, int storeNo); //reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가
 
 //		Yoon
 		

@@ -212,14 +212,15 @@ public class ExhibitionController {
 	}
 
 	// 전시 예약자 목록
-	@RequestMapping("provider/{exNo}/reservation")
-	public String getProviderReservationList(@PathVariable("exNo") int exNo, HttpServletRequest request, Model model) {
+	@RequestMapping("provider/{exNo}/{exName}/reservation")
+	public String getProviderReservationList(@PathVariable("exNo") int exNo,@PathVariable("exName") String exName, HttpServletRequest request, Model model) {
 		model.addAttribute("list", service.getReservationList(exNo, request));
+		request.setAttribute("exName", exName);
 		return "provider/exhibition/reservationList";
 	}
 
 	// TODO 예약정보 상세
-	@RequestMapping("provider/{exNo}/reservation/{exResNo}")
+	@RequestMapping("provider/{exNo}/{exName}/reservation/{exResNo}")
 	public String getReservationDetail(@PathVariable("exNo") int exNo, @PathVariable("exResNo") int exResNo, Model model) {
 		ExhibitionReservationVO vo = new ExhibitionReservationVO();
 		vo.setExResNo(exResNo);

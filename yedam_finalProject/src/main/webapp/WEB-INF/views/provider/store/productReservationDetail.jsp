@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#thumbNail {
+	width:150px;
+	height:150px;}
+</style>
 </head>
 <body>
 
@@ -39,7 +44,7 @@
 					</div>
 				</div>
 			</div>
-			<h3 class="mt-5"> 예약상품 상세</h3>
+			<h3 class="mt-5"> 상품 목록</h3>
 			<div class="card border-0 shadow mb-4">
 				<div class="card-body">
 					<div class="table-responsive">
@@ -57,7 +62,7 @@
 							<tbody>
 							<c:forEach items="${proReDetail }" var="list" varStatus="status">
 							<tr>
-								<td>${list.prodThumbnail }</td>
+								<td id="thumbNail">${list.prodThumbnail }</td>
 								<td>${list.prodName }</td>
 					 			<td><fmt:formatNumber value="${list.price }" pattern="#,###" /></td> 
 								<td>${list.count }</td>
@@ -78,14 +83,17 @@
 				</div>
 			</div>
 		<!-- 	<button class="btn btn-primary" type="button" id="list_btn">목 록</button> -->
-			<input class="btn btn-outline-primary" type="button" value="목록" onclick="history.go(-1)">
-			<button class="btn btn-primary" >주문취소</button>
+			<input class="btn btn-outline-primary" type="button" value="목록" onclick="location.href='proReSelectAll'">
+			
+			<!-- 결제취소하면 버튼 안보이기 -->
+			<c:if test="${proRe.paymentStatus eq 'Y'}">
 			
 			<!-- 픽업상태 N이면 버튼 보이기 -->
 			<c:if test="${pickupStatus.pickupStatus eq 'N' }">
+			<button class="btn btn-primary" id="cancelRes">주문취소</button>
 			<button id="pickupComplete" class="btn btn-primary" >픽업완료처리</button>
 			</c:if>
-			
+			</c:if>
 			<!-- 리뷰보기/답변달기 -->
 			<c:if test="${not empty reviewList}">
 		<div>
@@ -155,21 +163,34 @@
 	
 	//픽업완료 처리
 	$("#pickupComplete").on("click", function(){
-		
+		console.log(${proRe.prodResNo })
 		$.ajax({
 			url:"pickupComplete",
 			method:"POST",
-			data: ${proRe.prodResNo },
+			data: "prodResNo="+${proRe.prodResNo },
 			success:function(data){
 				alert("픽업완료!")
-				
+				location.reload(true);
 			},
 			error:function(){
 				alert("실패")
 			}
 		})
-		
-		
+	})
+	//주문취소 
+	$("#cancelRes").on("click", function(){
+		$.ajax({
+			url:"cancelRes",
+			method:"POST",
+			data: "prodResNo="+${proRe.prodResNo },
+			success:function(data){
+				alert("주문취소 완료.")
+				location.reload(true);
+			},
+			error:function(){
+				alert("실패")
+			}
+		})
 	})
 	
 	

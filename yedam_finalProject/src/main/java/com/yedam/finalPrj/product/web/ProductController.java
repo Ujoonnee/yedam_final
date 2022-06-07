@@ -245,15 +245,19 @@ public class ProductController {
 	
 	
 //	Jo
-//사업자가 픽업와료 처리
+//사업자가 픽업완료 처리
 	@PostMapping("pickupComplete")
 	@ResponseBody
 	public int pickupComplete(Model model, int prodResNo) {
 
 		return dao.pickupComplete(prodResNo);
 	}
-	
-	
+//사업자가 매장상품 주문 취소
+	@PostMapping("cancelRes")
+	@ResponseBody
+	public int cancelRes(Model model, int prodResNo) {
+		return dao.cancelRes(prodResNo);
+	}
 //	Yoon
 	
 	
