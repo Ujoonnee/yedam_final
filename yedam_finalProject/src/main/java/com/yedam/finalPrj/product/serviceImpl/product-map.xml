@@ -237,7 +237,7 @@
 	<update id="pickupComplete" parameterType="int">
 	 	UPDATE product_reservation 
 	 	SET pickup_status = 'Y' 
-	 	WHERE prod_res_no =#{prodResNo}
+	 	WHERE prod_res_no = #{prodResNo}
 	</update>
 		
 		

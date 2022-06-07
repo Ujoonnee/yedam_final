@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,7 +71,7 @@ public interface ProductMapper {
 //	Jo
 	//리뷰목록 출력.
 	public List<ReviewVO> selectReviewList(String storeName);
-	public int pickupComplete(int prodResNo);
+	public int pickupComplete(@Param("prodResNo") int prodResNo);
 	
 	
 //	Yoon
