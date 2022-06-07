@@ -29,8 +29,8 @@
 			<option value="exName">전시명</option>
 			<option value="pname">사업자명</option>
 		</select>
-		<input type="text"  class="form-control mb-3" id="input">
-		<button type="button" id="searchBtn" class="input-group-text mb-3">
+		<input type="text"  class="form-control" id="input" onkeypress="f_enterLogin()">
+		<button href="javascript:f_loginCheck();" type="button" id="searchBtn" class="input-group-text" >
 			<svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
 		</button>
 		</div>
@@ -131,18 +131,20 @@
 			$("#tbd").empty();
 			
 				for(var i=0; i<reg.length; i++){
+					console.log(reg[i].applicationDate);
+					const applicationDate = convertDate1(reg[i].applicationDate);
 					$("<tr>").addClass("list")
 							 .append(`<td>\${reg[i].exNo}</td>`)
 							 .append(`<td>\${reg[i].name}</td>`)
 							 .append(`<td>\${reg[i].member.name}</td>`)
-							 .append(`<td>\${reg[i].applicationDate}</td>`)
+							 .append(`<td>\${applicationDate}</td>`)
 							 .append(`<td>\${reg[i].approvalStatus}</td>`)
 							 .appendTo("#tbd")
 				}
 				init2();
 			});
 	}else{
-		//2.이름(전시명, 사업자명)으로 검색 시
+		//2.이름(전시명, 사업자명)으로 검색 시 
 	 	console.log("2이름으로 검색");
 		
 			//2-1전시명으로 검색.
@@ -155,11 +157,12 @@
 		 				console.log(data);
 		 				$("#tbd").empty();
 		 				for(var i=0; i<data.length; i++){
+		 					const applicationDate = convertDate1(data[i].applicationDate);
 		 					$("<tr>").addClass("list")
 		 							 .append(`<td>\${data[i].exNo}</td>`)
 		 							 .append(`<td>\${data[i].name}</td>`)
 		 							 .append(`<td>\${data[i].member.name}</td>`)
-		 							 .append(`<td>\${data[i].applicationDate}</td>`)
+		 							 .append(`<td>\${applicationDate}</td>`)
 		 							 .append(`<td>\${data[i].approvalStatus}</td>`)
 		 							 .appendTo("#tbd")
 		 				}
@@ -173,14 +176,14 @@
 		 			method : "GET",
 		 			data:{memName:$("#input").val()},
 		 			}).done(function(data){
-		 				console.log(data);
 		 				$("#tbd").empty();
 		 				for(var i=0; i<data.length; i++){
+		 					const applicationDate = convertDate1(data[i].applicationDate);
 		 					$("<tr>").addClass("list")
 		 							 .append(`<td>\${data[i].exNo}</td>`)
 		 							 .append(`<td>\${data[i].name}</td>`)
 		 							 .append(`<td>\${data[i].member.name}</td>`)
-		 							 .append(`<td>\${data[i].applicationDate}</td>`)
+		 							 .append(`<td>\${applicationDate}</td>`)
 		 							 .append(`<td>\${data[i].approvalStatus}</td>`)
 		 							 .appendTo("#tbd")
 		 				}
@@ -190,6 +193,29 @@
 	
 		}
 });	
+	
+	//밀리초를 날짜(yy-mm-dd)으로 변경.
+	function convertDate1(milliSecond) {
+
+		  const data = new Date(milliSecond);
+		  	
+		  const year = data.getFullYear();
+		  const yy = year.toString().substring(2,4)
+		  var month = data.getMonth() + 1;
+		  var date = data.getDate();
+		
+		  
+		  if (month < 10) month = "0"+month;
+		  if (date < 10) date = "0"+date;
+
+		  return `\${yy}-\${month}-\${date}`;
+		}
+	
+	function f_enterLogin() {
+	    if(window.event.keyCode == 13){
+	    	f_loginCheck(); // 로그인 버튼 함수
+		}
+	}
 </script>
 </body>
 </html>

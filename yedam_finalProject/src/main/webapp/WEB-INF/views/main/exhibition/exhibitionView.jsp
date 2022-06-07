@@ -130,7 +130,7 @@
 	          </c:if>
 			  <c:if test = "${not empty exhibitionView.thumbnail }">
 		          <div class="card shadow-sm">
-		            <img src ="/exhibition/${exhibitionView.thumbnail }" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></img>
+		            <img src ="/exhibition/${exhibitionView.thumbnail }" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></img>
 		          </div>
 	          </c:if>
 	    </div>
@@ -299,9 +299,9 @@ function requestPay() {
 		        buyer_addr: address
 		    }, function (rsp) { // callback
 		    	console.log(rsp.merchant_uid);
+		    	console.log(rsp);
 		    	alert(rsp.merchant_uid);
 		        if (rsp.success) {
-		        	
 		            // 결제 성공 시 로직,
 		        	console.log(rsp.success);
 		        	
@@ -316,12 +316,10 @@ function requestPay() {
 							"paymentAmt" : paymentAmtVal
 						},
 						success: function(result){
-							alert("결제성공");				
 							console.log(result);		
 							location.reload();
 						},
 						error:function(error){
-							alert("error : "+error);
 							console.log(error);
 						}
 					})
@@ -331,7 +329,7 @@ function requestPay() {
 		        } else {
 		              // 결제 실패 시 로직,
 		        	  console.log(data)
-		        	 alert('결제실패')
+		        	 alert('결제가 취소되었습니다.')
 		            
 		            
 		        }

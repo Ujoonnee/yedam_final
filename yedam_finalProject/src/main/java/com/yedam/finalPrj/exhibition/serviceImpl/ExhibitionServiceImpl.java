@@ -245,8 +245,10 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public int insertExhibitionReservation(ParkExhibitionReservationVO vo) {
 		if(vo.getAmount() == 0) {
 			vo.setPaymentStatus("N");
+		}else {
+			vo.setPaymentStatus("Y");
 		}
-		vo.setPaymentStatus("Y");
+		System.out.println("sql등록 직전"+vo.getExNo()+"memNo"+vo.getMemNo());
 		return map.insertExhibitionReservation(vo);
 	}
 //	예약정보확인
@@ -281,15 +283,5 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		return user;
 	}
-
-
-
-	
-
-
-
-
-
-
 	
 }

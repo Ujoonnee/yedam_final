@@ -40,15 +40,26 @@
 											<td>${res.memName }</td>
 											<td><fmt:formatDate var="exhDate" value="${res.exDate }" pattern="yyyy-MM-dd"/> ${exhDate }</td>
 											<c:if test = "${res.paymentStatus == 'N' }">
-												<td>결제대기</td>
+												<td>결제취소</td>
 											</c:if>
 											<c:if test = "${res.paymentStatus == 'Y' }">
 												<td>결제완료</td>
 											</c:if>
+											<c:if test = "${res.paymentStatus == 'R' }">
+												<td>취소신청</td>
+											</c:if>
 											<c:if test = "${empty res.paymentStatus}">
 												<td></td>
 											</c:if>
-											<td onclick="event.cancelBubble=true" ><button type = "button" class="cancelPay" onclick="cancelPay(${res.exResNo},${res.exNo })">환불하기</button></td>
+											<td onclick="event.cancelBubble=true" >
+											<c:if test= "${res.paymentStatus == 'R' }">
+											<button type = "button" class="cancelPay" onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
+											</c:if>
+											<c:if test= "${res.paymentStatus != 'R' }">
+											<button type = "button" class="cancelPay" disabled="disabled" onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
+											</c:if>
+											</td>
+											
 										</tr>
 										</c:forEach>
 									</tbody>
@@ -71,6 +82,9 @@
 // $(".cancelPay").click(()=> cancelPay());
 
 function cancelPay(n,m) {
+	if(!confirm("정말로 결제를 취소하시겠습니까?")){
+		("결제취소가 실패하였습니다.")
+	}else{
 	console.log(n);
 	console.log(m);
 		$.ajax({
@@ -81,7 +95,7 @@ function cancelPay(n,m) {
 				"exNo" : m
 			},
 			success: function(result){
-				alert("환불성공")
+				alert("결제가 취소되었습니다.")
 				location.reload();
 			},
 			error:function(error){
@@ -89,8 +103,8 @@ function cancelPay(n,m) {
 				console.log(error);
 			}
 		})
-	
 	}
+}
 
 
 // 	var IMP = window.IMP;

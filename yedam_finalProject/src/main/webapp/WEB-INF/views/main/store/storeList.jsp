@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,6 @@
 		<hr>
 		<p></p>
 		<p></p>
-		<p></p>
 		
 			<div>
 				<form action ="searchList" method="get" name="searchForm" autocomplete="off">
@@ -35,7 +35,6 @@
 									onchange="allSelected()">
 										<option value="1">전체</option>
 										<option value="name"<c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장명</option>
-										<option value="store_cat"<c:out value="${paging.cri.type eq 'store_cat'? 'selected': '' }" />>카테고리</option>
 										<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
 								</select>
 							</div>					
@@ -62,33 +61,58 @@
 			<p></p>
 			<p></p>
 			<!-- 	매장목록 -->
-			<div class="form-control">
-				<form id ="frm" method ="get">
-					<table id ="contents" class="table table-centered table-nowrap mb-0 rounded">
 						<c:if test="${empty storeList }">
-							<tr><td align ="center">등록된 매장이 없습니다.</td></tr>
+							<div >등록된 매장이 없습니다.</div>
 						</c:if>
 						
 						<c:if test="${not empty storeList }">
-							<c:forEach items="${storeList }" var = "list">
-								<tr class="align-middle" height="150px" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
-								<c:if test ="${list.thumbnail != null }">
-									<td align = "center"><img src="/store/${list.thumbnail } " class="selected_img"  height="150px" width="150px"></td>
-								</c:if>
-								<c:if test ="${list.thumbnail == null }">
-									<td align = "center"><img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg" class="selected_img"  height="150px" width="150px"></td>
-								</c:if>
-									<td align = "center" class="StoreNameFind">${list.name }</td>
-									<td align = "center">${list.address }</td>
-							
-								</tr>
-							</c:forEach>
+							<div class="card border-0 shadow mb-4">
+							<form id ="frm" method ="get">
+							  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="padding :9px;">
+								<c:forEach items="${storeList }" var = "list">
+								  <div class="col" >
+								
+								  	<c:if test= "${not empty list.thumbnail}">
+										<div class="card shadow-sm" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
+											<img src="/store/${list.thumbnail } "  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name } </text></src>
+											
+											<div class="card-body">
+											<div class="d-flex justify-content-between align-items-center">
+									            <div class="btn-group">
+													<small class="card-text">${list.address }</small>
+											  	</div>
+									        </div>
+											</div>
+										</div>
+									</c:if>
+								  	<c:if test= "${empty list.thumbnail}">
+										<div class="card shadow-sm" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
+											<img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name }</text></src>
+											
+											<div class="card-body">
+											<div class="d-flex justify-content-between align-items-center">
+									            <div class="btn-group">
+									            <small class="card-text">${list.address }</small>
+											  	</div>
+									        </div>
+											</div>
+										</div>
+									</c:if>
+									
+									
+									
+									
+									
+								</div>
+								</c:forEach>
+							</div>
+							<input type = "hidden" id = "storeNo" name ="storeNo">
+							<input type = "hidden" id = "storeName" name ="storeName">
+							</form>
+							</div>
 						</c:if>
-					</table>
-					<input type = "hidden" id = "storeNo" name ="storeNo">
-					<input type = "hidden" id = "storeName" name ="storeName">
-				</form>
-			</div>
+					
+			
 			<div id="pagingDiv" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-center">
 				<nav aria-label="Page navigation example">
 					<ul class="pagination mb-0">

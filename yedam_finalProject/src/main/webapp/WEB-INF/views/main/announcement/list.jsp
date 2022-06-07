@@ -52,7 +52,7 @@
 							<c:forEach items="${topList}" var="announcement">
 								<tr>
 		
-									<td style="width: 10%">${announcement.annNo }</td>
+									<td style="width: 10%">중요</td>
 									<td style="width: 55%"><a class="text-primary fw-bold"
 										href="mainAnnDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">${announcement.title }</a></td>
 									<td style="width: 10%">${announcement.annDate }</td>

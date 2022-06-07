@@ -37,7 +37,7 @@ public class StoreController {
 //	Park
 	
 //	매장신청 양식 페이지
-	@RequestMapping("register")
+	@RequestMapping("provider/registration")
 	public String register(HttpServletRequest request,Model model) {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
@@ -52,8 +52,8 @@ public class StoreController {
 		}else {
 			String vo = service.checkStoreNo(user, request, model);
 			System.out.println("resgister========================"+vo);
-			System.out.println(vo.length());
-			if(vo.length() > 0) {
+//			System.out.println(vo.length());
+			if(vo == "") {
 				return "main/unusalApproach"; //계정에 기존에 가게가 있다면 등록폼으로 이동 불가.
 			}else {
 				return "provider/store/storeRegister"; // 계정에 등록된 가게가 없을 시 등록폼으로 이동

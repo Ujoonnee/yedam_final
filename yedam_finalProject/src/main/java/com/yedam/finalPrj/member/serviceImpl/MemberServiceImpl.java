@@ -85,7 +85,7 @@ public class MemberServiceImpl implements MemberService {
 		// 프로시저 out 변수
 		member.put("applicationNo", "");
 		
-		if (member.get("buisnessNum") == null) {
+		if (member.get("buisnessNum").equals("")) {
 			// 일반회원
 			member.put("memType", "00102");
 		} else {
@@ -115,4 +115,9 @@ public class MemberServiceImpl implements MemberService {
 		return (m.get("isExpired") == 1)? true: false; 
 	}
 
+	@Override
+	public String update(MemberVO member) {
+		map.update(member);
+		return "success";
+	}
 }

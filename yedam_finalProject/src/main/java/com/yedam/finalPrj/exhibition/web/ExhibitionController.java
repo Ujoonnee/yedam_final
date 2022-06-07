@@ -40,14 +40,21 @@ public class ExhibitionController {
 	
 	// 홍제
 
-	// 내 예약 목록
+	// 내 예약 목록 / 검색
 	@RequestMapping("exSelectAllReservation")
 //	@ResponseBody
-	public String exSelectAllReservation(PagingVO vo, Model model) {
+	public String exSelectAllReservation(PagingVO vo, Model model, HttpServletRequest requeset) {
+		HttpSession session = requeset.getSession();
+		System.out.println(session);
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		vo.setMemNo(user.getMemNo());
+		
+		
 		System.out.println(vo.getPageNum());
 		List<HongExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion(vo);
 		int total = service.totalCnt(vo);
 		System.out.println("================================"+vo.getType());
+		
 		model.addAttribute("exhibitionReservationVO", exhibitionReservationVO);
 		model.addAttribute("paging", new PageMaker(vo, total));
 
@@ -263,10 +270,10 @@ public class ExhibitionController {
 	public String payment(Model model, ParkExhibitionReservationVO vo,ParkExhibitionVO exhibitionVo) {
 		System.out.println("paymentDo");
 		service.insertExhibitionReservation(vo);
-		
 		exhibitionVo.setExNo(vo.getExNo());
+		System.out.println("전시번호"+vo.getExNo());
 		model.addAttribute("exhibitionView", service.findExVO(exhibitionVo));
-		return "main/exhibition/"+vo.getExNo()+"/exhibitionView";
+		return "main/exhibition/exhibitionView";
 	}
 
 //  판매자 -> 결제취소 기능

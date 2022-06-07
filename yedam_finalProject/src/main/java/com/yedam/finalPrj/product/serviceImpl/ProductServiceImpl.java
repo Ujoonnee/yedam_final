@@ -240,6 +240,7 @@ public class ProductServiceImpl implements ProductService {
 			System.out.println(product.getProdCat());
 			System.out.println(product.getPrice());
 			System.out.println(product.getStock());
+			System.out.println(product.getStoreNo());
 			System.out.println("for끝");
 			map.myStoreProductInsert(product);
 		}
@@ -356,6 +357,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ReviewVO> selectReviewList(String storeName) {
 		return map.selectReviewList(storeName);
+	}
+	@Override
+	public int pickupComplete(int prodResNo) {
+		return map.pickupComplete(prodResNo);
 	}
  
 	

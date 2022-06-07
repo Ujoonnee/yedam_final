@@ -52,7 +52,7 @@
 							<input type="text" class="form-control" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
 						</div>
 					</div>		
-					<button class="btn btn-primary" id = "searchBtn" >버튼</button>&nbsp;
+					<button class="btn btn-primary" id = "searchBtn" >검색</button>&nbsp;
 					<button type="button" class="btn btn-primary" onclick="resetForm()">초기화</button>
 				</form>
 			</div>
@@ -73,9 +73,11 @@
 					        
 					        <c:if test = "${empty list.thumbnail }">
 						          <div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
-						            <img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진 </text></src>
+						          <div style="text-align: center">
+						            <img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em" style="text-align : center;"> ${list.name }</text></src>
+						           </div>
 						            <div class="card-body">
-						              <p class="card-text">${list.name }</p>
+						              <p class="card-text"></p>
 						              <div class="d-flex justify-content-between align-items-center">
 						                <div class="btn-group">
 						                	<small class="card-text">${list.startDate } ~ </small> 
@@ -88,9 +90,11 @@
 					          
 					        <c:if test = "${not empty list.thumbnail }">
 						          <div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
-						            <img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진 </text></src>
+						          <div style="text-align: center;" >
+						            <img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name } </text></src>
+						           </div>
 						            <div class="card-body">
-						              <p class="card-text">${list.name }</p>
+						              <p class="card-text"></p>
 						              <div class="d-flex justify-content-between align-items-center">
 						                <div class="btn-group">
 						                	<small class="card-text">${list.startDate } ~ </small> 

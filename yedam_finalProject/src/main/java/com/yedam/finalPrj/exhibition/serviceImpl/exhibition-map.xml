@@ -35,16 +35,16 @@
 	<select id="selectAllExhibitionReservattion" resultType="com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO">
 	<![CDATA[
 			SELECT *
-			FROM (SELECT rownum rn, ex_res_no, name, ex_date, payment_status, payment_amt
+			FROM (SELECT rownum rn, mem_no, ex_res_no, name, ex_date, payment_status, payment_amt
 			      FROM vw_ex_re 
-					WHERE ex_res_no > 0
+				  WHERE ex_res_no > 0
+				  AND mem_no = #{memNo}
 		]]>		
 		<include refid="searchBtn"></include>
 		<![CDATA[
-					AND rownum <= #{pageNum} * #{amount}  
+				  AND rownum <= #{pageNum} * #{amount}  
 					)
 			WHERE rn > (#{pageNum}-1) * #{amount}
-			
 		]]>
 	</select>
 	
@@ -53,13 +53,14 @@
 		SELECT count(*)
 		FROM vw_ex_re
 		where EX_RES_NO>0
+		AND mem_no = #{memNo}
 		<include refid="searchBtn"></include>
 	</select>
 	
 	
 	
 	<!-- 검색 -->
-	<!-- <select id="searchExhibition" resultType="com.yedam.finalPrj.exhibition.vo.hong.PagingVO">
+	<!--  <select id="searchExhibition" resultType="com.yedam.finalPrj.exhibition.vo.hong.PagingVO">
 		<trim prefixOverrides="OR" suffix=") AND " prefix="(">
 			<foreach collection="typeArr" item="type">
 				<trim prefix="OR">
@@ -72,12 +73,12 @@
 		</trim>
 	</select> -->
 	<!-- 예약번호로 검색 -->
-	<select id="searchExhibition" resultType="com.yedam.finalPrj.exhibition.vo.hong.PagingVO">
+	<!--  <select id="searchExhibitionByNo" resultType="com.yedam.finalPrj.exhibition.vo.hong.HongExhibitionReservationVO">
 		SELECT r.ex_res_no, e.name, r.ex_date, r.payment_status, r.payment_amt
 		FROM exhibition e, exhibition_reservation r
 		WHERE e.ex_no = r.ex_no
-		AND r.ex_res_no '%'||#{exResNo}||'%'
-	</select>
+		AND r.ex_res_no LIKE '%'||#{exResNo}||'%'
+	</select>-->
 	
 <!-- 	준우 -->
 <!-- 시설등록신청 전목록 조회 -->
@@ -142,7 +143,7 @@
 <!-- 예약취소 -->
 <update id="cancelOneReservation" parameterType="int">
 	UPDATE exhibition_reservation
-	SET payment_status  = 'N' , payment_amt = '0'
+	SET payment_status  = 'R' , payment_amt = '0'
 	WHERE ex_res_no = #{exResNo} 
 	AND category= '00202'
 </update>
@@ -210,6 +211,7 @@
 		        SELECT *
 		         FROM exhibition
 		         where  approval_status = '00401'
+		         and end_date > sysdate
 		        ) a
 		    WHERE ROWNUM <![CDATA[<]]> #{pageNum} * #{amount}
 		    ) b
@@ -271,6 +273,7 @@
 		        from exhibition 
 		            where address like ('%'||#{exVO.address}||'%')
 		            and  approval_status = '00401'
+		            and end_date > sysdate
 		            <if test ="exVO.startDate != null">
 		            and trunc(start_date) <![CDATA[>=]]> #{exVO.startDate}
 		            </if>

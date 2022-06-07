@@ -13,12 +13,10 @@ public interface MemberMapper {
 	
 	// 회원가입
 	int isValidEmail(MemberVO vo);
-
-	
-
-	//void confirm(String applicationNo);
-
 	String signup(Map<String, String> member);
 	String confirm(Map<String,Integer> map);
+	
+	// 수정
+	void update(MemberVO vo);
 
 }
