@@ -7,35 +7,33 @@
 		<div class="display-4">매장등록신청목록</div>
 		<hr>
 <form id="form1" name="form1"action ="searchApprovalList" method="get" autocomplete="off">
-<div align="center">
-	<div class="input-group mb-4" style="width:70%;">
-<select id="selectDate" name="applicationDate" class="form-select"  >
-	<option value="">날짜선택</option>
-	<option value="1" <c:out value="${paging.cri.applicationDate eq '1'? 'selected': '' }" /> >빠른순</option>
-	<option value="2"<c:out value="${paging.cri.applicationDate eq '2'? 'selected': '' }" />>오래된순</option>
-</select>
-
-<select id="selectBox" name="approvalType" class="form-select">
-	<option value="">승인여부선택</option>
-	<option value="00401"<c:out value="${paging.cri.type eq '00401'? 'selected': '' }" />>승인</option>
-	<option value="00402"<c:out value="${paging.cri.type eq '00402'? 'selected': '' }" />>반려</option>
-	<option value="00403"<c:out value="${paging.cri.type eq '00403'? 'selected': '' }" />>대기</option>
-</select>
-<select id="sel" id = "type" name="type" class="form-select">
-	<option value="">선택</option>
-	<option value="storeName"<c:out value="${paging.cri.type eq 'storeName'? 'selected': '' }" />>매장명</option>
-	<option value="pname"<c:out value="${paging.cri.type eq 'pname'? 'selected': '' }" />>사업자명</option>
-</select>
-<input type="text" class="form-control"  id = "keyword" name = "keyword"  placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }">
-<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-<input type ="hidden" name="orderDate" value ="${paging.cri.applicationDate }">
-<input type="hidden" id="approvalType" value="${paging.cri.approvalType }">
-<input type="hidden" id="pageNum" name="amount" value="${paging.cri.amount }">
-<button type="button" class="input-group-text" id="searchBtn"><svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg></button>
-<button type="button" class="input-group-text" onclick="resetForm()">초기화</button>
-</div>
-</div>
-
+	<div align="center">
+		<div class="input-group mb-4" style="width:70%;">
+			<select id="selectDate" name="applicationDate" class="form-select"  >
+				<option value="">날짜순</option>
+				<option value="1" <c:out value="${paging.cri.applicationDate eq '1'? 'selected': '' }" /> >빠른순</option>
+				<option value="2"<c:out value="${paging.cri.applicationDate eq '2'? 'selected': '' }" />>오래된순</option>
+			</select>
+			<select id="selectBox" name="approvalType" class="form-select">
+				<option value="">승인여부</option>
+				<option value="00401"<c:out value="${paging.cri.type eq '00401'? 'selected': '' }" />>승인</option>
+				<option value="00402"<c:out value="${paging.cri.type eq '00402'? 'selected': '' }" />>반려</option>
+				<option value="00403"<c:out value="${paging.cri.type eq '00403'? 'selected': '' }" />>대기</option>
+			</select>
+			<select id="sel" id = "type" name="type" class="form-select">
+				<option value="">선택</option>
+				<option value="storeName"<c:out value="${paging.cri.type eq 'storeName'? 'selected': '' }" />>매장명</option>
+				<option value="pname"<c:out value="${paging.cri.type eq 'pname'? 'selected': '' }" />>사업자명</option>
+			</select>
+			<input type="text" class="form-control w-50"  id = "keyword" name = "keyword"  placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }">
+			<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
+			<input type ="hidden" name="orderDate" value ="${paging.cri.applicationDate }">
+			<input type="hidden" id="approvalType" value="${paging.cri.approvalType }">
+			<input type="hidden" id="pageNum" name="amount" value="${paging.cri.amount }">
+			<button type="submit" class="input-group-text" id="searchBtn"><svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg></button>
+			<button type="button" class="input-group-text" onclick="resetForm()">초기화</button>
+		</div>
+	</div>
 </form>
 
 <div class="card border-0 shadow mb-4">
@@ -178,9 +176,5 @@
 			
 		})
 	}
-	const div = document.getElementById('changeStatus');
-	div.addEventListener( (target) => {
-		  $('.list').append("<td>mouseover</td>");
-		});
 	
 </script>
