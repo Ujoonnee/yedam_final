@@ -78,14 +78,14 @@
 				</div>
 			</div>
 		<!-- 	<button class="btn btn-primary" type="button" id="list_btn">목 록</button> -->
-			<input class="btn btn-outline-primary" type="button" value="목록" onclick="history.go(-1)">
+			<input class="btn btn-outline-primary" type="button" value="목록" onclick="location.href='proReSelectAll'">
 			
 			<!-- 결제취소하면 버튼 안보이기 -->
 			<c:if test="${proRe.paymentStatus eq 'Y'}">
 			
 			<!-- 픽업상태 N이면 버튼 보이기 -->
 			<c:if test="${pickupStatus.pickupStatus eq 'N' }">
-			<button class="btn btn-primary" >주문취소</button>
+			<button class="btn btn-primary" id="cancelRes">주문취소</button>
 			<button id="pickupComplete" class="btn btn-primary" >픽업완료처리</button>
 			</c:if>
 			</c:if>
@@ -171,8 +171,21 @@
 				alert("실패")
 			}
 		})
-		
-		
+	})
+	//주문취소 
+	$("#cancelRes").on("click", function(){
+		$.ajax({
+			url:"cancelRes",
+			method:"POST",
+			data: "prodResNo="+${proRe.prodResNo },
+			success:function(data){
+				alert("주문취소 완료.")
+				location.reload(true);
+			},
+			error:function(){
+				alert("실패")
+			}
+		})
 	})
 	
 	

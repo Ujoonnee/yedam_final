@@ -240,7 +240,11 @@
 	 	SET pickup_status = 'Y' 
 	 	WHERE prod_res_no = #{prodResNo}
 	</update>
-		
+	<update id="cancelRes" parameterType="int">
+		UPDATE product_reservation 
+	 	SET payment_status = 'N' 
+	 	WHERE prod_res_no = #{prodResNo}
+	</update>	
 		
 <!-- 		Yoon -->
 		
