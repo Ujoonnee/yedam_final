@@ -142,7 +142,7 @@
 <!-- 예약취소 -->
 <update id="cancelOneReservation" parameterType="int">
 	UPDATE exhibition_reservation
-	SET payment_status  = 'N' , payment_amt = '0'
+	SET payment_status  = 'R' , payment_amt = '0'
 	WHERE ex_res_no = #{exResNo} 
 	AND category= '00202'
 </update>
@@ -210,6 +210,7 @@
 		        SELECT *
 		         FROM exhibition
 		         where  approval_status = '00401'
+		         and end_date > sysdate
 		        ) a
 		    WHERE ROWNUM <![CDATA[<]]> #{pageNum} * #{amount}
 		    ) b
@@ -271,6 +272,7 @@
 		        from exhibition 
 		            where address like ('%'||#{exVO.address}||'%')
 		            and  approval_status = '00401'
+		            and end_date > sysdate
 		            <if test ="exVO.startDate != null">
 		            and trunc(start_date) <![CDATA[>=]]> #{exVO.startDate}
 		            </if>

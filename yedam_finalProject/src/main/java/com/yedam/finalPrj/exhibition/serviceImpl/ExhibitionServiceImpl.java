@@ -283,15 +283,5 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		return user;
 	}
-
-
-
-	
-
-
-
-
-
-
 	
 }

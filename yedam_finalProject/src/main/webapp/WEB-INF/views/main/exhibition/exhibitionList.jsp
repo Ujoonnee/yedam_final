@@ -52,7 +52,7 @@
 							<input type="text" class="form-control" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
 						</div>
 					</div>		
-					<button class="btn btn-primary" id = "searchBtn" >버튼</button>&nbsp;
+					<button class="btn btn-primary" id = "searchBtn" >검색</button>&nbsp;
 					<button type="button" class="btn btn-primary" onclick="resetForm()">초기화</button>
 				</form>
 			</div>
