@@ -3,6 +3,20 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+  
+  <!-- tiles 미 적용 페이지 -->
+  <definition name="none" template="/WEB-INF/views/layouts/none.jsp">
+    <put-attribute name="title" value="My Web" />
+  </definition>
+  
+  <definition name="main/error/*" extends="none">
+  	<put-attribute name="body" value="/WEB-INF/views/main/error/{1}.jsp"/>
+  </definition>
+  
+  <definition name="member/*" extends="none">
+  	<put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp"/>
+  </definition>
+  
   <definition name="main" template="/WEB-INF/views/layouts/layout.jsp">
     <put-attribute name="title" value="My Web" />
     <put-attribute name="header" value="/WEB-INF/views/layouts/header.jsp" />
@@ -31,18 +45,5 @@
   	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
   </definition>
   
-  
-  <!-- tiles 미 적용 페이지 -->
-  <definition name="none" template="/WEB-INF/views/layouts/none.jsp">
-    <put-attribute name="title" value="My Web" />
-  </definition>
-  
-  <definition name="main/error/*" extends="none">
-  	<put-attribute name="body" value="/WEB-INF/views/main/error/{1}.jsp"/>
-  </definition>
-  
-  <definition name="member/*" extends="none">
-  	<put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp"/>
-  </definition>
   
 </tiles-definitions>

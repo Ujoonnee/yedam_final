@@ -22,8 +22,8 @@
 
 <head> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- Primary Meta Tags -->
-<title>500 Server Error Page</title>
+
+<link rel="canonical" href="https://themesberg.com/product/admin-dashboard/volt-premium-bootstrap-5-dashboard">
 
 <!-- Sweet Alert -->
 <link type="text/css" href="${pageContext.request.contextPath}/resources/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
@@ -34,7 +34,16 @@
 <!-- Volt CSS -->
 <link type="text/css" href="${pageContext.request.contextPath}/resources/css/volt.css" rel="stylesheet">
 
-<!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+<style>
+	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+	body {font-family: 'Jeju Gothic', sans-serif;}
+	
+	span {font-family: 'Jeju Gothic', sans-serif;}
+</style>
+
+<!-- Primary Meta Tags -->
+<title>500 Server Error Page</title>
+
 
 </head>
 
@@ -48,11 +57,12 @@
             <div class="container">
                 <div class="row align-items-center ">
                     <div class="col-12 col-lg-5 order-2 order-lg-1 text-center text-lg-left">
-                        <h1 class="mt-5">Something has gone <span class="text-primary">seriously</span> wrong</h1>
-                        <p class="lead my-4">It's always time for a coffee break. We should be back by the time you finish your coffee.</p>
-                        <a href="../dashboard/dashboard.html" class="btn btn-gray-800 d-inline-flex align-items-center justify-content-center mb-4">
+                        <h1 class="mt-5"><span class="text-primary">오류가 발생했습니다.</span></h1>
+                        <p class="lead my-4">일시적인 문제로 서비스를 사용할 수 없습니다.</p>
+                        <p class="lead my-4">자세한 내용은 관리자를 통해 문의해주세요.</p>
+                        <a href="${pageContext.request.contextPath}" class="btn btn-gray-800 d-inline-flex align-items-center justify-content-center mb-4">
                             <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
-                            Back to homepage
+                            홈 화면으로 가기
                         </a>
                     </div>
                     <div class="col-12 col-lg-7 order-1 order-lg-2 text-center d-flex align-items-center justify-content-center">
