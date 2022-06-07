@@ -50,7 +50,7 @@
 			<tr class="list">
 				<td>${list.store.name }<input type="hidden" value="${list.prodResNo}"></td>
 				<td>${list.product.prodName } 등</td>
-				<td>${list.paymentAmt}</td>
+				<td><fmt:formatNumber value="${list.paymentAmt}" pattern="#,###"/></td>
 				<td>
 				<c:set var="YN" value="${list.pickupStatus}"/>
 					<c:choose>
@@ -74,19 +74,38 @@
 	</form>
 	
 	
-	<div id="pagingDiv" align="center">
-		<!-- 이전페이지 -->
-		<c:if test="${paging.prev }">
-			<a href="${paging.startPage - 1}">이전</a>
-		</c:if>
-			<!-- 1 2 3 4   -->
-		<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-		&nbsp;<a href="${num }">${num }</a>&nbsp;
-		</c:forEach>
-			<!-- 다음페이지 -->	
-		<c:if test="${paging.next }">
-			<a id="next" href="${paging.endPage + 1 }">다음</a>
-		</c:if>
+	<div id="pagingDiv" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-center">
+		<nav aria-label="Page navigation example">	
+			<ul class="pagination mb-0">
+				<!-- 이전페이지 -->
+				<c:if test="${paging.prev }">
+					<li class="page-item">
+						<a class="page-link" href="${paging.startPage - 1}">이전</a>
+					</li>
+				
+				</c:if>
+						<!-- 1 2 3 4   -->
+					<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
+						<c:if test="${paging.cri.pageNum == num }">
+							<li class="page-item active">
+								<a class="page-link" href="${num }">${num }</a>&nbsp;
+							</li>
+						</c:if>
+						
+						<c:if test="${paging.cri.pageNum != num }">
+							<li class="page-time">
+								<a class="page-link" href="${num }">${num }</a>&nbsp;
+							</li>
+						</c:if>
+					</c:forEach>
+						<!-- 다음페이지 -->	
+					<c:if test="${paging.next }">
+						<li class="page-item">
+							<a id="next" href="${paging.endPage + 1 }">다음</a>
+						</li>
+					</c:if>
+			</ul>	
+		</nav>	
 	</div>
 </div>
 </div>	
