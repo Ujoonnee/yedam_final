@@ -17,7 +17,7 @@
 <form id="form1" name="form1">
 <!-- 승인여부로검색 -->
 <div align="center">
-	<div class="input-group" style="width:500px;">
+	<div class="input-group mb-3" style="width:500px;">
 		<select id="selectPermit" name="selectPermit" class="form-select" onchange="init()" >
 			<option value="">--선택--</option>
 			<option value="00401">승인</option>
