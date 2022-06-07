@@ -202,7 +202,7 @@
 
 	<!-- 상품예약상세 -->
 	<select id="proReDetail" resultType="com.yedam.finalPrj.product.vo.park.hong.ProductReservationVO">
-		SELECT r.prod_res_no , m.name, m.tel, r.pickup_time
+		SELECT r.prod_res_no , m.name, m.tel, r.pickup_time, r.pickup_status
 		FROM member m, product_reservation r
 		WHERE m.mem_no = r.mem_no
 		AND r.prod_res_no = #{prodResNo}
@@ -233,7 +233,12 @@
         AND r.mem_no = m.mem_no
 		AND s.name = #{storeName}
 	</select>	
-	 
+	<!-- 사업자가 픽업완료 처리. -->
+	<update id="pickupComplete" parameterType="int">
+	 	UPDATE product_reservation 
+	 	SET pickup_status = 'Y' 
+	 	WHERE prod_res_no =#{prodResNo}
+	</update>
 		
 		
 <!-- 		Yoon -->

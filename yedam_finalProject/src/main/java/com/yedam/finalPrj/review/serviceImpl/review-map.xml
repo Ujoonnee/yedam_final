@@ -4,7 +4,7 @@
 
 	<insert id="insert" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
 		INSERT INTO REVIEW(REV_NO, RES_NO, CATEGORY, SCORE, CONTENT, REV_TIME, MEM_NO, SERVICE_NAME) 
-		VALUES(SEQ_REVIEW.NEXTVAL, #{resNo}, #{category}, #{score}, #{content}, default, #{memNo}, #{serviceName})
+		VALUES(SEQ_REVIEW.NEXTVAL, #{resNo}, #{category}, NVL(#{score}, 0), #{content}, default, #{memNo}, #{serviceName})
 	</insert>
 	<select id="reviewSelectAll" resultType="com.yedam.finalPrj.review.service.ReviewVO">
 		SELECT service_name, score, content, reply_content, res_no, rev_no
