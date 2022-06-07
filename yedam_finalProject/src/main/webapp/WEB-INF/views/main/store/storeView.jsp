@@ -75,10 +75,13 @@
 		<span>TOP</span>
 	</a>
 </div>
+
 <div align = "center" class="justify-content-center  row" id = "container">
-	<div class="form-control" style="width:800px">
+	<div style="width:800px">
+<div align="left"><a class="display-4" href="http://localhost/finalPrj/store/list"> 매장 </a></div>
+<hr>
+	<div class="form-control">
 	<section id ="page_header" class="single-page-header">
-<div align="left"><a class="display-3" href="http://localhost/finalPrj/store/list"> 매장 </a></div>
 <hr>
 	<div class="container display-3">${paging.cri.storeName}</div>
 	</section>
@@ -178,10 +181,11 @@
 	<!-- 리뷰리스트 버튼 -->
 
 	<!-- 리뷰리스트 시작 -->
-	<div id="reviewListStyle" class="col-3 mt-6 ms-3" style="display:none; width:400px;">
+	</div>
+	<div id="reviewListStyle" class="form-control col-3 mt-6 ms-3" style="display:none; width:400px;" align="left">
 						<c:forEach var="list" items="${reviewList}" varStatus="status">
 							<hr>
-							<div class="form-control">
+							<div class="">
 								<div><span class="display-5 me-2">평점(${list.score})</span>
 								<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
 								</div><br>
