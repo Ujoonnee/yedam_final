@@ -39,14 +39,21 @@ public class ExhibitionController {
 	
 	// 홍제
 
-	// 내 예약 목록
+	// 내 예약 목록 / 검색
 	@RequestMapping("exSelectAllReservation")
 //	@ResponseBody
-	public String exSelectAllReservation(PagingVO vo, Model model) {
+	public String exSelectAllReservation(PagingVO vo, Model model, HttpServletRequest requeset) {
+		HttpSession session = requeset.getSession();
+		System.out.println(session);
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		vo.setMemNo(user.getMemNo());
+		
+		
 		System.out.println(vo.getPageNum());
 		List<HongExhibitionReservationVO> exhibitionReservationVO = service.selectAllExhibitionReservattion(vo);
 		int total = service.totalCnt(vo);
 		System.out.println("================================"+vo.getType());
+		
 		model.addAttribute("exhibitionReservationVO", exhibitionReservationVO);
 		model.addAttribute("paging", new PageMaker(vo, total));
 
