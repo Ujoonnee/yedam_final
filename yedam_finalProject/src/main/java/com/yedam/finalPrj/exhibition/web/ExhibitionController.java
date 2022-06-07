@@ -251,7 +251,7 @@ public class ExhibitionController {
 
 //	전시 상세보기
 	@RequestMapping(value = "detailView", method = RequestMethod.GET)
-	public String exhibitionView(ParkExhibitionVO vo, HttpServletRequest request, Model model) {
+	public String exhibitionView(ParkExhibitionVO vo,ReviewVO  vos,HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		System.out.println("=========user"+user);

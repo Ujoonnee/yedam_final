@@ -104,6 +104,12 @@
 
         transform: translateX(-50%) translateY(-50%);
       }
+      /* 상단으로 올라가기  */
+  	 #back_to_top {  
+     	position: absolute;
+        top: 50%;
+        right: 0%;
+        }
 </style>
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
@@ -114,27 +120,34 @@
 <jsp:useBean id="today" class="java.util.Date" />
 </head>
 <body>
+<!-- 상단으로 올라가기. -->
+<div align="center">
+	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-size:50px; vertical-align:center;">
+		<span>▲</span><br>
+		<span>TOP</span>
+	</a>
+</div>
 <div class = "row justify-content-center">
-	<div class = "col-8">
+	<div class = "col-8" style="width:900px;">
 		<div class="display-4"><a href="list">전시</a></div>
 		<hr>
 	
 	
 <div class="card border-0 shadow mb-4">
 	<div class="row row-cols-1 row-cols-sm-2 g-2" style="padding :15px;">
-		<div class="col" style="width: 35%; padding: 15px">
+		<div class="col-3" style="width: 35%; padding: 15px">
 			  <c:if test = "${empty exhibitionView.thumbnail }">
 		          <div class="card shadow-sm">
-		            <img src ="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></img>
+		            <img src ="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg" class="bd-placeholder-img card-img-top" width="314px" height="384px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진</text></img>
 		          </div>
 	          </c:if>
 			  <c:if test = "${not empty exhibitionView.thumbnail }">
 		          <div class="card shadow-sm">
-		            <img src ="/exhibition/${exhibitionView.thumbnail }" class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></img>
+		            <img src ="/exhibition/${exhibitionView.thumbnail }" class="bd-placeholder-img card-img-top" width="314px" height="384px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></img>
 		          </div>
 	          </c:if>
 	    </div>
-		<div style="padding : 25px;">
+		<div class="col-3" style="padding : 25px;">
 				<h4 class="display-4" style="padding-bottom: 10px;">${exhibitionView.name }</h4>
 	       	<small class="text-muted">
 				주소 :${exhibitionView.address }
@@ -154,34 +167,45 @@
 		</div>
 	</div>
 	<hr>
+	<div align="right" class="me-2">
+		<button id = "btnReservation" class="btn btn-sm btn-primary mt-2" >예약하기</button>
+	</div>
+	<hr>
 	<div style = "padding-left : 30px; padding-right: 30px;">
-		<h4 class="display-4"> 상세정보</h4>
+		<div class="display-4"> 상세정보</div>
 		<p class = "text-muted">
 			${exhibitionView.detail }
 		</p>
 	</div>
-	
+	<hr>
+</div>
+		<div>&nbsp;</div>
+	<div class="mb-2 ms-2 me-2" align="right">
+		<span class="display-5 mb-2">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button>
+	</div>
 </div>
 				<!-- By jo, 리뷰목록 출력하기 -->
 				<!-- <div class="card border-0 shadow mb-4" id="exhReviewList"> -->
-				<span>현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button></div>
-				<div id="reviewListStyle" class="col-8" style="display:none	">
+				
+				<div id="reviewListStyle" class="col-8 form-control mt-6 ms-3" style="display:none; width:400px;">
 						<c:forEach var="list" items="${reviewList}" varStatus="status">
 							<hr>
 							<div>
-								<div class="display-5">${fn:substring(list.member.email, 0,3)}*** 님<span class="ms-3 display-6">평점(${list.score})<span class="tscore${status.index}">${list.score}</span></span></div><br>  
-								<div><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
-								<br>
-								${list.content}</div><br>
+								<div><span class="display-5 me-2">평점(${list.score})</span>
+								<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
+								</div><br>
+								<div class="display-6">${list.content}</div>
+									<br>
+								<div><span class="display-6 me-1" style="border-right:2px solid;">gen*** 님&nbsp;</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
 							</div>
 						</c:forEach>
+						<hr>
 				</div>		
 				<!-- </div> -->
+		
 </div>
 
-<div align="center">
-	<button id = "btnReservation" class="btn btn-lg btn-primary" >예약하기</button>
-</div>
+
 
 
 	<!-- 	메인모달 -->

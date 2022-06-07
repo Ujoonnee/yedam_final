@@ -59,11 +59,23 @@
      	 border-bottom: 0px;
      	 border-left: 0px;
       }
+            /* 상단으로 올라가기  */
+     #back_to_top {  
+     	position: absolute;
+        top: 50%;
+        right: 0%;
+        }
 </style>
  
 </head>
 <body>
-<div align = "center" id = "container">
+<div align="center">
+	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-size:50px; vertical-align:center;">
+		<span>▲</span><br>
+		<span>TOP</span>
+	</a>
+</div>
+<div align = "center" class="justify-content-center  row" id = "container">
 	<div class="form-control" style="width:800px">
 	<section id ="page_header" class="single-page-header">
 <div align="left"><a class="display-3" href="http://localhost/finalPrj/store/list"> 매장 </a></div>
@@ -156,30 +168,30 @@
 		</div>
 	</div> 
 	<hr>
+	<div align="left" class="col-2 mt-3" >
+		<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --><span>현재리뷰(<span id="reviewNums"></span>)</span>
+		<button type="button" class="btn btn-sm btn-primary mb-1" id="reviewShow" onclick=openClose()>리뷰 보기</button>
+	</div>
 	</div>
 
 <!-- By jo, 리뷰목록 출력하기. -->
 	<!-- 리뷰리스트 버튼 -->
-	<div align="left" class="col-5 mt-3" >
-		<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --><span>현재리뷰(<span id="reviewNums"></span>)</span>
-		<button type="button" class="btn btn-sm btn-primary mb-1" id="reviewShow" onclick=openClose()>리뷰 보기</button>
-	</div>
 
 	<!-- 리뷰리스트 시작 -->
-	<div id="reviewListStyle" align="left" class="col-5" style="display:none">
-		<c:forEach var="list" items="${reviewList}" varStatus="status">
-			<hr>
-			<div class="row mb-3">
-				<div class="col-2">${list.member.name}님 </div><br>
-				<div> <fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/>
-					<span>평점(${list.score})</span><span class="tscore${status.index}">${list.score}</span>
+	<div id="reviewListStyle" class="col-3 mt-6 ms-3" style="display:none; width:400px;">
+						<c:forEach var="list" items="${reviewList}" varStatus="status">
+							<hr>
+							<div class="form-control">
+								<div><span class="display-5 me-2">평점(${list.score})</span>
+								<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
+								</div><br>
+								<div class="display-6">${list.content}</div>
+									<br>
+								<div><span class="display-6 me-1" style="border-right:2px solid;">gen*** 님&nbsp;</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
+							</div>
+						</c:forEach>
+						<hr>
 				</div>
-			</div>
-			<div>	
-				${list.content}
-			</div>
-		</c:forEach>
-	</div>
 	<!-- 리뷰리스트 끝 -->
 </div>
 
