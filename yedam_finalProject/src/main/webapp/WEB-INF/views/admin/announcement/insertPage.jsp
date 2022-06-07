@@ -47,10 +47,10 @@
 </script>
 <body>
 <div align="center"> 
-	<div class="justify-content-center row" style="width:800px">
+	<div class="justify-content-center row" style="width:1000px">
+		<div class="col-10" align="left">
 			<div class="display-4 mb-2" align="left">공지사항 등록 페이지</div>
 			<hr>
-		<div class="col-10 form-control" align="left">
 			<form name="insertFrm" action="annInsert" method="POST"
 				enctype="multipart/form-data">
 				<label class="display-5 mt-4 ms-2">제목</label>
@@ -84,7 +84,7 @@
 				<br>
 				<div align="right">
 					<input class=".write_btn btn btn-tertiary" type="submit" value="작성"> 
-					<input type="button" class="btn btn-gray-200" onclick="announcement" value="취소">
+					<input type="button" class="btn btn-gray-200" onclick="location.href='adminList'" value="취소">
 				</div>
 			</form>
 		</div>

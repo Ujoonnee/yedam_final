@@ -88,7 +88,7 @@
 					<tr>
 						<th>제목</th>
 					</tr>
-					<tr style="width:300px">
+					<tr style="width:200px">
 						<td><input class="form-control" id="title" name="title" type="text"
 							value="${announcement.title}" /></td>
 					</tr>
@@ -99,7 +99,7 @@
 						<th>내용</th>
 					</tr>
 					<tr class="mb-4">
-						<td id="substr"><textarea class="form-control" style="width: 800px; height: 300px;" name="annContent"><c:out value="${announcement.annContent }"/></textarea></td> 
+						<td id="substr"><textarea class="form-control" style="width: 600px; height: 300px;" name="annContent"><c:out value="${announcement.annContent }"/></textarea></td> 
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
@@ -121,8 +121,8 @@
 					</tr>			
 					
 				</table>
+			<div class="mb-4 mt-6">
 			<hr>
-			<div>
 				<div class="mb-4">파일 목록</div>
 					<c:forEach var="file" items="${file}" varStatus="var">
 						<div style="width:500px" class="input-group mb-3">	
