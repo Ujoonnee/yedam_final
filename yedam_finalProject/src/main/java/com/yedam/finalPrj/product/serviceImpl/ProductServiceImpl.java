@@ -358,6 +358,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<ReviewVO> selectReviewList(String storeName) {
 		return map.selectReviewList(storeName);
 	}
+	@Override
+	public int pickupComplete(int prodResNo) {
+		return map.pickupComplete(prodResNo);
+	}
  
 	
 	

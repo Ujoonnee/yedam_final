@@ -215,6 +215,7 @@ public class ProductController {
 		int ResNo = dao.proReDetail(vo).getProdResNo();
 		model.addAttribute("proReDetail", dao.proReDetailList(vo));
 		model.addAttribute("reviewList", storeService.reviewLoad(ResNo)); //store 패키지에서 가져옴.
+		model.addAttribute("pickupStatus", dao.proReDetail(vo)); //상품 픽업 상태 파악.
 		return "provider/store/productReservationDetail";
 	}
 	
@@ -222,8 +223,13 @@ public class ProductController {
 	
 	
 //	Jo
-	
- 
+//사업자가 픽업와료 처리
+	@PostMapping("pickupComplete")
+	@ResponseBody
+	public int pickupComplete(Model model, int prodResNo) {
+
+		return dao.pickupComplete(prodResNo);
+	}
 	
 	
 //	Yoon

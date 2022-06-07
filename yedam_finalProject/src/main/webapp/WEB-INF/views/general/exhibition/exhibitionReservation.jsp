@@ -18,8 +18,8 @@
 				<div align="center" class="mb-5">	
 					<div class="input-group" align="center" style="width:500px">
 						<select class="form-select" name="type"  class="form-select" style="width: 20%">
-							<option value="">전체</option>
-							<option value="exResNo" <c:out value="${paging.vo.type eq 'exResNo'?'selected':'' }" />>전시등록번호</option>
+							<option value="">--선택--</option>
+							<option value="exResNo" <c:out value="${paging.vo.type eq 'exResNo'?'selected':'' }" />>예약번호</option>
 							<option value="name" <c:out value="${paging.vo.type eq 'name'?'selected':'' }" />>전시명</option>
 						</select>
 					
@@ -69,6 +69,9 @@
 														결제
 													</c:when>
 													
+													<c:when test="${exRes.paymentStatus eq 'R' }">
+														취소신청
+													</c:when>
 												</c:choose>
 										
 										</td>
@@ -90,19 +93,30 @@
 		<input type="hidden" id="keyword" name="keyword" value="${paging.vo.keyword }">
 	</form>
 	
-	<div id="pagingDiv" align="center">
-		<!-- 이전페이지 -->
-		<c:if test="${paging.prev }">
-			<a href="${paging.startPage - 1}">이전</a>
-		</c:if>
-			<!-- 1 2 3 4   -->
-		<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-		&nbsp;<a href="${num }">${num }</a>&nbsp;
-		</c:forEach>
-			<!-- 다음페이지 -->	
-		<c:if test="${paging.next }">
-			<a id="next" href="${paging.endPage + 1 }">다음</a>
-		</c:if>
+	<!-- 페이징처리 -->
+	<div id="pagingDiv" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-center">
+		<nav aria-label="Page navigation example">
+			<ul class="pagination mb-0">	
+				<!-- 이전페이지 -->
+				<c:if test="${paging.prev }">
+					<li class="page-item">
+						<a href="${paging.startPage - 1}">이전</a>
+					</li>
+				</c:if>
+					<!-- 1 2 3 4   -->
+				<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
+					<li class="page-item active">	
+						<a href="${num }">${num }</a>&nbsp;
+					</li>
+				</c:forEach>
+					<!-- 다음페이지 -->	
+				<c:if test="${paging.next }">
+					<li class="page-item">
+						<a id="next" href="${paging.endPage + 1 }">다음</a>
+					</li>
+				</c:if>
+			</ul>	
+		</nav>	
 	</div>
 	
 <script type="text/javascript">

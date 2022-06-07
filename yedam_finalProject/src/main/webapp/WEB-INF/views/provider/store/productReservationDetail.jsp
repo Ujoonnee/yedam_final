@@ -81,6 +81,11 @@
 			<input class="btn btn-outline-primary" type="button" value="목록" onclick="history.go(-1)">
 			<button class="btn btn-primary" >주문취소</button>
 			
+			<!-- 픽업상태 N이면 버튼 보이기 -->
+			<c:if test="${pickupStatus.pickupStatus eq 'N' }">
+			<button id="pickupComplete" class="btn btn-primary" >픽업완료처리</button>
+			</c:if>
+			
 			<!-- 리뷰보기/답변달기 -->
 			<c:if test="${not empty reviewList}">
 		<div>
@@ -147,6 +152,25 @@
 		
 		//$("#replyEnd").css("display", "none");
 	}
+	
+	//픽업완료 처리
+	$("#pickupComplete").on("click", function(){
+		
+		$.ajax({
+			url:"pickupComplete",
+			method:"POST",
+			data: ${proRe.prodResNo },
+			success:function(data){
+				alert("픽업완료!")
+				
+			},
+			error:function(){
+				alert("실패")
+			}
+		})
+		
+		
+	})
 	
 	
 </script>
