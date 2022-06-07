@@ -85,7 +85,7 @@
 				xVal = data.documents[0].x;
 				yVal = data.documents[0].y;
 				locationName = data.documents[0].address_name;
-				$('#storeList').attr('href','${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude='+xVal+'&longitude='+yVal+'&nowLocation'+locationName);
+				$('#storeList').attr('href','${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude='+xVal+'&longitude='+yVal+'&nowLocation='+locationName);
 			},
 			error : function(e){
 				console.log(e);
