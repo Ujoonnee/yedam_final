@@ -3,11 +3,11 @@
 
 <title>exhibition register</title>
 
-<div class="display-3">전시 등록 신청</div>
-<hr>
 <div align="center">
 <div class="row justify-content-center" align="center" style="width:800px">
 	<div class="col-10">
+<div class="display-4" align="left">전시 등록 신청</div>
+<hr>
 		<form id="frm" action="register" method="post" enctype="multipart/form-data">
 			<table class="form-control">
 				<colgroup>
