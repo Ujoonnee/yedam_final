@@ -264,10 +264,10 @@ public class ExhibitionController {
 	public String payment(Model model, ParkExhibitionReservationVO vo,ParkExhibitionVO exhibitionVo) {
 		System.out.println("paymentDo");
 		service.insertExhibitionReservation(vo);
-		
 		exhibitionVo.setExNo(vo.getExNo());
+		System.out.println("전시번호"+vo.getExNo());
 		model.addAttribute("exhibitionView", service.findExVO(exhibitionVo));
-		return "main/exhibition/"+vo.getExNo()+"/exhibitionView";
+		return "main/exhibition/exhibitionView";
 	}
 
 //  판매자 -> 결제취소 기능

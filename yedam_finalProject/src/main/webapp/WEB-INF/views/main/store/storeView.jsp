@@ -116,7 +116,7 @@
 								<input type ="checkbox" id = "checkf" class="form-check-input" name="checkf" value ="${product }" data-prodNo ="${product.prodNo }" data-stock ="1" data-name ="${product.prodName }"  data-thumbnail ="${product.prodThumbnail }"  data-price ="${product.price }">
 							</td>
 							<c:if test ="${product.prodThumbnail != null }">
-								<td align = "center"><img src="/img/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
+								<td align = "center"><img src="/product/${product.prodThumbnail } " class="selected_img"  height="100px" width="100px"></td>
 							</c:if>
 							<c:if test ="${product.prodThumbnail == null }">
 								<td align = "center"><img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg" class="selected_img"  height="100px" width="100px"></td>
@@ -440,7 +440,7 @@
     			
     			const tr = $('<tr>').attr('name','checkVal');
     			
-    			const imgVal = '/img/'+obj.사진
+    			const imgVal = '/product/'+obj.사진
     			const img = $('<img>').attr('src', imgVal).attr('height','50px').attr('width','50px');
     			const price = $('<input>').attr('value',obj.가격).attr('type','text').attr('name','price').attr('disabled','disabled').attr('class','productPrice').attr('style','width:50px;')
     			const stock = $('<input>').attr('value',obj.수량).attr('type','number').attr('name','stock').attr('class','productStock1').attr('min','0').attr('style','width:50px;')
