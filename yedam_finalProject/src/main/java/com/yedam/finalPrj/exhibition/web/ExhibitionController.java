@@ -264,7 +264,6 @@ public class ExhibitionController {
 	public String payment(Model model, ParkExhibitionReservationVO vo,ParkExhibitionVO exhibitionVo) {
 		System.out.println("paymentDo");
 		service.insertExhibitionReservation(vo);
-		
 		exhibitionVo.setExNo(vo.getExNo());
 		model.addAttribute("exhibitionView", service.findExVO(exhibitionVo));
 		return "main/exhibition/"+vo.getExNo()+"/exhibitionView";

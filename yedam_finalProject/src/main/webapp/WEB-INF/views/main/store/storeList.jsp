@@ -35,7 +35,7 @@
 									onchange="allSelected()">
 										<option value="1">전체</option>
 										<option value="name"<c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장명</option>
-										<option value="store_cat"<c:out value="${paging.cri.type eq 'store_cat'? 'selected': '' }" />>카테고리</option>
+<%-- 										<option value="store_cat"<c:out value="${paging.cri.type eq 'store_cat'? 'selected': '' }" />>카테고리</option> --%>
 										<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
 								</select>
 							</div>					
