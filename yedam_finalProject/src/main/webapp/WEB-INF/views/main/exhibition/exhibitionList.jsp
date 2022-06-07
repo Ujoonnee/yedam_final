@@ -15,45 +15,50 @@
 	
 	 
 		 <div class="card border-0 shadow mb-4">
-			<div class="card-body">
+			<div class="card-body justify-content-center">
 				<form action ="searchExhibition" method="get" name="searchForm" autocomplete="off">
-					<div class="col-lg-2">
-						<div>지역</div>
-						<select id="address" name="exVO.address" class="form-select" >
-								<option value="">전체</option>
-								<option value="서울"<c:out value="${paging.cri.exVO.address eq '서울'? 'selected': '' }" />>서울특별시</option>
-								<option value="부산"<c:out value="${paging.cri.exVO.address eq '부산'? 'selected': '' }" />>부산광역시</option>
-								<option value="대구"<c:out value="${paging.cri.exVO.address eq '대구'? 'selected': '' }" />>대구광역시</option>
-								<option value="인천"<c:out value="${paging.cri.exVO.address eq '인천'? 'selected': '' }" />>인천광역시</option>
-								<option value="광주"<c:out value="${paging.cri.exVO.address eq '광주'? 'selected': '' }" />>광주광역시</option>
-								<option value="대전"<c:out value="${paging.cri.exVO.address eq '대전'? 'selected': '' }" />>대전광역시</option>
-								<option value="울산"<c:out value="${paging.cri.exVO.address eq '울산'? 'selected': '' }" />>울산광역시</option>
-								<option value="제주"<c:out value="${paging.cri.exVO.address eq '제주'? 'selected': '' }" />>제주특별시</option>
-						</select>
-					</div>
-				
-					<div class="col-lg-6">
-						<div>기간</div>
-						<div >
-							<div>
-								<div style = "float : left" class="col-lg-4"><input type = "date"  id="startDate" name = "exVO.startDate" class="form-control datepicker-input" value='<fmt:formatDate value="${paging.cri.exVO.startDate }" pattern= "yyyy-MM-dd"/>'> 
-								</div>
-								<div style = "float : left"> <p> ~ </p> </div>
-								<div style = "float : left;"class="col-lg-4"><input type = "date"  id ="endDate" name = "exVO.endDate" class="form-control datepicker-input"  value='<fmt:formatDate value="${paging.cri.exVO.endDate }" pattern= "yyyy-MM-dd"/>' >
+					<div class="row justify-content-center">
+						<div class="col-lg-3 mb-3">
+							<div>지역</div>
+							<select id="address" name="exVO.address" class="form-select" >
+									<option value="">전체</option>
+									<option value="서울"<c:out value="${paging.cri.exVO.address eq '서울'? 'selected': '' }" />>서울특별시</option>
+									<option value="부산"<c:out value="${paging.cri.exVO.address eq '부산'? 'selected': '' }" />>부산광역시</option>
+									<option value="대구"<c:out value="${paging.cri.exVO.address eq '대구'? 'selected': '' }" />>대구광역시</option>
+									<option value="인천"<c:out value="${paging.cri.exVO.address eq '인천'? 'selected': '' }" />>인천광역시</option>
+									<option value="광주"<c:out value="${paging.cri.exVO.address eq '광주'? 'selected': '' }" />>광주광역시</option>
+									<option value="대전"<c:out value="${paging.cri.exVO.address eq '대전'? 'selected': '' }" />>대전광역시</option>
+									<option value="울산"<c:out value="${paging.cri.exVO.address eq '울산'? 'selected': '' }" />>울산광역시</option>
+									<option value="제주"<c:out value="${paging.cri.exVO.address eq '제주'? 'selected': '' }" />>제주특별시</option>
+							</select>
+						</div>
+					
+						<div class="col-lg-7">
+							<div>기간</div>
+							<div >
+								<div>
+									<div style = "float : left" class="col-lg-4"><input type = "date"  id="startDate" name = "exVO.startDate" class="form-control datepicker-input" value='<fmt:formatDate value="${paging.cri.exVO.startDate }" pattern= "yyyy-MM-dd"/>'> 
+									</div>
+									<div style = "float : left"> <p>&nbsp;&nbsp;~&nbsp;&nbsp;</p> </div>
+									<div style = "float : left;"class="col-lg-4"><input type = "date"  id ="endDate" name = "exVO.endDate" class="form-control datepicker-input"  value='<fmt:formatDate value="${paging.cri.exVO.endDate }" pattern= "yyyy-MM-dd"/>' >
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class = "col-lg-6">
-						<div>
-							<div style="clear: left;">전시명</div>
-								<input type="hidden" id="pageNum" name="pageNum" value="1">
-							<input type="text" class="form-control" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
+						
+						<div class = "col-lg-7">
+							<div>
+								<div style="clear: left;">전시명</div>
+									<input type="hidden" id="pageNum" name="pageNum" value="1">
+								<input type="text" class="form-control" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
+							</div>
 						</div>
-					</div>		
-					<button class="btn btn-primary" id = "searchBtn" >검색</button>&nbsp;
-					<button type="button" class="btn btn-primary" onclick="resetForm()">초기화</button>
+						<div class="col-lg-3">
+							<div>&nbsp;</div>
+							<button class="btn btn-outline-gray-500" id = "searchBtn" >검색</button>&nbsp;
+							<button type="button" class="btn btn-outline-gray-500" onclick="resetForm()">초기화</button>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -89,9 +94,9 @@
 					          </c:if>
 					          
 					        <c:if test = "${not empty list.thumbnail }">
-						          <div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
-						          <div style="text-align: center;" >
-						            <img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name } </text></src>
+								<div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
+									<img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name } </text></src>
+									<div style="text-align: center;" >
 						           </div>
 						            <div class="card-body">
 						              <p class="card-text"></p>
