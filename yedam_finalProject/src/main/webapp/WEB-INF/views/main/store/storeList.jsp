@@ -61,7 +61,6 @@
 			</div>
 			<p></p>
 			<p></p>
-			<p></p>
 			<!-- 	매장목록 -->
 						<c:if test="${empty storeList }">
 							<div >등록된 매장이 없습니다.</div>
