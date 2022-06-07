@@ -31,8 +31,8 @@
 										<th class="border-0 rounded-end">주소</th>		
 									</tr>
 								</thead>
-									<c:forEach items="${list }" var = "ex" >
-									<tr onclick="getReservationList(${ex.exNo})">
+									<c:forEach items="${list }" var = "ex" varStatus="status" >
+									<tr onclick="getReservationList(${ex.exNo}, '${ex.name }')">
 										<td>${ex.exNo }</td>
 										<td>${ex.name }</td>
 										<td>${ex.startDate }</td>
@@ -52,8 +52,9 @@
 
 <script>
 
-	function getReservationList(exNo) {
-		frm.action = exNo +'/reservation';
+	function getReservationList(exNo, exName) {
+		
+		frm.action = exNo + '/'+ exName +'/reservation';
 		frm.submit();
 	}
 </script>
