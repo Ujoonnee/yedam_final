@@ -538,12 +538,12 @@ function requestPay() {
     	}
   	//리뷰보이기/숨기기
       function openClose(){
-      	 if(document.getElementById('reviewListStyle').style.display === 'none') {
-      	      document.getElementById('reviewListStyle').style.display = 'block';
-      	      document.getElementById('reviewShow').textContent = '리뷰 접기';
+      	 if($("#reviewListStyle").css("display") == "none") {
+      	      $("#reviewListStyle").fadeIn(700);
+      	      $("reviewShow").textContent = '리뷰 접기';
       	    } else {
-      	      document.getElementById('reviewListStyle').style.display = 'none';
-      	      document.getElementById('reviewShow').textContent = '리뷰 보기';
+      	      $("#reviewListStyle").fadeOut(700);
+      	      $("reviewShow").textContent = '리뷰 보기';
       	    }
       } 		
 

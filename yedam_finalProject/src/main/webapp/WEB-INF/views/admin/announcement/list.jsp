@@ -20,13 +20,13 @@ $(document).ready(function() {
 	$(".annChkForm").change(function(){
 		
 		if($(".annChkForm").is(":checked")){
-			$("#changeStatus").show("fast");
-			$("#delete").show("fast");
-			$("#selectStatus").show("fast"); 
+			$("#changeStatus").fadeIn(200);
+			$("#delete").fadeIn(200);
+			$("#selectStatus").fadeIn(200); 
 		 }else{
-			$("#changeStatus").hide("fast");
-			$("#delete").hide("fast");
-			$("#selectStatus").hide("fast"); 
+			$("#changeStatus").fadeOut(200);
+			$("#delete").fadeOut(200);
+			$("#selectStatus").fadeOut(200); 
 		}
 	})
 })
