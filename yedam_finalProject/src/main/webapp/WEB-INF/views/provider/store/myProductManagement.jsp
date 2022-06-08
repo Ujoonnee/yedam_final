@@ -81,7 +81,7 @@
 	  }
  </style>
 </head>
-<body>
+<body >
 
 <c:if test="${ProductList eq null }">
 	<h3>등록된 매장이 없습니다.</h3>
@@ -96,57 +96,80 @@
 		<tr><td>등록된 매장이 없습니다.</td></tr>
 	</c:if>
 	
+	<div align="center">
+	<div class="row justify-content-center"  style="width: 80%;">
+				<div class="col-12" >
 	<c:if test="${not empty ProductList }">
-		<table id="tableData" class="table">
-		<thead>
-			<tr>
-			<th>제품번호</th>
-			<th>사진</th>
-			<th>제품명</th>
-			<th>카테고리</th>
-			<th>가격</th>
-			<th>수량</th>
-			<th>상태</th>
-			</tr>
-		</thead>
-		<tbody>
-		<c:forEach items="${ProductList }" var = "list">
-			<c:if test="${list.status ne '00603' }">
-				<tr>
-				<td align="center"><input type ="checkbox" id = "checkf" name="checkf" value="${list }"
-					 data-prodName="${list.prodName }" data-price="${list.price }" data-stock="${list.stock }" data-prodNo ="${list.prodNo }"
-					 data-thumbnail="${list.prodThumbnail }"  data-prodCat="${list.prodCat }" data-status ="${list.status }"
-					 >
-					 ${list.prodNo }</td>	
-				<c:if test = "${list.prodThumbnail != null}">
-					<td align="center"> 
-						<img src="/img/${list.prodThumbnail } " class="selected_img"  height="150px" width="150px">
-						<input type="hidden" class="prodThumbnail"value = "${list.prodThumbnail }">
-						<input type="hidden" class="prodNo_img"value = "${list.prodNo }">
-					</td></c:if>
-				<c:if test ="${list.prodThumbnail == null }">
-					<td align = "center">
-						 <div class = "imageValue">
-							<input type="file" class = "thumbnail_file_upload" name="fileUpload" value ="사진등록">
-							<input type="hidden" class="prodNo"value = "${list.prodNo }">
+	
+			
+					<h3 align="left">상품 등록</h3>
+					<div class="card border-0 shadow mb-4">
+						<div class="card-body">
+							<div class="table-responsive">
+								<table id="tableData"
+									class="table table-centered table-nowrap mb-0 rounded">
+									<thead class="thead-light">
+										<tr class="border-0 rounded-start">
+											<th class="border-0 rounded-start display-3 col-1 ">제품번호</th>
+											<th class="border-0 col-2">사진</th>
+											<th class="border-0">제품명</th>
+											<th class="border-0">카테고리</th>
+											<th class="border-0">가격</th>
+											<th class="border-0">수량</th>
+											<th class="border-0 rounded-end">상태</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${ProductList }" var="list">
+											<c:if test="${list.status ne '00603' }">
+												<tr>
+													<td><input type="checkbox" id="checkf" name="checkf" value="${list }" data-prodName="${list.prodName }"
+														data-price="${list.price }" data-stock="${list.stock }"	data-prodNo="${list.prodNo }" data-thumbnail="${list.prodThumbnail }"
+														data-prodCat="${list.prodCat }"	data-status="${list.status }">${list.prodNo }
+													</td>
+													<c:if test="${list.prodThumbnail != null}">
+														<td><img src="/img/${list.prodThumbnail } "
+															class="selected_img" height="150px" width="150px">
+															<input type="hidden" class="prodThumbnail" value="${list.prodThumbnail }"> <input type="hidden" class="prodNo_img" value="${list.prodNo }">
+														</td>
+													</c:if>
+													<c:if test="${list.prodThumbnail == null }">
+														<td>
+															<div class="imageValue">
+																<input type="file" class="thumbnail_file_upload" name="fileUpload" value="사진등록"> <input type="hidden" class="prodNo" value="${list.prodNo }">
+															</div>
+														</td>
+													</c:if>
+													<td>${list.prodName }</td>
+													<td>${list.prodCat }</td>
+													<td>${list.price }</td>
+													<td>${list.stock }</td>
+													<td>${list.statusName }</td>
+												</tr>
+											</c:if>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
 						</div>
-					</td>
-				</c:if>
-				<td align="center">${list.prodName }</td>		
-				<td align="center">${list.prodCat }</td>		
-				<td align="center">${list.price }</td>		
-				<td align="center"> ${list.stock }</td>		
-				<td align="center"> ${list.statusName }</td>		
-				</tr>
-			</c:if>
-		</c:forEach>
-		</tbody>
-		</table>
-	</c:if>
+					</div>
+				
+			
+		</c:if>
 	<br>
+	<div  align="left">
 	<button type="button" id="excelDownload" class="btn btn-sm btn-primary col-1 download">재고다운로드</button>
 	<button class="btn-open-popup btn btn-sm btn-primary col-1" onclick="getCheckboxValue()">상품관리</button>
 	<button id = "showButton" class="btn btn-sm btn-primary col-1" onclick = "addTextBox()">단일상품등록</button>
+	<!-- 	통계확인 페이지로 storeNo값 넘김. -->
+	<form id ="statisticsFrm" method = "post" action = "statisticsForm">
+	<input type = "hidden" name = "storeNo" value ="${ProductList[0].storeNo }">
+	<button type = "submit" id ="statistics" name="storeNo" class="btn btn-sm btn-primary col-1" onclick = "statisticsView${ProductList[0].storeNo }">통계확인</button>
+	</form>
+	</div>
+	</div>
+	</div>
+			</div>
 	<!-- 	메인모달 -->
 	<div id ="popup_mask" ></div> <!-- 팝업 배경 DIV -->
 	<div id = "modal" class="modal"> 
@@ -182,13 +205,7 @@
 	
 
 	<input type="hidden" id ="prodNo" value="${ProductList[0].prodNo }" > 
-<!-- 	통계확인 페이지로 storeNo값 넘김. -->
-	<form id ="statisticsFrm" method = "post" action = "statisticsForm">
-	
-	<input type = "hidden" name = "storeNo" value ="${ProductList[0].storeNo }">
-	
-	<div><button type = "submit" id ="statistics" name="storeNo" class="btn btn-sm btn-primary col-1" onclick = "statisticsView${ProductList[0].storeNo }">통계확인</button></div>
-	</form>
+
 
 
 <!-- 	기본 양식 -->
