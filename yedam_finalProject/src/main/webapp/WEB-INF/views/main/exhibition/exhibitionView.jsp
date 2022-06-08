@@ -171,8 +171,8 @@
 	<hr>
 	<div style = "padding-left : 30px; padding-right: 30px;">
 		<div class="display-4 row"> 
-			<div class="col-3">상세정보</div>
-			<div align="right" class="display-5 justify-content-right">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button></div>
+			<div class="col-6 mb-3">상세정보</div>
+			<div align="right" class="display-5 col-6 justify-content-right">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button></div>
 		</div>
 		<p class = "text-muted">
 			${exhibitionView.detail }
@@ -185,7 +185,7 @@
 				<!-- By jo, 리뷰목록 출력하기 -->
 				<!-- <div class="card border-0 shadow mb-4" id="exhReviewList"> -->
 				
-				<div id="reviewListStyle" class="col-8 form-control mt-6 ms-3" style="display:none; width:400px;">
+				<div id="reviewListStyle" class="col-8 form-control mt-10 mb-6 ms-3" style="display:none; width:400px;">
 						<c:forEach var="list" items="${reviewList}" varStatus="status">
 							<hr>
 							<div>
@@ -194,7 +194,7 @@
 								</div><br>
 								<div class="display-6">${list.content}</div>
 									<br>
-								<div><span class="display-6 me-1" style="border-right:2px solid;">gen*** 님&nbsp;</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
+								<div><span class="display-6 me-2" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}*** 님&nbsp;</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
 							</div>
 						</c:forEach>
 						<hr>
