@@ -337,7 +337,7 @@
 				                storeNo : store_no,				//매장등록번호
 				                memNo : mem_no					//결제한 멤버 정보.
 				                
-				                //prodNo,
+				                //prodNo,stock
 				            })
 				        }).done(function (data) {
 				          // 가맹점 서버 결제 API 성공시 로직
@@ -346,6 +346,34 @@
 				        })
 						alert("결제성공");        
 				      
+		              
+		              
+		              var list =[];
+		        	  const trVal = $("tr[name='checkVal']");
+		        	  console.log("storeNo값:"+store_no);
+		        	  for(var i =0; i< trVal.length ; i++){
+		        		var prodNo = trVal.eq(i).find("input[name='checkValProdNo']").val();
+		        		var stock = trVal.eq(i).find("input[name='stock']").val();
+		        		
+		        		console.log(stock)
+		        		console.log(prodNo)
+		        		
+		        		list.push({prodNo,stock,store_no})
+		        	  }
+		              
+		              jQuery.ajax({
+		            	url:"updateStock",
+		            	method:"POST",
+		            	headers: { "Content-Type": "application/json" },
+		            	data : JSON.stringify(list)
+		              }).done(function(data){
+		            	console.log(data);
+		            	alert("재고 반영 완료");
+		            	location.reload();
+		              })
+		            	  
+		              //결제 성공 로직 끝
+		              
 		          } else {
 		        	  console.log(data)
 		              // 결제 실패 시 로직,
@@ -453,6 +481,8 @@
     		  alert("상품이없습니다.")
     		  return;
     	  }
+    	  
+    	  
 	        modal.classList.toggle('show');
 	        $("#modal").css({
 	              "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",

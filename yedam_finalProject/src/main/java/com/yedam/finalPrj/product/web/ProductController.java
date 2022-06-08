@@ -70,14 +70,32 @@ public class ProductController {
 		return "main/store/storeView";
 		}
 	}
+	
+// 재고 반영
+	@RequestMapping("updateStock")
+	public String myStoreProductUpdateStock(@RequestBody List<HashMap<String,String>> vo,ProductPagingCriteria cri,Model model,HttpServletRequest request) {
+		cri.setStoreNo(Integer.parseInt(vo.get(0).get("store_no")));
+		System.out.println("updateStock================================");
+		
+		System.out.println(vo);
+		dao.myStoreProductStockUpdate(vo, model, request); //재고수정
+		
+
+		model.addAttribute("products" ,dao.selectOne(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
+		return "main/store/storeView";
+	}
+	
+
+	
 //	결제정보전달
 	@RequestMapping("paymenInformation")
 	public String PaymentInformation(@RequestBody HashMap<String,String> vo,ProductPagingCriteria cri,Model model,HttpServletRequest request) {
+		
 		System.out.println(cri.getStoreNo());
 		System.out.println("=================vo"+vo);
 		
 		dao.productReservationInsert(vo, model, request); //예약등록
-		dao.myStoreProductStockUpdate(vo, model, request); //재고수정
 		
 		
 		model.addAttribute("products" ,dao.selectOne(cri));
