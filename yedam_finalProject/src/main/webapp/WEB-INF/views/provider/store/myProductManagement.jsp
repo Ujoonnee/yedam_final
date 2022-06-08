@@ -93,84 +93,103 @@
 	    <label class="btn btn-primary btn-file">
 	        재고등록<input type="file" id="id_file_upload" style="display: none;">
 	    </label>
-		<tr><td>등록된 매장이 없습니다.</td></tr>
+		<tr><td>등록된 상품이 없습니다.</td></tr>
 	</c:if>
-	
-	<div align="center">
-	<div class="row justify-content-center"  style="width: 80%;">
-				<div class="col-12" >
-	<c:if test="${not empty ProductList }">
-	
-			
-					<h3 align="left">상품 등록</h3>
-					<div class="card border-0 shadow mb-4">
-						<div class="card-body">
-							<div class="table-responsive">
-								<table id="tableData"
-									class="table table-centered table-nowrap mb-0 rounded">
-									<thead class="thead-light">
-										<tr class="border-0 rounded-start">
-											<th class="border-0 rounded-start display-3 col-1 ">제품번호</th>
-											<th class="border-0 col-2">사진</th>
-											<th class="border-0">제품명</th>
-											<th class="border-0">카테고리</th>
-											<th class="border-0">가격</th>
-											<th class="border-0">수량</th>
-											<th class="border-0 rounded-end">상태</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${ProductList }" var="list">
-											<c:if test="${list.status ne '00603' }">
-												<tr>
-													<td><input type="checkbox" id="checkf" name="checkf" value="${list }" data-prodName="${list.prodName }"
-														data-price="${list.price }" data-stock="${list.stock }"	data-prodNo="${list.prodNo }" data-thumbnail="${list.prodThumbnail }"
-														data-prodCat="${list.prodCat }"	data-status="${list.status }">${list.prodNo }
+
+<div align="center">
+	<div class="row justify-content-center" style="width: 80%;">
+		<div class="col-12">
+			<c:if test="${not empty ProductList }">
+
+
+				<h3 align="left">상품 등록</h3>
+				<div class="card border-0 shadow mb-4">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="tableData"
+								class="table table-centered table-nowrap mb-0 rounded">
+								<thead class="thead-light">
+									<tr class="border-0 rounded-start">
+										<th class="border-0 rounded-start display-3 col-1"></th>
+										<th class="border-0 col-1" >제품번호</th>
+										<th class="border-0 col-2">사진</th>
+										<th class="border-0">제품명</th>
+										<th class="border-0">카테고리</th>
+										<th class="border-0">가격</th>
+										<th class="border-0">수량</th>
+										<th class="border-0 rounded-end">상태</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${ProductList }" var="list">
+										<c:if test="${list.status ne '00603' }">
+											<tr>
+												<td valign="middle"><input type="checkbox"
+													id="checkf" name="checkf" value="${list }"
+													data-prodName="${list.prodName }"
+													data-price="${list.price }" data-stock="${list.stock }"
+													data-prodNo="${list.prodNo }"
+													data-thumbnail="${list.prodThumbnail }"
+													data-prodCat="${list.prodCat }"
+													data-status="${list.status }"></td>
+												<td valign="middle">${list.prodNo }</td>
+												<c:if test="${list.prodThumbnail != null}">
+													<td valign="middle"><img
+														src="/img/${list.prodThumbnail } " class="selected_img"
+														height="150px" width="150px"> <input type="hidden"
+														class="prodThumbnail" value="${list.prodThumbnail }">
+														<input type="hidden" class="prodNo_img"
+														value="${list.prodNo }"></td>
+												</c:if>
+												<c:if test="${list.prodThumbnail == null }">
+													<td valign="middle">
+														<div class="imageValue">
+															<input type="file" class="thumbnail_file_upload"
+																name="fileUpload" value="사진등록"> <input
+																type="hidden" class="prodNo" value="${list.prodNo }">
+														</div>
 													</td>
-													<c:if test="${list.prodThumbnail != null}">
-														<td><img src="/img/${list.prodThumbnail } "
-															class="selected_img" height="150px" width="150px">
-															<input type="hidden" class="prodThumbnail" value="${list.prodThumbnail }"> <input type="hidden" class="prodNo_img" value="${list.prodNo }">
-														</td>
-													</c:if>
-													<c:if test="${list.prodThumbnail == null }">
-														<td>
-															<div class="imageValue">
-																<input type="file" class="thumbnail_file_upload" name="fileUpload" value="사진등록"> <input type="hidden" class="prodNo" value="${list.prodNo }">
-															</div>
-														</td>
-													</c:if>
-													<td>${list.prodName }</td>
-													<td>${list.prodCat }</td>
-													<td>${list.price }</td>
-													<td>${list.stock }</td>
-													<td>${list.statusName }</td>
-												</tr>
-											</c:if>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
+												</c:if>
+												<td valign="middle">${list.prodName }</td>
+												<td valign="middle">${list.prodCat }</td>
+												<td valign="middle">${list.price }</td>
+												<td valign="middle">${list.stock }</td>
+												<td valign="middle">${list.statusName }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
 					</div>
-				
-			
-		</c:if>
-	<br>
-	<div  align="left">
-	<button type="button" id="excelDownload" class="btn btn-sm btn-primary col-1 download">재고다운로드</button>
-	<button class="btn-open-popup btn btn-sm btn-primary col-1" onclick="getCheckboxValue()">상품관리</button>
-	<button id = "showButton" class="btn btn-sm btn-primary col-1" onclick = "addTextBox()">단일상품등록</button>
-	<!-- 	통계확인 페이지로 storeNo값 넘김. -->
-	<form id ="statisticsFrm" method = "post" action = "statisticsForm">
-	<input type = "hidden" name = "storeNo" value ="${ProductList[0].storeNo }">
-	<button type = "submit" id ="statistics" name="storeNo" class="btn btn-sm btn-primary col-1" onclick = "statisticsView${ProductList[0].storeNo }">통계확인</button>
-	</form>
-	</div>
-	</div>
-	</div>
-			</div>
-	<!-- 	메인모달 -->
+				</div>
+			</c:if>
+			<br>
+			<c:if test ="${not empty ProductList }">
+				<div align="left">
+					<div style="float: left; padding:3px;">
+						<button type="button" id="excelDownload"
+							class="btn btn-sm btn-primary  download">재고다운로드</button>
+						<button class="btn-open-popup btn btn-sm btn-primary "
+							onclick="getCheckboxValue()">상품관리</button>
+						<button id="showButton" class="btn btn-sm btn-primary "
+							onclick="addTextBox()">단일상품등록</button>
+					</div>
+				<!-- 	통계확인 페이지로 storeNo값 넘김. -->
+					<div style="float: left; padding:3px;">
+						<form id="statisticsFrm" method="post" action="statisticsForm">
+							<input type="hidden" name="storeNo"
+								value="${ProductList[0].storeNo }">
+							<button type="submit" id="statistics" name="storeNo"
+								class="btn btn-sm btn-primary "
+								onclick="statisticsView${ProductList[0].storeNo }">통계확인</button>
+						</form>
+					</div>
+				</div>
+			</c:if>
+		</div>
+
+		<!-- 	메인모달 -->
 	<div id ="popup_mask" ></div> <!-- 팝업 배경 DIV -->
 	<div id = "modal" class="modal"> 
 		<div id = "modal_body" class="modal_body">
@@ -198,11 +217,10 @@
 <!-- 	; this.onclick=null; -->
 <br>
 	<form id = "productRegist" name="productRegist">
-        <div id="box">
-        </div>
-        <input type="button" id ="submitOne" style="visibility: hidden;" class="btn-sm btn-primary" value="전송">
+        <div id="box"></div><input type="button" id ="submitOne" style="visibility: hidden; float:left;" class="btn-sm btn-primary" value="전송">
 	</form>        
-	
+	</div>
+</div>
 
 	<input type="hidden" id ="prodNo" value="${ProductList[0].prodNo }" > 
 
@@ -327,7 +345,7 @@
 			
 		    const box = document.getElementById("box");
 		    const newP = document.createElement('p');
-		    newP.innerHTML = "<select name = 'prodCat' class='form-select' style='width :13%; float:left;' ><option value = '전체'>전체</option><option value = '라면'>라면</option><option value = '커피'>커피</option><option value = '스낵류'>스낵류</option><option value = '유제품'>유제품</option></select><input type ='text' name='prodName' class = 'form-control' style='width :17%; float:left;'  placeholder='상품명을 입력하세요.'><input type ='text' name='price' class='form-control' style='width :17%; float:left;'  placeholder='가격을 입력하세요.'><input type ='number' name='stock' class='form-control' style='width :17%; float:left;' placeholder='수량을 입력하세요.'> <input type='button' class='btn-sm btn-primary ' value='취소' onclick='remove(this)'>";
+		    newP.innerHTML = "<select name = 'prodCat' class='form-select' style='width :13%; float:left;' ><option value = '전체'>전체</option><option value = '라면'>라면</option><option value = '커피'>커피</option><option value = '스낵류'>스낵류</option><option value = '유제품'>유제품</option></select><input type ='text' name='prodName' class = 'form-control' style='width :17%; float:left;'  placeholder='상품명을 입력하세요.'><input type ='text' name='price' class='form-control' style='width :17%; float:left;'  placeholder='가격을 입력하세요.'><input type ='number' name='stock' class='form-control' style='width :17%; float:left;' placeholder='수량을 입력하세요.'><input type='button' style='float:left;' class='btn-sm btn-primary' value='취소' onclick='remove(this)'>";
 		    box.appendChild(newP);
 		}
 		
