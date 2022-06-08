@@ -133,6 +133,9 @@ public class ProductController {
 			model.addAttribute("ProductList",productList);
 			if (productList != null) {
 				model.addAttribute("paging",new ProductPageMaker(cri,dao.myStoreProductCnt(cri, request)));
+			}else {
+//				등록된 매장이 없을 시 등록폼으로 이동.
+				return"provider/store/noStore";
 			}
 			return "provider/store/myProductManagement";
 		}

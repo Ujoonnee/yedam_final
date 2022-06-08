@@ -64,9 +64,7 @@
 		</div>
          
        	<c:if test = "${empty exhibitionList }">
-			<tr>
-				<td colspan="6">전시가 없습니다.</td>
-			</tr>
+			<div align="center">등록된 전시가 없습니다.</div>
 		</c:if>	
 		
 		<c:if test = "${not empty exhibitionList }">	

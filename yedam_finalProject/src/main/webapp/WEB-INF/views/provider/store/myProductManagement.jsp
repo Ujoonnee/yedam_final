@@ -84,7 +84,8 @@
 <body >
 
 <c:if test="${ProductList eq null }">
-	<h3>등록된 매장이 없습니다.</h3>
+	<h3 align="center">등록된 매장이 없습니다.</h3>
+
 </c:if>
 
 <c:if test="${ProductList ne null }">

@@ -61,22 +61,18 @@ public class StoreController {
 		}
 	}
 //	매장신청 양식 전송
-	@RequestMapping("regist")
+	@RequestMapping("provider/regist")
 	public String regist(Store vo,Model model,HttpServletRequest request,@RequestParam("fileUpload") MultipartFile multi) {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
-//		세션없을시 메시지 출력 후 홈으로 이동.
-		if(user == null) {
-			return "main/unusalApproach";
-		}
 //		관리자, 일반회원일시 메시지 출력 후 홈으로 이동 
 		if(!user.getMemType().equals("00103")) {
-			return "main/unusalApproach";
+			return "main/error/500";
 		}else {
 			
 //		매장등록 번호 입력.
 			service.regist(vo, request,multi,model);
-			return "home/home";
+			return "main/home";
 		}
 		
 	}
