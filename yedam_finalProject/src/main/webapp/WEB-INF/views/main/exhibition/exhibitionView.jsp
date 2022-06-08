@@ -311,7 +311,7 @@ function requestPay() {
 		        pay_method: "card",
 		        merchant_uid:  'merchant_' + new Date().getTime(),
 		        name: "예담통합플랫폼 결제",
-		        amount: 100, //paymentAmtVal
+		        amount: paymentAmtVal, //paymentAmtVal
 		        buyer_email: email,
 		        buyer_name: name,
 		        buyer_tel: tel,
@@ -319,7 +319,6 @@ function requestPay() {
 		    }, function (rsp) { // callback
 		    	console.log(rsp.merchant_uid);
 		    	console.log(rsp);
-		    	alert(rsp.merchant_uid);
 		        if (rsp.success) {
 		            // 결제 성공 시 로직,
 		        	console.log(rsp.success);
@@ -370,6 +369,13 @@ function requestPay() {
 	const btnOpenPopup = document.querySelector('#btnReservation'); 
 	
 	btnOpenPopup.addEventListener('click', () => {
+		console.log();	
+		if(${user.memType} != 00102) {
+			alert("일반회원만 결제가 가능합니다.")
+			return;
+		}
+		
+		
 	      modal.classList.toggle('show');
 	      $("#modal").css({
               "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
@@ -420,7 +426,7 @@ function requestPay() {
 	
 	sub_btnOpenPopup.addEventListener('click', () => {
 		
-// 		티켓 수, 날짜 입력받으며, 가격 계산
+		// 		티켓 수, 날짜 입력받으며, 가격 계산
 		var ticketCount = $('#ticketCount').val();
 		var price = $('#price').val();
 		var exdate = $('#exDate').val();
