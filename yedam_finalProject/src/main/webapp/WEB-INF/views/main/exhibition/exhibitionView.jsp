@@ -129,7 +129,8 @@
 </div>
 <div class = "row justify-content-center">
 	<div class = "col-8" style="width:900px;">
-	
+		<div class="display-4 mt-3">전시</div>
+		<hr>
 <div class="card border-0 shadow mb-4">
 	<div class="row row-cols-1 row-cols-sm-2 g-2" style="padding :15px;">
 		<div class="col-3" style="width: 35%; padding: 15px">
@@ -169,17 +170,17 @@
 	</div>
 	<hr>
 	<div style = "padding-left : 30px; padding-right: 30px;">
-		<div class="display-4"> 상세정보</div>
+		<div class="display-4 row"> 
+			<div class="col-3">상세정보</div>
+			<div align="right" class="display-5 justify-content-right">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button></div>
+		</div>
 		<p class = "text-muted">
 			${exhibitionView.detail }
 		</p>
 	</div>
 	<hr>
 </div>
-		<div>&nbsp;</div>
-	<div class="mb-2 ms-2 me-2" align="right">
-		<span class="display-5 mb-2">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button>
-	</div>
+
 </div>
 				<!-- By jo, 리뷰목록 출력하기 -->
 				<!-- <div class="card border-0 shadow mb-4" id="exhReviewList"> -->
