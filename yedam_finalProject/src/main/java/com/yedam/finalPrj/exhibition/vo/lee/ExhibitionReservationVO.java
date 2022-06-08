@@ -18,5 +18,6 @@ public class ExhibitionReservationVO {
 	private String paymentStatus;
 	private String paymentStatusCodeName;
 	private int memNo;
+	private String name;
 	
 }

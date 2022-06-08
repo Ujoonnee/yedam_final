@@ -54,8 +54,8 @@
 				</td>
 			</tr>
 			<tr class="row mb-2"style="width:400px">
-				<th class="col-4">멤버번호</th>
-				<td class="col-6">${res.memNo }</td>
+				<th class="col-4">예약자명</th>
+				<td class="col-6">${res.name }</td>
 			</tr>
 		
 		</table>
