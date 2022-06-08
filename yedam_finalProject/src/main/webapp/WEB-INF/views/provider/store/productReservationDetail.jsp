@@ -17,7 +17,8 @@
 
 <div class="row justify-content-center">
 	<div class="col-6">
-		<h3>상품 예약 상세</h3>
+		<div class="display-4">상품 예약 상세</div>
+		<hr>
 			<div class="card border-0 shadow mb-4">
 				<div class="card-body">
 					<div class="table-responsive">
@@ -44,7 +45,8 @@
 					</div>
 				</div>
 			</div>
-			<h3 class="mt-5"> 상품 목록</h3>
+			<div class="display-4 mt-5"> 상품 목록</div>
+			<hr>
 			<div class="card border-0 shadow mb-4">
 				<div class="card-body">
 					<div class="table-responsive">
@@ -62,7 +64,7 @@
 							<tbody>
 							<c:forEach items="${proReDetail }" var="list" varStatus="status">
 							<tr>
-								<td id="thumbNail">${list.prodThumbnail }</td>
+								<td id="thumbNail"><img width="100px" height="100px" src="/img/${list.prodThumbnail }"></td>
 								<td>${list.prodName }</td>
 					 			<td><fmt:formatNumber value="${list.price }" pattern="#,###" /></td> 
 								<td>${list.count }</td>
@@ -73,18 +75,19 @@
 							</c:forEach>
 							</tbody>
 							<tfoot>
-							<tr>
-								<td>총 금액</td>
-								<td colspan="4"><fmt:formatNumber value="${total }" pattern="#,###"/></td>
-							</tr>
+								<tr>
+									<td>총 금액</td>
+									<td><fmt:formatNumber value="${total }" pattern="#,###"/></td>
+								</tr>
 							</tfoot>
 						</table>
 					</div>
 				</div>
 			</div>
 		<!-- 	<button class="btn btn-primary" type="button" id="list_btn">목 록</button> -->
-			<input class="btn btn-outline-primary" type="button" value="목록" onclick="location.href='proReSelectAll'">
-			
+			<div align="right" class="mb-3">
+				<input class="btn btn-outline-primary" type="button"  value="목록" onclick="location.href='proReSelectAll'">
+			</div>
 			<!-- 결제취소하면 버튼 안보이기 -->
 			<c:if test="${proRe.paymentStatus eq 'Y'}">
 			
@@ -96,18 +99,16 @@
 			</c:if>
 			<!-- 리뷰보기/답변달기 -->
 			<c:if test="${not empty reviewList}">
-		<div>
-		<br>
-		<br>
-		<br>
-		<h3>리뷰/답변</h3>
-					<div>${reviewList.serviceName }</div>
+		<div class="display-4 mt-3 mb-3">리뷰/답변</div>
+		<hr>
+		<div class="form-control">
+					<div class="display-4 mt-3">${reviewList.serviceName }</div>
 					<hr>
-					<span>평점(${reviewList.score })</span><span id="vscore">${reviewList.score }</span>
+					<div class="mb-2"><span class="display-6 me-2">평점(${reviewList.score })</span><span id="vscore" style="color:#FFA500">${reviewList.score }</span></div>
 					<div>${reviewList.content }</div>
 					<hr>
-					<div>답변</div>
-					<div>${reviewList.replyContent }</div>
+					<div class="display-5 mb-2">답변</div>
+					<div class="display-6">${reviewList.replyContent }</div>
 					<hr>
 					
 					<c:if test="${empty reviewList.replyContent  }">

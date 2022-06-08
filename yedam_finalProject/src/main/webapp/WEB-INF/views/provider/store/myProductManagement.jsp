@@ -73,7 +73,7 @@
 	
 	    text-align: center;
 	
-	    background-color: rgb(205, 205, 205);
+	    background-color: rgb(255, 255, 255);
 	    border-radius: 10px;
 	    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 	
@@ -229,6 +229,15 @@
 <!-- 		<form method = "post" action = "updateStock" id = "frm"> -->
 			<div id="management">
 				<table style ="margin: auto;">
+					<colgroup>
+					    <col width="15%">
+					    <col width="15%">
+					    <col width="10%">
+					    <col width="25%">
+					    <col width="20%">
+                        <col width="5%">
+					    <col width="10%">
+					</colgroup>
 					<thead>
 						<tr>
 							<th>사진</th>
@@ -236,13 +245,14 @@
 							<th>가격</th>
 							<th>상품명</th>
 							<th>상태</th>
+							<th>&nbsp;</th>
 							<th>수량</th>
 						</tr>
 					</thead>
 					<tbody id="tbody"></tbody>
 				</table>
 			</div>
-			<div id = "modalButton"><button class = "btn-sub-popup btn-sm btn-primary" onclick="productUpdate()">상품수정</button></div>
+			<div id = "modalButton"><button class = "btn-sub-popup btn-sm btn-primary mt-3" onclick="productUpdate()">상품수정</button></div>
 <!-- 		</form> -->
 		</div>
 	</div> 
@@ -378,7 +388,7 @@
 			
 		    const box = document.getElementById("box");
 		    const newP = document.createElement('p');
-		    newP.innerHTML = "<select name = 'prodCat' class='form-select' style='width :13%; float:left;' ><option value = '전체'>전체</option><option value = '라면'>라면</option><option value = '커피'>커피</option><option value = '스낵류'>스낵류</option><option value = '유제품'>유제품</option></select><input type ='text' name='prodName' class = 'form-control' style='width :17%; float:left;'  placeholder='상품명을 입력하세요.'><input type ='text' name='price' class='form-control' style='width :17%; float:left;'  placeholder='가격을 입력하세요.'><input type ='number' name='stock' class='form-control' style='width :17%; float:left;' placeholder='수량을 입력하세요.'><input type='button' style='float:left;' class='btn-sm btn-primary' value='취소' onclick='remove(this)'>";
+		    newP.innerHTML = "<select name = 'prodCat' class='form-select me-2' style='width :13%; float:left;' ><option value = '전체'>전체</option><option value = '라면'>라면</option><option value = '커피'>커피</option><option value = '스낵류'>스낵류</option><option value = '유제품'>유제품</option></select><input type ='text' name='prodName' class = 'form-control me-2' style='width :17%; float:left;'  placeholder='상품명'><input type ='text' name='price' class='form-control me-2' style='width :17%; float:left;'  placeholder='가격'><input type ='number' name='stock' class='form-control me-2' style='width :17%; float:left;' min='1' placeholder='수량'><input type='button' style='float:left;' class='btn-sm btn-primary me-2' value='취소' onclick='remove(this)'>";
 		    box.appendChild(newP);
 		}
 		
@@ -514,8 +524,8 @@
 			tr.append($('<td>').html(obj.상품명))
 				
 // 			select 생성
-			const select = $('<select>').attr('name','selectValue');
-			
+			const select = $('<select>').attr('name','selectValue').attr('class','form-select');
+						  
 			const 판매중 = $('<option>').attr('value','00601').html('판매중').appendTo(select);
 			const 일시품절 = $('<option>').attr('value','00602').html('일시품절').appendTo(select);
 			const 삭제 = $('<option>').attr('value','00603').html('삭제').appendTo(select);
@@ -534,10 +544,10 @@
 
 			tr.append($('<td>').html(select));
 			
-			const stock = $('<input>').attr('value',obj.재고).attr('name','checkValName').attr('style','width:50px;')
-			const prod = $('<input>').attr('value',obj.상품번호).attr('type','hidden').attr('name','checkValProdNo').attr('style','width:50px;')
-			tr.append($('<td>').append(stock));
+			const stock = $('<input>').attr('value',obj.재고).attr('name','checkValName').attr('style','width:50px;').attr('class','form-control');
+			const prod = $('<input>').attr('value',obj.상품번호).attr('type','hidden').attr('name','checkValProdNo');
 			tr.append($('<td>').append(prod));
+			tr.append($('<td>').append(stock));
 			
 			$('#tbody').append(tr);
 		}
