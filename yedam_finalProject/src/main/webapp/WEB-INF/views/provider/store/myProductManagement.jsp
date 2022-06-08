@@ -423,6 +423,13 @@
 	const btnOpenPopup = document.querySelector('.btn-open-popup'); 
 	
 	btnOpenPopup.addEventListener('click', () => {
+		
+		const query = 'input[name="checkf"]:checked';
+  	    const selectedEls = document.querySelectorAll(query);
+	  	  if(selectedEls.length == 0){
+		  		return; //체크된 값이 없을 시 모달창 띄우지않게함
+		  	}
+		
 			modal.classList.toggle('show');
 			$("#modal").css({
 			   "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
@@ -459,7 +466,12 @@
   	  // 선택된 목록 가져오기
 		const query = 'input[name="checkf"]:checked';
   	    const selectedEls = document.querySelectorAll(query);
-  	  
+  	    
+  	    
+  	  	if(selectedEls.length == 0){
+  	  		alert("체크된 값이 없습니다.")//체크된값이 없을시 function 종료
+  	  		return;
+  	  	}
   	  // 선택된 목록을 모달창에 value출력
   	    let result = '';
   	    var obj_length = Object.keys(selectedEls).length;

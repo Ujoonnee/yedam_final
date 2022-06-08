@@ -35,7 +35,7 @@
 	</insert>
 <!-- 	멤버 번호로 상점여부 확인 -->
 	<select id = "checkStoreNo" resultType="String">
-	SELECT S.STORE_NO
+	SELECT S.APPROVAL_STATUS
 	FROM
 	STORE S, MEMBER M
 	WHERE S.MEM_NO = M.MEM_NO

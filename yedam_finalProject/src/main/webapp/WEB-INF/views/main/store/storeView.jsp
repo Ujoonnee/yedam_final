@@ -258,10 +258,6 @@
 		var pickupTime = document.getElementById('pickupTime').value
 		var store_no = document.getElementById('storeNo').value
 		
-		if(email == ''){
-			alert("로그인을 해야 결제를 할 수 있습니다.")
-			return;
-		}
 		
    	  	const selectedEls = document.querySelectorAll('input[name="checkf"]:checked');
 		
@@ -453,11 +449,23 @@
     	  // 선택된 목록에서 value 찾기
     	  let result = '';
     	  var obj_length = Object.keys(selectedEls).length;
-		  
-    	  if(obj_length == 0){
-    		  alert("상품이없습니다.")
-    		  return;
-    	  }
+    	  
+    	  
+    	  
+    	  const memType = "${user.memType}";
+    	  const memNo= "${user.memNo}";
+    	  
+    	  
+		  if(memType =="00102"){
+			  
+	    	  if(obj_length == 0){
+	    		  alert("상품이없습니다.")
+	    		  return;
+	    	  }
+		  }else if(memType != "00102" | !memNo ){
+			  return;
+		  }
+			  
 	        modal.classList.toggle('show');
 	        $("#modal").css({
 	              "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
@@ -490,7 +498,14 @@
       
 //       체크처리한 값 모달로 가져오기
       function getCheckboxValue()  {
-    	  if(${user.memType} != 00102) {
+	
+    	const memNo= "${user.memNo}";
+  		const memType = "${user.memType}";
+  		
+  		if(!memNo ){
+  			alert("비로그인일시 이용이 불가합니다.")
+  			return;
+  		}else if(memType != "00102"){
   			alert("일반회원만 결제가 가능합니다.")
   			return;
   		} else {

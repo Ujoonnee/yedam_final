@@ -211,7 +211,11 @@
 				<div id ="관람일">
 				<div id = "exDate"></div></div>
 				<hr>
-				<div id = "ticketAmt">수량 <input type =number id = "ticketCount"  placeholder="수량을 입력하세요.:)" max="30" min="0" style="width:150px;"> </div>
+				<div id = "ticketAmt" class="row justify-content-center" >
+					<div class="col-3 mt-2 " style="padding:0px;">수&nbsp;량 :</div>	
+					<div class="col-4" style="padding:0px;">
+				 	<input type =number id = "ticketCount" class="form-control"  placeholder="수량" max="30" min="0"></div>
+				 </div>
 				<p></p>
 				<div id = "modalButton"><button id = "btn-sub-popup" class="btn btn-primary">결제정보확인</button></div>
 			</div>
@@ -228,13 +232,12 @@
 		<div align= "left">
 			<small class = "display-5">예약정보확인</small><br>
 			<hr>
-			<small class = "text-muted">예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></small><br>
-			<small class = "text-muted">카테고리			: ${exhibitionView.category }</small><br>
-			<small class = "text-muted">전시명			: ${exhibitionView.name } </small><br>
-			<small class = "text-muted">예약자명			: ${member.name }</small><br>
-			<small class = "text-muted">예약자  연락처	: ${member.tel }</small><br>
-			<small class = "text-muted">수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></small><br>
-			<small class = "text-muted">결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></small><br>
+			<p class = "text-muted">예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled style="background-color: white; border: none;"></p> 
+			<p class = "text-muted">전시명			: ${exhibitionView.name } </p> 
+			<p class = "text-muted">예약자명			: ${member.name }</p> 
+			<p class = "text-muted">예약자  연락처	: ${member.tel }</p> 
+			<p class = "text-muted">수량				: <input type ="text" id ="amount" name="amount" value ="" disabled style="background-color: white; border: none;"></p> 
+			<p class = "text-muted">결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled style="background-color: white; border: none;"></p> 
 		
 			<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
 			<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
@@ -285,7 +288,7 @@ function requestPay() {
 
 		
 		
-		if (memNo == '') {
+		if (memNo == '' || memNo == null) {
 			alert("로그인 후 사용해주세요.")
 			return;
 		}else{
@@ -370,8 +373,16 @@ function requestPay() {
 	const btnOpenPopup = document.querySelector('#btnReservation'); 
 	
 	btnOpenPopup.addEventListener('click', () => {
-		console.log();	
-		if(${user.memType} != 00102) {
+		
+		
+
+		
+		const memNo= "${user.memNo}";
+		const memType = "${user.memType}";
+		if(!memNo ){
+			alert("비로그인일시 이용이 불가합니다.")
+			return;
+		}else if(memType != "00102"){
 			alert("일반회원만 결제가 가능합니다.")
 			return;
 		}
