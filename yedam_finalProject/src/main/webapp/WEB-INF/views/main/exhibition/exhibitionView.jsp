@@ -170,17 +170,19 @@
 	</div>
 	<hr>
 	<div style = "padding-left : 30px; padding-right: 30px;">
-		<div class="display-4 mb-3"> 상세정보</div>
-		<p class = "text-muted">
+	<div class="display-4 mb-3 row"> 
+		<div class="col ms-2">상세정보</div>
+		<span class="col" align="right"><span class="display-5">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button></span>
+	</div>
+		</div>
+		<p class = "ms-5 text-muted">
 			${exhibitionView.detail }
 		</p>
 	</div>
 	<hr>
 </div>
 		<div>&nbsp;</div>
-	<div class="mb-2 ms-2 me-2" align="right">
-		<span class="display-5 mb-2">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button>
-	</div>
+	
 </div>
 				<!-- By jo, 리뷰목록 출력하기 -->
 				<!-- <div class="card border-0 shadow mb-4" id="exhReviewList"> -->
