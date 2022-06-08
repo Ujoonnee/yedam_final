@@ -26,7 +26,7 @@
 					
 					<tr>
 						<th>매장 구분  </th>
-						<td><select id="st_cat" name="storeCat" >
+						<td><select id="st_cat" name="storeCat" class="form-select" style="width:200px" >
 							<option value="편의점">편의점</option>
 							<option value="약국">약국</option>
 							<option value="기타">그 외</option>
