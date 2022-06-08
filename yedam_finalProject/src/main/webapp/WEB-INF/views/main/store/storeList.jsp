@@ -17,7 +17,7 @@
 		<div align = "center" id ="container">
 			<section id ="page_header" class="single-page-header">
 				<div class="container">
-					<h3 class="display-4" style="text-align: left;" ><a href="list">매장</a> </h3>
+					<div class="display-4" style="text-align: left;" ><a href="list">매장</a> </div>
 				 </div>
 			</section>
 		<!-- 	검색창 -->

@@ -100,19 +100,28 @@
 				<!-- 이전페이지 -->
 				<c:if test="${paging.prev }">
 					<li class="page-item">
-						<a href="${paging.startPage - 1}">이전</a>
+						<a class="page-link" href="${paging.startPage - 1}">이전</a>
 					</li>
 				</c:if>
 					<!-- 1 2 3 4   -->
 				<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-					<li class="page-item active">	
-						<a href="${num }">${num }</a>&nbsp;
-					</li>
+					<c:if test="${paging.vo.pageNum == num }">
+						<li class="page-item active">	
+							<a class="page-link" href="${num }">${num }</a>&nbsp;
+						</li>
+					</c:if>	
+					
+					<c:if test="${paging.vo.pageNum != num }">
+						<li class="page-time">
+							<a class="page-link" href="${num }">${num }</a>&nbsp;
+						</li>
+					</c:if>
+				
 				</c:forEach>
 					<!-- 다음페이지 -->	
 				<c:if test="${paging.next }">
 					<li class="page-item">
-						<a id="next" href="${paging.endPage + 1 }">다음</a>
+						<a class="page-link" id="next" href="${paging.endPage + 1 }">다음</a>
 					</li>
 				</c:if>
 			</ul>	

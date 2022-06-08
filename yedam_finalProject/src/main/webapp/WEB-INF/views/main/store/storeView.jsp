@@ -59,10 +59,21 @@
      	 border-bottom: 0px;
      	 border-left: 0px;
       }
+            /* 상단으로 올라가기  */
+     #back_to_top {  
+     	position:fixed;
+     	color:white;
+     	background-color:ellowGreen;
+     	block-size:50px;
+     	vertical-align:center;
+	}
+        
+        
 </style>
  
 </head>
 <body>
+
 <div class = "row justify-content-center">
 	<div class = "col-8">
 		<div align = "center" id = "container">
@@ -179,6 +190,21 @@
 		
 		</div>
 	</div>
+	<div id="reviewListStyle" class="form-control col-3 mt-6 ms-3" style="display:none; width:400px;" align="left">
+		<c:forEach var="list" items="${reviewList}" varStatus="status">
+			<hr>
+			<div class="">
+				<div><span class="display-5 me-2">평점(${list.score})</span>
+				<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
+				</div><br>
+				<div class="display-6">${list.content}</div>
+					<br>
+				<div><span class="display-6 me-1" style="border-right:2px solid;">gen*** 님&nbsp;</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
+			</div>
+		</c:forEach>
+		<hr>
+	</div>
+	<!-- 리뷰리스트 끝 -->
 
 
 
@@ -217,11 +243,17 @@
 			</div>
 		</div> 
 		<hr>
+	
+	
+<!-- 상단이동 버튼 -->
+<div align="center">
+	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-size:50px; vertical-align:center;">
+		<span>▲</span><br>
+		<span>TOP</span>
+	</a>
 </div>
 	
-	
 
-<!-- </div> -->
 
  <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
@@ -533,7 +565,7 @@
 
        	}
     //리뷰보이기/숨기기
-    function openClose(){
+   /*  function openClose(){
     	 if(document.getElementById('reviewListStyle').style.display === 'none') {
     	      document.getElementById('reviewListStyle').style.display = 'block';
     	      document.getElementById('reviewShow').textContent = '리뷰 접기';
@@ -541,7 +573,16 @@
     	      document.getElementById('reviewListStyle').style.display = 'none';
     	      document.getElementById('reviewShow').textContent = '리뷰 보기';
     	    }
-    }
+    } */
+    function openClose(){
+     	 if($("#reviewListStyle").css("display") == "none") {
+     	      $("#reviewListStyle").fadeIn(700);
+     	      $("reviewShow").textContent = '리뷰 접기';
+     	    } else {
+     	      $("#reviewListStyle").fadeOut(700);
+     	      $("reviewShow").textContent = '리뷰 보기';
+     	    }
+     } 	
    
       	
        	

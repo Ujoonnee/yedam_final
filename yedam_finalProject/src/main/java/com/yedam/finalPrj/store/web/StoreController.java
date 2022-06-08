@@ -189,7 +189,7 @@ public class StoreController {
 		
 		service.CancelRes(prodResNo); // update(product_reservation테이블에서 결제상태 'N'으로, 
 
-		service.CancelRes2(storeNo, prodNo); // reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가
+		service.CancelRes2(prodResNo, prodNo, storeNo); // reserved_product테이블에서 반환한만큼 product테이블에서 재고수량 증가
 
 		return "cancel success";
 	}

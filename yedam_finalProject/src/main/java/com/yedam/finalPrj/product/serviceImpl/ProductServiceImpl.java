@@ -375,6 +375,11 @@ public class ProductServiceImpl implements ProductService {
 		return map.pickupComplete(prodResNo);
 	}
 
+	@Override
+	public int cancelRes(int prodResNo) {
+		return map.cancelRes(prodResNo);
+	}
+ 
 	
 	
 //	Yoon
