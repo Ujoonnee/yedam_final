@@ -23,7 +23,7 @@
 		<input type="hidden" id = "storeNo" name = "storeNo" value ="${productReservation[0].storeNo }">
 		<input type = "text" id = "startDate" name = "startDate"placeholder="날짜를 입력하세요."> ~
 		<input type = "text" id = "endDate" name="endDate" placeholder="날짜를 입력하세요.">
-		<button type ="submit">검색</button> </div>
+		<button type ="submit" >검색</button> </div>
 	</form>
 
 	<div class="card-body p-2"> 

@@ -44,20 +44,15 @@ public class StoreController {
 		
 		
 //		관리자, 일반회원일시 메시지 출력 후 홈으로 이동 
-		if(!user.getMemType().equals("00103" ) || user ==null) {
+		if(!user.getMemType().equals("00103" ) || user == null) {
 			return "main/unusalApproach";
 		}else {
 			String approvalStatus = service.checkStoreNo(user, request, model);
 			System.out.println("approvalStatus:"+approvalStatus);
-//			00403/00402/00401
-//			System.out.println(vo.length());
-			if(approvalStatus.equals("")) {
-				
-				return "main/unusalApproach"; //계정에 기존에 가게가 있다면 등록폼으로 이동 불가.
-			}else {
-				
-				return "provider/store/storeRegister"; // 계정에 등록된 가게가 없을 시 등록폼으로 이동
-			}
+//			00403대기/00402반려/00401승인 
+
+			model.addAttribute("approvalStatus", approvalStatus);
+			return "provider/store/storeRegister"; // 계정에 등록된 가게가 없을 시 등록폼으로 이동
 		}
 	}
 //	매장신청 양식 전송
@@ -69,7 +64,6 @@ public class StoreController {
 		if(!user.getMemType().equals("00103")) {
 			return "main/error/500";
 		}else {
-			
 //		매장등록 번호 입력.
 			service.regist(vo, request,multi,model);
 			return "main/home";
