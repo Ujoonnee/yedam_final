@@ -49,7 +49,7 @@
 <div align="center"> 
 	<div class="justify-content-center row" style="width:1000px">
 		<div class="col-10" align="left">
-			<div class="display-4 mb-2" align="left">공지사항 등록 페이지</div>
+			<div class="display-4 mt-3 mb-2" align="left">공지사항 등록</div>
 			<hr>
 			<form name="insertFrm" action="annInsert" method="POST"
 				enctype="multipart/form-data">

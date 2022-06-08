@@ -179,7 +179,13 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	// 사업자의 전시 등록 신청 상세 조회
 	public ExhibitionVO getRegistration(int exNo) {
-		return map.selectRegistrationDetail(exNo);
+		
+		ExhibitionVO vo = map.selectRegistrationDetail(exNo);
+		String content = vo.getDetail();
+		content = content.replace("\r\n","<br>");
+		
+		vo.setDetail(content);
+		return vo;
 	}
 
 	// 사업자의 승인된 전시 목록
@@ -218,8 +224,14 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 //	전시 상세페이지
 	@Override
 	public ParkExhibitionVO findExVO(ParkExhibitionVO vo) {
-		// TODO Auto-generated method stub
-		return map.findExVO(vo);
+
+
+		ParkExhibitionVO temp = map.findExVO(vo);
+		String content = temp.getDetail();
+		content = content.replace("\r\n","<br>");
+		
+		temp.setDetail(content);
+		return temp;
 	}
 //	전리리스트 첫 페이지 count
 	@Override

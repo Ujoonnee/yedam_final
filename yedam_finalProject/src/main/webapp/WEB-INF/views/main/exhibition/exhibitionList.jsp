@@ -12,8 +12,8 @@
 
 <div class = "row justify-content-center">
 	<div class = "col-8">
-	
-	 
+		<div class="display-4 mt-3">전시</div>
+	 	<hr>
 		 <div class="card border-0 shadow my-5">
 			<div class="card-body justify-content-center">
 				<form action ="searchExhibition" method="get" name="searchForm" autocomplete="off">

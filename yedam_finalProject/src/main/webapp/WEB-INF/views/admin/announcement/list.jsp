@@ -34,7 +34,7 @@ $(document).ready(function() {
 </script>
 <div class="row justify-content-center">
 	<div class="col-9">
-		<div class="display-4">공지사항</div>
+		<div class="display-4 mt-3">공지사항</div>
 		<hr>
 		<br>
 		<div >	

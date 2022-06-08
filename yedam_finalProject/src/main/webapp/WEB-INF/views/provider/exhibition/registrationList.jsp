@@ -27,7 +27,7 @@
 									</thead>
 									<tbody>
 											<c:forEach items="${list }" var="ex">
-												<tr>
+												<tr class="link">
 													<td>${ex.exNo }</td>
 													<td>${ex.name }</td>
 													<td>
@@ -51,7 +51,7 @@
 	</div>
 </div>
 <script>
-	$('tr').on('click', function() {
+	$('.link').on('click', function() {
 		location.href = 'registration/' + this.children[0].innerText;
 	})
 	

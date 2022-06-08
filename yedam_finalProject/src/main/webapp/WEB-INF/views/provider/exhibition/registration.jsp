@@ -43,9 +43,9 @@
 							<dl><dd>&nbsp;</dd></dl>
 					<hr>
 					<div align="left">
-						<dl style="widdt:400px;" class="mb-2">
-							<dt class="col-3 display-5">전시 설명</dt>
-							<dd class="col-6 ms-2">${exhibition.detail }</dd>
+						<dl class="mb-2">
+							<dt class="display-5">전시 설명</dt>
+							<dd class="ms-2">${exhibition.detail }</dd>
 						</dl>
 					</div>
 				</div>

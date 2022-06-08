@@ -195,6 +195,10 @@
 			
 			
 			<c:if test ="${not empty ProductList }">
+			
+				<div><br>
+					<button type="button" id="excelFormDownload" class="btn btn-sm btn-primary col-1 download"disabled="disabled" style="background-color: 	#F2F2F2; color:	#F2F2F2; ; border: none;">양식다운</button>
+			    </div>
 				<div align="left">
 					<div style="float: left; padding:3px;">
 						<button type="button" id="excelDownload"
