@@ -278,7 +278,7 @@ public class ExhibitionController {
 	}
 
 //  판매자 -> 결제취소 기능
-	@RequestMapping(value = {"provider/{exNo}/refund","provider/{exNo}/reservation/refund"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"provider/{exNo}/{exName}/refund","provider/{exNo}/{exName}/reservation/refund"}, method = RequestMethod.POST)
 	public String exhibitionRefund(@RequestParam("exResNo") int exResNo,@RequestParam("exNo") int exNo, Model model, HttpServletRequest request) {
 		System.out.println("===========Controller refund");
 		System.out.println(exResNo);

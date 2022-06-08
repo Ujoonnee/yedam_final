@@ -90,11 +90,14 @@
 
 <c:if test="${ProductList ne null }">
 	<c:if test="${empty ProductList }">
-	<button type="button" id="excelFormDownload" class="btn btn-sm btn-primary col-3 download">양식다운</button>
-	    <label class="btn btn-primary btn-file">
-	        재고등록<input type="file" id="id_file_upload" style="display: none;">
-	    </label>
-		<tr><td>등록된 상품이 없습니다.</td></tr>
+	
+		<div align="center">등록된 상품이 없습니다.</div>
+		<div><br>
+			<button type="button" id="excelFormDownload" class="btn btn-sm btn-primary col-1 download">양식다운</button>
+		    <label class="btn btn-primary btn-file col-1" style="height: 35px;">
+		        재고등록<input type="file" id="id_file_upload" style="display: none;">
+		    </label>
+	    </div>
 	</c:if>
 
 <div align="center">
@@ -166,6 +169,31 @@
 				</div>
 			</c:if>
 			<br>
+			
+			<c:if test ="${empty ProductList }">
+				<div align="left">
+					<div style="float: left; padding:3px;">
+						<button type="button" id="excelDownload"
+							class="btn btn-sm btn-primary  download" disabled="disabled" style="background-color: 	#F2F2F2; color:	#F2F2F2; ; border: none;">재고다운로드</button>
+						<button class="btn-open-popup btn btn-sm btn-primary "
+							onclick="getCheckboxValue()" disabled="disabled"  style="background-color: 	#F2F2F2; color:	#F2F2F2; ; border: none;">상품관리</button>
+						<button id="showButton" class="btn btn-sm btn-primary "
+							onclick="addTextBox()" disabled="disabled"  style="background-color: 	#F2F2F2; color:	#F2F2F2; ; border: none;">단일상품등록</button>
+					</div>
+				<!-- 	통계확인 페이지로 storeNo값 넘김. -->
+					<div style="float: left; padding:3px;">
+						<form id="statisticsFrm" method="post" action="statisticsForm">
+							<input type="hidden" name="storeNo"
+								value="${ProductList[0].storeNo }">
+							<button type="submit" id="statistics" name="storeNo" disabled="disabled"
+								class="btn btn-sm btn-primary "  style="background-color: 	#F2F2F2; color:	#F2F2F2; ; border: none;"
+								onclick="statisticsView${ProductList[0].storeNo }">통계확인</button>
+						</form>
+					</div>
+				</div>
+			</c:if>
+			
+			
 			<c:if test ="${not empty ProductList }">
 				<div align="left">
 					<div style="float: left; padding:3px;">
@@ -517,8 +545,10 @@
 	const excelDownload = document.querySelector('#excelDownload');
 	const excelFormDownload = document.querySelector('#excelFormDownload');
 	document.addEventListener('DOMContentLoaded', ()=>{
-	    excelDownload.addEventListener('click', exportExcel);
 	    excelFormDownload.addEventListener('click', exportFormExcel);
+	    
+	    excelDownload.addEventListener('click', exportExcel);
+	    
 	});
 	
 // 	재고다운로드

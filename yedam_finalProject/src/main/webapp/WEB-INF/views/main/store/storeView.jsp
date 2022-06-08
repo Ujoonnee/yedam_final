@@ -206,7 +206,7 @@
 		</div>
 			
 	</div>
-				<div id="reviewListStyle" class="col-3 mt-10 mb-10 ms-3 form-control" style="display:none; width:400px;" align="left">
+				<div id="r	viewListStyle" class="col-3 mt-10 mb-10 ms-3 form-control" style="display:none; width:400px;" align="left">
 					<c:forEach var="list" items="${reviewList}" varStatus="status">
 						<hr>
 						<div class="">
@@ -226,7 +226,7 @@
 	
 <!-- 상단이동 버튼 -->
 <div align="center">
-	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-size:50px; vertical-align:center;">
+	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-상단이동 버튼px; vertical-align:center;">
 		<span>▲</span><br>
 		<span>TOP</span>
 	</a>
@@ -285,7 +285,7 @@
 		          pay_method: "card",
 		          merchant_uid: 'merchant_' + new Date().getTime(),
 		          name: "예담통합플랫폼 결제",
-		          amount: 100, //amout에 넣으면됨 parseInt(totalPrice)
+		          amount:  parseInt(totalPrice), //amout에 넣으면됨 parseInt(totalPrice)
 		          buyer_email : email,
 	              buyer_name : '${user.name}',	
 	              buyer_tel : '${user.tel}',
@@ -464,6 +464,11 @@
       
 //       체크처리한 값 모달로 가져오기
       function getCheckboxValue()  {
+    	  if(${user.memType} != 00102) {
+  			alert("일반회원만 결제가 가능합니다.")
+  			return;
+  		} else {
+  		
     	  // 선택된 목록 가져오기
     	  const query = 'input[name="checkf"]:checked';
     	  const selectedEls = document.querySelectorAll(query);
@@ -522,7 +527,7 @@
       	
     		$('input[name=totalPrice]').attr('value',total);
     		
-    		
+		}
      }
      
     //JO 리뷰 여러개일때 별출력 하기.
