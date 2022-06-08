@@ -12,11 +12,11 @@ public class ProductReservation {
 	private int prodResNo;
 	private int storeNo;
 	private int memNo;
-	private Date pickupTime;
-	private Date pickupDate;
+	private Timestamp pickupTime;
+	private Timestamp pickupDate;
 	private String paymentAmt;
 	private String paymentStatus;
-	private Timestamp orderDate;
+	private Date orderDate;
 	private String pickupStatus;
 	private String category;
 }

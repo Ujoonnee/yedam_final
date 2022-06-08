@@ -211,7 +211,7 @@
 			from product_reservation
 		</selectKey>
 		insert into product_reservation 
-		values(#{prodResNo},#{storeNo},#{memNo},'','',#{paymentAmt},#{paymentStatus},#{orderDate} ,'N','00204')
+		values(#{prodResNo},#{storeNo},#{memNo},#{pickupTime},#{pickupDate},#{paymentAmt},#{paymentStatus},SYSDATE ,'N','00204')
 	</insert>
 	
 	
