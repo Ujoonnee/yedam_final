@@ -33,7 +33,7 @@
 <title> <tiles:getAsString name="title"/> </title>
 </head>
 <body>
-	<main class="content m-0 p-0">
+	<main class="container-fluid content m-0 p-0">
 		<tiles:insertAttribute name="header"/>
 		<tiles:insertAttribute name="body"/>
 		<tiles:insertAttribute name="footer"/>

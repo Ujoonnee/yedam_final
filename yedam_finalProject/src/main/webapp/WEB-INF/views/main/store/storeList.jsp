@@ -14,7 +14,7 @@
 <div class = "row justify-content-center">
 	<div class = "col-8">
 		<!-- 	검색창 -->
-		<div class="card border-0 shadow mb-4">
+		<div class="card border-0 shadow my-5">
 			<div class="card-body">
 				<form action ="searchList" method="get" name="searchForm" autocomplete="off">
 					<div class="row mb-3">

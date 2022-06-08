@@ -14,7 +14,7 @@
 	<div class = "col-8">
 	
 	 
-		 <div class="card border-0 shadow mb-4">
+		 <div class="card border-0 shadow my-5">
 			<div class="card-body justify-content-center">
 				<form action ="searchExhibition" method="get" name="searchForm" autocomplete="off">
 					<div class="row justify-content-center">
