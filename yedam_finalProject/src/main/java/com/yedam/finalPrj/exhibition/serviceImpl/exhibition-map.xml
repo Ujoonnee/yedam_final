@@ -196,9 +196,10 @@
 	
 	<!-- 예약 상세 -->
 	<select id="selectReservation" parameterType="ExhibitionReservationVO" resultType="ExhibitionReservationVO">
-		SELECT e.*, GET_CODE_NAME(category) AS category_code_name, payment_status
-		FROM exhibition_reservation e
-		WHERE ex_res_no = ${exResNo}
+		SELECT e.*, GET_CODE_NAME(category) AS category_code_name, payment_status, m.name 
+		FROM exhibition_reservation e, member m
+		WHERE e.mem_no = m.mem_no
+		AND ex_res_no = #{exResNo}
 	</select>
 	
 <!-- 	성준 -->
