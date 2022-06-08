@@ -10,9 +10,6 @@
 			<c:if test="${empty user }">
 				<a href="" onclick="window.open('${pageContext.request.contextPath}/member/sign-in','sign-in','width=600,height=500')">로그인</a>　 |　 
 				<a href="${pageContext.request.contextPath}/member/sign-up">회원가입</a>　  
-				<a href="${pageContext.request.contextPath}/member/tempLogin?email=admin&password=123456">관리자</a>
-				<a href="${pageContext.request.contextPath}/member/tempLogin?email=provider&password=123456">사업자</a>
-				<a href="${pageContext.request.contextPath}/member/tempLogin?email=general&password=123456">일반회원</a>　 
 			</c:if>
 			<c:if test="${not empty user }">
 			
