@@ -104,13 +104,13 @@
 					                                <div class="col-sm-5 mb-2" style="padding-right: 0px;">
 					                                    <div class="form-group">
 					                                        <label for="">이메일</label>
-					                                        <input class="form-control" id="email1" type="text" placeholder="이메일" required value="test">
+					                                        <input class="form-control" id="email1" type="text" placeholder="이메일" required >
 					                                    </div>
 					                                </div>
 					                                <div class="col-sm-3 mb-2" style="padding: 0 5px;">
 					                                    <div class="form-group">
 					                                        <label for="">&nbsp;</label>
-					                                        <input class="form-control" id="email2" type="text" placeholder="&nbsp;&nbsp;주소" required style="padding-left: 5px; padding-right: 5px" value="test">
+					                                        <input class="form-control" id="email2" type="text" placeholder="&nbsp;&nbsp;주소" required style="padding-left: 5px; padding-right: 5px" >
 					                                    </div>
 					                                </div>
 					                                <div class="col-sm-4 mb-2" style="padding-left: 0px;">
@@ -132,7 +132,7 @@
 			                                            <span class="input-group-text" id="basic-addon2">
 			                                                <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
 			                                            </span>
-			                                            <input type="password" class="form-control" id="password1" required value="test">
+			                                            <input type="password" class="form-control" id="password1" required >
 			                                        </div>  
 			                                    </div>
 
@@ -142,7 +142,7 @@
 			                                            <span class="input-group-text" id="basic-addon2">
 			                                                <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
 			                                            </span>
-			                                            <input type="password" class="form-control" id="password2" required value="test">
+			                                            <input type="password" class="form-control" id="password2" required>
 			                                        </div>
 			                                        <div id="passwordValidation" class="validationResult mt-2 mb-1" style="font-size: small; color: red;">&nbsp;</div>
 			                                    </div>

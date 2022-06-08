@@ -128,14 +128,8 @@
 	</a>
 </div>
 <div class = "row justify-content-center">
-<<<<<<< HEAD
-	<div class = "col-8">
-		<div class="display-4"></div>
-=======
 	<div class = "col-8" style="width:900px;">
 		<div class="display-4"><a href="list">전시</a></div>
-		<hr>
->>>>>>> refs/heads/main
 	
 	
 <div class="card border-0 shadow mb-4">
