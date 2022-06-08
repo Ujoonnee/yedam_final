@@ -149,11 +149,11 @@
 </update>
 <!-- 리뷰 리스트 출력 -->
 <select id="exhReviewLoad" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO">
-	SELECT  r.* , m.email AS "member.email"
-	FROM review r, exhibition e, member m
-	WHERE e.name = r.service_name
-    AND r.mem_no = m.mem_no
-	AND e.ex_no = #{exNo}
+	SELECT DISTINCT r.*, m.email AS "member.email"
+	FROM REVIEW R, EXHIBITION E, MEMBER M 
+  WHERE E.NAME = R.SERVICE_NAME 
+  AND M.MEM_NO =R.MEM_NO
+  AND e.ex_no = #{exNo}
 </select>
 
 <!-- 	성환 -->
