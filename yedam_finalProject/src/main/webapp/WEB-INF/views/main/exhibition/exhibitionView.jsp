@@ -129,9 +129,6 @@
 </div>
 <div class = "row justify-content-center">
 	<div class = "col-8" style="width:900px;">
-		<div class="display-4"><a href="list">전시</a></div>
-		<hr>
-	
 	
 <div class="card border-0 shadow mb-4">
 	<div class="row row-cols-1 row-cols-sm-2 g-2" style="padding :15px;">
