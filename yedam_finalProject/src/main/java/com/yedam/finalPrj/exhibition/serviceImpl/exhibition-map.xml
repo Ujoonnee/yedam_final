@@ -81,13 +81,14 @@
 	</select>-->
 	
 <!-- 	준우 -->
-<!-- 시설등록신청 전목록 조회 -->
+<!-- 전시등록신청 전목록 조회 -->
 	<select id="selectAllExh" resultType="com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO">
 		select e.*, 
 		       m.name as "member.name", 
 		       GET_CODE_NAME(e.approval_status) as "approvalStatus"
 		  from exhibition e inner join member m
 		    on e.mem_no = m.mem_no
+		    order by e.ex_no desc
 	</select>
 <!-- 승인상태에 따라 목록 조회 -->
 	<select id="selectAllExhByStatus" parameterType="String" resultType="com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO">
@@ -97,6 +98,7 @@
 		  from exhibition e inner join member m
 		    on e.mem_no = m.mem_no
 		where e.approval_status = #{approvalStatus}
+		 order by e.ex_no desc
 	</select>
 <!-- 전시명 검색에 따라 목록 조회 -->
 	<select id="selectAllByExhName" parameterType="String" resultType="com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO">
@@ -106,6 +108,7 @@
 		  from exhibition e inner join member m
 		    on e.mem_no = m.mem_no
 		where e.name like '%'||#{exhName}||'%'
+		order by e.ex_no desc
 	</select>
 <!-- 회원명 검색에 따라 목록 조회 -->
 	<select id="selectAllByMemName" parameterType="String" resultType="com.yedam.finalPrj.exhibition.vo.jo.ExhibitionVO">
@@ -115,6 +118,7 @@
 		  from exhibition e inner join member m
 		    on e.mem_no = m.mem_no
 		where m.name like '%'||#{memName}||'%'
+		order by e.ex_no desc
 	</select>
 <!-- 전시번호에 따라 상세내용 출력 -->
     <select id="selectOneByExNo" parameterType="int" resultType="com.yedam.finalPrj.exhibition.vo.lee.ExhibitionVO">
@@ -137,8 +141,8 @@
 	SELECT * 
 	FROM REVIEW r, EXHIBITION_RESERVATION e
 	WHERE r.res_no = e.ex_res_no
-	AND r.category = '00202' 
-	AND e.ex_no = #{exNo}
+	AND r.category = '00202'
+	AND r.res_no = #{resNo}
 </select>
 <!-- 예약취소 -->
 <update id="cancelOneReservation" parameterType="int">
@@ -168,7 +172,7 @@
 	
 	<!-- 사업자의 전시 등록 신청 목록 -->
 	<select id="selectRegistrationList" parameterType="MemberVO" resultType="ExhibitionVO">
-		SELECT ex_no, name, start_date, end_date, application_date, GET_CODE_NAME(approval_status) AS approval_status FROM exhibition WHERE mem_no=#{memNo}
+		SELECT ex_no, name, start_date, end_date, application_date, GET_CODE_NAME(approval_status) AS approval_status FROM exhibition WHERE mem_no=#{memNo} ORDER BY 1 DESC
 	</select>
 	
 	<!--  사업자의 전시 등록 신청 상세 -->

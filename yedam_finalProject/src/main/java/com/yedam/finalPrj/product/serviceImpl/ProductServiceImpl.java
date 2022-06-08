@@ -304,7 +304,8 @@ public class ProductServiceImpl implements ProductService {
 		ProResVO.setStoreNo(Integer.parseInt(vo.get("storeNo")));
 		ProResVO.setMemNo(Integer.parseInt(vo.get("memNo")));
 		ProResVO.setPaymentAmt(vo.get("amount"));
-		ProResVO.setOrderDate(timestamp);
+		ProResVO.setPickupDate(timestamp);
+		ProResVO.setPickupTime(timestamp);
 		
 //		결제금액이 있다면 결제상태 Y로변경
 		if (vo.get("amount") != null) {

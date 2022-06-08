@@ -128,7 +128,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	
 	// DB 에 전시 등록
 	@Override
-	public String insertExhibition(ExhibitionVO vo,MultipartFile multi,Model model) {
+	public void insertExhibition(ExhibitionVO vo,MultipartFile multi,Model model) {
 //		multipartFile로 받은 input file값에서 필요한 값 vo에 옮김
 		String path="C:\\Exhibition\\";
 		
@@ -136,11 +136,10 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		String originFilename = multi.getOriginalFilename();
 		String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
 		String saveFileName = genSaveFileName(extName);
-		System.out.println(saveFileName);
-//		변환된 파일 이름(물리경로에 저장된 파일) VO에 담음
+
+		//		변환된 파일 이름(물리경로에 저장된 파일) VO에 담음1
 		vo.setThumbnail(saveFileName);
-		if(!multi.isEmpty())
-        {
+		if(!multi.isEmpty()) {
             File file = new File(uploadpath, saveFileName);
             try {
 				multi.transferTo(file);
@@ -148,20 +147,9 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            
-            model.addAttribute("filename",saveFileName);
-            model.addAttribute("uploadPath", file.getAbsolutePath());
-            try {
-//            	vo값 insert
-				map.insertExhibition(vo);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            return "filelist";
-        }
+		}
 		
-		return null;
+		map.insertExhibition(vo);
 	}
 
 	// 현재 시간을 기준으로 파일 이름 생성

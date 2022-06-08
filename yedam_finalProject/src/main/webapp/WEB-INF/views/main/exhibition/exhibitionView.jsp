@@ -129,8 +129,7 @@
 </div>
 <div class = "row justify-content-center">
 	<div class = "col-8" style="width:900px;">
-	<div class="display-4 mt-3">전시</div>
-	<hr>
+	
 <div class="card border-0 shadow mb-4">
 	<div class="row row-cols-1 row-cols-sm-2 g-2" style="padding :15px;">
 		<div class="col-3" style="width: 35%; padding: 15px">
@@ -146,7 +145,7 @@
 	          </c:if>
 	    </div>
 		<div class="col-3" style="padding : 25px;">
-				<div class="display-4" style="padding-bottom: 10px;">${exhibitionView.name }</div>
+				<h4 class="display-4" style="padding-bottom: 10px;">${exhibitionView.name }</h4>
 	       	<small class="text-muted">
 				주소 :${exhibitionView.address }
 			</small>
@@ -170,19 +169,17 @@
 	</div>
 	<hr>
 	<div style = "padding-left : 30px; padding-right: 30px;">
-	<div class="display-4 mb-3 row"> 
-		<div class="col ms-2">상세정보</div>
-		<span class="col" align="right"><span class="display-5">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button></span>
-	</div>
-		</div>
-		<p class = "ms-5 text-muted">
+		<div class="display-4"> 상세정보</div>
+		<p class = "text-muted">
 			${exhibitionView.detail }
 		</p>
 	</div>
 	<hr>
 </div>
 		<div>&nbsp;</div>
-	
+	<div class="mb-2 ms-2 me-2" align="right">
+		<span class="display-5 mb-2">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button>
+	</div>
 </div>
 				<!-- By jo, 리뷰목록 출력하기 -->
 				<!-- <div class="card border-0 shadow mb-4" id="exhReviewList"> -->
@@ -196,7 +193,7 @@
 								</div><br>
 								<div class="display-6">${list.content}</div>
 									<br>
-								<div><span class="display-6 me-1" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}*** 님&nbsp;</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
+								<div><span class="display-6 me-1" style="border-right:2px solid;">gen*** 님&nbsp;</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
 							</div>
 						</c:forEach>
 						<hr>

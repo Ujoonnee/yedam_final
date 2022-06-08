@@ -251,13 +251,6 @@
 	
 	 function requestPay() {
 		
-// 		날짜구하기
-// 		let today = new Date();   
-// 		let year = today.getFullYear(); // 년도
-// 		let month = today.getMonth() + 1;  // 월
-// 		let date = today.getDate();  // 날짜
-// 		let yyyyMMdd = year + '-'+ month + '-'+ date
-// 		console.log(yyyyMMdd);
 		
 		var mem_no = '${user.memNo}';
 		var email = '${user.email}';
@@ -328,8 +321,36 @@
 				          console.log(data);
 			        	 alert('정보저장성공');
 				        })
-						alert("결제성공");        
-				      
+						alert("결제성공");  
+		              
+		              
+		               var list =[];
+	                      const trVal = $("tr[name='checkVal']");
+	                      console.log("storeNo값:"+store_no);
+	                      for(var i =0; i< trVal.length ; i++){
+	                        var prodNo = trVal.eq(i).find("input[name='checkValProdNo']").val();
+	                        var stock = trVal.eq(i).find("input[name='stock']").val();
+
+	                        console.log(stock)
+	                        console.log(prodNo)
+
+	                        list.push({prodNo,stock,store_no})
+	                      }
+
+	                      jQuery.ajax({
+	                        url:"updateStock",
+	                        method:"POST",
+	                        headers: { "Content-Type": "application/json" },
+	                        data : JSON.stringify(list)
+	                      }).done(function(data){
+	                        console.log(data);
+	                        alert("재고 반영 완료");
+	                        location.reload();
+	                      })
+	                      
+	                      
+
+	                      //결제 성공 로직 끝
 		          } else {
 		        	  console.log(data)
 		              // 결제 실패 시 로직,

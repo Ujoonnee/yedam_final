@@ -155,7 +155,6 @@ public class ExhibitionController {
 		
 		HttpSession session = request.getSession();
 		
-		
 		model.addAttribute("member", (MemberVO) session.getAttribute("user"));
 
 		return "provider/exhibition/register";
@@ -165,12 +164,12 @@ public class ExhibitionController {
 	@PostMapping("provider/register")
 	public String register(ExhibitionVO vo, HttpServletRequest request,@RequestParam("fileUpload") MultipartFile multi,Model model) {
 		
-		System.out.println("multtipart==========================="+multi);
-		
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		vo.setMemNo(user.getMemNo());
 
+		vo.setMemNo(user.getMemNo());
+		System.out.println("비밀번호 미입력 : " + vo.getTel() + ", " + user.getTel());
+		if (vo.getTel().equals("")) vo.setTel(user.getTel());
 		
 		service.insertExhibition(vo,multi,model);
 

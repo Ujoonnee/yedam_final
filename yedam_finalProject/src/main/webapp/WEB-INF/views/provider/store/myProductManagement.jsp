@@ -550,6 +550,7 @@
 	const excelFormDownload = document.querySelector('#excelFormDownload');
 	document.addEventListener('DOMContentLoaded', ()=>{
 	    excelFormDownload.addEventListener('click', exportFormExcel);
+	    
 	    excelDownload.addEventListener('click', exportExcel);
 	    
 	});
