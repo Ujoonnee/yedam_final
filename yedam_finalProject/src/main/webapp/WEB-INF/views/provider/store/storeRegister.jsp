@@ -59,9 +59,9 @@
 								<input class="form-control col-6 me-3 ms-3" style="width:203px" id="location" name="location" value="우편번호" readonly>
 								<button type="button" class="col-4 btn btn-outline-gray-700" id="postCodeBtn" onclick="locationSearch()">우편번호 검색</button>
 							</div> 
-							<input class="form-control mt-2 mt-2" id="addr1" name="address" readonly required value="도로명주소">
+							<input class="form-control mt-2 mt-2" id="addr1" readonly required value="도로명주소">
 							<input class="form-control mt-2 mb-4" id="addr2" placeholder="상세주소 입력">
-							<input type="hidden" id="service_address" name="service_address" >
+							
 						</td>
 					</tr>
 				</table>
