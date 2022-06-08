@@ -15,5 +15,6 @@ public class Product {
 	private String prodThumbnail;
 	private String prodCat;
 	private String statusName;
+	
+	private String storeName;
 }
-

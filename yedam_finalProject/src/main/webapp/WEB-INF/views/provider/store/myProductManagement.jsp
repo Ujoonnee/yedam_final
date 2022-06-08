@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <!-- Sheet JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha206-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <!--FileSaver savaAs 이용 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
@@ -18,6 +18,16 @@
 
     <!-- <script type="text/javascript" src="js/main.js"></script> -->
  <style>
+	 #popup_mask { /* 팝업 배경 css */
+		        position: fixed;
+		        width: 100%;
+		        height: 1000px;
+		        top: 0px;
+		        left: 0px;
+		         display: none; 
+		         background-color:#000;
+		         opacity: 0.8;
+		    }
   .btn-file{
             position: relative;
             overflow: hidden;
@@ -63,7 +73,7 @@
 	
 	    text-align: center;
 	
-	    background-color: rgb(255, 255, 255);
+	    background-color: rgb(205, 205, 205);
 	    border-radius: 10px;
 	    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 	
@@ -79,9 +89,9 @@
 
 <c:if test="${ProductList ne null }">
 	<c:if test="${empty ProductList }">
-	<button type="button" id="excelFormDownload" class="download">양식다운</button>
+	<button type="button" id="excelFormDownload" class="btn btn-sm btn-primary col-3 download">양식다운</button>
 	    <label class="btn btn-primary btn-file">
-	        재고변경<input type="file" id="id_file_upload" style="display: none;">
+	        재고등록<input type="file" id="id_file_upload" style="display: none;">
 	    </label>
 		<tr><td>등록된 매장이 없습니다.</td></tr>
 	</c:if>
@@ -134,12 +144,13 @@
 		</table>
 	</c:if>
 	<br>
-	<button type="button" id="excelDownload" class="download">재고다운로드</button>
-	<button class="btn-open-popup" onclick="getCheckboxValue()">상품관리</button>
-	<button id = "showButton" onclick = "addTextBox()">단일상품등록</button>
+	<button type="button" id="excelDownload" class="btn btn-sm btn-primary col-1 download">재고다운로드</button>
+	<button class="btn-open-popup btn btn-sm btn-primary col-1" onclick="getCheckboxValue()">상품관리</button>
+	<button id = "showButton" class="btn btn-sm btn-primary col-1" onclick = "addTextBox()">단일상품등록</button>
 	<!-- 	메인모달 -->
-	<div class="modal"> 
-		<div class="modal_body">
+	<div id ="popup_mask" ></div> <!-- 팝업 배경 DIV -->
+	<div id = "modal" class="modal"> 
+		<div id = "modal_body" class="modal_body">
 <!-- 		<form method = "post" action = "updateStock" id = "frm"> -->
 			<div id="management">
 				<table style ="margin: auto;">
@@ -156,16 +167,17 @@
 					<tbody id="tbody"></tbody>
 				</table>
 			</div>
-			<div id = "modalButton"><button class = "btn-sub-popup" onclick="productUpdate()">버튼임둥</button></div>
+			<div id = "modalButton"><button class = "btn-sub-popup btn-sm btn-primary" onclick="productUpdate()">상품수정</button></div>
 <!-- 		</form> -->
 		</div>
 	</div> 
 
 <!-- 	; this.onclick=null; -->
+<br>
 	<form id = "productRegist" name="productRegist">
         <div id="box">
         </div>
-        <input type="button" id ="submitOne" style="visibility: hidden;" value="전송">
+        <input type="button" id ="submitOne" style="visibility: hidden;" class="btn-sm btn-primary" value="전송">
 	</form>        
 	
 
@@ -175,7 +187,7 @@
 	
 	<input type = "hidden" name = "storeNo" value ="${ProductList[0].storeNo }">
 	
-	<div><button type = "submit" id ="statistics" name="storeNo" onclick = "statisticsView${ProductList[0].storeNo }">통계확인</button></div>
+	<div><button type = "submit" id ="statistics" name="storeNo" class="btn btn-sm btn-primary col-1" onclick = "statisticsView${ProductList[0].storeNo }">통계확인</button></div>
 	</form>
 
 
@@ -298,7 +310,7 @@
 			
 		    const box = document.getElementById("box");
 		    const newP = document.createElement('p');
-		    newP.innerHTML = "<input type ='text' name='prodName' placeholder='상품명을 입력하세요.'><select name = 'prodCat'><option value = '전체'>전체</option><option value = '라면'>라면</option><option value = '커피'>커피</option><option value = '스낵류'>스낵류</option><option value = '유제품'>유제품</option></select><input type ='text' name='price'  placeholder='가격을 입력하세요.'><input type ='number' name='stock'  placeholder='수량을 입력하세요.'> <input type='button' value='취소' onclick='remove(this)'>";
+		    newP.innerHTML = "<select name = 'prodCat' class='form-select' style='width :13%; float:left;' ><option value = '전체'>전체</option><option value = '라면'>라면</option><option value = '커피'>커피</option><option value = '스낵류'>스낵류</option><option value = '유제품'>유제품</option></select><input type ='text' name='prodName' class = 'form-control' style='width :17%; float:left;'  placeholder='상품명을 입력하세요.'><input type ='text' name='price' class='form-control' style='width :17%; float:left;'  placeholder='가격을 입력하세요.'><input type ='number' name='stock' class='form-control' style='width :17%; float:left;' placeholder='수량을 입력하세요.'> <input type='button' class='btn-sm btn-primary ' value='취소' onclick='remove(this)'>";
 		    box.appendChild(newP);
 		}
 		
@@ -343,8 +355,19 @@
 	const btnOpenPopup = document.querySelector('.btn-open-popup'); 
 	
 	btnOpenPopup.addEventListener('click', () => {
-	      modal.classList.toggle('show');
-	
+			modal.classList.toggle('show');
+			$("#modal").css({
+			   "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
+			   "left": (($(window).width()-$("#modal").outerWidth())/2+$(window).scrollLeft())+"px"
+			   //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
+			
+			}); 
+	      
+			$("#popup_mask").css("display","block"); //팝업 뒷배경 display block
+	        $("#modal").css("display","block"); //팝업창 display block
+
+	        $("body").css("overflow","hidden");//body 스크롤바 없애기
+	      
 	      if (modal.classList.contains('show')) {
 	        body.style.overflow = 'hidden';
 	      }
@@ -353,7 +376,9 @@
 	modal.addEventListener('click', (event) => {
 	  if (event.target === modal) {
 	    modal.classList.toggle('show');
-	
+	    $("#popup_mask").css("display","none"); //팝업창 뒷배경 display none
+        $("#modal").css("display","none"); //팝업창 display none
+        $("body").css("overflow","auto");//body 스크롤바 생성
 	    if (!modal.classList.contains('show')) {
 	      body.style.overflow = 'auto';
 	    }

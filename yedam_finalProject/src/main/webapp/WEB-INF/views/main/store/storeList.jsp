@@ -53,11 +53,12 @@
 				<p></p>
 				<div style="clear: left;">
 					<button type="button" id = "location_now" class="btn btn-lg  btn-outline-gray-500"  onclick = "locationN()">현재 위치</button><br>
+					<c:if test =  "${not empty user }">
 					<div>현재 주소 : <input type="text" style=" border:none; " id = "nowLocation" disabled="disabled" value="${paging.cri.nowLocation }" ></div>
+					</c:if>
 				</div>
 				</form>
 			</div>
-			<p></p>
 			<p></p>
 			<p></p>
 			<!-- 	매장목록 -->
@@ -98,11 +99,6 @@
 											</div>
 										</div>
 									</c:if>
-									
-									
-									
-									
-									
 								</div>
 								</c:forEach>
 							</div>
