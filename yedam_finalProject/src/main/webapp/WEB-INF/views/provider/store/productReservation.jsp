@@ -29,7 +29,7 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${proReSelectAll }" var="proRe">
-								<tr>
+								<tr  onclick="hrefDetail(${proRe.prodResNo })">
 									<td><a href="proReDetail?prodResNo=${proRe.prodResNo }">${proRe.prodResNo }</a>
 									
 									</td>
@@ -95,5 +95,9 @@
 				pagingFrm.submit();
 			})
 		});
+		
+		function hrefDetail(n){
+			 location.href="proReDetail?prodResNo="+n;
+		}
 </script>
 </html>

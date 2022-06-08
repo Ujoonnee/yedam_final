@@ -339,6 +339,7 @@ function requestPay() {
 						},
 						success: function(result){
 							console.log(result);		
+							alert("결제성공");
 							location.reload();
 						},
 						error:function(error){
