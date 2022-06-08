@@ -137,8 +137,8 @@
 	SELECT * 
 	FROM REVIEW r, EXHIBITION_RESERVATION e
 	WHERE r.res_no = e.ex_res_no
-	AND r.category = '00202' 
-	AND e.ex_no = #{exNo}
+	AND r.category = '00202'
+	AND r.res_no = #{resNo}
 </select>
 <!-- 예약취소 -->
 <update id="cancelOneReservation" parameterType="int">
