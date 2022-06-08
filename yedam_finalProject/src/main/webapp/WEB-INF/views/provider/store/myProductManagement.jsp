@@ -166,7 +166,7 @@
 				</div>
 			</c:if>
 			<br>
-			<c:if test ="${not empty ProductList }">
+<%-- 			<c:if test ="${not empty ProductList }"> --%>
 				<div align="left">
 					<div style="float: left; padding:3px;">
 						<button type="button" id="excelDownload"
@@ -187,7 +187,7 @@
 						</form>
 					</div>
 				</div>
-			</c:if>
+<%-- 			</c:if> --%>
 		</div>
 
 		<!-- 	메인모달 -->
