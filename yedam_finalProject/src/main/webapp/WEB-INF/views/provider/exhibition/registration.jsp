@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <title>exhibition regisdlation detail</title>
 
-<div class="display-4">전시 등록 신청 상세</div>
-<hr>
 <div class="row justify-content-center" align="center" >
 	<div class="col-6" align="left">
+<div class="display-4">전시 등록 신청 상세</div>
+<hr>
 			<div class="form-control ms-1" style="width:800px;">
 				<div class="display-4">${exhibition.name }</div>			
 					<hr>

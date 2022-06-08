@@ -140,6 +140,7 @@
 		    FROM(
 		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance 
 		        from store 
+		        where approval_status = '00401'
 		        order by distance)a
 		     WHERE ROWNUM<![CDATA[ <= ]]>#{pageNum} * #{amount}
 		    <![CDATA[) b
@@ -156,6 +157,7 @@
 		        from 
 		             store 
 		             where store_cat LIKE ('%'||#{keyword}||'%')
+		             and approval_status = '00401'
 		             <![CDATA[
 		        order by distance)a
 		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
@@ -168,9 +170,10 @@
 		FROM
 		    (SELECT a.*, ROWNUM rn
 		    FROM(
-		        select store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
+		        select store_no, name,approval_status, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
 		        from store 
 		        where name LIKE ('%'||#{keyword}||'%')
+		         and approval_status ='00401'
 				<![CDATA[
 		        order by distance) a
 		     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
@@ -183,7 +186,7 @@
 		FROM
 		    (SELECT a.*, ROWNUM rn
 		    FROM(
-		         select s.store_no, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
+		         select s.store_no,s.approval_status, name, address, thumbnail, get_distance(latitude, longitude, #{latitude}, #{longitude}) distance
 		         from 
 		               (select distinct store_no
 		                from product
@@ -191,6 +194,7 @@
 				             <![CDATA[)p
 				             join store s
 				             on p.store_no = s.store_no
+				             where s.approval_status = '00401'
 				        order by distance)a
 				     WHERE ROWNUM <= ]]>#{pageNum} * #{amount}
 				    <![CDATA[ ) b
@@ -202,7 +206,7 @@
 			(SELECT a.*, ROWNUM rn from(
 	 		SELECT s.* , GET_CODE_NAME(s.approval_status)as approvalStatus
 				FROM STORE S
-				 
+				where  apporval_status ='04001'
 				<if test="approvalType.equals('')" >
 					WHERE APPROVAL_STATUS LIKE ('%'||''||'%')
 				</if>
@@ -240,6 +244,7 @@
 		select count(*) 
 		from store s
 		where name like ('%'||#{keyword}||'%')
+		and approval_status = '00401'
 	    and store_no > 0
 	</select>
 	<!-- 매장 카테고리 개수 처리 -->
@@ -247,7 +252,8 @@
 		select count(*) 
 		from store s
 		where store_cat like ('%'||#{keyword}||'%')
-		    and store_no > 0
+		and approval_status = '00401'
+		 and store_no > 0
 	</select>
 	<!-- 상품명 개수 처리  -->
 	<select id ="totalProdCnt" resultType="int">
@@ -255,6 +261,7 @@
 		from store s ,product p
 		where s.store_no = p.store_no
 		and prod_name like ('%'||#{keyword}||'%')
+		and approval_status = '00401'
 	</select>
 	
 
@@ -400,8 +407,9 @@ SELECT count(*)
 <!-- reserved_product테이블에서 취소된만큼 product테이블에서 재고수량 증가  -->
 <update id="CancelRes2" parameterType="map" >
 	    UPDATE product p SET p.stock = (select NVL( MAX(p.stock) , 0) FROM product) + (SELECT rp.count 
-	    																				 FROM reserved_product rp
-		                                                                                WHERE rp.store_no= #{storeNo} AND rp.prod_no = #{prodNo})    
+	    																				 FROM reserved_product rp, product_reservation r
+		                                                                                WHERE r.prod_res_no = rp.prod_res_no
+                                                                                        AND r.prod_res_no= #{prodResNo} AND rp.prod_no = #{prodNo})    
 		WHERE p.store_no= #{storeNo} 
 		  AND p.prod_no = #{prodNo}
 </update>

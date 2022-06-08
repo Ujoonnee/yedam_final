@@ -12,7 +12,7 @@
 <body>
 <div class="row justify-content-center">
 	<div class="col-8">
-		<div class="display-3">내 전시 예약자 목록</div>
+		<div class="display-4">전시목록>전시명 : ${exName}</div>
 		<hr>
 		<div class="card border-0 shadow mb-4">
 			<div class="card-body">
@@ -53,10 +53,10 @@
 											</c:if>
 											<td onclick="event.cancelBubble=true" >
 											<c:if test= "${res.paymentStatus == 'R' }">
-											<button type = "button" class="cancelPay" onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
+											<button type = "button" class="cancelPay btn btn-outline-gray-300 " onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
 											</c:if>
-											<c:if test= "${res.paymentStatus != 'R' }">
-											<button type = "button" class="cancelPay" disabled="disabled" onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
+											<c:if test= "${res.paymentStatus == 'Y' }">
+											<button type = "button" class="cancelPay btn btn-outline-gray-300" onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
 											</c:if>
 											</td>
 											

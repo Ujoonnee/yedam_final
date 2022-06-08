@@ -70,13 +70,33 @@ public class ProductController {
 		return "main/store/storeView";
 		}
 	}
+	
+// 재고 반영
+	@RequestMapping("updateStock")
+	public String myStoreProductUpdateStock(@RequestBody List<HashMap<String,String>> vo,ProductPagingCriteria cri,Model model,HttpServletRequest request) {
+		cri.setStoreNo(Integer.parseInt(vo.get(0).get("store_no")));
+		System.out.println("updateStock================================");
+		
+		System.out.println(vo);
+		dao.myStoreProductStockUpdate(vo, model, request); //재고수정
+		
+
+		model.addAttribute("products" ,dao.selectOne(cri));
+		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
+		return "main/store/storeView";
+	}
+	
+
+	
 //	결제정보전달
 	@RequestMapping("paymenInformation")
 	public String PaymentInformation(@RequestBody HashMap<String,String> vo,ProductPagingCriteria cri,Model model,HttpServletRequest request) {
+		
 		System.out.println(cri.getStoreNo());
 		System.out.println("=================vo"+vo);
 		
-		dao.productReservationInsert(vo, model, request);
+		dao.productReservationInsert(vo, model, request); //예약등록
+		
 		
 		model.addAttribute("products" ,dao.selectOne(cri));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
@@ -86,7 +106,9 @@ public class ProductController {
 //  상품 검색
 	@RequestMapping(value = "searchProduct",method = {RequestMethod.GET})
 	public String searchProduct(ProductPagingCriteria cri,Model model,HttpServletRequest request) {
-		model.addAttribute("products",	dao.searchPriceProdName( cri, model, request));
+		System.out.println("cri getStoreNo : "+ cri.getStoreNo());
+		System.out.println("cri getStoreName : "+ cri.getStoreName());
+		model.addAttribute("products",	dao.searchPriceProdName(cri, model, request));
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
 
 
@@ -223,15 +245,19 @@ public class ProductController {
 	
 	
 //	Jo
-//사업자가 픽업와료 처리
+//사업자가 픽업완료 처리
 	@PostMapping("pickupComplete")
 	@ResponseBody
 	public int pickupComplete(Model model, int prodResNo) {
 
 		return dao.pickupComplete(prodResNo);
 	}
-	
-	
+//사업자가 매장상품 주문 취소
+	@PostMapping("cancelRes")
+	@ResponseBody
+	public int cancelRes(Model model, int prodResNo) {
+		return dao.cancelRes(prodResNo);
+	}
 //	Yoon
 	
 	

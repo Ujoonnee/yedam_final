@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,7 +43,8 @@ public interface ProductMapper {
 	
 	Integer getStoreNo(MemberVO vo); //회원번호로 storeNO조회
 	int productReservationInsert(ProductReservation vo);
-
+	void myStoreProductStockUpdate(HashMap<String, String> vo);
+	void insertReservedProduct(HashMap<String, String> list);
 	
 //	파일업로드
 	String thumbnailUpdate(Product product) throws Exception;
@@ -70,7 +72,8 @@ public interface ProductMapper {
 //	Jo
 	//리뷰목록 출력.
 	public List<ReviewVO> selectReviewList(String storeName);
-	public int pickupComplete(int prodResNo);
+	public int pickupComplete(@Param("prodResNo") int prodResNo);
+	public int cancelRes(@Param("prodResNo") int prodResNo);
 	
 	
 //	Yoon
