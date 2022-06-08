@@ -40,7 +40,7 @@
 					</tr>
 						<tr>
 						<th>사업자 이름  </th>
-						<td id = "member_name"><input type="text"class="form-control mb-3 mt-3" style="width:200px" placeholder="사업자이름세션값" >
+						<td id = "member_name"><input type="text"class="form-control mb-3 mt-3" style="width:200px" placeholder="${user.name }" >
 						</td>
 					</tr>
 					<tr>
@@ -49,7 +49,7 @@
 					</tr>
 					<tr>
 						<th>매장 전화번호  </th>
-						<td id = "store_tel"><input type="text" id="st_tel" class="form-control mb-3 mt-3" name="tel" style="width:200px" placeholder= "매장 전화번호 입력하세요."required>
+						<td id = "store_tel"><input type="text" id="st_tel" class="form-control mb-3 mt-3" name="tel" style="width:200px" placeholder= "${user.tel }"required>
 						</td>
 					</tr>
 					<tr>

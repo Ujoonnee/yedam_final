@@ -43,19 +43,19 @@ public class StoreController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		
 		
-		if(user == null) {
-			return "main/unusalApproach";
-		}
 //		관리자, 일반회원일시 메시지 출력 후 홈으로 이동 
-		if(!user.getMemType().equals("00103")) {
+		if(!user.getMemType().equals("00103" ) || user ==null) {
 			return "main/unusalApproach";
 		}else {
-			String vo = service.checkStoreNo(user, request, model);
-			System.out.println("resgister========================"+vo);
+			String approvalStatus = service.checkStoreNo(user, request, model);
+			System.out.println("approvalStatus:"+approvalStatus);
+//			00403/00402/00401
 //			System.out.println(vo.length());
-			if(vo == "") {
+			if(approvalStatus.equals("")) {
+				
 				return "main/unusalApproach"; //계정에 기존에 가게가 있다면 등록폼으로 이동 불가.
 			}else {
+				
 				return "provider/store/storeRegister"; // 계정에 등록된 가게가 없을 시 등록폼으로 이동
 			}
 		}
