@@ -56,7 +56,7 @@
 											<!--<c:out value="${exRes.name }"/> -->
 										
 										</td>
-										<td><fmt:formatDate value="${exRes.exDate }" pattern="yyyy-MM-dd hh:mm"/></td>
+										<td><fmt:formatDate value="${exRes.exDate }" pattern="yyyy년MM월dd일 HH시mm분"/></td>
 										<td><fmt:formatNumber value="${exRes.paymentAmt }" pattern="#,###"/></td>
 										<td>
 											<c:set var="status" value="N"/>
