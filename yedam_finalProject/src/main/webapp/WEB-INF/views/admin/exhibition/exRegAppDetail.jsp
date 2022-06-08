@@ -19,7 +19,7 @@
 					<hr>
 				<div>&nbsp;</div>
 						<div class="row">
-							<div class="col-6"><img style="width:382px; height:314px;" alt="" src="../../resources/img/${detail.thumbnail}"></div>
+							<div class="col-6"><img style="width:382px; height:314px;" alt="" src="/exhibition/${detail.thumbnail}"></div>
 							<div class="vr"style="padding-left: 1px; padding-right: 1px;"></div>
 						<div class="col-5">
 						<dl class="mb-3">

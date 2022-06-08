@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +64,8 @@
      #back_to_top {  
      	position:fixed;
      	color:white;
+     	top: 50%;
+        right: 0%;
      	background-color:ellowGreen;
      	block-size:50px;
      	vertical-align:center;
@@ -76,6 +79,8 @@
 
 <div align = "center" class = "row justify-content-center">
 	<div style="width:900px">
+		<div class="display-4 mt-3" align="left">매장</div>
+		<hr>
 		<div class="form-contol">
 			<div align = "center"> 
 				<div  id = "container">
@@ -215,7 +220,7 @@
 							</div><br>
 							<div class="display-6">${list.content}</div>
 								<br>
-							<div><span class="display-6 me-1" style="border-right:2px solid;">gen*** 님&nbsp;</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
+							<div><span class="display-6 me-1" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}*** 님</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
 						</div>
 					</c:forEach>
 					<hr>
