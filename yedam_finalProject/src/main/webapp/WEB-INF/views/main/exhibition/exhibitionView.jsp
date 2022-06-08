@@ -128,14 +128,9 @@
 	</a>
 </div>
 <div class = "row justify-content-center">
-<<<<<<< HEAD
-	<div class = "col-8">
-		<div class="display-4"></div>
-=======
 	<div class = "col-8" style="width:900px;">
 		<div class="display-4"><a href="list">전시</a></div>
 		<hr>
->>>>>>> refs/heads/main
 	
 	
 <div class="card border-0 shadow mb-4">
@@ -207,9 +202,7 @@
 						<hr>
 				</div>		
 				<!-- </div> -->
-		
 </div>
-
 
 
 
@@ -230,32 +223,32 @@
 	
 <!-- 	서브모달 -->
 <div id ="popup_sub_mask" ></div> <!-- 팝업 배경 DIV -->
-		<div id = "sub_modal"class="sub_modal">
-			<div id="sub_modal_body" class="sub_modal_body">
-				<form id = "frm" >
-				<div align= "left">
-					<small class = "display-5">예약정보확인</small><br>
-					<hr>
-					<small class = "text-muted">예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></small><br>
-					<small class = "text-muted">카테고리			: ${exhibitionView.category }</small><br>
-					<small class = "text-muted">전시명			: ${exhibitionView.name } </small><br>
-					<small class = "text-muted">예약자명			: ${member.name }</small><br>
-					<small class = "text-muted">예약자  연락처	: ${member.tel }</small><br>
-					<small class = "text-muted">수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></small><br>
-					<small class = "text-muted">결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></small><br>
-				
-					<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
-					<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
-					<input type = "hidden" name="status" value ="N">
-					<input type = "hidden" name="category" value ="${exhibitionView.category }">
-					<input type ="hidden" id = "price" value ="${exhibitionView.price }">
-				</div>
-				</form>
-				<hr>
-				<br>
-				<button id="payBtn" class="btn btn-primary">결제하기</button>
-			</div>
+
+<div id = "sub_modal"class="sub_modal">
+	<div id="sub_modal_body" class="sub_modal_body">
+		<form id = "frm" >
+		<div align= "left">
+			<small class = "display-5">예약정보확인</small><br>
+			<hr>
+			<small class = "text-muted">예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></small><br>
+			<small class = "text-muted">카테고리			: ${exhibitionView.category }</small><br>
+			<small class = "text-muted">전시명			: ${exhibitionView.name } </small><br>
+			<small class = "text-muted">예약자명			: ${member.name }</small><br>
+			<small class = "text-muted">예약자  연락처	: ${member.tel }</small><br>
+			<small class = "text-muted">수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></small><br>
+			<small class = "text-muted">결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></small><br>
+		
+			<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
+			<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
+			<input type = "hidden" name="status" value ="N">
+			<input type = "hidden" name="category" value ="${exhibitionView.category }">
+			<input type ="hidden" id = "price" value ="${exhibitionView.price }">
 		</div>
+		</form>
+		<hr>
+		<br>
+		<button id="payBtn" class="btn btn-primary">결제하기</button>
+	</div>
 </div>
 
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
