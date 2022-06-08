@@ -14,7 +14,7 @@
 	<div class = "col-8">
 	
 	 
-		 <div class="card border-0 shadow mb-4">
+		 <div class="card border-0 shadow my-5">
 			<div class="card-body justify-content-center">
 				<form action ="searchExhibition" method="get" name="searchForm" autocomplete="off">
 					<div class="row justify-content-center">
@@ -64,9 +64,7 @@
 		</div>
          
        	<c:if test = "${empty exhibitionList }">
-			<tr>
-				<td colspan="6">전시가 없습니다.</td>
-			</tr>
+			<div align="center">등록된 전시가 없습니다.</div>
 		</c:if>	
 		
 		<c:if test = "${not empty exhibitionList }">	

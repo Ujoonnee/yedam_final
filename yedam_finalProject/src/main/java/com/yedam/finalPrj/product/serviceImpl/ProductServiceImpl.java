@@ -2,8 +2,10 @@ package com.yedam.finalPrj.product.serviceImpl;
 
 import java.io.File;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -288,25 +290,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productReservationInsert(HashMap<String, String> vo, Model model, HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		
-
+		 LocalDate todaysDate = LocalDate.now();
 		ProductReservation ProResVO = new ProductReservation();
 		String from = vo.get("time");
-		SimpleDateFormat transFormat = new SimpleDateFormat("HH:mm:ss");
-		Date orderTime = null;
-		try {
-			orderTime = (Date) transFormat.parse(from);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("=========orderTime"+orderTime);
-	
-//		ProResVO.setProdResNo(Integer.parseInt(vo.get("impUid"))); //전달받은 주문번호를 예약번호로 pk잡음.
+		from = todaysDate +" "+ from;
+		
+		from = from + ":00";
+//		2021-12-03 12:10:00
+		System.out.println("OrderTime 최종"+ from);
+		 Timestamp timestamp = Timestamp.valueOf(from);
+		System.out.println("date 로 변환한 orderTime "+timestamp);
+		
 		ProResVO.setStoreNo(Integer.parseInt(vo.get("storeNo")));
 		ProResVO.setMemNo(Integer.parseInt(vo.get("memNo")));
 		ProResVO.setPaymentAmt(vo.get("amount"));
-		ProResVO.setOrderDate(orderTime);
+		ProResVO.setOrderDate(timestamp);
 		
 //		결제금액이 있다면 결제상태 Y로변경
 		if (vo.get("amount") != null) {
@@ -320,6 +318,31 @@ public class ProductServiceImpl implements ProductService {
 		
 		return map.productReservationInsert(ProResVO);
 	}
+	
+	@Override
+	public void myStoreProductStockUpdate(List<HashMap<String, String>> vo, Model model, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		System.out.println("Impl 재고변경 part ================================"+vo);
+		for(HashMap<String,String> list : vo) {
+			map.myStoreProductStockUpdate(list);
+			map.insertReservedProduct(list);
+		}
+		
+
+		
+		
+//		System.out.println(vo);
+//		for (HashMap<String, String> list : vo) {
+//			map.myStoreProductUpdate(list);
+//			
+//		}
+		
+		
+		
+	}
+ 
+	
+	
 	
 	
 //	Hong

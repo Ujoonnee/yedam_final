@@ -13,132 +13,114 @@
 <body>
 <div class = "row justify-content-center">
 	<div class = "col-8">
-	<!-- body 헤더 -->
-		<div align = "center" id ="container">
-			<section id ="page_header" class="single-page-header">
-				<div class="container">
-					<div class="display-4" style="text-align: left;" ><a href="list">매장</a> </div>
-				 </div>
-			</section>
 		<!-- 	검색창 -->
-		<hr>
-		<p></p>
-		<p></p>
-		
-			<div>
+		<div class="card border-0 shadow my-5">
+			<div class="card-body">
 				<form action ="searchList" method="get" name="searchForm" autocomplete="off">
-				<div class = "col-lg-10"> 
-					<div class="card border-0 shadow mb-4">
-						<div class="card-body">
-							<div class="col-lg-2 " style = "float : left" >
-								<select id="type" name="type" class = "form-select"
-									onchange="allSelected()">
-										<option value="1">전체</option>
-										<option value="name"<c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장명</option>
-										<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
-								</select>
-							</div>					
-							<div class= "col-lg-8" style = "float : left; padding-left: 20px">
-								<input type="text" id="keyword" name="keyword" class="form-control" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
-							</div>
-								<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
-								<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
-								<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
-								<input type ="hidden" name="nowLocation" value ="${paging.cri.nowLocation }">
-								<button id = "searchBtn" class="btn btn-outline-gray-500" >검색</button>&nbsp;
+					<div class="row mb-3">
+						<div>현재 위치</div>
+						<div class="col-8">
+							<input type="text" class="form-control" id = "nowLocation" disabled="disabled" value="${paging.cri.nowLocation }" >
+						</div>
+						<div class="col-4 p-0">
+							<button type="button" id = "location_now" class="btn btn-outline-gray-500 "  onclick = "locationN()">위치 변경</button>
 						</div>
 					</div>
-				</div>
-				<p></p>
-				<p></p>
-				<div style="clear: left;">
-					<button type="button" id = "location_now" class="btn btn-lg  btn-outline-gray-500"  onclick = "locationN()">현재 위치</button><br>
-					<div>현재 주소 : <input type="text" style=" border:none; " id = "nowLocation" disabled="disabled" value="${paging.cri.nowLocation }" ></div>
-				</div>
+					<div class="row">
+						<div class="col-lg-3">
+							<select id="type" name="type" class = "form-select" onchange="allSelected()">
+								<option value="1">전체</option>
+								<option value="name"<c:out value="${paging.cri.type eq 'name'? 'selected': '' }" />>매장명</option>
+								<option value="prod_name"<c:out value="${paging.cri.type eq 'prod_name'? 'selected': '' }" />>상품명</option>
+							</select>
+						</div>
+						<div class= "col-lg-7 p-0" style = "float : left; padding-left: 20px">
+							<input type="text" id="keyword" name="keyword" class="form-control" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
+						</div>
+						<div class="col-lg-2">
+							<button id = "searchBtn" class="btn btn-outline-gray-500" >검색</button>&nbsp;
+						</div>
+					</div>
+					<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }">
+					<input type ="hidden" name="latitude" value ="${paging.cri.latitude }">
+					<input type ="hidden" name="longitude" value ="${paging.cri.longitude }">
+					<input type ="hidden" name="nowLocation" value ="${paging.cri.nowLocation }">
 				</form>
 			</div>
-			<p></p>
-			<p></p>
-			<p></p>
+		</div>
+		
 			<!-- 	매장목록 -->
-						<c:if test="${empty storeList }">
-							<div >등록된 매장이 없습니다.</div>
-						</c:if>
-						
-						<c:if test="${not empty storeList }">
-							<div class="card border-0 shadow mb-4">
-							<form id ="frm" method ="get">
-							  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="padding :9px;">
-								<c:forEach items="${storeList }" var = "list">
-								  <div class="col" >
-								
-								  	<c:if test= "${not empty list.thumbnail}">
-										<div class="card shadow-sm" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
-											<img src="/store/${list.thumbnail } "  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name } </text></src>
-											
-											<div class="card-body">
-											<div class="d-flex justify-content-between align-items-center">
-									            <div class="btn-group">
-													<small class="card-text">${list.address }</small>
-											  	</div>
-									        </div>
-											</div>
-										</div>
-									</c:if>
-								  	<c:if test= "${empty list.thumbnail}">
-										<div class="card shadow-sm" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
-											<img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name }</text></src>
-											
-											<div class="card-body">
-											<div class="d-flex justify-content-between align-items-center">
-									            <div class="btn-group">
-									            <small class="card-text">${list.address }</small>
-											  	</div>
-									        </div>
-											</div>
-										</div>
-									</c:if>
-									
-									
-									
-									
-									
-								</div>
-								</c:forEach>
+		<c:if test="${empty storeList }">
+			<div >등록된 매장이 없습니다.</div>
+		</c:if>
+		
+		<c:if test="${not empty storeList }">
+			<div class="card border-0 shadow mb-4">
+			<form id ="frm" method ="get">
+			  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="padding :9px;">
+				<c:forEach items="${storeList }" var = "list">
+				  <div class="col" >
+				
+				  	<c:if test= "${not empty list.thumbnail}">
+						<div class="card shadow-sm" onclick ="storeView(${list.storeNo} , '${list.name }')"  style="min-height: 350px;">
+							<img src="/store/${list.thumbnail } "  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+							<div class="card-body">
+								<div class="align-items-center">
+									<div class="mb-2">${list.name }</div>
+									<small class="card-text">${list.address }</small>
+						        </div>
 							</div>
-							<input type = "hidden" id = "storeNo" name ="storeNo">
-							<input type = "hidden" id = "storeName" name ="storeName">
-							</form>
+						</div>
+					</c:if>
+				  	<c:if test= "${empty list.thumbnail}">
+						<div class="card shadow-sm" onclick ="storeView(${list.storeNo} , '${list.name }')"  >
+							<img src="https://www.jindo.go.kr/themes/home/images/content/no_image.jpg"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name }</text></src>
+							
+							<div class="card-body">
+							<div class="d-flex justify-content-between align-items-center">
+					            <div class="btn-group">
+					            <small class="card-text">${list.address }</small>
+							  	</div>
+					        </div>
 							</div>
-						</c:if>
+						</div>
+					</c:if>
+					
+				</div>
+				</c:forEach>
+			</div>
+			<input type = "hidden" id = "storeNo" name ="storeNo">
+			<input type = "hidden" id = "storeName" name ="storeName">
+			</form>
+			</div>
+		</c:if>
 					
 			
-			<div id="pagingDiv" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-center">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination mb-0">
-						<!-- 이전페이지 -->
-						<c:if test="${paging.prev }">
-							<li class="page-item">
-								<a class="page-link" href="${paging.startPage - 1}">이전</a>
+		<div id="pagingDiv" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-center">
+			<nav aria-label="Page navigation example">
+				<ul class="pagination mb-0">
+					<!-- 이전페이지 -->
+					<c:if test="${paging.prev }">
+						<li class="page-item">
+							<a class="page-link" href="${paging.startPage - 1}">이전</a>
+						</li>
+					</c:if>
+						<!-- 1 2 3 4   -->
+					<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
+						<c:if test="${paging.cri.pageNum == num }">
+							<li class="page-item active">
+							&nbsp;<a class="page-link" href="${num }">${num }</a>&nbsp;
 							</li>
 						</c:if>
-							<!-- 1 2 3 4   -->
-						<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
-							<c:if test="${paging.cri.pageNum == num }">
-								<li class="page-item active">
-								&nbsp;<a class="page-link" href="${num }">${num }</a>&nbsp;
-								</li>
-							</c:if>
-						</c:forEach>
-							<!-- 다음페이지 -->	
-						<c:if test="${paging.next }">
-							<li class="page-item">
-								<a class="page-link" id="next" href="${paging.endPage + 1 }">다음</a>
-							</li>
-						</c:if>
-					</ul>
-				</nav>
-			</div>
+					</c:forEach>
+						<!-- 다음페이지 -->	
+					<c:if test="${paging.next }">
+						<li class="page-item">
+							<a class="page-link" id="next" href="${paging.endPage + 1 }">다음</a>
+						</li>
+					</c:if>
+				</ul>
+			</nav>
 		</div>
 	</div>
 </div>

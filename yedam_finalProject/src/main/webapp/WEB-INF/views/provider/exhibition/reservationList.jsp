@@ -53,10 +53,10 @@
 											</c:if>
 											<td onclick="event.cancelBubble=true" >
 											<c:if test= "${res.paymentStatus == 'R' }">
-											<button type = "button" class="cancelPay" onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
+											<button type = "button" class="cancelPay btn btn-outline-gray-300 " onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
 											</c:if>
-											<c:if test= "${res.paymentStatus != 'R' }">
-											<button type = "button" class="cancelPay" disabled="disabled" onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
+											<c:if test= "${res.paymentStatus == 'Y' }">
+											<button type = "button" class="cancelPay btn btn-outline-gray-300" onclick="cancelPay(${res.exResNo},${res.exNo })">예약취소</button>
 											</c:if>
 											</td>
 											

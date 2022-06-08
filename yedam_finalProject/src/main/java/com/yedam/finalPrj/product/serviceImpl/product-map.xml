@@ -22,7 +22,7 @@
 		FROM
 			 (SELECT a.*, ROWNUM rn
 			 FROM(
-			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.status,p.price,p.prod_thumbnail
+			 	select p.prod_no, p.store_no,p.prod_name,p.stock,p.status,p.price,p.prod_thumbnail,s.name storeName
 				from product p, store s 
 				where s.store_no = p.store_no
 				and s.store_no like #{storeNo} 
@@ -133,6 +133,17 @@
 		</selectKey>
 		insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},'00601',#{price},'',#{prodCat})	
 	</insert>
+	
+	<insert id="insertReservedProduct">
+		<selectKey keyProperty="prodResNo" resultType="int"
+			order="BEFORE">
+				Select CASE when max(prod_res_no) is null then 1
+					   ELSE MAX(prod_res_no) 
+				       END
+				from product_reservation
+		</selectKey>
+		INSERT INTO RESERVED_PRODUCT VALUES(#{prodResNo},#{store_no},#{prodNo},#{stock})
+	</insert>
 	<insert id = "myStoreProductInsert" parameterType="com.yedam.finalPrj.product.vo.park.Product">
 		<selectKey keyProperty="prodNo" resultType="long"
 		order="BEFORE">
@@ -144,7 +155,7 @@
 			insert into product values(#{prodNo},#{storeNo},#{prodName},#{stock},'00601',#{price},'',#{prodCat})	
 	</insert>
 	<select id ="searchPriceProdName" resultType="com.yedam.finalPrj.product.vo.park.Product">
-		SELECT P.PROD_NO, P.STORE_NO,P.PROD_NAME,P.STOCK,P.STATUS,P.PRICE,p.prod_thumbnail
+		SELECT P.PROD_NO, P.STORE_NO,P.PROD_NAME,P.STOCK,P.STATUS,P.PRICE,p.prod_thumbnail,s.name storeName
 		FROM PRODUCT P, STORE S 
 		WHERE S.STORE_NO = P.STORE_NO
 		AND S.STORE_NO LIKE #{storeNo}
@@ -161,6 +172,12 @@
 		WHERE PROD_NO = #{prodNo}
 	</update>
 	
+	
+	<update id ="myStoreProductStockUpdate"  parameterType="java.util.HashMap">
+		UPDATE PRODUCT 
+		SET STOCK = STOCK - #{stock} 
+		WHERE PROD_NO = #{prodNo}
+	</update>
 	<select id ="salesbyDate" resultType="com.yedam.finalPrj.store.vo.park.ProductReservation">
 		SELECT*
 		FROM
@@ -186,8 +203,15 @@
 	</select>
 <!-- 	상품예약등록 -->
 	<insert id="productReservationInsert" parameterType="com.yedam.finalPrj.store.vo.park.ProductReservation">
+		<selectKey keyProperty="prodResNo" resultType="int"
+		order="BEFORE">
+			Select CASE when max(prod_res_no) is null then 1
+				   ELSE MAX(prod_res_no) +1
+			       END
+			from product_reservation
+		</selectKey>
 		insert into product_reservation 
-		values(#{prodResNo},#{storeNo},#{memNo},'','',#{paymentAmt},#{setPaymentStatus},#{orderDate},'N','00204');
+		values(#{prodResNo},#{storeNo},#{memNo},'','',#{paymentAmt},#{paymentStatus},#{orderDate} ,'N','00204')
 	</insert>
 	
 	

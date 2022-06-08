@@ -62,11 +62,11 @@
 											<c:set var="status" value="N"/>
 												<c:choose>
 													<c:when test="${exRes.paymentStatus eq 'N' }">
-														취소
+														결제취소
 													</c:when>
 													
 													<c:when test="${exRes.paymentStatus eq 'Y' }">
-														결제
+														결제완료
 													</c:when>
 													
 													<c:when test="${exRes.paymentStatus eq 'R' }">

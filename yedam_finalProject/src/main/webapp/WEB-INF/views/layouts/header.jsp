@@ -54,7 +54,7 @@
 	</div>
 </div>
 	
-<div class="row mt-4 text-center justify-content-center align-middle" id="topbar">
+<div class="row mt-2 text-center justify-content-center align-middle" id="topbar">
 	<div class="col-2 px-3 h4 border-end">
 		<a href="${pageContext.request.contextPath}/announcement/list">공지사항</a>
 	</div>
@@ -66,7 +66,7 @@
 	</div>
 </div>
 
-<hr>
+<hr class="my-0">
 
 <script>
 	
@@ -85,7 +85,7 @@
 				xVal = data.documents[0].x;
 				yVal = data.documents[0].y;
 				locationName = data.documents[0].address_name;
-				$('#storeList').attr('href','${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude='+xVal+'&longitude='+yVal+'&nowLocation'+locationName);
+				$('#storeList').attr('href','${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude='+xVal+'&longitude='+yVal+'&nowLocation='+locationName);
 			},
 			error : function(e){
 				console.log(e);

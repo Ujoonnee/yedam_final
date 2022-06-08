@@ -61,7 +61,7 @@
 				<tr class="mb-5 mt-2">
 					<th>썸네일</th>
 					<td>
-						<input class="mt-3 mb-3 form-control" type="file" name="fileUpload" style="width:250px">
+						<input id="fileUpload" class="mt-3 mb-3 form-control" type="file" name="fileUpload" style="width:250px">
 					</td>
 				</tr>
 				
@@ -95,9 +95,14 @@
 	
 	// 등록신청
 	$('#submitBtn').on('click', () => {
-		const address = $('#address').val() + ', ' + $('#addressDetail').val();
-		$('#address').val(address);
 		
-		frm.submit();
+		if ($('#fileUpload').val() != '') {
+			const address = $('#address').val() + ', ' + $('#addressDetail').val();
+			$('#address').val(address);
+			frm.submit();
+		} else {
+			alert('썸네일 이미지를 확인해 주세요.');
+			
+		}
 	})
 </script>
