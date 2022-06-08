@@ -42,7 +42,7 @@
 			<th class="border-0">상품명</th>
 			<th class="border-0">총 가격</th>
 			<th class="border-0">픽업상태</th>
-			<th class="border-0 rounded-end" >픽업시간</th>
+			<th class="border-0 rounded-end" >픽업예정일시</th>
 		</tr>
 	</thead>
 	<tbody id="tbd">
@@ -58,7 +58,7 @@
 						<c:when test="${YN eq 'N'}">픽업대기</c:when>
 					</c:choose>
 				</td>
-				<td>${list.pickupDate} <fmt:formatDate value="${list.pickupTime}" pattern="hh:mm"/> </td>
+				<td>${list.pickupDate} <fmt:formatDate value="${list.pickupTime}" type="time" timeStyle="short"/> </td>
 			</tr>
 		</c:forEach>
 	</tbody>
