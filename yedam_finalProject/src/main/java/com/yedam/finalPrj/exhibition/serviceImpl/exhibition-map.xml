@@ -138,7 +138,7 @@
 	FROM REVIEW r, EXHIBITION_RESERVATION e
 	WHERE r.res_no = e.ex_res_no
 	AND r.category = '00202' 
-	AND r.res_no = #{selectedResNo}
+	AND e.ex_no = #{exNo}
 </select>
 <!-- 예약취소 -->
 <update id="cancelOneReservation" parameterType="int">
@@ -149,10 +149,10 @@
 </update>
 <!-- 리뷰 리스트 출력 -->
 <select id="exhReviewLoad" parameterType="int" resultType="com.yedam.finalPrj.review.service.ReviewVO">
-	SELECT DISTINCT r.*, m.email AS "member.email"
-	FROM review r, exhibition e, member m, exhibition_reservation er
+	SELECT  r.* , m.email AS "member.email"
+	FROM review r, exhibition e, member m
 	WHERE e.name = r.service_name
-	AND er.mem_no = m.mem_no
+    AND r.mem_no = m.mem_no
 	AND e.ex_no = #{exNo}
 </select>
 
