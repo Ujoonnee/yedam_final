@@ -146,7 +146,7 @@
 	          </c:if>
 	    </div>
 		<div class="col-3" style="padding : 25px;">
-				<h4 class="display-4" style="padding-bottom: 10px;">${exhibitionView.name }</h4>
+				<div class="display-4" style="padding-bottom: 10px;">${exhibitionView.name }</div>
 	       	<small class="text-muted">
 				주소 :${exhibitionView.address }
 			</small>
