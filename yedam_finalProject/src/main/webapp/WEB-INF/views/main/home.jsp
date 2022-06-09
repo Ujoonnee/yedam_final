@@ -35,7 +35,7 @@
 								<!-- Tab Content -->
 						        <div class="tab-content" id="tabcontent1">
 						        	<div class="tab-pane fade show active" id="tabs-text-1" role="tabpanel" aria-labelledby="tabs-text-1-tab">
-							        	<form action ="searchExhibition" method="get" name="searchForm" autocomplete="off">
+							        	<form action ="exhibition/searchExhibition" method="get" name="searchForm" autocomplete="off">
 											<div class="row justify-content-center">
 												<div class="col-lg-4 mb-3">
 													<div>지역</div>
@@ -84,7 +84,7 @@
 									
 									<!-- Tab Content -->
 							        <div class="tab-pane fade " id="tabs-text-2" role="tabpanel" aria-labelledby="tabs-text-2-tab">
-							        	<form action ="searchList" method="get" name="searchForm" autocomplete="off">
+							        	<form action ="store/searchList" method="get" name="searchForm" autocomplete="off">
 											<div class="row mb-3">
 												<div>현재 위치</div>
 												<div class="col-8">

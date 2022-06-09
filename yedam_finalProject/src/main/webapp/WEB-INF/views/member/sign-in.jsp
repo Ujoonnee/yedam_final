@@ -105,8 +105,8 @@
                             
                             <div class="justify-content-center mt-4">
                                 <div class="fw-normal text-center">
-                                    <a id="" class="fw-bold">비밀번호 찾기</a>
-                                    <span>　 | 　</span>
+<!--                                     <a id="" class="fw-bold">비밀번호 찾기</a> -->
+<!--                                     <span>　 | 　</span> -->
                                     <a id="signUp" class="fw-bold">회원 가입하기</a>
                                 </div>
                             </div>

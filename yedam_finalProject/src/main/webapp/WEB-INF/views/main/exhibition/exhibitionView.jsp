@@ -198,6 +198,9 @@
 							</div>
 						</c:forEach>
 						<hr>
+						<c:if test="${fn:length(reviewList) == 0 } ">
+						    <h1>아직 리뷰가 없습니다!</h1>
+						</c:if>
 				</div>		
 				<!-- </div> -->
 </div>
@@ -541,22 +544,24 @@ function requestPay() {
 	 var reviewLength = revNo.length;
 	$("#reviewNums").html(reviewLength);
     	for(var j=0; j<reviewLength; j++){
-    	var space ="";
-   	for(var i=0; i<$(".tscore"+j).html(); i++){
-   		space = space + "★";
-   	} 
-    	console.log($(".tscore"+j).html())
-    	console.log($(".tscore"+j).html(space))
-   	$(".tscore"+j).html(space)
+    		var space ="";
+    		
+		   	for(var i=0; i<$(".tscore"+j).html(); i++){
+		   		space = space + "★";
+	   		} 
+		   	
+	    	console.log($(".tscore"+j).html())
+	    	console.log($(".tscore"+j).html(space))
+		   	$(".tscore"+j).html(space)
 
     	}
   	//리뷰보이기/숨기기
       function openClose(){
       	 if($("#reviewListStyle").css("display") == "none") {
-      	      $("#reviewListStyle").fadeIn(700);
+      	      $("#reviewListStyle").fadeIn(400);
       	      $("reviewShow").textContent = '리뷰 접기';
       	    } else {
-      	      $("#reviewListStyle").fadeOut(700);
+      	      $("#reviewListStyle").fadeOut(400);
       	      $("reviewShow").textContent = '리뷰 보기';
       	    }
       } 		
