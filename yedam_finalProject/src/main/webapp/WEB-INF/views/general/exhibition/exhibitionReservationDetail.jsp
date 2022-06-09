@@ -15,10 +15,9 @@
 </style>
 </head>
 <body>
-
 <!-- css적용 -->
 <h2>내 예약 정보</h2>
-<div class="row justify-content-center" align=left >
+<div class="row justify-content-center mb-4" align=left >
 	<div>
 		<div class="col-6 form-control" style="width:80%">
 			<table class="table-info">
@@ -76,8 +75,10 @@
 					<td class="col-6">${exRes.memName }</td>
 				</tr>
 				<tr style="width:450px;" class="row mb-2">
-					<th class="col-3">예약일시</th>
-					<td class="col-6"><fmt:formatDate value="${exRes.exDate }" pattern="yyyy-MM-dd"/></td>
+					<th class="col-3">관람예정일</th>
+					<td class="col-6"><fmt:formatDate value="${exRes.exDate }" pattern="yyyy-MM-dd"/>
+
+					</td>
 				</tr>
 				<tr style="width:450px;" class="row mb-2">
 					<th class="col-3">수량</th>
@@ -97,7 +98,7 @@
 
 	<!-- css적용 -->
 <h3>내 리뷰</h3>
-<div class="row justify-content-left" align=left >
+<div class="row justify-content-left mb-4" align=left >
 	<div>
 		<c:if test="${not empty reviewList}">
 			<div class="col-6 form-control" style="width:80%">
@@ -116,15 +117,19 @@
 	
 <input class="btn btn-block btn-outline-gray-800 mb-3" type="button" value="목록" onclick="location.href='../exSelectAllReservation'">
 	
-<!-- 리뷰 작성안했다면 작성버튼 show. -->
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="false" var="today"></fmt:parseNumber>
+<fmt:parseNumber value="${exRes.exDate.time / (1000*60*60*24)}" integerOnly="false" var="exDate"></fmt:parseNumber>
 
-<c:if test="${empty reviewList}" >
+<!--1. 관람예정일시 지나면 작성가능. 2.리뷰 작성안했다면 작성버튼 show. -->
+<c:if test="${empty reviewList && today > exDate}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
 </c:if>
 
 
-<!-- 픽업상태 'N'이면 예약취소 버튼 show -->
-<c:if test="${exRes.paymentStatus eq 'Y' }">
+<!-- 결제하고 관람날짜 하루전까지 예약취소 가능. 버튼 show -->
+
+<c:if test="${exRes.paymentStatus eq 'Y' && exDate - today > 1 }">
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="resCancel">예약취소</button>
 </c:if>
 
