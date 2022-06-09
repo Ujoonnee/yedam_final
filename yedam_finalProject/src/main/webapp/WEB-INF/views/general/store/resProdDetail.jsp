@@ -18,7 +18,7 @@
   #vscore {
    color: red;
   } 
-	#thumbNail {
+	.thumbNail {
 	width:150px;
 	height:150px;}
 </style>
@@ -55,7 +55,7 @@
 				</tr> 
 				<tr class="row mb-2">
 					<th class="col-3">픽업 예정 일시</th>
-					<td class="col-6"><fmt:formatDate value="${detail.pickupDate}" dateStyle="full"/><br>
+					<td class="col-6"><fmt:formatDate value="${detail.pickupTime}" dateStyle="full"/><br>
 					<fmt:formatDate value="${detail.pickupTime}" type="time"/> </td>
 				</tr>
 				<tr class="row mb-2">
@@ -82,19 +82,19 @@
 				</thead>
 				<tbody>
 					<c:forEach var="list" items="${prodList}">
-					<tr class="product"  >
-						<td id="thumbNail" >${list.product.prodThumbnail} </td>
+					<tr class="product" valign="middle" >
+						<td class="thumbNail"><img src="/img/${list.product.prodThumbnail}"> </td>
 						<td>${list.product.prodName}</td>
-						<td><fmt:formatNumber value="${list.product.price}" pattern="#,###"/> </td>
+						<td><fmt:formatNumber value="${list.product.price}" pattern="#,###"/> 원 </td>
 						<td>${list.reservedProduct.count}개</td>
-						<td>금액 : <fmt:formatNumber value="${list.product.price * list.reservedProduct.count}" pattern="#,###"/></td>
+						<td><fmt:formatNumber value="${list.product.price * list.reservedProduct.count}" pattern="#,###"/> 원</td>
 						<td style="display:none">${list.product.prodNo}</td>
 					</tr>
 					</c:forEach>
 				</tbody>
 					<tr>
 						<td colspan="4"></td>
-						<td colspan="3">총 금액 : <fmt:formatNumber value="${detail.paymentAmt}" pattern="#,###"/></td>
+						<td colspan="3">총 금액 : <fmt:formatNumber value="${detail.paymentAmt}" pattern="#,###"/> 원</td>
 					</tr>
 			</table>
 		</div>
@@ -132,11 +132,11 @@
 
 <jsp:useBean id="now" class="java.util.Date"/>
 <%-- <fmt:formatDate value="${now }" pattern="yyyy-MM-dd" var="today"/> --%>
-<fmt:parseNumber value="${now.time / (100*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
-<fmt:parseNumber value="${detail.pickupDate.time / (100*60*60*24)}" integerOnly="true" var="pickupDate"></fmt:parseNumber>
+<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="false" var="today"></fmt:parseNumber>
+<fmt:parseNumber value="${detail.pickupDate.time / (1000*60*60*24)}" integerOnly="false" var="pickupDate"></fmt:parseNumber>
 
 <!-- 리뷰 작성안했다면 작성버튼 show. -->
-<c:if test="${detail.pickupStatus eq 'Y' && today > pickupDate}"> 
+<c:if test="${detail.pickupStatus eq 'Y'}"> 
 <c:if test="${empty review}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
 </c:if>
@@ -145,7 +145,7 @@
 <!-- 픽업상태 'N'이면 예약취소 버튼 show -->
 
 
-<c:if test="${pickupDate - today > 1 }">
+<c:if test="${today - pickupDate <= 1 }">
 
 	<c:if test="${detail.pickupStatus eq 'N' }">
 	<button type="button" class="btn btn-block btn-gray-800 mb-3" data-bs-toggle="modal" data-bs-target="#modal-form" id>예약취소</button>
@@ -248,10 +248,7 @@
 		} 
 	 }); 
 	
-	//섬네일 클릭시 확대? 시간되면...
-	$("#thumbNail").on("click", function(){
-		
-		});
+	
 	//리뷰모달 띄우기
 	$('#btnModal').on("click", function(){
 	 
