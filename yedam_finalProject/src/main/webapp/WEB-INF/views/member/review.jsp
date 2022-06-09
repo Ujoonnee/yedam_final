@@ -65,7 +65,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-				<div id="serviceNameDiv"></div><div id="resDate"></div><br>
+				<div id="serviceNameDiv"></div><div id="resDate"><fmt:formatDate value="${resDate }" pattern="yyyy년MM월dd일 HH시mm분" /></div><br>
 					<h2 class="h6 modal-title">평점</h2>
 					<div>
 						<p id="star">

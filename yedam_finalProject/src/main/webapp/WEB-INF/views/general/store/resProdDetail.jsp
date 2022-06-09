@@ -82,6 +82,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="list" items="${prodList}">
+
 					<tr class="product" valign="middle" >
 						<td class="thumbNail"><img src="/img/${list.product.prodThumbnail}"> </td>
 						<td>${list.product.prodName}</td>

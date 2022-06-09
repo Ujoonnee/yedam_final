@@ -12,7 +12,7 @@
 <body>
 <div class="row justify-content-center">
 	<div class="col-8">
-		<h3>내 예약 정보</h3>
+		<h3>내 매장 예약 정보</h3>
 		
 <form action="resProdList" method="get">
 <div align="center" class="mb-5">	
@@ -47,7 +47,7 @@
 	</thead>
 	<tbody id="tbd">
 		<c:forEach var="list" items="${resProdList}">
-			<tr class="list">
+			<tr class="list" style="cursor:pointer">
 				<td>${list.store.name }<input type="hidden" value="${list.prodResNo}"></td>
 				<td>${list.product.prodName } 등</td>
 				<td><fmt:formatNumber value="${list.paymentAmt}" pattern="#,###"/></td>

@@ -19,7 +19,7 @@
 <div align="center">
 	<div class="input-group" style="width:500px;">
 		<select id="selectPermit" name="selectPermit" class="form-select mb-3" onchange="init()" >
-			<option value="">--선택--</option>
+			<option value="">--승인여부--</option>
 			<option value="00401">승인</option>
 			<option value="00402">반려</option>
 			<option value="00403">대기</option>

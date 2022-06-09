@@ -17,15 +17,15 @@
 				</colgroup>
 				<tr>
 					<th>전시명</th>
-					<td><input class="form-control mb-3 mt-3" name="name" style="width:200px" required></td>
+					<td><input class="form-control mt-2 mb-4" name="name" required></td>
 				</tr>
 				<tr>
 					<th>전시장명</th>
-					<td><input class="form-control mb-3 mt-3" name="locationName" style="width:200px" required></td>
+					<td><input class="form-control mt-2 mb-4" name="locationName" style="width:200px" required></td>
 				</tr>
 				<tr>
 					<th>티켓 가격</th>
-					<td><input class="form-control mt-3 mb-3" name="price" style="width:100px" required></td>
+					<td><input class="form-control mt-3 mb-3" type="number" name="price" style="width:100px" required></td>
 				</tr>
 				<tr>
 					<th>전시 기간</th>

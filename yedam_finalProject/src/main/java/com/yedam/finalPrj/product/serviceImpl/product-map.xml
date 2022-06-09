@@ -257,11 +257,12 @@
 		
 <!-- 		Jo -->
 	<select id="selectReviewList" resultType="com.yedam.finalPrj.review.service.ReviewVO">
-		SELECT r.*, m.name AS "member.name"
+		SELECT r.*, m.email AS "member.email"
 		FROM store s, review r, member m
 		WHERE s.name = r.service_name
         AND r.mem_no = m.mem_no
 		AND s.name = #{storeName}
+		ORDER BY r.rev_no DESC
 	</select>	
 	<!-- 사업자가 픽업완료 처리. -->
 	<update id="pickupComplete" parameterType="int">
