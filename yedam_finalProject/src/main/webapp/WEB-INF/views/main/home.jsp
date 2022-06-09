@@ -54,13 +54,13 @@
 											
 												<div class="col-lg-8">
 													<div>기간</div>
-													<div >
+													<div>
 														<div>
-															<div style = "float : left" class="col-lg-4"><input type = "date"  id="startDate" name = "exVO.startDate" class="form-control datepicker-input" value='<fmt:formatDate value="${paging.cri.exVO.startDate }" pattern= "yyyy-MM-dd"/>'> 
+															<div style = "float : left" class="col-lg-4">
+																<input type = "date"  id="startDate" name = "exVO.startDate" class="form-control datepicker-input" value='<fmt:formatDate value="${paging.cri.exVO.startDate }" pattern= "yyyy-MM-dd"/>'> 
 															</div>
 															<div style = "float : left"> <p>&nbsp;&nbsp;~&nbsp;&nbsp;</p> </div>
-															<div style = "float : left;"class="col-lg-4"><input type = "date"  id ="endDate" name = "exVO.endDate" class="form-control datepicker-input"  value='<fmt:formatDate value="${paging.cri.exVO.endDate }" pattern= "yyyy-MM-dd"/>' >
-															</div>
+															<div style = "float : left;"class="col-lg-4"><input type = "date"  id ="endDate" name = "exVO.endDate" class="form-control datepicker-input"  value='<fmt:formatDate value="${paging.cri.exVO.endDate }" pattern= "yyyy-MM-dd"/>' ></div>
 														</div>
 													</div>
 												</div>
@@ -72,7 +72,7 @@
 														<input type="text" class="form-control" id="keyword" name="keyword" placeholder =" 검색어를 입력해주세요." value="${paging.cri.keyword }" size="40">&nbsp;
 													</div>
 												</div>
-												<div class="col-lg-4">
+												<div class="col-lg-4 text-center">
 													<div>&nbsp;</div>
 													<button class="btn btn-outline-gray-500" id = "searchBtn" >검색</button>&nbsp;
 													<button type="button" class="btn btn-outline-gray-500" onclick="resetForm()">초기화</button>

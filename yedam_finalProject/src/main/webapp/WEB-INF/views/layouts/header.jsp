@@ -52,13 +52,13 @@
 </div>
 	
 <div class="row mt-2 text-center justify-content-center align-middle" id="topbar">
-	<div class="col-2 px-3 h4 border-end">
+	<div class="col-2 px-3 h4 border-end" style="font-family: 'Jeju Gothic', sans-serif;">
 		<a href="${pageContext.request.contextPath}/announcement/list">공지사항</a>
 	</div>
-	<div class="col-2 px-3 h4 border-start border-end">
+	<div class="col-2 px-3 h4 border-start border-end" style="font-family: 'Jeju Gothic', sans-serif;">
 		<a href="${pageContext.request.contextPath}/exhibition/list">전시</a>
 	</div>
-	<div class="col-2 px-3 h4 border-start">
+	<div class="col-2 px-3 h4 border-start" style="font-family: 'Jeju Gothic', sans-serif;">
 		<a id="storeList" href="${pageContext.request.contextPath}/store/searchList?type=1&keyword=&pageNum=1&latitude=&longitude=">매장</a>
 	</div>
 </div>
