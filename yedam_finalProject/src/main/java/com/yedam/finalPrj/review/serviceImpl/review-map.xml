@@ -9,7 +9,7 @@
 	<select id="reviewSelectAll" resultType="com.yedam.finalPrj.review.service.ReviewVO">
 		SELECT service_name, score, content, reply_content, res_no, rev_no
 		FROM Review 
-		WHERE mem_no = #{memNo}
+		ORDER BY rev_no DESC
 	</select>
 	<update id="reviewUpdate" parameterType="com.yedam.finalPrj.review.service.ReviewVO">
 		UPDATE review SET content = #{content}, score = NVL(#{score}, 0)

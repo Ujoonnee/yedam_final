@@ -61,12 +61,12 @@
 					<hr class="mb-4">	
 					<div class="row mb-4 mb-lg-5">
 							
-								<div class="col-8">
+								<div class="">
 									<div>
 										<p class="text-dark mb-0">${announcement.annContent }</p>
 									</div>
 								</div>
-							<div class="col-2"></div>
+							<div class=""></div>
 					</div>
 				<hr>
 

@@ -51,28 +51,20 @@ public class ProductController {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		
-		if (user == null) {
-			model.addAttribute("products" ,dao.selectOne(cri));
-			model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
-			return "main/store/storeView";
-		}else {
-		System.out.println(user.getName());
+		if (user != null) {
+			model.addAttribute("memNo",user.getMemNo());
+			model.addAttribute("name",user.getName());
+			model.addAttribute("email",user.getEmail());
+			model.addAttribute("tel",user.getTel());
+			model.addAttribute("address",user.getAddress());
+		}
 		
-		model.addAttribute("memNo",user.getMemNo());
-		model.addAttribute("name",user.getName());
-		model.addAttribute("email",user.getEmail());
-		model.addAttribute("tel",user.getTel());
-		model.addAttribute("address",user.getAddress());
+		model.addAttribute("reviewList", dao.selectReviewList(cri.getStoreName()));
 		model.addAttribute("products" ,dao.selectOne(cri));
 		model.addAttribute("storeName" ,cri.getStoreName());
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
 		
-		//By JO, 매장명 받아서 review 목록 출력.
-		System.out.println("++++++++++++++++++++++++");
-		System.out.println(cri.getStoreName()); 
-		model.addAttribute("reviewList", dao.selectReviewList(cri.getStoreName()));
 		return "main/store/storeView";
-		}
 	}
 	
 // 재고 반영
