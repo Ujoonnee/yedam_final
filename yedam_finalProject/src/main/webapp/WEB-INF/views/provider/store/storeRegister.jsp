@@ -58,7 +58,7 @@
 						</tr>
 							<tr>
 							<th>사업자 이름  </th>
-							<td id = "member_name"><input type="text"class="form-control mb-3 mt-3" style="width:200px" placeholder="${user.name }" >
+							<td id = "member_name"><input type="text"class="form-control mb-3 mt-3" style="width:200px"  disabled value="${user.name }" >
 							</td>
 						</tr>
 						<tr>
@@ -67,17 +67,17 @@
 						</tr>
 						<tr>
 							<th>매장 전화번호  </th>
-							<td id = "store_tel"><input type="text" id="st_tel" class="form-control mb-3 mt-3" name="tel" style="width:200px" placeholder= "${user.tel }"required>
+							<td id = "store_tel"><input type="text" id="st_tel" class="form-control mb-3 mt-3" name="tel" style="width:200px"  value="${user.tel }">
 							</td>
 						</tr>
 						<tr>
 							<th>주소</th>
 							<td>
-								<div class="row mt-4">
-									<input class="form-control col-6 me-3 ms-3" style="width:203px" id="location" name="location" value="우편번호" readonly>
-									<button type="button" class="col-4 btn btn-outline-gray-700" id="postCodeBtn" onclick="locationSearch()">우편번호 검색</button>
+								<div class="mt-2">
+									<input type = "hidden" class="form-control col-6 me-3 ms-3" style="width:203px" id="location" name="location" value="우편번호" readonly>
+									<button type="button" class="btn btn-outline-gray-700" id="postCodeBtn" onclick="locationSearch()">주소 검색</button>
 								</div> 
-								<input class="form-control mt-2 mt-2" id="addr1" readonly required value="도로명주소">
+								<input class="form-control mt-2 mt-2" id="addr1" readonly required value="주소">
 								<input class="form-control mt-2 mb-4" id="addr2" placeholder="상세주소 입력">
 								
 							</td>

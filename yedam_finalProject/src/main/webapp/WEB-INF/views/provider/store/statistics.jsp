@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,12 +78,19 @@
   	 var resultAmt = new Array();
   	 
   	for (var i=0 ; i< dateValLength; i++){
-  		resultDate.push(dateVal[i].pickupDate);
+  		
+  		console.log(typeof dateVal[i].pickupDate)
+  		var tempDate =  dateVal[i].pickupDate; 
+  	
+  		tempDate = tempDate.substr(0,10);
+  		console.log(tempDate);
+  		resultDate.push(tempDate);
   	}
   	
   	for (var i=0 ; i<dateAmtLength; i++ ){
   		resultAmt.push(dateAmt[i].paymentAmt);
   	}
+  	
   	 console.log(resultDate);
   	 console.log(resultAmt);
   	 
