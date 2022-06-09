@@ -50,13 +50,16 @@
 						<tbody>
 		
 							<c:forEach items="${topList}" var="announcement">
-								<tr align="left">
+								
+								<tr align="left" style="cursor:pointer">
+								
 									<td class="display-5 mt-2 mb-2" style="width: 10%;"><button class="btn btn-sm btn-info">중요</button></td>
 									<td style="width: 55%"><a class="text-primary fw-bold color:bluesky"
 										href="mainAnnDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">【중요】&nbsp; ${announcement.title }</a></td>
 									<td style="width: 10%">${announcement.annDate }</td>
 									<td style="width: 5%">${announcement.annView }</td>
 								</tr>
+									
 							</c:forEach>
 		
 							<!-- 	<tr><td colspan="7">&nbsp;</td></tr> -->

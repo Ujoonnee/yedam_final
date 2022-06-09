@@ -83,7 +83,7 @@
 				<tbody>
 					<c:forEach var="list" items="${prodList}">
 					<tr class="product"  >
-						<td id="thumbNail" >${list.product.prodThumbnail} </td>
+						<td id="thumbNail" ><img src=/img/${list.product.prodThumbnail}></td>
 						<td>${list.product.prodName}</td>
 						<td><fmt:formatNumber value="${list.product.price}" pattern="#,###"/> </td>
 						<td>${list.reservedProduct.count}개</td>

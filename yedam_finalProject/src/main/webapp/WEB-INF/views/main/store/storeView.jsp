@@ -220,7 +220,7 @@
 						</div><br>
 						<div class="display-6">${list.content}</div>
 							<br>
-						<div><span class="display-6 me-1" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}*** 님</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
+						<div><span class="display-6 me-1" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}***님</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
 					</div>
 				</c:forEach>
 				<hr>
@@ -604,13 +604,13 @@
     } */
     function openClose(){
      	 if($("#reviewListStyle").css("display") == "none") {
-     	      $("#reviewListStyle").fadeIn(700);
-     	      $("reviewShow").textContent = '리뷰 접기';
+     	      $("#reviewListStyle").fadeIn(400);
+     	      $("#reviewShow").html('리뷰 접기');
      	    } else {
-     	      $("#reviewListStyle").fadeOut(700);
-     	      $("reviewShow").textContent = '리뷰 보기';
+     	      $("#reviewListStyle").fadeOut(400);
+     	      $("#reviewShow").html('리뷰 보기');
      	    }
-     } 	
+     } 		
    
       	
        	
