@@ -211,19 +211,23 @@
 		</div>
 			
 	</div>
-				<div id="reviewListStyle" class="col-3 mt-10 mb-10 ms-3 form-control" style="display:none; width:400px;" align="left">
-					<c:forEach var="list" items="${reviewList}" varStatus="status">
-						<hr>
-						<div class="">
-							<div><span class="display-5 me-2">평점(${list.score})</span>
-							<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
-							</div><br>
-							<div class="display-6">${list.content}</div>
-								<br>
-							<div><span class="display-6 me-1" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}*** 님</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
-						</div>
-					</c:forEach>
+			<div id="reviewListStyle" class="col-3 mt-10 mb-10 ms-3 form-control" style="display:none; width:400px;" align="left">
+				<c:forEach var="list" items="${reviewList}" varStatus="status">
+				
 					<hr>
+					<div>
+						<div><span class="display-5 me-2">평점(${list.score})</span>
+							<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
+						</div><br>
+						<div class="display-6">${list.content}</div>
+							<br>
+						<div><span class="display-6 me-1" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}*** 님</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
+					</div>
+				</c:forEach>
+				<hr>
+				<c:if test="${fn:length(reviewList) == 0 } ">
+				    <h1>아직 리뷰가 없습니다!</h1>
+				</c:if>
 	</div>
 </div>
 <hr>
