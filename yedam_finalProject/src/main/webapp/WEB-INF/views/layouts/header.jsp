@@ -19,7 +19,7 @@
 							<div class="media d-flex align-items-center">
 								<div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
 									<span class="mb-0 fw-bold text-gray-900">${user.name }</span>
-									<span style="color: black;">님 안녕하세요!　 </span>
+									<span style="color: black;">님 안녕하세요!　 |　 마이페이지　 </span>
 								</div>
 							</div>
 						</a>

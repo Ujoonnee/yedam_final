@@ -10,10 +10,10 @@
 <!-- 	<h3>검색</h3> -->
 
 	<div style="background-image: url(${pageContext.request.contextPath}/resources/img/home_bg.png); min-height: 620px">
-		<div class="row justify-content-center">
+		<div class="row justify-content-center align-center">
 	
 				<!--  검색 -->
-				<div class="col-8 mt-5">
+				<div class="col-8" style="margin-top: 100px">
 	              <div class="card border-0 shadow m-5" style="min-height: 300px;">
 					<div class="card-body justify-content-center">
 						
@@ -131,40 +131,65 @@
 	</div>
 
 	<!-- 추천 전시 -->
-	<div class="row justify-content-center">
-		<div class="col-9">
-			<div class="card border-1 shadow m-4">
-				<div class="card-body row">
-				
-					<div class="card border-3 shadow m-4 col-3">
-						<div class="card-body justify-content-center text-center">
-							<div class="h1">추천</div>
-							<div class="h1">전시</div>
-						</div>
-					</div>
+	<div class = "row justify-content-center mt-5">
+		<div class = "col-8">
+			
+			<div class="h1" style="font-family: 'Jeju Gothic', sans-serif;">추천 전시</div>
+			<div class="card border-0 shadow mb-4">
+		        <form id="frm" method="get">
+			        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="padding :9px;">
 
-					<div class="card border-0 shadow m-4 col-3">
-						<div class="card-body justify-content-center">
-			<%-- 			<c:forEach items="${exhibitionList }" var = "list" > --%>
-			<%-- 				<div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" > --%>
-			<%-- 					<img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name } </text></src> --%>
-			<!-- 						<div style="text-align: center;" > </div> -->
-			<!-- 						<div class="card-body"> -->
-			<!-- 						<p class="card-text"></p> -->
-			<!-- 						<div class="d-flex justify-content-between align-items-center"> -->
-			<!-- 							<div class="btn-group"> -->
-			<%-- 								<small class="card-text">${list.startDate } ~ </small>  --%>
-			<%-- 								<small class="card-text">${list.endDate }</small> --%>
-			<!-- 							</div> -->
-			<!-- 						</div> -->
-			<!-- 					</div> -->
-			<!-- 				</div> -->
-			<%-- 	        </c:forEach> --%>
+				        
+				        <div class="col px-5" >
+				
+							<div class="card shadow-sm" onclick ="exhibitionView(124)">
+								<img src="/exhibition/썸네일 "  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+								<div class="card-body">
+									<div class="align-items-center">
+										<div class="mb-2">전시이름</div>
+										<small class="card-text">시작일 ~ </small> 
+				                		<small class="card-text">종료일</small>
+							        </div>
+								</div>
+							</div>
+							
 						</div>
-					</div>
-					
-				</div>
-			</div>
+						
+						<div class="col px-5" >
+				
+							<div class="card shadow-sm" onclick ="exhibitionView(132)">
+								<img src="/exhibition/썸네일 "  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+								<div class="card-body">
+									<div class="align-items-center">
+										<div class="mb-2">전시이름</div>
+										<small class="card-text">시작일 ~ </small> 
+				                		<small class="card-text">종료일</small>
+							        </div>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="col px-5" >
+				
+							<div class="card shadow-sm" onclick ="exhibitionView(130)">
+								<img src="/exhibition/썸네일 "  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+								<div class="card-body">
+									<div class="align-items-center">
+										<div class="mb-2">전시이름</div>
+										<small class="card-text">시작일 ~ </small> 
+				                		<small class="card-text">종료일</small>
+							        </div>
+								</div>
+							</div>
+							
+						</div>
+						
+			        </div>
+			        <input type="hidden" id = "exNo" name="exNo" value="전시번호">
+		        </form>
+	        </div>
+	        
 		</div>
 	</div>
 	
@@ -175,4 +200,9 @@
 // 		$.ajax('recommendation')
 	}
 	
+	function exhibitionView(n){
+		frm.exNo.value= n;
+		frm.action = "${pageContext.request.contextPath}/exhibition/detailView";
+		frm.submit();
+	}
 </script>
