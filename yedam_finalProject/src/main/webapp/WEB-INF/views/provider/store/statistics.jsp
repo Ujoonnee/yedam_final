@@ -16,8 +16,10 @@
 </head>
 <body>
 
+<div > <h3 class="mt-4">${user.name }님의 매장 매출그래프</h3></div>
 
-
+<br>
+<br>
 <div class="chartjs-size-monitor">
 	<form action = "searchDate" method ="post">
 		<div id ="날짜선택" align="center">
