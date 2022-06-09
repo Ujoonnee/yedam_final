@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.product.web;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +64,7 @@ public class ProductController {
 		model.addAttribute("tel",user.getTel());
 		model.addAttribute("address",user.getAddress());
 		model.addAttribute("products" ,dao.selectOne(cri));
+		model.addAttribute("storeName" ,cri.getStoreName());
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
 		
 		//By JO, 매장명 받아서 review 목록 출력.
@@ -169,7 +172,6 @@ public class ProductController {
 //	통계 초기화면
 	@RequestMapping("statisticsForm")
 	public String Statistics(@RequestParam("storeNo") int storeNo, Model model) {
-		
 		model.addAttribute("productReservation" , dao.salesbyDate(storeNo));
 		return "provider/store/statistics";
 	}

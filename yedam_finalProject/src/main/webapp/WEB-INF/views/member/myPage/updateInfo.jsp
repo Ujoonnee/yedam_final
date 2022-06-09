@@ -120,9 +120,9 @@
                                <div class="row mb-1">
                                    <div class="col-7">
                                        <label for="">주소</label>
-                                       <div class="input-group">
-                                        <input id="zipcode" class="form-control" type="text" required readonly>
-                                        <button class="btn btn-outline-gray-700" id="addressSearchBtn">검색</button>
+                                       <div class="">
+                                        <input id="zipcode" class="form-control" type="hidden" readonly>
+                                      	<input class="btn btn-outline-gray-700" id="addressSearchBtn" value="주소 검색">
                                        </div>
                                    </div>
                             </div>

@@ -181,7 +181,7 @@
 	<select id ="salesbyDate" resultType="com.yedam.finalPrj.store.vo.park.ProductReservation">
 		SELECT*
 		FROM
-		    ( SELECT pickup_date, SUM(payment_amt) AS payment_amt, store_no
+		    (select pickup_date, SUM(payment_amt) AS payment_amt, store_no
 		        FROM
 		            (SELECT *
 	                 FROM  product_reservation
@@ -189,7 +189,7 @@
 	                 )
 		        GROUP BY pickup_date, store_no
 		    )
-       where pickup_date between sysdate-30 and sysdate
+       where pickup_date between sysdate-31 and sysdate+1
 	   ORDER BY pickup_date
 	</select>
 	
@@ -197,7 +197,12 @@
 		SELECT pickup_date, SUM(payment_amt) AS payment_amt , store_no
 		from product_reservation
 		where store_no=#{storeNo}
-		AND pickup_date BETWEEN to_date(#{startDate},'yyMMdd') AND  to_date(#{endDate},'yyMMdd')
+		<if test="startDate != null">
+		and trunc(pickup_date) <![CDATA[>=]]> #{startDate}
+		</if>
+		<if test="endDate != null">
+		and trunc(pickup_date) <![CDATA[<=]]> #{endDate}
+		</if>
 		group by pickup_date,store_no
 		order by pickup_date
 	</select>

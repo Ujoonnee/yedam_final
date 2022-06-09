@@ -91,7 +91,7 @@
 								<div class="row justify-content-center form-control">
 									<section id ="page_header" class="single-page-header">
 										<div align="left" style="padding-left: 50px; padding: 20px;">
-											<div class="container display-3" ><input id = "storeName" name = "storeName" class= "display-4" disabled="disabled" style = " border: none; background-color: white; " value="${products[0].storeName}"></div>
+											<div class="container display-3" ><input id = "storeName" name = "storeName" class= "display-4" disabled="disabled" style = " border: none; background-color: white; " value="${storeName}"></div>
 										</div>
 									</section>
 									<hr>
