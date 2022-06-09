@@ -95,6 +95,8 @@ public class ProductController {
 //	결제정보전달
 	@RequestMapping("paymenInformation")
 	public String PaymentInformation(@RequestBody HashMap<String,String> vo,ProductPagingCriteria cri,Model model,HttpServletRequest request) {
+		String date = vo.get("date");
+		System.out.println("============date값 :"+date);
 		
 		System.out.println(cri.getStoreNo());
 		System.out.println("=================vo"+vo);

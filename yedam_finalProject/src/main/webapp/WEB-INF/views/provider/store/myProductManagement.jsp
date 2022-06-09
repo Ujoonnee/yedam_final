@@ -228,25 +228,25 @@
 		<div id = "modal_body" class="modal_body">
 <!-- 		<form method = "post" action = "updateStock" id = "frm"> -->
 			<div id="management">
-				<table style ="margin: auto;">
+				<table style ="margin: auto;" class="table table-centered table-nowrap mb-0 rounded">
 					<colgroup>
 					    <col width="15%">
 					    <col width="15%">
 					    <col width="10%">
 					    <col width="25%">
-					    <col width="20%">
-                        <col width="5%">
+					    <col width="24%">
+                        <col width="1%">
 					    <col width="10%">
 					</colgroup>
-					<thead>
+					<thead class="thead-light">
 						<tr>
-							<th>사진</th>
-							<th>카테고리</th>
-							<th>가격</th>
-							<th>상품명</th>
-							<th>상태</th>
-							<th>&nbsp;</th>
-							<th>수량</th>
+							<th class="border-0 rounded-start">사진</th>
+							<th class="border-0">카테고리</th>
+							<th class="border-0">가격</th>
+							<th class="border-0">상품명</th>
+							<th class="border-0">상태</th>
+							<th class="border-0">&nbsp;</th>
+							<th class="border-0 rounded-end">수량</th>
 						</tr>
 					</thead>
 					<tbody id="tbody"></tbody>
@@ -260,7 +260,7 @@
 <!-- 	; this.onclick=null; -->
 <br>
 	<form id = "productRegist" name="productRegist">
-        <div id="box"></div><input type="button" id ="submitOne" style="visibility: hidden; float:left;" class="btn-sm btn-primary" value="전송">
+        <div id="box"></div><input type="button" id ="submitOne" style="visibility: hidden; float:left;" class="btn-sm btn-primary" value="등록">
 	</form>        
 	</div>
 </div>
@@ -302,7 +302,6 @@
 		           , contentType : false
 		           , data : form
 		           , success:function(response) {
-		               alert("성공하였습니다.");
 		               location.reload();
 		               
 		           }
@@ -353,7 +352,6 @@
 		        data: $("#productRegist").serialize(), // 전송 데이터
 		        dataType: 'text', // 전송 데이터 형식
 		        success: function(res){ // 성공 시 실행
-		            alert("입력성공");
 		            location.reload();
 		        },
 		        error:function(err){ //실패 시 실행
@@ -417,7 +415,6 @@
 	  		 contentType: "application/json; charset=utf-8",
 	  		 data: JSON.stringify(list),
 	  		 success: function(result){
-	  			 	alert("상품수정 완료");
 		  			location.reload();
 	  		 },
 	  		 error: function(result){
@@ -686,7 +683,6 @@
 	        success : function (data){
 	  			location.reload();
 	        	console.log(data);	
-	        	alert("등록성공");
 	        },
 	        error : function(e){
 	  			location.reload();

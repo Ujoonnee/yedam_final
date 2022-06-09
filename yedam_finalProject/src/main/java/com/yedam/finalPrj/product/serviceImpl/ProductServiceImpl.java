@@ -290,21 +290,35 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productReservationInsert(HashMap<String, String> vo, Model model, HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		 LocalDate todaysDate = LocalDate.now();
+		 
+//		String pickupDate = vo.get("time");
+		
+//		String fd = "2013-04-08 10:10:10";
+//		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		Date to = (Date) transFormat.parse(fd);
+		
+//		pickupTime에 날짜랑+ 시간.같이들어감
+		
 		ProductReservation ProResVO = new ProductReservation();
+		
+		LocalDate todaysDate = LocalDate.now();
+		
 		String from = vo.get("time");
 		from = todaysDate +" "+ from;
-		
 		from = from + ":00";
 //		2021-12-03 12:10:00
+		
 		System.out.println("OrderTime 최종"+ from);
 		 Timestamp timestamp = Timestamp.valueOf(from);
+//		 date로변환해야함.
+//		 Timestamp setPickupDate = Timestamp.valueOf(pickupDate);
 		System.out.println("date 로 변환한 orderTime "+timestamp);
-		
+		System.out.println("date 로 변환한 setPickupDate "+todaysDate);
+
 		ProResVO.setStoreNo(Integer.parseInt(vo.get("storeNo")));
 		ProResVO.setMemNo(Integer.parseInt(vo.get("memNo")));
 		ProResVO.setPaymentAmt(vo.get("amount"));
-		ProResVO.setPickupDate(timestamp);
+//		ProResVO.setPickupDate(todaysDate);
 		ProResVO.setPickupTime(timestamp);
 		
 //		결제금액이 있다면 결제상태 Y로변경
