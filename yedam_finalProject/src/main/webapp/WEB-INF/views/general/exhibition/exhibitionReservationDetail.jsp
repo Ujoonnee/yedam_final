@@ -76,7 +76,7 @@
 				</tr>
 				<tr style="width:450px;" class="row mb-2">
 					<th class="col-3">관람예정일</th>
-					<td class="col-6"><fmt:formatDate value="${exRes.exDate }" pattern="yyyy-MM-dd"/>
+					<td class="col-6" id="exDate"><fmt:formatDate value="${exRes.exDate }" pattern="yyyy년 MM월 dd일"/>
 
 					</td>
 				</tr>
@@ -86,7 +86,7 @@
 				</tr>
 				<tr style="width:450px;" class="row mb-2">
 					<th class="col-3">결제금액</th>
-					<td class="col-6"><fmt:formatNumber value="${exRes.paymentAmt }" pattern="#,###"/></td>
+					<td class="col-6"><fmt:formatNumber value="${exRes.paymentAmt }" pattern="#,### 원"/></td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
 			</table>
@@ -190,7 +190,7 @@
 	 		$("#category").val("${exRes.category}");
 	 		$("#resNo").val("${exRes.exResNo}");
 	 		$("#serviceName").val("${exRes.name}");
-	 		$("#resDate").html("${exRes.exDate}");
+	 		$("#resDate").html($("#exDate"));
 	 		$("#serviceNameDiv").html("${exRes.name}");
 	 		
 	 	})

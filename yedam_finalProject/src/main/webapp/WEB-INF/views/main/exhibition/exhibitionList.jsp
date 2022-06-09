@@ -72,7 +72,7 @@
 		        <form id="frm" method="get">
 			        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="padding :9px;">
 				        <c:forEach items="${exhibitionList }" var = "list" >
-					        <div class="col" >
+					        <div class="col" style="cursor:pointer" >
 					        
 					        <c:if test = "${empty list.thumbnail }">
 						          <div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
