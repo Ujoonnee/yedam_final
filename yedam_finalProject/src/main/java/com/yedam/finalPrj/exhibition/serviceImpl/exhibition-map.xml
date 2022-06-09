@@ -147,7 +147,7 @@
 <!-- 예약취소 -->
 <update id="cancelOneReservation" parameterType="int">
 	UPDATE exhibition_reservation
-	SET payment_status  = 'R' , payment_amt = '0'
+	SET payment_status  = 'R'
 	WHERE ex_res_no = #{exResNo} 
 	AND category= '00202'
 </update>
@@ -192,6 +192,7 @@
 		JOIN member m
 		ON e.mem_no = m.mem_no
 		WHERE ex_no=#{exNo}
+		ORDER BY e.ex_res_no DESC
 	</select>
 	
 	<!-- 예약 상세 -->

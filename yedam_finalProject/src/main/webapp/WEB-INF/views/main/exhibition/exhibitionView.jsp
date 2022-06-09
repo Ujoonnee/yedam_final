@@ -198,6 +198,7 @@
 							</div>
 						</c:forEach>
 						<hr>
+
 						<c:if test="${fn:length(reviewList) == 0 } ">
 						    <h1>아직 리뷰가 없습니다!</h1>
 						</c:if>
