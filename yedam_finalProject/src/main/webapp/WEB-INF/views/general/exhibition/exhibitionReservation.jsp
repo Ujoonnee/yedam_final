@@ -12,7 +12,7 @@
 
 <div class="row justify-content-center">
 	<div class="col-8">
-		<h3>내 예약 정보</h3>
+		<h3>내 전시 예약 정보</h3>
 		
 			<form name="frm" method="POST" action="exSelectAllReservation">
 				<div align="center" class="mb-5">	
@@ -40,14 +40,14 @@
 								<tr class="border-0 rounded-start">
 									<th class="border-0 rounded-start display-3">예약번호</th>
 									<th class="border-0">전시명</th>
-									<th class="border-0">예약전시일</th>
+									<th class="border-0">관람예정일</th>
 									<th class="border-0">금액</th>
 									<th class="border-0 rounded-end">결제여부</th>
 								</tr>
 							</thead>
 							<tbody id="tbd">
 								<c:forEach items="${exhibitionReservationVO }" var="exRes">
-									<tr class="list">
+									<tr class="list" style="cursor:pointer">
 									
 										<td>${exRes.exResNo }</td>
 										<td>
@@ -56,8 +56,8 @@
 											<!--<c:out value="${exRes.name }"/> -->
 										
 										</td>
-										<td><fmt:formatDate value="${exRes.exDate }" pattern="yyyy년MM월dd일 HH시mm분"/></td>
-										<td><fmt:formatNumber value="${exRes.paymentAmt }" pattern="#,###"/></td>
+										<td><fmt:formatDate value="${exRes.exDate }" pattern="yyyy년 MM월 dd일"/></td>
+										<td><fmt:formatNumber value="${exRes.paymentAmt }" pattern="#,### 원"/></td>
 										<td>
 											<c:set var="status" value="N"/>
 												<c:choose>

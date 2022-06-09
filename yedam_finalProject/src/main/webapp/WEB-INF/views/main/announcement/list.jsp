@@ -40,7 +40,7 @@
 						id="boardtable">
 						<thead class="thead-light">
 							<tr class="border-0 rounded-start">
-								<th class="border-0">N O</th>
+								<th class="border-0">&nbsp;&nbsp;&nbsp;&nbsp;번호</th>
 								<th class="border-0">제목</th>
 								<th class="border-0">등록일</th>
 								<th class="border-0">조회</th>
@@ -50,22 +50,24 @@
 						<tbody>
 		
 							<c:forEach items="${topList}" var="announcement">
-								<tr>
-		
-									<td style="width: 10%">중요</td>
-									<td style="width: 55%"><a class="text-primary fw-bold"
-										href="mainAnnDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">${announcement.title }</a></td>
+								
+								<tr align="left" style="cursor:pointer">
+								
+									<td class="display-5 mt-2 mb-2" style="width: 10%;"><button class="btn btn-sm btn-info">중요</button></td>
+									<td style="width: 55%"><a class="text-primary fw-bold color:bluesky"
+										href="mainAnnDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">【중요】&nbsp; ${announcement.title }</a></td>
 									<td style="width: 10%">${announcement.annDate }</td>
 									<td style="width: 5%">${announcement.annView }</td>
 								</tr>
+									
 							</c:forEach>
 		
 							<!-- 	<tr><td colspan="7">&nbsp;</td></tr> -->
 		
 							<tr id="space" height="1px" style="background-color:gainsboro"><td colspan="7" style="height:1px;"></td></tr>
 								<c:forEach items="${list }" var="announcement">
-										<tr>
-											<td>${announcement.annNo }</td>
+										<tr style="cursor:pointer">
+											<td>&nbsp;&nbsp;&nbsp;${announcement.annNo }</td>
 											<td><a class="text-primary fw-bold" href="mainAnnDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">${announcement.title }</a></td>
 											<td>${announcement.annDate }</td>
 											<td>${announcement.annView }</td>

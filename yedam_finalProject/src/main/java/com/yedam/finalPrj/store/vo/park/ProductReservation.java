@@ -2,6 +2,7 @@ package com.yedam.finalPrj.store.vo.park;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ public class ProductReservation {
 	private int storeNo;
 	private int memNo;
 	private Timestamp pickupTime;
-	private Timestamp pickupDate;
+	private Date pickupDate;
 	private String paymentAmt;
 	private String paymentStatus;
 	private Date orderDate;

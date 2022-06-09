@@ -12,7 +12,7 @@
 <body>
 <div class="row justify-content-center">
 	<div class="col-8">
-		<div class="display-4">전시목록>전시명 : ${exName}</div>
+		<div class="display-4">${exName}</div>
 		<hr>
 		<div class="card border-0 shadow mb-4">
 			<div class="card-body">

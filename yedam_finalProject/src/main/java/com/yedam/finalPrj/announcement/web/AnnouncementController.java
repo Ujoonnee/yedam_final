@@ -118,8 +118,6 @@ public class AnnouncementController {
 
 		model.addAttribute("announcement", service.findOne(announcement));
 
-		service.updateView(announcement);
-
 		List<Map<String, Object>> fileList = service.selectFileList(announcement.getAnnNo());
 		model.addAttribute("file", fileList);
 

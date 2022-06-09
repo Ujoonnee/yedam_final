@@ -17,15 +17,15 @@
 				</colgroup>
 				<tr>
 					<th>전시명</th>
-					<td><input class="form-control mb-3 mt-3" name="name" style="width:200px" required></td>
+					<td><input class="form-control mt-2 mb-4" name="name" required></td>
 				</tr>
 				<tr>
 					<th>전시장명</th>
-					<td><input class="form-control mb-3 mt-3" name="locationName" style="width:200px" required></td>
+					<td><input class="form-control mt-2 mb-4" name="locationName" style="width:200px" required></td>
 				</tr>
 				<tr>
 					<th>티켓 가격</th>
-					<td><input class="form-control mt-3 mb-3" name="price" style="width:100px" required></td>
+					<td><input class="form-control mt-3 mb-3" type="number" name="price" style="width:100px" required></td>
 				</tr>
 				<tr>
 					<th>전시 기간</th>
@@ -45,9 +45,9 @@
 				<tr>
 					<th>주소</th>
 					<td>
-						<div class="input-group mt-4">
-							<input class="form-control" id="zonecode" readonly required>
-							<input class="btn btn-outline-gray-700" type="button" id="postCodeBtn" value="우편번호 검색">
+						<div class="mt-4">
+							<input class="form-control" type="hidden"id="zonecode" readonly>
+							<input class="btn btn-outline-gray-700" type="button" id="postCodeBtn" value="주소 검색">
 						</div> 
 						<input class="form-control mt-2 mt-2" id="address" name="address" readonly required>
 						<input class="form-control mt-2 mb-4" id="addressDetail" placeholder="상세주소 입력">

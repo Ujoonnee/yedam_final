@@ -183,15 +183,14 @@
 				                                <div class="row mb-1">
 				                                    <div class="col-7">
 				                                        <label for="">주소</label>
-				                                        <div class="input-group">
-					                                        <input id="zipcode" class="form-control" type="text" required readonly>
-					                                        <button class="btn btn-outline-gray-700" id="addressSearchBtn">검색</button>
+				                                        <div class="">
+					                                        <input id="zipcode" class="form-control" type="hidden" readonly>
 				                                        </div>
 				                                    </div>
 					                            </div>
 				                                <div class="mb-1">
 				                                    <div>
-				                                        <input class="form-control" id="address1" type="text" required readonly>
+				                                        <input class="form-control" id="address1" type="text" required readonly placeholder="이곳을 클릭해서 주소를 검색해 주세요.">
 				                                    </div>
 					                            </div>
 				                                <div class="mb-2">
@@ -508,7 +507,7 @@
 		$('#buisnessStartDate').on('keydown', event => { if (!isFinite(event.key) && event.key != 'Backspace') event.preventDefault(); } );
 		
 		// 주소 검색 기능
-		$('#addressSearchBtn').on('click', event => {
+		$('#address1').on('click', event => {
 			event.preventDefault();
 			
 			// kakao 주소검색 api

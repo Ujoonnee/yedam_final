@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.product.web;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,27 +51,20 @@ public class ProductController {
 		HttpSession session =  request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		
-		if (user == null) {
-			model.addAttribute("products" ,dao.selectOne(cri));
-			model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
-			return "main/store/storeView";
-		}else {
-		System.out.println(user.getName());
+		if (user != null) {
+			model.addAttribute("memNo",user.getMemNo());
+			model.addAttribute("name",user.getName());
+			model.addAttribute("email",user.getEmail());
+			model.addAttribute("tel",user.getTel());
+			model.addAttribute("address",user.getAddress());
+		}
 		
-		model.addAttribute("memNo",user.getMemNo());
-		model.addAttribute("name",user.getName());
-		model.addAttribute("email",user.getEmail());
-		model.addAttribute("tel",user.getTel());
-		model.addAttribute("address",user.getAddress());
+		model.addAttribute("reviewList", dao.selectReviewList(cri.getStoreName()));
 		model.addAttribute("products" ,dao.selectOne(cri));
+		model.addAttribute("storeName" ,cri.getStoreName());
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
 		
-		//By JO, 매장명 받아서 review 목록 출력.
-		System.out.println("++++++++++++++++++++++++");
-		System.out.println(cri.getStoreName()); 
-		model.addAttribute("reviewList", dao.selectReviewList(cri.getStoreName()));
 		return "main/store/storeView";
-		}
 	}
 	
 // 재고 반영
@@ -92,6 +87,8 @@ public class ProductController {
 //	결제정보전달
 	@RequestMapping("paymenInformation")
 	public String PaymentInformation(@RequestBody HashMap<String,String> vo,ProductPagingCriteria cri,Model model,HttpServletRequest request) {
+		String date = vo.get("date");
+		System.out.println("============date값 :"+date);
 		
 		System.out.println(cri.getStoreNo());
 		System.out.println("=================vo"+vo);
@@ -169,7 +166,6 @@ public class ProductController {
 //	통계 초기화면
 	@RequestMapping("statisticsForm")
 	public String Statistics(@RequestParam("storeNo") int storeNo, Model model) {
-		
 		model.addAttribute("productReservation" , dao.salesbyDate(storeNo));
 		return "provider/store/statistics";
 	}

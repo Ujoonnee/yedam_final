@@ -29,6 +29,7 @@
 		WHERE r.ex_no = e.ex_no 
 		AND r.mem_no = m.mem_no
 		AND r.ex_res_no = #{exResNo}
+		ORDER BY ex_res_no DESC
 	</select>
 	
 	<!-- 페이징  -->
@@ -45,6 +46,7 @@
 				  AND rownum <= #{pageNum} * #{amount}  
 					)
 			WHERE rn > (#{pageNum}-1) * #{amount}
+			ORDER BY ex_res_no DESC
 		]]>
 	</select>
 	
@@ -147,7 +149,7 @@
 <!-- 예약취소 -->
 <update id="cancelOneReservation" parameterType="int">
 	UPDATE exhibition_reservation
-	SET payment_status  = 'R' , payment_amt = '0'
+	SET payment_status  = 'R'
 	WHERE ex_res_no = #{exResNo} 
 	AND category= '00202'
 </update>
@@ -183,6 +185,7 @@
 	<!-- 사업자의 승인된 전시 목록 -->
 	<select id="selectProviderExhibitionList" parameterType="MemberVO" resultType="ExhibitionVO">
 		SELECT * FROM exhibition WHERE mem_no=#{memNo} AND approval_status='00401'
+		ORDER BY ex_no DESC
 	</select>
 	
 	<!-- 선택한 전시의 예약자 목록 -->
@@ -192,6 +195,7 @@
 		JOIN member m
 		ON e.mem_no = m.mem_no
 		WHERE ex_no=#{exNo}
+		ORDER BY e.ex_res_no DESC
 	</select>
 	
 	<!-- 예약 상세 -->

@@ -120,13 +120,7 @@
 <jsp:useBean id="today" class="java.util.Date" />
 </head>
 <body>
-<!-- 상단으로 올라가기. -->
-<div align="center">
-	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-size:50px; vertical-align:center;">
-		<span>▲</span><br>
-		<span>TOP</span>
-	</a>
-</div>
+
 <div class = "row justify-content-center">
 	<div class = "col-8" style="width:900px;">
 		<div class="display-4 mt-3">전시</div>
@@ -156,7 +150,7 @@
 			</small>
 			<p></p>
 	       	<small class="text-muted">
-				가격 : ${exhibitionView.price }
+				가격 : ${exhibitionView.price }&nbsp;원
 			</small>
 			<p></p>
 	       	<small class="text-muted">
@@ -172,7 +166,7 @@
 	<div style = "padding-left : 30px; padding-right: 30px;">
 		<div class="display-4 row"> 
 			<div class="col-6 mb-3">상세정보</div>
-			<div align="right" class="display-5 col-6 justify-content-right">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow"onclick=openClose()>리뷰 보기</button></div>
+			<div align="right" class="display-5 col-6 justify-content-right">현재리뷰(<span id="reviewNums"></span>)</span>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-primary" id="reviewShow" onclick="openClose()">리뷰 보기</button></div>
 		</div>
 		<p class = "text-muted">
 			${exhibitionView.detail }
@@ -185,22 +179,23 @@
 				<!-- By jo, 리뷰목록 출력하기 -->
 				<!-- <div class="card border-0 shadow mb-4" id="exhReviewList"> -->
 				
-				<div id="reviewListStyle" class="col-8 form-control mt-10 mb-6 ms-3" style="display:none; width:400px;">
-						<c:forEach var="list" items="${reviewList}" varStatus="status">
-							<hr>
-							<div>
-								<div><span class="display-5 me-2">평점(${list.score})</span>
-								<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
-								</div><br>
-								<div class="display-6">${list.content}</div>
-									<br>
-								<div><span class="display-6 me-2" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}*** 님&nbsp;</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
-							</div>
-						</c:forEach>
-						<hr>
-						<c:if test="${fn:length(reviewList) == 0 } ">
+				<div id="reviewListStyle" class="col-3 mt-10 mb-10 ms-3 form-control" style="display:none; width:400px;" align="left">
+				<c:forEach var="list" items="${reviewList}" varStatus="status">
+					<hr>
+					<div>
+						<div><span class="display-5 me-2">평점(${list.score})</span>
+							<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
+						</div><br>
+						<div class="display-6">${list.content}</div>
+							<br>
+						<div><span class="display-6 me-1" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}*** 님</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
+					</div>
+				</c:forEach>
+				<hr>
+
+						<%-- <c:if test="${fn:length(reviewList) == 0 } ">
 						    <h1>아직 리뷰가 없습니다!</h1>
-						</c:if>
+						</c:if> --%>
 				</div>		
 				<!-- </div> -->
 </div>
@@ -255,6 +250,13 @@
 	</div>
 </div>
 
+<!-- 상단으로 올라가기. -->
+<div align="center">
+	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-size:50px; vertical-align:center;">
+		<span>▲</span><br>
+		<span>TOP</span>
+	</a>
+</div>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script type="text/javascript">
 // 	결제 function
@@ -559,10 +561,10 @@ function requestPay() {
       function openClose(){
       	 if($("#reviewListStyle").css("display") == "none") {
       	      $("#reviewListStyle").fadeIn(400);
-      	      $("reviewShow").textContent = '리뷰 접기';
+      	      $("#reviewShow").html('리뷰 접기');
       	    } else {
       	      $("#reviewListStyle").fadeOut(400);
-      	      $("reviewShow").textContent = '리뷰 보기';
+      	      $("#reviewShow").html('리뷰 보기');
       	    }
       } 		
 

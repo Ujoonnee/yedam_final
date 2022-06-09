@@ -3,6 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
+
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<!-- 날짜 구하는 함수 -->
+ <c:set var="today" value="<%=new java.util.Date()%>" />
+  <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,6 +82,9 @@
  
 </head>
 <body>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <div align = "center" class = "row justify-content-center">
 	<div style="width:900px">
@@ -91,7 +100,7 @@
 								<div class="row justify-content-center form-control">
 									<section id ="page_header" class="single-page-header">
 										<div align="left" style="padding-left: 50px; padding: 20px;">
-											<div class="container display-3" ><input id = "storeName" name = "storeName" class= "display-4" disabled="disabled" style = " border: none; background-color: white; " value="${products[0].storeName}"></div>
+											<div class="container display-3" ><input id = "storeName" name = "storeName" class= "display-4" disabled="disabled" style = " border: none; background-color: white; " value="${storeName}"></div>
 										</div>
 									</section>
 									<hr>
@@ -130,7 +139,7 @@
 						<div class="card border-0 shadow mb-4">
 					<!-- 		<hr> -->
 							<div align="right" style="padding-right: 50px; padding-top: 40px">
-								<button class="btn-open-popup  btn btn-sm btn-primary me-3" onclick="getCheckboxValue()">예약하기</button>
+								<button class="btn-open-popup  btn btn-sm btn-primary me-3" data-toggle="modal" data-target="#myModal" onclick="getCheckboxValue()">예약하기</button>
 										<button type="button" class="btn btn-sm btn-primary" id="reviewShow" onclick=openClose()>리뷰 보기</button>
 										<span>현재리뷰(<span id="reviewNums"></span>)</span>
 							</div>
@@ -174,10 +183,15 @@
 			
 				
 					<!-- 	모달 -->
-						<div id ="popup_mask" ></div> <!-- 팝업 배경 DIV -->
-					    <div id= "modal"class="modal"> 
-					        <div id="modal_body"class="modal_body">
-								<div>픽업 예상 시간 <input type="time" id="pickupTime" min="00:00" max="23:59"></div>
+					
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+<!-- 					        <button type="button" style="border:none;" class="close" data-dismiss="modal" aria-label="Close"></button> -->
+					        <h4 class="modal-title " id="myModalLabel">결제창</h4>
+					      </div>
+					      <div class="modal-body">
 								<br>
 								<div id ="cart"></div>
 								<div id = "management">
@@ -199,11 +213,21 @@
 									<small style="" class="card-text">총가격 : <input type = "text" id="totalPrice" name = "totalPrice" disabled="disabled"></small>
 									
 								</div>
+								<hr>
+								<div>픽업날짜.</div>
+							       <div id = "exDate"></div>
+							       <br>
+								<div>픽업 예상 시간.</div>
+								<div> <input type="time" id="pickupTime" min="00:00" max="23:59"></div>
+								
 								<br>
 								<button id="payBtn" class="btn btn-outline-gray-500">결제하기</button>
-								
-								</div>
-							</div>
+					      </div>
+					    </div>
+					  </div></div>
+					
+					
+					
 						
 			<!-- By jo, 리뷰목록 출력하기. -->
 				</div>
@@ -211,19 +235,22 @@
 		</div>
 			
 	</div>
-				<div id="r	viewListStyle" class="col-3 mt-10 mb-10 ms-3 form-control" style="display:none; width:400px;" align="left">
-					<c:forEach var="list" items="${reviewList}" varStatus="status">
-						<hr>
-						<div class="">
-							<div><span class="display-5 me-2">평점(${list.score})</span>
-							<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
-							</div><br>
-							<div class="display-6">${list.content}</div>
-								<br>
-							<div><span class="display-6 me-1" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}*** 님</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
-						</div>
-					</c:forEach>
+			<div id="reviewListStyle" class="col-3 mt-10 mb-10 ms-3 form-control" style="display:none; width:400px;" align="left">
+				<c:forEach var="list" items="${reviewList}" varStatus="status">
 					<hr>
+					<div>
+						<div><span class="display-5 me-2">평점(${list.score})</span>
+							<span class="tscore${status.index} display-5" style="color:#FFA500">${list.score}</span>
+						</div><br>
+						<div class="display-6">${list.content}</div>
+							<br>
+						<div><span class="display-6 me-1" style="border-right:2px solid;">${fn:substring(list.member.email, 0,3)}***님</span><span class="display-6"><fmt:formatDate value="${list.revTime}" pattern="yyyy.MM.dd. HH:mm"/></span></div>
+					</div>
+				</c:forEach>
+				<hr>
+				<c:if test="${fn:length(reviewList) == 0 } ">
+				    <h1>아직 리뷰가 없습니다!</h1>
+				</c:if>
 	</div>
 </div>
 <hr>
@@ -255,9 +282,10 @@
 		var mem_no = '${user.memNo}';
 		var email = '${user.email}';
 		var totalPrice = $('#totalPrice').val();
-		var pickupTime = document.getElementById('pickupTime').value
-		var store_no = document.getElementById('storeNo').value
-		
+		var pickupTime = document.getElementById('pickupTime').value;
+		var store_no = document.getElementById('storeNo').value;
+		var exDate = document.getElementById('exDate').value;
+		console.log(exDate);
 		
    	  	const selectedEls = document.querySelectorAll('input[name="checkf"]:checked');
 		
@@ -287,7 +315,6 @@
 		      }, function (rsp) { // callback
 		          if (rsp.success) {
 		        	  
-		        	  alert(rsp.success);
 		        	  console.log(rsp.success);
 		        	  console.log(rsp);
 		        	  console.log(mem_no);
@@ -305,6 +332,7 @@
 				                name : rsp.buyer_name,			//이름
 				                tel : rsp.buyer_tel,			//전화번호
 				                address : rsp.buyer_addr,		//주소
+				                date : exDate,
 				                time : pickupTime,				//픽업시간
 				                pay_method : rsp.pay_method,	//결제방법
 				                storeNo : store_no,				//매장등록번호
@@ -315,38 +343,37 @@
 				        }).done(function (data) {
 				          // 가맹점 서버 결제 API 성공시 로직
 				          console.log(data);
-			        	 alert('정보저장성공');
 				        })
-						alert("결제성공");  
 		              
 		              
 		               var list =[];
-	                      const trVal = $("tr[name='checkVal']");
-	                      console.log("storeNo값:"+store_no);
-	                      for(var i =0; i< trVal.length ; i++){
-	                        var prodNo = trVal.eq(i).find("input[name='checkValProdNo']").val();
-	                        var stock = trVal.eq(i).find("input[name='stock']").val();
+                      const trVal = $("tr[name='checkVal']");
+                      console.log("storeNo값:"+store_no);
+                      for(var i =0; i< trVal.length ; i++){
+                        var prodNo = trVal.eq(i).find("input[name='checkValProdNo']").val();
+                        var stock = trVal.eq(i).find("input[name='stock']").val();
 
-	                        console.log(stock)
-	                        console.log(prodNo)
+                        console.log(stock)
+                        console.log(prodNo)
 
-	                        list.push({prodNo,stock,store_no})
-	                      }
+                        list.push({prodNo,stock,store_no})
+                      }
 
-	                      jQuery.ajax({
-	                        url:"updateStock",
-	                        method:"POST",
-	                        headers: { "Content-Type": "application/json" },
-	                        data : JSON.stringify(list)
-	                      }).done(function(data){
-	                        console.log(data);
-	                        alert("재고 반영 완료");
-	                        location.reload();
-	                      })
+                      jQuery.ajax({
+                        url:"updateStock",
+                        method:"POST",
+                        headers: { "Content-Type": "application/json" },
+                        data : JSON.stringify(list)
+                      }).done(function(data){
+                        console.log(data);
+                        location.reload();
+                      })
+                      
+                      alert("결제성공");
+
+                      //결제 성공 로직 끝
 	                      
 	                      
-
-	                      //결제 성공 로직 끝
 		          } else {
 		        	  console.log(data)
 		              // 결제 실패 시 로직,
@@ -442,6 +469,7 @@
 	  const btnOpenPopup = document.querySelector('.btn-open-popup'); 
 	  
 	  btnOpenPopup.addEventListener('click', () => {
+		  
 // 		  input 0 일때 모달 창 X
   	    	// 선택된 목록 가져오기
     	  const query = 'input[name="checkf"]:checked';
@@ -466,13 +494,13 @@
 			  return;
 		  }
 			  
+		  
 	        modal.classList.toggle('show');
-	        $("#modal").css({
-	              "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
-	              "left": (($(window).width()-$("#modal").outerWidth())/2+$(window).scrollLeft())+"px"
+	        $("#myModal").css({
+	              "top": (($(window).height()-$("#myModal").outerHeight())/2+$(window).scrollTop())+"px",
+	              "left": (($(window).width()-$("#myModal").outerWidth())/2+$(window).scrollLeft())+"px"
 	              //팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
-
-	           }); 
+	        }); 
 
 	        $("#popup_mask").css("display","block"); //팝업 뒷배경 display block
 	        $("#modal").css("display","block"); //팝업창 display block
@@ -571,6 +599,39 @@
 		}
      }
      
+
+ 	 $(document).ready(function () {
+ 		 const today = new Date("${date}");
+ 		 const dateStart = new Date("${sta}");
+ 		 const dateEnd = new Date("${end}");
+ 		 var startDate =  Math.floor((today.getTime() - dateStart.getTime())/(24*60*60*1000));
+ 		 var endDate =  Math.floor((dateEnd.getTime() - today.getTime())/(24*60*60*1000));
+ 		 console.log(startDate);
+ 		 console.log(endDate);
+          $.datepicker.setDefaults($.datepicker.regional['ko']); 
+          $( "#exDate" ).datepicker({
+               changeMonth: true, 
+               changeYear: true,
+               nextText: '다음 달',
+               prevText: '이전 달', 
+               dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+               dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+               monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+               monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+               dateFormat: "yymmdd",
+               minDate : today,
+               maxDate : endDate,
+               onClose: function( selectedDate ) {    
+                    //시작일(startDate) datepicker가 닫힐때
+                    //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                   $("#endDate").datepicker( "option", "minDate", selectedDate );
+               }    
+
+          });
+   
+  });
+     
+     
     //JO 리뷰 여러개일때 별출력 하기.
     	//리뷰 갯수(length)구하기.
  	 var revNo = [];	
@@ -601,19 +662,21 @@
     } */
     function openClose(){
      	 if($("#reviewListStyle").css("display") == "none") {
-     	      $("#reviewListStyle").fadeIn(700);
-     	      $("reviewShow").textContent = '리뷰 접기';
+     	      $("#reviewListStyle").fadeIn(400);
+     	      $("#reviewShow").html('리뷰 접기');
      	    } else {
-     	      $("#reviewListStyle").fadeOut(700);
-     	      $("reviewShow").textContent = '리뷰 보기';
+     	      $("#reviewListStyle").fadeOut(400);
+     	      $("#reviewShow").html('리뷰 보기');
      	    }
-     } 	
+     } 		
    
       	
        	
 	// 행 클릭하면 체크박스 체크
 	$('tr').on('click', function(event) {
-		this.childNodes[1].childNodes[1].click();
+
+		if(event.target.tagName !="INPUT") this.childNodes[1].childNodes[1].click();
+
 	})
       
     	
