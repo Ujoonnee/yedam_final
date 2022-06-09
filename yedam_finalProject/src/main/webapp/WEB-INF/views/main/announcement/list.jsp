@@ -66,7 +66,7 @@
 		
 							<tr id="space" height="1px" style="background-color:gainsboro"><td colspan="7" style="height:1px;"></td></tr>
 								<c:forEach items="${list }" var="announcement">
-										<tr>
+										<tr style="cursor:pointer">
 											<td>&nbsp;&nbsp;&nbsp;${announcement.annNo }</td>
 											<td><a class="text-primary fw-bold" href="mainAnnDetail?annNo=${announcement.annNo }&pageNum=${paging.cri.pageNum }">${announcement.title }</a></td>
 											<td>${announcement.annDate }</td>
