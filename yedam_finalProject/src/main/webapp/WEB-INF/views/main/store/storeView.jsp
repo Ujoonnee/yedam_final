@@ -616,7 +616,7 @@
        	
 	// 행 클릭하면 체크박스 체크
 	$('tr').on('click', function(event) {
-		this.childNodes[1].childNodes[1].click();
+		if(event.target.tagName !="INPUT") this.childNodes[1].childNodes[1].click();
 	})
       
     	
