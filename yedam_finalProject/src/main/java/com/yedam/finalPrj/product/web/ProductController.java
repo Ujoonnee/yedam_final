@@ -1,5 +1,7 @@
 package com.yedam.finalPrj.product.web;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +64,7 @@ public class ProductController {
 		model.addAttribute("tel",user.getTel());
 		model.addAttribute("address",user.getAddress());
 		model.addAttribute("products" ,dao.selectOne(cri));
+		model.addAttribute("storeName" ,cri.getStoreName());
 		model.addAttribute("paging",new ProductPageMaker(cri, dao.productCnt(cri.getStoreNo())));
 		
 		//By JO, 매장명 받아서 review 목록 출력.
@@ -168,7 +172,6 @@ public class ProductController {
 //	통계 초기화면
 	@RequestMapping("statisticsForm")
 	public String Statistics(@RequestParam("storeNo") int storeNo, Model model) {
-		
 		model.addAttribute("productReservation" , dao.salesbyDate(storeNo));
 		return "provider/store/statistics";
 	}
@@ -229,6 +232,7 @@ public class ProductController {
 		
 		return "provider/store/productReservation";
 	}
+	
 
 //  상품예약목록 상세페이지
 	@RequestMapping(value = "/proReDetail" , method = RequestMethod.GET)

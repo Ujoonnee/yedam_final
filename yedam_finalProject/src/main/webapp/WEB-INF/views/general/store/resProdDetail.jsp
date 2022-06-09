@@ -129,20 +129,60 @@
 
 
 
+
+<jsp:useBean id="now" class="java.util.Date"/>
+<%-- <fmt:formatDate value="${now }" pattern="yyyy-MM-dd" var="today"/> --%>
+<fmt:parseNumber value="${now.time / (100*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
+<fmt:parseNumber value="${detail.pickupDate.time / (100*60*60*24)}" integerOnly="true" var="pickupDate"></fmt:parseNumber>
+
 <!-- 리뷰 작성안했다면 작성버튼 show. -->
-<c:if test="${detail.pickupStatus eq 'Y'}"> 
+<c:if test="${detail.pickupStatus eq 'Y' && today > pickupDate}"> 
 <c:if test="${empty review}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
 </c:if>
 </c:if>
 
 <!-- 픽업상태 'N'이면 예약취소 버튼 show -->
-<c:if test="${detail.pickupStatus eq 'N'}"> 
-<button type="button" class="btn btn-block btn-gray-800 mb-3" id="resCancel">예약취소</button>
-</c:if>
 
+
+<c:if test="${pickupDate - today > 1 }">
+
+	<c:if test="${detail.pickupStatus eq 'N' }">
+	<button type="button" class="btn btn-block btn-gray-800 mb-3" data-bs-toggle="modal" data-bs-target="#modal-form" id>예약취소</button>
+		<div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-form" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-body p-0">
+						<div class="card p-lg-4">
+								<button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+								<form action="" class="" name="cancel">
+									<div class="form-group">
+										<div class="form-group mb-4">
+											<label for="password">예약을 취소하려면 비밀번호를 입력하세요.</label>
+											<div class="input-group">
+												<span class="input-group-text" id="basic-addon2">
+													<svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+														<path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+													</svg> 
+												</span>
+												<input type="password" placeholder="비밀번호를 입력하세요." class="form-control" id="password12" required="">
+											</div>
+										</div>
+										
+									</div>
+									<div class="d-grid">
+										<button type="submit" id = "pwCheck" class="btn btn-gray-800">확 인</button>
+									</div>
+								</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+</c:if>
 <!--리뷰작성하면 show, 답변아직 안달리면 리뷰수정가능-->
-<c:if test="${not empty review}" >
+<c:if test="${not empty review }" >
 <c:if test="${empty review.replyContent}">
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModalUpd" onclick=reviewUpd() >리뷰수정</button>
 

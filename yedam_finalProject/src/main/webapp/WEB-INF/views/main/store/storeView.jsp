@@ -91,7 +91,7 @@
 								<div class="row justify-content-center form-control">
 									<section id ="page_header" class="single-page-header">
 										<div align="left" style="padding-left: 50px; padding: 20px;">
-											<div class="container display-3" ><input id = "storeName" name = "storeName" class= "display-4" disabled="disabled" style = " border: none; background-color: white; " value="${products[0].storeName}"></div>
+											<div class="container display-3" ><input id = "storeName" name = "storeName" class= "display-4" disabled="disabled" style = " border: none; background-color: white; " value="${storeName}"></div>
 										</div>
 									</section>
 									<hr>
@@ -213,7 +213,6 @@
 	</div>
 			<div id="reviewListStyle" class="col-3 mt-10 mb-10 ms-3 form-control" style="display:none; width:400px;" align="left">
 				<c:forEach var="list" items="${reviewList}" varStatus="status">
-				
 					<hr>
 					<div>
 						<div><span class="display-5 me-2">평점(${list.score})</span>
@@ -235,7 +234,7 @@
 	
 <!-- 상단이동 버튼 -->
 <div align="center">
-	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-size:50px; vertical-align:center;">
+	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-상단이동 버튼px; vertical-align:center;">
 		<span>▲</span><br>
 		<span>TOP</span>
 	</a>
@@ -262,10 +261,6 @@
 		var pickupTime = document.getElementById('pickupTime').value
 		var store_no = document.getElementById('storeNo').value
 		
-		if(email == ''){
-			alert("로그인을 해야 결제를 할 수 있습니다.")
-			return;
-		}
 		
    	  	const selectedEls = document.querySelectorAll('input[name="checkf"]:checked');
 		
@@ -287,7 +282,7 @@
 		          pay_method: "card",
 		          merchant_uid: 'merchant_' + new Date().getTime(),
 		          name: "예담통합플랫폼 결제",
-		          amount: 100, //amout에 넣으면됨 parseInt(totalPrice)
+		          amount:  parseInt(totalPrice), //amout에 넣으면됨 parseInt(totalPrice)
 		          buyer_email : email,
 	              buyer_name : '${user.name}',	
 	              buyer_tel : '${user.tel}',
@@ -457,11 +452,23 @@
     	  // 선택된 목록에서 value 찾기
     	  let result = '';
     	  var obj_length = Object.keys(selectedEls).length;
-		  
-    	  if(obj_length == 0){
-    		  alert("상품이없습니다.")
-    		  return;
-    	  }
+    	  
+    	  
+    	  
+    	  const memType = "${user.memType}";
+    	  const memNo= "${user.memNo}";
+    	  
+    	  
+		  if(memType =="00102"){
+			  
+	    	  if(obj_length == 0){
+	    		  alert("상품이없습니다.")
+	    		  return;
+	    	  }
+		  }else if(memType != "00102" | !memNo ){
+			  return;
+		  }
+			  
 	        modal.classList.toggle('show');
 	        $("#modal").css({
 	              "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
@@ -494,6 +501,18 @@
       
 //       체크처리한 값 모달로 가져오기
       function getCheckboxValue()  {
+	
+    	const memNo= "${user.memNo}";
+  		const memType = "${user.memType}";
+  		
+  		if(!memNo ){
+  			alert("비로그인일시 이용이 불가합니다.")
+  			return;
+  		}else if(memType != "00102"){
+  			alert("일반회원만 결제가 가능합니다.")
+  			return;
+  		} else {
+  		
     	  // 선택된 목록 가져오기
     	  const query = 'input[name="checkf"]:checked';
     	  const selectedEls = document.querySelectorAll(query);
@@ -552,7 +571,7 @@
       	
     		$('input[name=totalPrice]').attr('value',total);
     		
-    		
+		}
      }
      
     //JO 리뷰 여러개일때 별출력 하기.

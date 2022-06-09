@@ -15,10 +15,9 @@
 </style>
 </head>
 <body>
-
 <!-- css적용 -->
 <h2>내 예약 정보</h2>
-<div class="row justify-content-center" align=left >
+<div class="row justify-content-center mb-4" align=left >
 	<div>
 		<div class="col-6 form-control" style="width:80%">
 			<table class="table-info">
@@ -36,15 +35,15 @@
 					<td class="col-3"><c:set var="status" value="N"/>
 					<c:choose>
 						<c:when test="${exRes.paymentStatus eq 'N' }">
-							취소
+							결제취소
 						</c:when>
 						
 						<c:when test="${exRes.paymentStatus eq 'Y' }">
-							결제
+							결제완료
 						</c:when>
 						
 						<c:otherwise>
-							미결제
+							취소신청
 						</c:otherwise>
 					</c:choose></td>
 				</tr>
@@ -76,8 +75,10 @@
 					<td class="col-6">${exRes.memName }</td>
 				</tr>
 				<tr style="width:450px;" class="row mb-2">
-					<th class="col-3">예약일시</th>
-					<td class="col-6"><fmt:formatDate value="${exRes.exDate }" pattern="yyyy-MM-dd"/></td>
+					<th class="col-3">관람예정일</th>
+					<td class="col-6"><fmt:formatDate value="${exRes.exDate }" pattern="yyyy-MM-dd"/>
+
+					</td>
 				</tr>
 				<tr style="width:450px;" class="row mb-2">
 					<th class="col-3">수량</th>
@@ -97,7 +98,7 @@
 
 	<!-- css적용 -->
 <h3>내 리뷰</h3>
-<div class="row justify-content-left" align=left >
+<div class="row justify-content-left mb-4" align=left >
 	<div>
 		<c:if test="${not empty reviewList}">
 			<div class="col-6 form-control" style="width:80%">
@@ -116,16 +117,50 @@
 	
 <input class="btn btn-block btn-outline-gray-800 mb-3" type="button" value="목록" onclick="location.href='../exSelectAllReservation'">
 	
-<!-- 리뷰 작성안했다면 작성버튼 show. -->
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="false" var="today"></fmt:parseNumber>
+<fmt:parseNumber value="${exRes.exDate.time / (1000*60*60*24)}" integerOnly="false" var="exDate"></fmt:parseNumber>
 
-<c:if test="${empty reviewList}" >
+<!--1. 관람예정일시 지나면 작성가능. 2.리뷰 작성안했다면 작성버튼 show. -->
+<c:if test="${empty reviewList && today > exDate}" >
 <button type="button" class="btn btn-block btn-gray-800 mb-3" id="btnModal" >리뷰작성</button>
 </c:if>
 
 
+<!-- 결제하고 관람날짜 하루전까지 예약취소 가능. 버튼 show -->
 <!-- 픽업상태 'N'이면 예약취소 버튼 show -->
-<c:if test="${exRes.paymentStatus eq 'Y' }">
-<button type="button" class="btn btn-block btn-gray-800 mb-3" id="resCancel">예약취소</button>
+<c:if test="${exRes.paymentStatus eq 'Y' && exDate - today > 1 }">
+<button type="button" class="btn btn-block btn-gray-800 mb-3" data-bs-toggle="modal" data-bs-target="#modal-form" id>예약취소신청</button>
+	<div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-form" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body p-0">
+					<div class="card p-lg-4">
+							<button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+							<form action="" class="" name="cancel">
+								<div class="form-group">
+									<div class="form-group mb-4">
+										<label for="password">예약을 취소하려면 비밀번호를 입력하세요.</label>
+										<div class="input-group">
+											<span class="input-group-text" id="basic-addon2">
+												<svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+												</svg> 
+											</span>
+											<input type="password" placeholder="비밀번호를 입력하세요." class="form-control" id="password12" required="">
+										</div>
+									</div>
+									
+								</div>
+								<div class="d-grid">
+									<button type="submit" id = "pwCheck" class="btn btn-gray-800">확 인</button>
+								</div>
+							</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </c:if>
 
 <!--수정버튼은 상의 필요...  -->
@@ -173,32 +208,24 @@
 	
 	//예약취소(비밀번호입력)
 	console.log(${detail.store.storeNo});
-	 $("#resCancel").on("click", function(){
+	 $("#pwCheck").on("click", function(){
 		
-		 if(confirm("예약을 취소하시겠습니까?")){
-			var text = prompt("비밀번호를 입력하세요.");
-			if(text == ${user.password}){
-				
-				$.ajax({
-					url:"../cancel",
-					method:"POST",
-					data:{
-						exResNo : ${exRes.exResNo },
-					},
-					success: function(){
-						alert("성공");
-						location.href="${pageContext.request.contextPath}/exhibition/exSelectAllReservation"
-					}
-				})
-				
-				
-			/* location.href="cancel/"+${detail.prodResNo}; */
-			}else{
-				return alert("비밀번호가 틀립니다.");
-			}
+		if($('#password12').val() == ${user.password}){
+			
+			$.ajax({
+				url:"../cancel",
+				method:"POST",
+				data:{
+					exResNo : ${exRes.exResNo },
+				},
+				success: function(){
+					location.href="${pageContext.request.contextPath}/exhibition/exSelectAllReservation"
+				}
+			})
+			
 		}else{
-			return alert("취소되었습니다.");
-		} 
+			alert("비밀번호가 틀립니다.");
+		}
 	 }); 
 	
 

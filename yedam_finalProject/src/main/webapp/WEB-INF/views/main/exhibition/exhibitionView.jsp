@@ -198,9 +198,10 @@
 							</div>
 						</c:forEach>
 						<hr>
-							<c:if test="${fn:length(reviewList) == 0 } ">
-					    <h1>아직 리뷰가 없습니다!</h1>
-					</c:if>
+
+						<c:if test="${fn:length(reviewList) == 0 } ">
+						    <h1>아직 리뷰가 없습니다!</h1>
+						</c:if>
 				</div>		
 				<!-- </div> -->
 </div>
@@ -214,7 +215,11 @@
 				<div id ="관람일">
 				<div id = "exDate"></div></div>
 				<hr>
-				<div id = "ticketAmt">수량 <input type =number id = "ticketCount"  placeholder="수량을 입력하세요.:)" max="30" min="0" style="width:150px;"> </div>
+				<div id = "ticketAmt" class="row justify-content-center" >
+					<div class="col-3 mt-2 " style="padding:0px;">수&nbsp;량 :</div>	
+					<div class="col-4" style="padding:0px;">
+				 	<input type =number id = "ticketCount" class="form-control"  placeholder="수량" max="30" min="0"></div>
+				 </div>
 				<p></p>
 				<div id = "modalButton"><button id = "btn-sub-popup" class="btn btn-primary">결제정보확인</button></div>
 			</div>
@@ -231,13 +236,12 @@
 		<div align= "left">
 			<small class = "display-5">예약정보확인</small><br>
 			<hr>
-			<small class = "text-muted">예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled></small><br>
-			<small class = "text-muted">카테고리			: ${exhibitionView.category }</small><br>
-			<small class = "text-muted">전시명			: ${exhibitionView.name } </small><br>
-			<small class = "text-muted">예약자명			: ${member.name }</small><br>
-			<small class = "text-muted">예약자  연락처	: ${member.tel }</small><br>
-			<small class = "text-muted">수량				: <input type ="text" id ="amount" name="amount" value ="" disabled></small><br>
-			<small class = "text-muted">결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled></small><br>
+			<p class = "text-muted">예약일			: <input type="text" id = "exDate"name="exDate" value="" disabled style="background-color: white; border: none;"></p> 
+			<p class = "text-muted">전시명			: ${exhibitionView.name } </p> 
+			<p class = "text-muted">예약자명			: ${member.name }</p> 
+			<p class = "text-muted">예약자  연락처	: ${member.tel }</p> 
+			<p class = "text-muted">수량				: <input type ="text" id ="amount" name="amount" value ="" disabled style="background-color: white; border: none;"></p> 
+			<p class = "text-muted">결제금액 			: <input type ="text" id ="paymentAmt" name="paymentAmt" value ="" disabled style="background-color: white; border: none;"></p> 
 		
 			<input type = "hidden" name="exNo" value ="${exhibitionView.exNo }">
 			<input type = "hidden" name="memNo" value ="${exhibitionView.memNo }">
@@ -288,7 +292,7 @@ function requestPay() {
 
 		
 		
-		if (memNo == '') {
+		if (memNo == '' || memNo == null) {
 			alert("로그인 후 사용해주세요.")
 			return;
 		}else{
@@ -315,7 +319,7 @@ function requestPay() {
 		        pay_method: "card",
 		        merchant_uid:  'merchant_' + new Date().getTime(),
 		        name: "예담통합플랫폼 결제",
-		        amount: 100, //paymentAmtVal
+		        amount: paymentAmtVal, //paymentAmtVal
 		        buyer_email: email,
 		        buyer_name: name,
 		        buyer_tel: tel,
@@ -323,7 +327,6 @@ function requestPay() {
 		    }, function (rsp) { // callback
 		    	console.log(rsp.merchant_uid);
 		    	console.log(rsp);
-		    	alert(rsp.merchant_uid);
 		        if (rsp.success) {
 		            // 결제 성공 시 로직,
 		        	console.log(rsp.success);
@@ -340,6 +343,7 @@ function requestPay() {
 						},
 						success: function(result){
 							console.log(result);		
+							alert("결제성공");
 							location.reload();
 						},
 						error:function(error){
@@ -374,6 +378,21 @@ function requestPay() {
 	const btnOpenPopup = document.querySelector('#btnReservation'); 
 	
 	btnOpenPopup.addEventListener('click', () => {
+		
+		
+
+		
+		const memNo= "${user.memNo}";
+		const memType = "${user.memType}";
+		if(!memNo ){
+			alert("비로그인일시 이용이 불가합니다.")
+			return;
+		}else if(memType != "00102"){
+			alert("일반회원만 결제가 가능합니다.")
+			return;
+		}
+		
+		
 	      modal.classList.toggle('show');
 	      $("#modal").css({
               "top": (($(window).height()-$("#modal").outerHeight())/2+$(window).scrollTop())+"px",
@@ -424,7 +443,7 @@ function requestPay() {
 	
 	sub_btnOpenPopup.addEventListener('click', () => {
 		
-// 		티켓 수, 날짜 입력받으며, 가격 계산
+		// 		티켓 수, 날짜 입력받으며, 가격 계산
 		var ticketCount = $('#ticketCount').val();
 		var price = $('#price').val();
 		var exdate = $('#exDate').val();
@@ -526,22 +545,24 @@ function requestPay() {
 	 var reviewLength = revNo.length;
 	$("#reviewNums").html(reviewLength);
     	for(var j=0; j<reviewLength; j++){
-    	var space ="";
-   	for(var i=0; i<$(".tscore"+j).html(); i++){
-   		space = space + "★";
-   	} 
-    	console.log($(".tscore"+j).html())
-    	console.log($(".tscore"+j).html(space))
-   	$(".tscore"+j).html(space)
+    		var space ="";
+    		
+		   	for(var i=0; i<$(".tscore"+j).html(); i++){
+		   		space = space + "★";
+	   		} 
+		   	
+	    	console.log($(".tscore"+j).html())
+	    	console.log($(".tscore"+j).html(space))
+		   	$(".tscore"+j).html(space)
 
     	}
   	//리뷰보이기/숨기기
       function openClose(){
       	 if($("#reviewListStyle").css("display") == "none") {
-      	      $("#reviewListStyle").fadeIn(700);
+      	      $("#reviewListStyle").fadeIn(400);
       	      $("reviewShow").textContent = '리뷰 접기';
       	    } else {
-      	      $("#reviewListStyle").fadeOut(700);
+      	      $("#reviewListStyle").fadeOut(400);
       	      $("reviewShow").textContent = '리뷰 보기';
       	    }
       } 		

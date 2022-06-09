@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 		<input type="hidden" id = "storeNo" name = "storeNo" value ="${productReservation[0].storeNo }">
 		<input type = "text" id = "startDate" name = "startDate"placeholder="날짜를 입력하세요."> ~
 		<input type = "text" id = "endDate" name="endDate" placeholder="날짜를 입력하세요.">
-		<button type ="submit">검색</button> </div>
+		<button type ="submit" >검색</button> </div>
 	</form>
 
 	<div class="card-body p-2"> 
@@ -77,12 +78,19 @@
   	 var resultAmt = new Array();
   	 
   	for (var i=0 ; i< dateValLength; i++){
-  		resultDate.push(dateVal[i].pickupDate);
+  		
+  		console.log(typeof dateVal[i].pickupDate)
+  		var tempDate =  dateVal[i].pickupDate; 
+  	
+  		tempDate = tempDate.substr(0,10);
+  		console.log(tempDate);
+  		resultDate.push(tempDate);
   	}
   	
   	for (var i=0 ; i<dateAmtLength; i++ ){
   		resultAmt.push(dateAmt[i].paymentAmt);
   	}
+  	
   	 console.log(resultDate);
   	 console.log(resultAmt);
   	 

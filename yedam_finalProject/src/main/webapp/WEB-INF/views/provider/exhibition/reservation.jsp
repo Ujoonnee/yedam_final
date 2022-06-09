@@ -54,8 +54,8 @@
 				</td>
 			</tr>
 			<tr class="row mb-2"style="width:400px">
-				<th class="col-4">멤버번호</th>
-				<td class="col-6">${res.memNo }</td>
+				<th class="col-4">예약자명</th>
+				<td class="col-6">${res.name }</td>
 			</tr>
 		
 		</table>
@@ -63,7 +63,7 @@
 			<button type = "button"  class="btn btn-sm btn-primary" onclick="cancelPay(${res.exResNo},${res.exNo})">예약취소</button>
 		</c:if>
 		<c:if test="${res.paymentStatus == 'Y'}">
-			<button type = "button"  class="btn btn-sm btn-primary" disabled="disabled" onclick="cancelPay(${res.exResNo},${res.exNo})">예약취소</button>
+			<button type = "button"  class="btn btn-sm btn-primary"  onclick="cancelPay(${res.exResNo},${res.exNo})">예약취소</button>
 		</c:if>
 
 
@@ -142,7 +142,8 @@
 					type : "POST",
 					data : {
 						"exResNo" :n,
-						"exNo" : m
+						"exNo" : m,
+						"exName" : "${reviewList.serviceName }"
 					},
 					success: function(result){
 						alert("결제가 취소되었습니다.")
