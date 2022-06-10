@@ -26,6 +26,7 @@
 				from product p, store s 
 				where s.store_no = p.store_no
 				and s.store_no like #{storeNo} 
+				 and status = '00601'
 				) a where ROWNUM<![CDATA[ <=]]> 
 				#{pageNum} * #{amount} 
 				) b
@@ -53,6 +54,7 @@
 		            from product p, store s 
 		            where s.store_no = p.store_no
 		            and s.store_no like #{storeNo}
+		             and status = '00601'
 		            )where price between #{lowPrice} and #{highPrice})
 		            a where ROWNUM<![CDATA[ <=]]> 
 				#{pageNum} * #{amount} 
@@ -70,6 +72,7 @@
 		            from product p, store s 
 		            where s.store_no = p.store_no
 		            and s.store_no like  #{storeNo} 
+		             and status = '00601'
 		            )where prod_name like ('%'||#{keyword}||'%')
 		            )a 
 		            where ROWNUM<![CDATA[ <=]]> 
