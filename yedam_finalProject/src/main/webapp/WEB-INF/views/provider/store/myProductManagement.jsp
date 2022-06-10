@@ -182,7 +182,7 @@
 					</div>
 				<!-- 	통계확인 페이지로 storeNo값 넘김. -->
 					<div style="float: left; padding:3px;">
-						<form id="statisticsFrm" method="post" action="statisticsForm">
+						<form id="statisticsFrm" method="get" action="statisticsForm">
 							<input type="hidden" name="storeNo"
 								value="${ProductList[0].storeNo }">
 							<button type="submit" id="statistics" name="storeNo" disabled="disabled"
@@ -210,7 +210,7 @@
 					</div>
 				<!-- 	통계확인 페이지로 storeNo값 넘김. -->
 					<div style="float: left; padding:3px;">
-						<form id="statisticsFrm" method="post" action="statisticsForm">
+						<form id="statisticsFrm" method="get" action="statisticsForm">
 							<input type="hidden" name="storeNo"
 								value="${ProductList[0].storeNo }">
 							<button type="submit" id="statistics" name="storeNo"

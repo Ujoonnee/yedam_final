@@ -161,9 +161,9 @@
 		AND S.STORE_NO LIKE #{storeNo}
 		and p.prod_name like ('%'||#{keyword}||'%')
 		<if test ="lowPrice != null and !lowPrice.equals('')">
-		and #{lowPrice}  <![CDATA[<=]]> price</if>
+		and CAST('#{lowPrice}' as INT)  <![CDATA[<=]]> price</if>
 		<if test = "highPrice != null and !highPrice.equals('')">
-		AND PRICE <![CDATA[<=]]> #{highPrice}</if>
+		AND PRICE <![CDATA[<=]]> CAST('#{highPrice}' as INT)</if>
 	</select>
 	
 	<update id = "myStoreProductUpdate" parameterType="java.util.HashMap">
