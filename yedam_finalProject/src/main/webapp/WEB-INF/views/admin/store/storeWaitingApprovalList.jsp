@@ -35,7 +35,6 @@
 		</div>
 	</div>
 </form>
-
 <div class="card border-0 shadow mb-4">
 					<div class="card-body">
 						<div class="table-responsive mb-3">
@@ -57,7 +56,7 @@
 				>
 				${reg.storeNo}</td>
 				<td>${reg.name}</td>
-				<td>${reg.memNo}</td>
+				<td>${reg.memName}</td>
 				<td><fmt:formatDate value="${reg.applicationDate}" pattern="yyyy-MM-dd"/></td>
 				<td id="changeStatus">${reg.approvalStatus}</td>
 			</tr>
