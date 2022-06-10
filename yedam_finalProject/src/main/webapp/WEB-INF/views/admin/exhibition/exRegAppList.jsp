@@ -52,7 +52,7 @@
 									</tr>
 						<tbody id="tbd">
 							<c:forEach var="reg"  items="${regList}">
-								<tr class="list align-middle">
+								<tr class="list align-middle" style="cursor:pointer">
 									<td>${reg.exNo}</td>
 									<td>${reg.name}</td>
 									<td>${reg.member.name}</td>

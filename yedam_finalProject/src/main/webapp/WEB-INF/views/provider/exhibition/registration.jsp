@@ -16,7 +16,7 @@
 			
 							<dl class="mb-3">
 								<dt class="display-5">전시장명</dt>
-								<dd>${exhibition.locationName }</dd>
+								<dd >${exhibition.locationName }</dd>
 							</dl>
 							
 							<dl class="mb-4">

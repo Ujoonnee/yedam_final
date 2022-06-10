@@ -93,18 +93,14 @@
 					          
 					        <c:if test = "${not empty list.thumbnail }">
 								<div class="card shadow-sm" onclick="exhibitionView(${list.exNo})" >
-									<img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="384px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">${list.name } </text></src>
-									<div style="text-align: center;" >
-						           </div>
-						            <div class="card-body">
-						              <p class="card-text"></p>
-						              <div class="d-flex justify-content-between align-items-center">
-						                <div class="btn-group">
-						                	<small class="card-text">${list.startDate } ~ </small> 
-						                	<small class="card-text">${list.endDate }</small>
-						                </div>
-						              </div>
-						            </div>
+									<img src="/exhibition/${list.thumbnail }"  class="bd-placeholder-img card-img-top" width="100%" height="384px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+									<div class="card-body">
+										<div class="align-items-center">
+											<div class="mb-2">${list.name }</div>
+											<small class="card-text">${list.startDate } ~ </small> 
+					                		<small class="card-text">${list.endDate }</small>
+								        </div>
+									</div>
 						          </div>
 					          </c:if>
 					          

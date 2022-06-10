@@ -27,7 +27,7 @@
 									</thead>
 									<tbody>
 											<c:forEach items="${list }" var="ex">
-												<tr class="link">
+												<tr class="link" style="cursor:pointer">
 													<td>${ex.exNo }</td>
 													<td>${ex.name }</td>
 													<td>
