@@ -64,7 +64,7 @@ public class MemberServiceImpl implements MemberService {
 
 		// 매장사업자라면 매장번호를 세션에 담음
 		if (member.getBuisnessType().equals("00204")) {
-			int storeNo = productMapper.getStoreNo(member);
+			Integer storeNo = productMapper.getStoreNo(member);
 			session.setAttribute("storeNo", storeNo);
 		}
 		return "success";
