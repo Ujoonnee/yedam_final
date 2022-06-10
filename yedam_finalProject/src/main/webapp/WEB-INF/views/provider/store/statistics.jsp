@@ -108,6 +108,8 @@
 //   	console.log(list);
 //   	 차트생성
 	const myChartOne = document.getElementById('myChartOne').getContext('2d');
+	var userName = "매장 일별 매출액"
+	
 	
 	let chartType = (resultDate.length >= 7)? 'line' : 'bar';
 	
@@ -116,7 +118,7 @@
 		data :{
 			labels : resultDate,
 			datasets : [{
-				label : '가게 매출',
+				label :userName,
 				data : resultAmt,
 				plugins : {
 					legend : {

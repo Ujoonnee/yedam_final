@@ -274,6 +274,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductReservationVO> searchDateInStatistics(Statistics vo) {
 		// TODO Auto-generated method stub
+		System.out.println(vo.getStartDate());
+		System.out.println(vo.getEndDate());
 		return map.searchDateInStatistics(vo);
 	}
 	@Override

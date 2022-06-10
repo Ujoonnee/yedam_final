@@ -197,10 +197,10 @@
 		SELECT pickup_date, SUM(payment_amt) AS payment_amt , store_no
 		from product_reservation
 		where store_no=#{storeNo}
-		<if test="startDate != null">
+		<if test="startDate != null and !startDate.equals('')">
 		and trunc(pickup_date) <![CDATA[>=]]> #{startDate}
 		</if>
-		<if test="endDate != null">
+		<if test="endDate != null and !endDate.equals('')">
 		and trunc(pickup_date) <![CDATA[<=]]> #{endDate}
 		</if>
 		group by pickup_date,store_no
