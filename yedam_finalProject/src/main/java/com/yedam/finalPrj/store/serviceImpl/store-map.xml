@@ -46,9 +46,10 @@
  		SELECT * 
 		FROM (SELECT a.*,ROWNUM rn
 			FROM
-				(select s.* , GET_CODE_NAME(s.approval_status)as approvalStatus
-					from store s
-					order by approval_status desc, application_date desc
+				(select s.*,m.name as memName, GET_CODE_NAME(approval_status)as approvalStatus
+				from store s , member m 
+				where s.mem_no = m.mem_no
+				order by store_no desc
 				)a
 		     WHERE ROWNUM<![CDATA[ <= ]]>#{pageNum} * #{amount}
 		    <![CDATA[) b
