@@ -57,7 +57,7 @@ public class MemberController {
 		if (user.getMemType().equals("00101")) return "redirect:/announcement/adminList";
 		
 		// 일반회원 - 전시예약목록
-		if (user.getMemType().equals("00102")) return "redirect:exhibition/exSelectAllReservation";
+		if (user.getMemType().equals("00102")) return "redirect:/exhibition/exSelectAllReservation";
 		
 		// 사업자회원
 		return "member/myPage/update";
