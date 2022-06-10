@@ -25,12 +25,6 @@ public class MemberController {
 		return "member/sign-in";
 	}
 	
-	@GetMapping("tempLogin")
-	public String tempLogin(MemberVO member, HttpServletRequest request) {
-		service.signIn(member, request);
-		return "redirect:" + request.getHeader("Referer");
-	}
-	
 	// 로그아웃
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
@@ -52,9 +46,26 @@ public class MemberController {
 		return "member/confirm";
 	}
 	
-	// 마이페이지 첫 화면 (회원정보 수정 전 비밀번호 확인)
+	// 마이페이지 첫 화면
 	@GetMapping("myPage")
-	public String myPage() {
+	public String myPage(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		
+		// 회원별 마이페이지 첫 화면
+		// 관리자 - 공지사항 관리
+		if (user.getMemType().equals("00101")) return "redirect:/announcement/adminList";
+		
+		// 일반회원 - 전시예약목록
+		if (user.getMemType().equals("00102")) return "redirect:exhibition/exSelectAllReservation";
+		
+		// 사업자회원
+		return "member/myPage/update";
+	}
+	
+	// 회원정보 수정 전 비밀번호 확인
+	@GetMapping("updateInfo")
+	public String updateInfoCheck() {
 		return "member/myPage/update";
 	}
 	
