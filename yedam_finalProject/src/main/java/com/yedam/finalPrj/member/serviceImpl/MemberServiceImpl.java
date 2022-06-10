@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 import com.yedam.finalPrj.common.EmailSender;
 import com.yedam.finalPrj.member.service.MemberService;
 import com.yedam.finalPrj.member.service.MemberVO;
+import com.yedam.finalPrj.product.serviceImpl.ProductMapper;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired MemberMapper map;
+	@Autowired ProductMapper productMapper;
 	@Autowired EmailSender emailSender;
 	
 	public MemberVO getCurrentUser(HttpServletRequest request) {
@@ -59,6 +61,12 @@ public class MemberServiceImpl implements MemberService {
 		// 로그인 성공
 		HttpSession session = request.getSession();
 		session.setAttribute("user", member);
+
+		// 매장사업자라면 매장번호를 세션에 담음
+		if (member.getBuisnessType().equals("00204")) {
+			int storeNo = productMapper.getStoreNo(member);
+			session.setAttribute("storeNo", storeNo);
+		}
 		return "success";
 	}
 
