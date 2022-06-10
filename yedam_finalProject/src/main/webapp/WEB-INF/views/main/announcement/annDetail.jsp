@@ -9,7 +9,17 @@
 	<meta charset="UTF-8">
 	<title>공지사항 상세(단순조회)</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	
+	<style>
+  		#back_to_top {  
+	     	position:fixed;
+	     	color:white;
+	     	top: 50%;
+	        right: 0%;
+	     	background-color:ellowGreen;
+	     	block-size:50px;
+	     	vertical-align:center;
+		}
+	</style>
 </head>
 <script>
 	/* 다운로드 */
@@ -22,6 +32,15 @@
 	
 	
 </script>
+
+<!-- 상단이동 버튼 -->
+<div align="center">
+	<a class="btn btn-sm btn-primary" href="javascript:window.scrollTo(0,0);" id="back_to_top" style="position:fixed; color:white; background-color:ellowGreen; block-상단이동 버튼px; vertical-align:center;">
+		<span>▲</span><br>
+		<span>TOP</span>
+	</a>
+</div>
+
 <div class="row justify-content-center">
 	<div class="col-6">
 			<div class="display-4 mt-3">공지사항 상세페이지</div>
