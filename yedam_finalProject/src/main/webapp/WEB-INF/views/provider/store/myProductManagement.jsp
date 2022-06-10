@@ -106,7 +106,7 @@
 			<c:if test="${not empty ProductList }">
 
 
-				<h3 align="left">상품 등록</h3>
+				<h3 align="left">상품 관리</h3>
 				<div class="card border-0 shadow mb-4">
 					<div class="card-body">
 						<div class="table-responsive">
@@ -127,7 +127,7 @@
 								<tbody>
 									<c:forEach items="${ProductList }" var="list">
 										<c:if test="${list.status ne '00603' }">
-											<tr>
+											<tr style="cursor: pointer; padding-bottom: 3px;">
 												<td valign="middle"><input type="checkbox"
 													id="checkf" name="checkf" value="${list }"
 													data-prodName="${list.prodName }"
@@ -138,7 +138,7 @@
 													data-status="${list.status }"></td>
 												<td valign="middle">${list.prodNo }</td>
 												<c:if test="${list.prodThumbnail != null}">
-													<td valign="middle"><img
+													<td valign="middle" title="이미지 삭제" style="cursor: pointer; color:red;"><img
 														src="/img/${list.prodThumbnail } " class="selected_img"
 														height="150px" width="150px"> <input type="hidden"
 														class="prodThumbnail" value="${list.prodThumbnail }">

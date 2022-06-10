@@ -676,7 +676,10 @@
 	$('tr').on('click', function(event) {
 
 		if(event.target.tagName !="INPUT") this.childNodes[1].childNodes[1].click();
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/heads/main
 	})
       
     	
