@@ -198,7 +198,7 @@
 									</a>
 								</li>
 								<li class="nav-item ">
-									<a class="nav-link" href="${pageContext.request.contextPath}/store/resProdList">
+									<a class="nav-link" href="${pageContext.request.contextPath}/store/product/proReSelectAll ">
 										<span class="sidebar-text">예약 목록</span>
 									</a>
 								</li>
