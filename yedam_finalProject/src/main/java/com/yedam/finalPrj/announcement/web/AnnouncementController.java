@@ -62,7 +62,7 @@ public class AnnouncementController {
 		int total = service.totalCnt(cri);
 
 		// 전체목록
-		model.addAttribute("list", service.adminFindAll(cri));
+		model.addAttribute("list", service.userFindAll(cri));
 		// 상단고정목록
 		model.addAttribute("topList", service.getTopList());
 		// 페이징
