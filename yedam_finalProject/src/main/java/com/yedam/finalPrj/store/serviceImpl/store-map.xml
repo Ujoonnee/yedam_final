@@ -288,9 +288,9 @@
                 SELECT * FROM
 					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status, r.pickup_time, r.pickup_date, r.prod_res_no,
 						RANK()OVER(PARTITION BY r.prod_res_no ORDER BY p.prod_name) AS RANK
-					FROM store s, product_reservation r, product p
-					WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
-					AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
+					FROM store s, product_reservation r, product p, reserved_product rp, member m
+					WHERE s.store_no = r.store_no
+					AND rp.prod_res_no = r.prod_res_no AND p.prod_no = rp.prod_no AND m.mem_no = r.mem_no and m.mem_no = #{memNo}
 					ORDER BY RANK)
 				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM product_reservation) and rank = 1
                ) a
@@ -307,12 +307,12 @@
            FROM
                (select * from(
                	 select * from
-					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status , r.pickup_time, r.pickup_date, r.prod_res_no,
-						rank()over(partition by r.prod_res_no order by p.prod_name) as rank
-							FROM store s, product_reservation r, product p
-								WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
-							AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
-						order by rank)
+					(SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status, r.pickup_time, r.pickup_date, r.prod_res_no,
+						RANK()OVER(PARTITION BY r.prod_res_no ORDER BY p.prod_name) AS RANK
+					FROM store s, product_reservation r, product p, reserved_product rp, member m
+					WHERE s.store_no = r.store_no
+					AND rp.prod_res_no = r.prod_res_no AND p.prod_no = rp.prod_no AND m.mem_no = r.mem_no and m.mem_no = #{memNo}
+					ORDER BY RANK)
 					where ROWNUM <![CDATA[<=]]> (select count(*) from reserved_product)
                ) where <![CDATA["store.name"]]> like '%'||#{keyword}||'%' and rank = 1) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
@@ -327,10 +327,11 @@
            FROM
                (SELECT *
 					FROM(
-						SELECT p.prod_name AS "product.prodName", s.name AS "store.name", r.payment_amt, r.pickup_status, r.pickup_time, r.pickup_date, r.prod_res_no, rank()over(partition by r.prod_res_no order by p.prod_name) as rank
-							FROM store s, product_reservation r, product p
-								WHERE s.store_no = r.store_no AND r.payment_status = 'Y'
-							AND s.store_no = p.store_no AND p.status = '00601' AND r.mem_no = #{memNo}
+						SELECT DISTINCT s.name as "store.name", p.prod_name as "product.prodName",  r.payment_amt, r.pickup_status, r.pickup_time, r.pickup_date, r.prod_res_no,
+						RANK()OVER(PARTITION BY r.prod_res_no ORDER BY p.prod_name) AS RANK
+					FROM store s, product_reservation r, product p, reserved_product rp, member m
+					WHERE s.store_no = r.store_no
+					AND rp.prod_res_no = r.prod_res_no AND p.prod_no = rp.prod_no AND m.mem_no = r.mem_no and m.mem_no = #{memNo}
 						AND prod_name like '%'||#{keyword}||'%'
 					ORDER BY rank)
 				where rank = 1) a
