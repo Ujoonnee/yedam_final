@@ -85,6 +85,7 @@
 		select count(*)
 		from product p
 		where store_no like #{storeNo}
+		and status ='00601'
 		and store_no > 0
 	</select>
 	<!-- 	상품갯수(상품명) -->
@@ -162,11 +163,12 @@
 		FROM PRODUCT P, STORE S 
 		WHERE S.STORE_NO = P.STORE_NO
 		AND S.STORE_NO LIKE #{storeNo}
+		  AND STATUS = '00601'
 		and p.prod_name like ('%'||#{keyword}||'%')
 		<if test ="lowPrice != null and !lowPrice.equals('')">
-		and CAST('#{lowPrice}' as INT)  <![CDATA[<=]]> price</if>
+		and  <![CDATA[CAST(#{lowPrice,jdbcType=VARCHAR} as INT) <=]]> price</if>
 		<if test = "highPrice != null and !highPrice.equals('')">
-		AND PRICE <![CDATA[<=]]> CAST('#{highPrice}' as INT)</if>
+		AND PRICE <![CDATA[<= CAST(#{highPrice,jdbcType=VARCHAR} as INT)]]></if>
 	</select>
 	
 	<update id = "myStoreProductUpdate" parameterType="java.util.HashMap">
@@ -192,7 +194,7 @@
 	                 )
 		        GROUP BY pickup_date, store_no
 		    )
-       where pickup_date between sysdate-31 and sysdate+1
+       where pickup_date between sysdate-7 and sysdate+1
 	   ORDER BY pickup_date
 	</select>
 	
