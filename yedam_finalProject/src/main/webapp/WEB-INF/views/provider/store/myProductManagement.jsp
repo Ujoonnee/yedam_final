@@ -127,7 +127,7 @@
 								<tbody>
 									<c:forEach items="${ProductList }" var="list">
 										<c:if test="${list.status ne '00603' }">
-											<tr style="cursor: pointer; padding-bottom: 3px;">
+											<tr>
 												<td valign="middle"><input type="checkbox"
 													id="checkf" name="checkf" value="${list }"
 													data-prodName="${list.prodName }"
@@ -138,8 +138,8 @@
 													data-status="${list.status }"></td>
 												<td valign="middle">${list.prodNo }</td>
 												<c:if test="${list.prodThumbnail != null}">
-													<td valign="middle" title="이미지 삭제" style="cursor: pointer; color:red;"><img
-														src="/img/${list.prodThumbnail } " class="selected_img"
+													<td valign="middle" title="이미지 삭제" ><img
+														src="/img/${list.prodThumbnail } " style="cursor: pointer; " class="selected_img"
 														height="150px" width="150px"> <input type="hidden"
 														class="prodThumbnail" value="${list.prodThumbnail }">
 														<input type="hidden" class="prodNo_img"
@@ -181,15 +181,7 @@
 							onclick="addTextBox()" disabled="disabled"  style="background-color: 	#F2F2F2; color:	#F2F2F2; ; border: none;">단일상품등록</button>
 					</div>
 				<!-- 	통계확인 페이지로 storeNo값 넘김. -->
-					<div style="float: left; padding:3px;">
-						<form id="statisticsFrm" method="get" action="statisticsForm">
-							<input type="hidden" name="storeNo"
-								value="${ProductList[0].storeNo }">
-							<button type="submit" id="statistics" name="storeNo" disabled="disabled"
-								class="btn btn-sm btn-primary "  style="background-color: 	#F2F2F2; color:	#F2F2F2; ; border: none;"
-								onclick="statisticsView${ProductList[0].storeNo }">통계확인</button>
-						</form>
-					</div>
+
 				</div>
 			</c:if>
 			
@@ -209,15 +201,15 @@
 							onclick="addTextBox()">단일상품등록</button>
 					</div>
 				<!-- 	통계확인 페이지로 storeNo값 넘김. -->
-					<div style="float: left; padding:3px;">
-						<form id="statisticsFrm" method="get" action="statisticsForm">
-							<input type="hidden" name="storeNo"
-								value="${ProductList[0].storeNo }">
-							<button type="submit" id="statistics" name="storeNo"
-								class="btn btn-sm btn-primary "
-								onclick="statisticsView${ProductList[0].storeNo }">통계확인</button>
-						</form>
-					</div>
+<!-- 					<div style="float: left; padding:3px;"> -->
+<!-- 						<form id="statisticsFrm" method="get" action="statisticsForm"> -->
+<!-- 							<input type="hidden" name="storeNo" -->
+<%-- 								value="${ProductList[0].storeNo }"> --%>
+<!-- 							<button type="submit" id="statistics" name="storeNo" -->
+<!-- 								class="btn btn-sm btn-primary " -->
+<%-- 								onclick="statisticsView${ProductList[0].storeNo }">통계확인</button> --%>
+<!-- 						</form> -->
+<!-- 					</div> -->
 				</div>
 			</c:if>
 		</div>

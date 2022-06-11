@@ -281,7 +281,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> searchPriceProdName(ProductPagingCriteria cri, Model model,
 			HttpServletRequest reqeust) {
-		
 		System.out.println("ImplhighPrice"+cri.getHighPrice());
 		System.out.println("ImpllowPrice"+cri.getLowPrice());
 		System.out.println("ImplKeyword"+cri.getKeyword());
