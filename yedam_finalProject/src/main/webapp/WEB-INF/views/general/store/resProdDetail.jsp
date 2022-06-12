@@ -55,7 +55,7 @@
 				</tr> 
 				<tr class="row mb-2">
 					<th class="col-3">픽업 예정 일시</th>
-					<td class="col-6"><fmt:formatDate value="${detail.pickupTime}" dateStyle="full"/><br>
+					<td class="col-6"><fmt:formatDate value="${detail.pickupDate}" dateStyle="full"/><br>
 					<fmt:formatDate value="${detail.pickupTime}" type="time"/> </td>
 				</tr>
 				<tr class="row mb-2">

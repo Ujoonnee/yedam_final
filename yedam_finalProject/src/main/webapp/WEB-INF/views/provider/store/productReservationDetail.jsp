@@ -37,7 +37,7 @@
 							</tr>
 							<tr>
 								<td>픽업일시</td>
-								<td><fmt:formatDate value="${proRe.pickupTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<td><fmt:formatDate value="${proRe.pickupDate}" pattern="yyyy-MM-dd"/>   <fmt:formatDate value="${proRe.pickupTime }" pattern="HH:mm:ss"/>
 								</td>
 							</tr>
 							
