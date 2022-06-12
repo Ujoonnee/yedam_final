@@ -94,9 +94,9 @@
 		<div align="center">등록된 상품이 없습니다.</div>
 		<div><br>
 			<button type="button" id="excelFormDownload" class="btn btn-sm btn-primary col-1 download">양식다운</button>
-		    <label class="btn btn-primary btn-file col-1" style="height: 35px;">
+		    <button class="btn btn-primary btn-file col-1 mb-2" style="height: 35px;">
 		        재고등록<input type="file" id="id_file_upload" style="display: none;">
-		    </label>
+		    </button>
 	    </div>
 	</c:if>
 
