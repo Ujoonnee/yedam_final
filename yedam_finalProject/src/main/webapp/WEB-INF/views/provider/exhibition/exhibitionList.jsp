@@ -32,7 +32,7 @@
 									</tr>
 								</thead>
 									<c:forEach items="${list }" var = "ex" varStatus="status" >
-									<tr onclick="getReservationList(${ex.exNo}, '${ex.name }')">
+									<tr onclick="getReservationList(${ex.exNo}, '${ex.name }')" style="cursor:pointer">
 										<td>${ex.exNo }</td>
 										<td>${ex.name }</td>
 										<td>${ex.startDate }</td>
