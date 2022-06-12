@@ -271,7 +271,6 @@
 	                <jsp:include page="term.jsp"/>
 	            </div>
 	            <div class="modal-footer">
-	                <button type="button" id="class="btn btn-link text-gray-600 ms-auto" data-bs-dismiss="modal">확인</button>
 	            </div>
 	        </div>
 	    </div>
