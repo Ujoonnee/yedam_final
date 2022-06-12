@@ -292,7 +292,7 @@
 						WHERE s.store_no = r.store_no
 						AND rp.prod_res_no = r.prod_res_no AND p.prod_no = rp.prod_no AND m.mem_no = r.mem_no and m.mem_no = #{memNo}
 					ORDER BY RANK)
-				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM product_reservation) and rank = 1
+				where ROWNUM <![CDATA[<=]]> (SELECT COUNT(*) FROM product_reservation) and rank = 1 ORDER BY prod_res_no DESC
                ) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
        ) b
@@ -313,7 +313,7 @@
 							WHERE s.store_no = r.store_no
 						AND rp.prod_res_no = r.prod_res_no AND p.prod_no = rp.prod_no AND m.mem_no = r.mem_no and m.mem_no = #{memNo}
 						ORDER BY RANK)
-					where ROWNUM <![CDATA[<=]]> (select count(*) from reserved_product)
+					where ROWNUM <![CDATA[<=]]> (select count(*) from reserved_product) ORDER BY prod_res_no DESC
                ) where <![CDATA["store.name"]]> like '%'||#{keyword}||'%' and rank = 1) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
        ) b
@@ -334,7 +334,7 @@
 						AND rp.prod_res_no = r.prod_res_no AND p.prod_no = rp.prod_no AND m.mem_no = r.mem_no and m.mem_no = #{memNo}
 						AND prod_name like '%'||#{keyword}||'%'
 					ORDER BY rank)
-				where rank = 1) a
+				where rank = 1 ORDER BY prod_res_no DESC) a
            WHERE ROWNUM <![CDATA[<=]]> #{pageNum} * #{amount}
        ) b
    WHERE rn <![CDATA[>]]> (#{pageNum}-1) * #{amount}

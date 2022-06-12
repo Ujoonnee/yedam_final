@@ -29,7 +29,7 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${proReSelectAll }" var="proRe">
-								<tr  onclick="hrefDetail(${proRe.prodResNo })">
+								<tr  onclick="hrefDetail(${proRe.prodResNo })" style="cursor:pointer">
 									<td><a href="proReDetail?prodResNo=${proRe.prodResNo }">${proRe.prodResNo }</a>
 									
 									</td>
