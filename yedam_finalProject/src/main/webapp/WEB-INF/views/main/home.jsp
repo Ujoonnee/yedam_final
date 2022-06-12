@@ -143,7 +143,7 @@
 				        <div class="col px-5" >
 				
 							<div class="card shadow-sm" onclick ="exhibitionView(225)">
-								<img src="/exhibition/썸네일 "  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+								<img src="/exhibition/2022년 아르코미술관 기획초대전올 어바웃 러브 곽영준, 장세진, 헤이드).png"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
 								<div class="card-body">
 									<div class="align-items-center">
 										<div class="mb-2">전시이름</div>
@@ -158,7 +158,7 @@
 						<div class="col px-5" >
 				
 							<div class="card shadow-sm" onclick ="exhibitionView(226)">
-								<img src="/exhibition/썸네일 "  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+								<img src="/exhibition/2022511104353425.png"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
 								<div class="card-body">
 									<div class="align-items-center">
 										<div class="mb-2">전시이름</div>
@@ -173,7 +173,7 @@
 						<div class="col px-5" >
 				
 							<div class="card shadow-sm" onclick ="exhibitionView(227)">
-								<img src="/exhibition/썸네일 "  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+								<img src="/exhibition/윤동천 교수 정년퇴임 기념전 산만(散漫)의 궤적.png"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
 								<div class="card-body">
 									<div class="align-items-center">
 										<div class="mb-2">전시이름</div>
