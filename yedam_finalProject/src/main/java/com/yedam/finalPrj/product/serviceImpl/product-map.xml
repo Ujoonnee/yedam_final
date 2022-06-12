@@ -194,7 +194,7 @@
 	                 )
 		        GROUP BY pickup_date, store_no
 		    )
-       where pickup_date between sysdate-7 and sysdate+1
+       where pickup_date between sysdate-7 and sysdate
 	   ORDER BY pickup_date
 	</select>
 	

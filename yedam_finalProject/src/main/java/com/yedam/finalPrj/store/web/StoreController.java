@@ -66,7 +66,7 @@ public class StoreController {
 		}else {
 //		매장등록 번호 입력.
 			service.regist(vo, request,multi,model);
-			return "main/home";
+			return "member/myPage/update";
 		}
 		
 	}

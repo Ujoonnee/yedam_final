@@ -221,6 +221,7 @@
 		         FROM exhibition
 		         where  approval_status = '00401'
 		         and end_date > sysdate
+		         order by ex_no desc
 		        ) a
 		    WHERE ROWNUM <![CDATA[<]]> #{pageNum} * #{amount}
 		    ) b
@@ -280,16 +281,17 @@
 		    from
 		        (select *
 		        from exhibition 
-		            where address like ('%'||#{exVO.address}||'%')
-		            and  approval_status = '00401'
-		            and end_date > sysdate
-		            <if test ="exVO.startDate != null">
-		            and trunc(start_date) <![CDATA[>=]]> #{exVO.startDate}
-		            </if>
-		            <if test ="exVO.endDate != null">
-		            and trunc(end_date) <![CDATA[<=]]>#{exVO.endDate}
-		            </if>
-		            and name like ('%'||#{keyword}||'%') ) a
+	            where address like ('%'||#{exVO.address}||'%')
+	            and  approval_status = '00401'
+	            and end_date > sysdate
+	            <if test ="exVO.startDate != null">
+	            and trunc(start_date) <![CDATA[>=]]> #{exVO.startDate}
+	            </if>
+	            <if test ="exVO.endDate != null">
+	            and trunc(end_date) <![CDATA[<=]]>#{exVO.endDate}
+	            </if>
+	            and name like ('%'||#{keyword}||'%')
+	            order by ex_no desc ) a
 		        where 
 		        rownum <![CDATA[<]]> #{pageNum} * #{amount}
 		    )b
