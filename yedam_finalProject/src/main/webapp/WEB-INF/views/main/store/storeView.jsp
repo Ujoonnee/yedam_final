@@ -122,7 +122,7 @@
 												</div>
 											</div>
 										</div>
-										<input type="hidden" id ="storeNo" name = "storeNo" value="${products[0].storeNo }"> 
+										<input type="hidden" id ="storeNo" name = "storeNo" value="${products[0].storeNo }">
 									</div>
 									<div align="center">
 										<div class="col-6 me-6">

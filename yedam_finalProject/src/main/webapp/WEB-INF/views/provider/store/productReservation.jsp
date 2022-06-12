@@ -34,7 +34,7 @@
 									
 									</td>
 									<td><a href="proReDetail?prodResNo=${proRe.prodResNo }">${proRe.name }</a></td>
-									<td><fmt:formatDate value="${proRe.pickupTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<td><fmt:formatDate value="${proRe.pickupDate}" pattern="yyyy-MM-dd"/>   <fmt:formatDate value="${proRe.pickupTime }" type="time"/></td>
 									<td>
 									 
 										<c:set var="paymentStatus" value="Y"/>
