@@ -38,7 +38,8 @@
 <table class="table table-centered table-nowrap mb-0 rounded">
 	<thead class="thead-light">
 		<tr class="border-0 rounded-start">
-			<th class="border-0 rounded-start display-3">매장이름</th>
+			<th class="border-0 rounded-start display-3">예약번호</th>
+			<th class="border-0 ">매장이름</th>
 			<th class="border-0">상품명</th>
 			<th class="border-0">총 가격</th>
 			<th class="border-0">픽업상태</th>
@@ -48,6 +49,7 @@
 	<tbody id="tbd">
 		<c:forEach var="list" items="${resProdList}">
 			<tr class="list" style="cursor:pointer">
+				<td>${list.prodResNo }</td>
 				<td>${list.store.name }<input type="hidden" value="${list.prodResNo}"></td>
 				<td>${list.product.prodName } 등</td>
 				<td><fmt:formatNumber value="${list.paymentAmt}" pattern="#,###"/></td>

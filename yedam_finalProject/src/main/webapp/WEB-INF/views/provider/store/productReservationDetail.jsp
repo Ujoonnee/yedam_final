@@ -55,7 +55,7 @@
 								<tr>
 									<th>썸네일</th>
 									<th>상품명</th>
-									<th>가격</th>
+									<th>단품가격</th>
 									<th>수량</th>
 									<th>금액</th>
 								</tr>
@@ -66,18 +66,18 @@
 							<tr>
 								<td id="thumbNail"><img width="100px" height="100px" src="/img/${list.prodThumbnail }"></td>
 								<td>${list.prodName }</td>
-					 			<td><fmt:formatNumber value="${list.price }" pattern="#,###" /></td> 
+					 			<td><fmt:formatNumber value="${list.price }" pattern="#,###" />원</td> 
 								<td>${list.count }</td>
-								<td><fmt:formatNumber value="${list.payment }" pattern="#,###"/> </td>
+								<td><fmt:formatNumber value="${list.payment }" pattern="#,###"/>원</td>
 							</tr>
 							<c:set var="total" value="${total + list.payment }"/>
 							
 							</c:forEach>
 							</tbody>
-							<tfoot>
-								<tr>
+							<tfoot align="right">
+								<tr align="right">
 									<td>총 금액</td>
-									<td><fmt:formatNumber value="${total }" pattern="#,###"/></td>
+									<td><fmt:formatNumber value="${total }" pattern="#,###"/>원</td>
 								</tr>
 							</tfoot>
 						</table>
