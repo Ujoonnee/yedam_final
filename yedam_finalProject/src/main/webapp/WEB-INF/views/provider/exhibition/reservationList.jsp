@@ -35,7 +35,7 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${list }" var="res" varStatus="status">
-										<tr onclick="getReservation(${res.exResNo})">
+										<tr onclick="getReservation(${res.exResNo})" style="cursor:pointer">
 											<td>${res.exResNo }</td>
 											<td>${res.memName }</td>
 											<td><fmt:formatDate var="exhDate" value="${res.exDate }" pattern="yyyy-MM-dd"/> ${exhDate }</td>
