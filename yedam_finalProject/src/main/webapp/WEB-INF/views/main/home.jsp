@@ -88,7 +88,7 @@
 											<div class="row mb-3">
 												<div>현재 위치</div>
 												<div class="col-8">
-													<input type="text" class="form-control" id = "nowLocation" disabled="disabled" value="${paging.cri.nowLocation }" >
+													<input type="text" class="form-control" id = "nowLocation" disabled="disabled" value="${user.address}" >
 												</div>
 												<div class="col-4 p-0">
 													<button type="button" id = "location_now" class="btn btn-outline-gray-500 "  onclick = "locationN()">위치 변경</button>
@@ -139,46 +139,46 @@
 		        <form id="frm" method="get">
 			        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="padding :9px;">
 
-				        
-				        <div class="col px-5" >
-				
-							<div class="card shadow-sm" onclick ="exhibitionView(225)">
-								<img src="/exhibition/2022년 아르코미술관 기획초대전올 어바웃 러브 곽영준, 장세진, 헤이드).png"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
-								<div class="card-body">
-									<div class="align-items-center">
-										<div class="mb-2">전시이름</div>
-										<small class="card-text">시작일 ~ </small> 
-				                		<small class="card-text">종료일</small>
-							        </div>
-								</div>
-							</div>
-							
-						</div>
-						
-						<div class="col px-5" >
-				
-							<div class="card shadow-sm" onclick ="exhibitionView(226)">
-								<img src="/exhibition/2022511104353425.png"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
-								<div class="card-body">
-									<div class="align-items-center">
-										<div class="mb-2">전시이름</div>
-										<small class="card-text">시작일 ~ </small> 
-				                		<small class="card-text">종료일</small>
-							        </div>
-								</div>
-							</div>
-							
-						</div>
 						
 						<div class="col px-5" >
 				
 							<div class="card shadow-sm" onclick ="exhibitionView(227)">
-								<img src="/exhibition/윤동천 교수 정년퇴임 기념전 산만(散漫)의 궤적.png"  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+								<img src="/exhibition/윤동천 교수 정년퇴임 기념전 산만(散漫)의 궤적.png"  class="bd-placeholder-img card-img-top" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
 								<div class="card-body">
 									<div class="align-items-center">
-										<div class="mb-2">전시이름</div>
-										<small class="card-text">시작일 ~ </small> 
-				                		<small class="card-text">종료일</small>
+										<div class="mb-2">윤동천 교수 정년퇴임 기념전 산만의 궤적</div>
+										<small class="card-text">2022-06-02</small> <br>
+				                		<small class="card-text"> ~ 2022-06-19</small>
+							        </div>
+								</div>
+							</div>
+							
+						</div>
+				        
+				        <div class="col px-5" >
+				
+							<div class="card shadow-sm" onclick ="exhibitionView(181)">
+								<img src="/exhibition/2022 다티스트 위치_나_제안.png"  class="bd-placeholder-img card-img-top" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+								<div class="card-body">
+									<div class="align-items-center">
+										<div class="mb-2"> 2022 다티스트 《위치-나-제안》</div>
+										<small class="card-text">2022-06-13</small><br> 
+				                		<small class="card-text"> ~ 2022-06-30</small>
+							        </div>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="col px-5" >
+				
+							<div class="card shadow-sm" onclick ="exhibitionView(229)">
+								<img src="/exhibition/환기미술관 30주년 기념전.png"  class="bd-placeholder-img card-img-top" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 사진" preserveAspectRatio="xMidYMid slice" focusable="false">
+								<div class="card-body">
+									<div class="align-items-center">
+										<div class="mb-2">환기미술관 30주년 기념전</div>
+										<small class="card-text">2022-04-15</small><br> 
+				                		<small class="card-text"> ~ 2022-07-10</small>
 							        </div>
 								</div>
 							</div>
@@ -193,7 +193,8 @@
 		</div>
 	</div>
 	
-    
+	
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     
 <script>
 	document.onload = () => {
@@ -204,5 +205,43 @@
 		frm.exNo.value= n;
 		frm.action = "${pageContext.request.contextPath}/exhibition/detailView";
 		frm.submit();
+	}
+	
+	// 검색 [전체] 선택 시 검색창 비우기
+	function allSelected() {
+		var selected = document.getElementById("type");
+		if (selected.options[selected.selectedIndex].value == 1) {
+			document.getElementById("keyword").value = '';
+		}
+	
+	}
+	
+// 	현재위치 재설정
+	function locationN() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				console.log(data)
+				$.ajax({
+					url:"https://dapi.kakao.com/v2/local/search/address.json?query="+encodeURIComponent(data.address + ' '+data.buildingName),
+					type : "GET",
+					headers: {'Authorization' : 'KakaoAK ee381ad2653c27997305ec26eef7c94b'},
+				success:function(xy){
+					console.log(xy);
+					
+					$('input[name=latitude]').attr('value',xy.documents[0].y);
+					$('input[name=longitude]').attr('value',xy.documents[0].x);
+					$('input[name=nowLocation]').attr('value',xy.documents[0].address_name);
+					console.log(document.getElementById('nowLocation').value)
+					searchForm.submit();
+// 					XYget(xy.documents[0].y,xy.documents[0].x);
+					
+				},
+				error : function(e){
+					console.log(e);
+				}
+				
+				});
+			}
+		}).open();
 	}
 </script>
