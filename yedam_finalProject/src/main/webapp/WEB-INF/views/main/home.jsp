@@ -88,7 +88,12 @@
 											<div class="row mb-3">
 												<div>현재 위치</div>
 												<div class="col-8">
-													<input type="text" class="form-control" id = "nowLocation" disabled="disabled" value="${user.address}" >
+													<c:if test="${user eq null }">
+														<input type="text" class="form-control" id = "nowLocation" disabled="disabled" value="대구 중구 중앙대로 403" >
+													</c:if>
+													<c:if test="${user ne null }">
+														<input type="text" class="form-control" id = "nowLocation" disabled="disabled" value="${user.address}" >
+													</c:if>
 												</div>
 												<div class="col-4 p-0">
 													<button type="button" id = "location_now" class="btn btn-outline-gray-500 "  onclick = "locationN()">위치 변경</button>
@@ -109,10 +114,20 @@
 													<button id = "searchBtn" class="btn btn-outline-gray-500" >검색</button>&nbsp;
 												</div>
 											</div>
-											<input type="hidden" id="pageNum" name="pageNum">
-											<input type ="hidden" name="latitude">
-											<input type ="hidden" name="longitude">
-											<input type ="hidden" name="nowLocation">
+											
+											<c:if test="${user eq null }">
+											<input type="hidden" id="pageNum" name="pageNum" value="1">
+												<input type ="hidden" name="latitude" value="35.8690730613163">
+												<input type ="hidden" name="longitude" value="128.593296913547">
+												<input type ="hidden" name="nowLocation" value="대구 중구 중앙대로 403">
+											</c:if>
+											<c:if test="${user ne null }">
+												<input type="hidden" id="pageNum" name="pageNum">
+												<input type ="hidden" name="latitude">
+												<input type ="hidden" name="longitude">
+												<input type ="hidden" name="nowLocation">
+											</c:if>
+											
 										</form>
 							        </div>
 									<!-- End of Tab Content -->
