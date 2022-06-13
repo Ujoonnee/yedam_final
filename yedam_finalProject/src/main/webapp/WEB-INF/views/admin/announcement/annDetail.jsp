@@ -113,7 +113,7 @@
 							<select name="status" class="form-control" style="width:200px">
 								<option value="00501" selected>공개여부</option>
 								<option value="00501">공개</option>
-								<option value="00502">우선순위</option>
+								<option value="00502">상단고정</option>
 								<option value="00503">비공개</option>
 								<option value="00504">삭제</option>	
 							</select>
