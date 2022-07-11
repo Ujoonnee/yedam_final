@@ -2,11 +2,22 @@
 
 ## 개요
 + 전시 예약 서비스, 상품 픽업 예약 서비스를 구현한 프로젝트 입니다.
-+ Java/Spring, JSP/JQuery, Oracle DB/MyBatis를 기반으로 구현했습니다.
++ 주요 언어 : Java, JSP
++ 주요 프레임워크 : Spring, JQuery
++ DB : Oracle, MyBatis
+
+- - -
+
+## 역할
++ 팀장
++ 프로젝트 구상
++ DB 설계
++ 형상관리
++ 팀원의 기능 구현 지원
  
 - - -
 
-## 사용 api 및 기능
+## api, 라이브러리 및 기능
 + 공통
   + Gson, jackson : JSON 파싱
   + log4jdbc-remix : 쿼리 로그 출력
